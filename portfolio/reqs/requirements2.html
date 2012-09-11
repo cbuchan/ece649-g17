@@ -1,0 +1,1510 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+  <meta name="generator"
+ content="HTML Tidy for Windows (vers 15 August 2007), see www.w3.org">
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=ISO-8859-1">
+  <meta name="Author" content="Charles P. Shelton">
+  <meta name="GENERATOR"
+ content="Mozilla/4.77 [en] (Windows NT 5.0; U) [Netscape]">
+  <title>18-649 Requirements II - Distributed Controller Requirements</title>
+</head>
+<body>
+<center>
+<h1> 18649 - Behavioral Requirements II</h1>
+<h1>Distributed Controller Requirements</h1>
+</center>
+<hr style="width: 100%; height: 2px;"> 18649 &lt;semester&gt;<br>
+Group x - Student names and andrewIds
+<hr style="width: 100%; height: 2px;">
+<h2>Introduction</h2>
+This document describes the complex sensor, actuator, and environmental
+objects in the system.<br>
+<h2>Table of Contents</h2>
+<ul>
+  <li><a href="#passenger">Passenger (environmental)</a><br>
+  </li>
+  <li><a href="#safety">Safety Sensor (environmental)</a> </li>
+  <li><a href="#drive">Drive (environmental)</a> </li>
+  <li><a href="#doormotor">DoorMotor[b,r] (environmental)</a> </li>
+  <li><a href="#doorcontrol">DoorControl[b,r]</a><br>
+  </li>
+  <li><a href="#drivecontrol">DriveControl</a> </li>
+  <li><a href="#lanterncontrol">LanternControl[d]</a> </li>
+  <li><a href="#hallbuttoncontrol">HallButtonControl[f,b,d]</a> </li>
+  <li><a href="#carbuttoncontrol">CarButtonControl[f,b]</a> </li>
+  <li><a href="#carpositioncontrol">CarPositionControl</a> </li>
+  <li><a href="#dispatcher">Dispatcher</a></li>
+</ul>
+<h2><a name="passenger"></a> 1. Passenger[p] (environmental object) </h2>
+<h3> Replication: </h3>
+<p> N passengers per system; N is unlimited subject to being less than
+steady-state carrying capacity of elevator. </p>
+<h3> Instantiation: </h3>
+<p>Passengers arrive at the elevator landings according to the
+specifications of the passenger input files.&nbsp; Passengers may also
+begin the simulation already in the car.<br>
+</p>
+<h3> Assumptions: </h3>
+<p> Passengers do not "fight" each other for position in entry and exit
+queues. </p>
+<p> Passengers weigh 150 pounds each. </p>
+<h3> Input Interface: </h3>
+<ul>
+  <li>DoorPosition[b,r] </li>
+  <li>CarLantern[d] </li>
+  <li>CarLight[f,b] </li>
+  <li>CarPositionIndicator </li>
+  <li>HallLight[f,b,d] </li>
+  <li>CarWeightAlarm </li>
+</ul>
+<h3> Output Interface: </h3>
+<ul>
+  <li>CarCall[f,b] </li>
+  <li>DoorReversal[b,r] </li>
+  <li>HallCall[f,b,d] </li>
+  <li>CarWeight </li>
+</ul>
+<h3>Constants:</h3>
+These constant values are the same for all passengers:<br>
+<ul>
+  <li>DoorCheckPeriod - how often the passenger checks the doors to see
+if they can enter or exit - 100ms.</li>
+  <li>CallCheckPeriod - how often the passenger checks the hall or call
+button to make sure it is still lit - 200ms.</li>
+  <li>CallRecheckPeriod - how long the passenger waits to check the
+hall or call button after pressing the button - 500ms.</li>
+  <li>Backoffperiod - how long the passenger waits after the doors
+close when the car weight alarm has sounded - 10s.</li>
+  <li>IgnoreLeveling - Whether or not the passenger ignores the
+leveling requirements - depends on presence of "il" flag.<br>
+  </li>
+</ul>
+<h3>Parameters: </h3>
+Passenger behavior is parameterized by the following values.&nbsp;
+These values are defined per-passenger and may differ from passenger to
+passenger.&nbsp; These values are constant during the passenger's&nbsp;
+interaction with the elevator.<br>
+<ul>
+  <li>These constants are defined in the passenger file:<br>
+  </li>
+  <ul>
+    <li>arrivalTime:&nbsp; the time when the passenger arrives at the
+landing and begins interacting with the system<br>
+    </li>
+    <li>startFloor: the starting floor for the passenger.&nbsp; If
+this value is 0, the passenger begins the simulation in the car.&nbsp;
+Passengers that are injected after time 0s may not start in the car.<br>
+    </li>
+    <li>startHallway]: the starting hallway for the passenger,
+"front" or "back". </li>
+    <li>destFloor: the destination floor for the passenger. </li>
+    <li>destHallway: the destination hallway for the passenger,
+"front" or "back". </li>
+  </ul>
+  <li>These constants are computed from other parameters or chosen
+randomly at initialization.&nbsp; They do not change
+during the simulation.<br>
+  </li>
+  <ul>
+    <li>travelDirection: the travel direction for the passenger, which
+is computed based on the relative locations of the startHallway and
+destHallway. </li>
+  </ul>
+  <ul>
+    <li>hallCallDirection:&nbsp; "up" or "down", indicates the hall
+call
+button the Passenger will press at the startFloor/startHallway.&nbsp; <br>
+    </li>
+    <ul>
+      <li>In most cases, this value is the same as the travelDirection.</li>
+      <li>If startFloor==destFloor (the passenger enters
+and exits at the same floor), then the value is chosen randomly.</li>
+      <li>if startFloor==destFloor==1, then the value is always "up".</li>
+      <li>startFloor==destFloor==MaxFloor, then the value is always
+"down".<br>
+      </li>
+    </ul>
+    <li>width: the minimum acceptable total opening distance of the
+doors, in percent of total opening width. The value is random in the
+range [20, 45].</li>
+    <li>hallPressTime:&nbsp; the amount of time the passenger will hold
+the hall button down.&nbsp; The value is random in the range [250ms,
+1000ms].</li>
+    <li>carPressTime:&nbsp; the amount of time the passenger will hold
+the car button down.&nbsp; The value is random in the range [250ms,
+1000ms].</li>
+  </ul>
+  <ul>
+    <li>doorTraversalDelay:&nbsp; the amount of time the passenger
+takes to enter or exit the car.&nbsp; The value is random in the range
+[1000ms, 2000ms].</li>
+    <li>doorBackoutDelay:&nbsp; the amount of time the passenger takes
+to abort entry if they are unable to enter or exit the car.&nbsp; The
+value is random in the range [2000ms, 4000ms].</li>
+    <li>missedOpeningThreshold:&nbsp; the number of times the elevator
+can come to a floor servicing the other direction before the passenger
+begins to ignore the car lanterns and enter the car regardless.&nbsp;
+The value is random in the range [3,5].<br>
+    </li>
+  </ul>
+</ul>
+<h3>State:</h3>
+These state values are maintained by the passenger during the
+interaction with the elevator:<br>
+<ul>
+  <li>State - represents the passengers current state.&nbsp; One of:</li>
+  <ul>
+    <li>INIT - created, but not injected into the system yet<br>
+    </li>
+    <li>WAITING_IN_HALL - waiting at the arrival landing<br>
+    </li>
+    <li>ENTERING - attempting to enter the car (only on passenger at a
+time should be in this state)<br>
+    </li>
+    <li>ENTER_BACKOUT - aborting entry because the doors closed<br>
+    </li>
+    <li>WAITING_IN_CAR - waiting in the car before arriving at
+destination floor.<br>
+    </li>
+    <li>EXITING - attempting to exit the car at the destination landing<br>
+    </li>
+    <li>EXIT_BACKOUT - aborting exit because the doors closed<br>
+    </li>
+    <li>OVERWEIGHT_EXITING - exiting the car because the car is
+overweight<br>
+    </li>
+    <li>OVERWEIGHT_BACKOFF - waiting in the hallway because the car is
+overwieght<br>
+    </li>
+    <li>DONE - delivered to destination successfully.<br>
+    </li>
+  </ul>
+  <li>hallPressCount - the number of times the passenger has had to
+press the hall call.&nbsp; This count may be reset in some cases (e.g.
+due to an overweight exit)<br>
+  </li>
+  <li>carPressCount - the number of times the passenger has had to
+press the car call</li>
+  <li>missedOpenings - the number of times the car has come to the
+floor servicing the other direction (see constant
+missedOpeningThreshold).</li>
+  <li>abortCount - how many times the passenger has failed to traverse
+the door while entering or exiting.</li>
+</ul>
+<h3>Passenger Metrics:</h3>
+There are two metrics of interest for passengers:&nbsp; delivery time
+and satisfaction.<br>
+<br>
+<span style="font-weight: bold;">Delivery time</span> is measured from
+the time the passenger arrives at the landing to the time that the
+passenger exits the car at their destination.&nbsp; Lower delivery
+times are
+better.<br>
+<br>
+<span style="font-weight: bold;">Safisfaction</span> is a measure of
+the undesirable behavior that the passenger observes during their
+interaction with the elevator.&nbsp; Undesirable behaviors are
+behaviors
+that deviate from normal elevator behavior, but do not (in general)
+affect the eventual delivery of passengers.&nbsp; The satisfaction
+score
+begins at 100 (a perfect score).&nbsp; Each time the passenger observes
+an
+undesirable behavior, the passengers satisfaction is reduced by
+multiplying the current score by a factor that depends on the severity
+of the behavior observed.&nbsp; A higher satisfaction score is better,
+with
+100 being a perfect score.&nbsp; The specific deductions for
+undesirable
+behavior are listed below, with the factor by which the satisfaction
+score is reduced.<br>
+<ul>
+  <li><span style="font-weight: bold;">Wrong motion - 0.5</span> - The
+passenger enters the car when an up or down car lantern consistent with
+their direction is displayed, but the car moves in the opposite
+direction.&nbsp; If the passenger enters the car when both lanterns are
+off,
+then the car may move in either direction without incurring this
+deduction.<br>
+  </li>
+  <li><span style="font-weight: bold;">Skipped destination - 0.5</span>
+- The passenger was in the car, but the car passed the passenger's
+destination floor without stopping.</li>
+  <li><span style="font-weight: bold;">missedOpeningThreshold exceeded
+- 0.5</span>
+- While the passenger was waiting in the hall, the car arrived at the
+floor missedOpeningThreshold times, but the lanterns were never
+consistent with the passengers travelDirection.</li>
+  <li><span style="font-weight: bold;">Failed to enter/exit car - 0.8</span>
+- This deduction occurs
+every time the passenger attempts to enter or exit the car, but the
+doors are not open wide enough after the doorTraversalDelay.</li>
+  <li><span style="font-weight: bold;">Car lantern direction change -
+0.8</span> - This deduction occurs every time the passenger exits the
+car because the lanterns changed to be inconsistent with the passengers
+travelDirection.</li>
+  <li><span style="font-weight: bold;">Repeated call press - 0.9</span>
+- This deduction occurs if the passenger must press the hall call or
+car call more than once because the light goes out without servicing
+the passenger. <br>
+  </li>
+</ul>
+Note that sometimes, especially in high traffic scenarios, it may be
+impossible to avoid having some deductions for a small number of
+passengers.
+<h3> Constraints: </h3>
+<p> 1.1: Passengers are prevented from entering or exiting the Car
+whenever the appropriate doors are not open far enough. </p>
+<p> 1.2: If Passenger p is outside the car and the CarWeightAlarm is
+triggered, the passenger shall not try to enter the car or press a hall
+call for 10 seconds after the doors fully close.<br>
+</p>
+<h3> Behaviors: </h3>
+Because passengers are inherently event-triggered, their behaviors
+differ from those of the other system objects.&nbsp; <br>
+<br>
+1.3.&nbsp; When the passenger arrives at the start landing, if the hall
+call light it is not lit, the passenger shall press the hall call
+button in the hallCallDirection.<br>
+1.4.&nbsp; While waiting for the car (while the doors are closed at the
+landing), the passenger shall monitor the hall call button in
+hallCallDirection and shall press it again if the hall call light is
+extinguished.<br>
+1.5.&nbsp; When the passenger is waiting at the landing and the doors
+at the start landing begin to open, the passenger shall try to enter
+the car if:<br>
+&nbsp; 1.5.1&nbsp; The leveling error at the floor is less than or
+equal to 5mm OR IgnoreLeveling is set to true AND<br>
+&nbsp; 1.5.2&nbsp; The car lantern is consistent with the passenger's
+direction of travel OR missedOpenings exceeds
+missedOpeningThreshold (If neither car lantern is lit, the
+passenger will always consider the direction consistent.) AND<br>
+&nbsp; 1.5.3&nbsp; The doors are open wider than the width constant.<br>
+1.6&nbsp; After the passenger has entered the car, if the direction
+arrow becomes inconsistent with his travelDirection and the doors are
+still open, the passenger shall exit the car at the start landing.<br>
+1.7.&nbsp; The passengers shall traverse the door one at a time.&nbsp;
+Passenger priority shall be determined by the following guidelines:<br>
+&nbsp;&nbsp; 1.7.1&nbsp; Passengers exiting the car shall take priority
+over passengers entering the car.<br>
+&nbsp;&nbsp; 1.7.2&nbsp; Passengers in the car shall exit on a
+first-come-first-serve basis.<br>
+&nbsp;&nbsp; 1.7.3&nbsp; Passengers at a landing shall enter on a
+first-come-first-serve basis.<br>
+&nbsp;&nbsp; 1.7.4&nbsp; If a passenger fails to enter or exit the car,
+the passenger shall return to the end of the appropriate car or hall
+queue.<br>
+1.8&nbsp; The passenger shall block the door for doorTraversalDelay
+while entering or exiting the car.<br>
+&nbsp; 1.8.1&nbsp; After doorTraversalDelay has expired, if the door is
+not open wide enough for the passenger to traverse the door, the
+passenger shall block the door for an additional doorBackoutDelay while
+returning the passenger's previous location (hall landing or car).<br>
+1.9&nbsp; When the passenger enters the car, if the car call light
+it is not lit, the passenger shall press the car call button for his
+destFloor.<br>
+1.10.&nbsp; While waiting in the car (while the doors are closed), the
+passenger shall monitor the car call button and shall press it again if
+the car call light is
+extinguished.<br>
+1.11&nbsp; If the OverweightAlarm sounds, the last passenger to enter
+the car shall attempt to exit.<br>
+1.12&nbsp; If the OverweightAlarm sounds and the doors are at least
+partially open at a landing, the passengers waiting at that landing
+shall wait a minimum of 10 seconds after the doors fully closed before
+they begin monitoring the hall call buttons again.<br>
+1.13&nbsp; When the passenger is in the car and doors begin to open,
+the passenger shall attempt to exit if:<br>
+&nbsp; 1.13.1&nbsp; The leveling error at the floor is less than or
+equal to 5mm OR IgnoreLeveling is set to true AND<br>
+&nbsp; 1.13.2&nbsp; The car position indicator indicates destFloor AND<br>
+&nbsp; 1.13.3&nbsp; The doors on the destHallway side are open wider
+than the width constant.<br>
+1.14&nbsp; If the startFloor and destFloor are the same, after entering
+the car, the passenger shall immediately attempt to exit the car at the
+destHallway.<br>
+<br>
+<h3>State Chart:</h3>
+This state diagram and the accompanying tables describes the trigger
+conditions that can cause the passenger to move from one state to
+another, and the activities that accompany each state and
+transition.&nbsp; Passengers are inherently event triggered, so their
+interaction includes actions on transitions.&nbsp; You should NOT copy
+the passenger behaviors as a model for your elevator controllers.&nbsp;
+The elevator controllers (DriveControl, DoorControl, etc) may not have
+actions on transitions.<br>
+<br>
+<div style="text-align: center;"><a href="passenger_state_diagram.png"><img
+ alt="passenger_state_diagram.png" src="passenger_state_diagram.png"
+ style="border: 0px solid ; width: 613px; height: 523px;"></a><br>
+</div>
+<table style="text-align: left; width: 800px;" border="1"
+ cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">Trigger #<br>
+      </td>
+      <td style="vertical-align: top;">Trigger Conditions<br>
+      </td>
+      <td style="vertical-align: top;">Actions<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">PT1<br>
+      </td>
+      <td style="vertical-align: top;">Injection time reached<br>
+      </td>
+      <td style="vertical-align: top;">Passenger joins hall queue.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">PT2</td>
+      <td style="vertical-align: top;">Doors at start landing are open
+wider than width, car is level or leveling is being ignored, car
+lantern is consistent with
+travelDirection, passenger has priority to use the door.<br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">PT3</td>
+      <td style="vertical-align: top;">After doorTraversalDelay, the
+door is not open wide enough for the passenger to enter.<br>
+      </td>
+      <td style="vertical-align: top;">Passenger registers a "failed to
+enter" satisfaction deduction<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">PT4</td>
+      <td style="vertical-align: top;">doorBackoutDelay expires<br>
+      </td>
+      <td style="vertical-align: top;">Passenger rejoins hall queue at
+the end of the queue.&nbsp; <br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">PT5</td>
+      <td style="vertical-align: top;">doorTraversalDelay expires and
+the doors are open wider than passenger width.<br>
+      </td>
+      <td style="vertical-align: top;">Passenger exits the hall queue
+and joins the car queue.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">PT6</td>
+      <td style="vertical-align: top;">The CarWeightAlarm sounds and
+this passenger is the last passenger in the car queue.<br>
+      </td>
+      <td style="vertical-align: top;">Passenger stops monitoring the
+car call.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">PT7</td>
+      <td style="vertical-align: top;">doorTraversalDelay expires and
+the doors are open wider than the passenger width.<br>
+      </td>
+      <td style="vertical-align: top;">Passenger rejoins hall queue.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">PT9</td>
+      <td style="vertical-align: top;">Doors are fully closed and
+BackoffPeriod has elapsed.<br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">PT10</td>
+      <td style="vertical-align: top;">CarWeightAlarm sounds and the
+passenger is in the hall queue with the doors at least partially open.<br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">PT11</td>
+      <td style="vertical-align: top;">Doors at destHallway are open
+wider than passenger width, the car is level or leveling is being
+ignored, the position indicator
+indicates destFloor, and the passenger has priority to traverse the
+door. &nbsp; OR, while the car is still at the startFloor and the doors
+on the startHallway are still open, the lantern changes to a direction
+that is inconsistent with the passengers travelDirection and the
+passenger has priority to traverse the door.<br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">PT12</td>
+      <td style="vertical-align: top;">After doorTraversalDelay, the
+door is not open wide enough for the passenger to enter.</td>
+      <td style="vertical-align: top;">Passenger registers a "failed to
+exit" satisfaction deduction.</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">PT13</td>
+      <td style="vertical-align: top;">doorBackoutDelay expires</td>
+      <td style="vertical-align: top;">Passenger rejoins the car queue
+at the end of the queue.&nbsp; <br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">PT14</td>
+      <td style="vertical-align: top;">doorTraversalDelay expires and
+the doors are open wider than the passenger width.</td>
+      <td style="vertical-align: top;">Passenger records delivery time
+and stops interacting with the simulation.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">PT15<br>
+      </td>
+      <td style="vertical-align: top;">Car ceases to be overweight
+before the passenger can exit the car.<br>
+      </td>
+      <td style="vertical-align: top;">Passenger rejoins the car queue<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<table style="text-align: left; width: 800px;" border="1"
+ cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">State<br>
+      </td>
+      <td style="vertical-align: top;">Description<br>
+      </td>
+      <td style="vertical-align: top;">Actions<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">INIT<br>
+      </td>
+      <td style="vertical-align: top;">passenger has not arrived at the
+hallway yet<br>
+      </td>
+      <td style="vertical-align: top;">none<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">WAITING_IN_HALL<br>
+      </td>
+      <td style="vertical-align: top;">waiting for the car to arrive at
+the start floor/hall, pressing the hall call</td>
+      <td style="vertical-align: top;">Passenger presses and/or
+monitors the hall call.&nbsp; Passenger may register a "repeated call
+press" deduction.</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">ENTERING</td>
+      <td style="vertical-align: top;">in the process of entering the
+car</td>
+      <td style="vertical-align: top;">Passenger may register a "car
+lantern direction change" deduction.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">ENTER_BACKOUT</td>
+      <td style="vertical-align: top;">backing out because the
+passenger failed to enter</td>
+      <td style="vertical-align: top;">none<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">WAITING_IN_CAR</td>
+      <td style="vertical-align: top;">waiting for the car to arrive at
+the destination</td>
+      <td style="vertical-align: top;">Passenger presses and/or
+monitors the car call.&nbsp; Passenger may register
+"missedOpeningThreshold exceeded", "skipped destination" or "wrong
+motion" deductions.&nbsp; Passenger may register a "repeated call
+press" deduction.</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">EXITING</td>
+      <td style="vertical-align: top;">exiting the car at the start or
+destination landing<br>
+      </td>
+      <td style="vertical-align: top;">none<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">EXIT_BACKOUT</td>
+      <td style="vertical-align: top;">returning to the car because the
+passenger failed to exit</td>
+      <td style="vertical-align: top;">none<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">OVERWEIGHT_EXITING</td>
+      <td style="vertical-align: top;"> exiting the car because it is
+overweight</td>
+      <td style="vertical-align: top;">Passenger registers a "failed to
+exit" satisfaction deduction.</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">OVERWEIGHT_BACKOFF</td>
+      <td style="vertical-align: top;"> waiting after the overweight
+alarm has sounded</td>
+      <td style="vertical-align: top;">none<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">DONE</td>
+      <td style="vertical-align: top;">passenger delivered to
+destination</td>
+      <td style="vertical-align: top;">none<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<h2><a name="safety"></a> 2. Safety&nbsp; (environmental object) <span
+ style="font-weight: bold;"></span></h2>
+<h3> Replication: </h3>
+<ul>
+  <li>One Safety object per car.&nbsp; This is a separate object to
+simplify system safety certification. </li>
+</ul>
+<h3> Instantiation: </h3>
+<ul>
+  <li>The safety system starts assuming a safe system state at
+initialization (initialization must ensure that an unsafe state is not
+transiently generated). </li>
+</ul>
+<h3> Assumptions: </h3>
+<ul>
+  <li>Sensors monitored by Safety object do not fail. </li>
+  <li>Safety Object can always trigger EmergencyBrake. </li>
+  <li>Safety Object does not fail. </li>
+</ul>
+<h3> Input Interface: </h3>
+<ul>
+  <li>AtFloor[f, b] </li>
+  <li>CarWeight </li>
+  <li>CarPosition (internal simulator variable) </li>
+  <li>DoorClosed[b, r] </li>
+  <li>DoorMotor[b, r] </li>
+  <li>DoorReversal[b, r] </li>
+  <li>Drive </li>
+  <li>DriveSpeed </li>
+  <li>HoistwayLimit[d] </li>
+</ul>
+<h3> Output Interface: </h3>
+<ul>
+  <li>EmergencyBrake (internal simulator variable) </li>
+  <li>mEmergencyBrake<br>
+  </li>
+</ul>
+<h3> State: </h3>
+None
+<h3>BEHAVIORS: </h3>
+2.1&nbsp;&nbsp;&nbsp; If all AtFloor[f, b]s are False and any
+DoorClosed[b, r] is False, set EmergencyBrake to on.<br>
+2.2&nbsp;&nbsp;&nbsp; If any DoorClosed[b,r] is false when there is no
+landing at hallway b, set EmergencyBrake to on.<br>
+2.3&nbsp;&nbsp;&nbsp; If DriveSpeed.speed exceeds LevelSpeed and
+DriveSpeed.direction is not equal to Stop and any DoorClosed[b,r] is
+false, set the Emergency Brake to on.<br>
+2.3&nbsp;&nbsp;&nbsp; If any DoorReversal[b, r] is True and any
+DoorMotor[b, r] is anything other than Open or Nudge for greater than
+200msec
+(accumulated while DoorReversal[b, r] remains True), set EmergencyBrake
+to on.&nbsp;<br>
+2.4 &nbsp;&nbsp; If any HoistwayLimit[d] is True, set EmergencyBrake to
+on.<br>
+2.5 &nbsp;&nbsp; If a Drive command is not "adjacent to" or the same as
+the current DriveSpeed value, set EmergencyBrake to on.<br>
+2.5.1&nbsp;&nbsp;&nbsp; In the following table, any entry with an 'X'
+means that that Drive command is considered adjacent to the
+corresponding value of {DriveSpeed}:<br>
+<table style="text-align: left; width: 100%; height: 376px;" border="1"
+ cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td colspan="7" rowspan="1"
+ style="vertical-align: top; text-align: center; font-weight: bold;">Drive
+Speed
+Values<br>
+      </td>
+    </tr>
+    <tr>
+      <td
+ style="vertical-align: bottom; background-color: rgb(221, 221, 221); font-weight: bold; text-align: center;">Drive
+Command
+Values<br>
+      </td>
+      <td style="vertical-align: top; font-weight: bold;">FastSpeed
+&gt;= DriveSpeed &gt;= SlowSpeed, UP<br>
+      </td>
+      <td style="vertical-align: top; font-weight: bold;">SlowSpeed
+&gt;= DriveSpeed &gt; LevelSpeed, UP<br>
+      </td>
+      <td style="vertical-align: top; font-weight: bold;">LevelSpeed
+&gt;= DriveSpeed &gt; 0, UP <br>
+      </td>
+      <td style="vertical-align: top; font-weight: bold;">DriveSpeed ==
+0,STOP<br>
+      </td>
+      <td style="vertical-align: top; font-weight: bold;">LevelSpeed
+&gt;= DriveSpeed &gt; 0, DOWN </td>
+      <td style="vertical-align: top; font-weight: bold;">SlowSpeed
+&gt;= DriveSpeed &gt; 0, DOWN<br>
+      </td>
+      <td style="vertical-align: top; font-weight: bold;">FastSpeed
+&gt;= DriveSpeed &gt;= SlowSpeed, DOWN<br>
+      </td>
+    </tr>
+    <tr>
+      <td
+ style="vertical-align: top; background-color: rgb(221, 221, 221); font-weight: bold; text-align: center;">Fast,
+Up<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td
+ style="vertical-align: top; background-color: rgb(221, 221, 221); font-weight: bold; text-align: center;">Slow,
+Up<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td
+ style="vertical-align: top; background-color: rgb(221, 221, 221); font-weight: bold; text-align: center;">Level,
+Up<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td
+ style="vertical-align: top; background-color: rgb(221, 221, 221); font-weight: bold; text-align: center;">Stop,
+Stop<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td
+ style="vertical-align: top; background-color: rgb(221, 221, 221); font-weight: bold; text-align: center;">Level,
+Down<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td
+ style="vertical-align: top; background-color: rgb(221, 221, 221); font-weight: bold; text-align: center;">Slow,
+Down<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+    </tr>
+    <tr>
+      <td
+ style="vertical-align: top; background-color: rgb(221, 221, 221); font-weight: bold; text-align: center;">Fast,
+Down<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<ul>
+</ul>
+2.6 &nbsp;&nbsp;&nbsp; If DriveSpeed.speed exceeds LevelSpeed and
+DriveSpeed.direction is not equal to Stop and CarWeight MaxCarCapacity,
+set the EmergencyBrake to on.
+<h2><a name="drive"></a> 3. Drive&nbsp; (environmental object) </h2>
+<h3> Replication: </h3>
+<ul>
+  <li>One Drive per Car, which tracks position of Car in hoistway as
+well as Drive direction/speed.&nbsp; The electric motor of the Drive is
+double-wound, so that if one winding breaks the Drive can still deliver
+both slow and fast speeds at approximately half the torque as for Slow
+and Fast of a fully operational drive.&nbsp; (There are many ways to
+deal with failure modes! This is a simple one for this project.) </li>
+</ul>
+<h3> Instantiation: </h3>
+<ul>
+  <li>Drive is Off at initialization. </li>
+</ul>
+<h3> Assumptions: </h3>
+<ul>
+  <li>Drive does not go faster than Fast speed. </li>
+  <li>EmergencyBrake can stop car at any speed. </li>
+</ul>
+<h3> Input Interface: </h3>
+<ul>
+  <li>Drive </li>
+  <li>EmergencyBrake (internal simulator variable) </li>
+</ul>
+<h3> Output Interface: </h3>
+<ul>
+  <li>CarPosition (internal simulator variable) </li>
+</ul>
+<h3> State: </h3>
+<ul>
+  <li>F_position[f]: an array initialized with the vertical position of
+each floor; used implicitly by the behaviors to determine floor
+position. </li>
+</ul>
+<h3> CONSTRAINTS: </h3>
+3.1&nbsp;&nbsp;&nbsp; If the EmergencyBrake is activated, it shall stop
+the Car regardless of Drive speed and direction.<br>
+3.2&nbsp;&nbsp;&nbsp; Car movement caused by cable slip shall not
+exceed 1cm.<br>
+<h3> BEHAVIORS: </h3>
+3.2&nbsp;&nbsp;&nbsp; Drive(Stop,d) and Drive(s,Stop) shall stop the
+Car regardless of values for s or d.<br>
+3.2.1&nbsp;&nbsp;&nbsp; The time to Stop the Car from Fast speed
+depends on the Car speed before Stop is commanded and is determined by
+an acceleration profile.<br>
+3.2.2&nbsp;&nbsp;&nbsp; The time to Stop the Car from Slow speed shall
+be less than or equal to 250 msec.<br>
+3.2.2&nbsp;&nbsp;&nbsp; The time to Stop the Car from Level speed shall
+be less than or equal to 50 msec.<br>
+3.3&nbsp; Drive(level, d), where d is not Stop, shall move the elevator
+at a leveling speed in the direction d.<br>
+3.3.1&nbsp; The time to achieve Level speed depends on speed
+preceding the Level movement command and is determined by an
+acceleration profile.<br>
+3.3.2&nbsp; The actual velocity at Level speed depends on
+the drive equipment installed.<br>
+3.4 &nbsp;&nbsp; Drive(Slow,d), where d is not Stop, shall move
+the elevator at a slow speed in the direction d.<br>
+3.4.1&nbsp;&nbsp;&nbsp; The time to achieve Slow speed depends on speed
+preceding the Slow movement command and is determined by an
+acceleration profile.<br>
+3.4.2&nbsp;&nbsp;&nbsp; The actual velocity at Slow speed depends on
+the drive equipment installed.<br>
+3.5 &nbsp;&nbsp; Drive(Fast,d), where d is not Stop, shall move
+the elevator at maximum possible speed in the direction d as determined
+by a velocity profile.<br>
+3.6 &nbsp;&nbsp; CarPosition shall be updated according to
+integration of Car speed as determined by Drive() commands and an
+acceleration profile.<br>
+3.7&nbsp;&nbsp; Cable slip may cause CarPosition to change while the
+Drive is commanded to Stop,<br>
+<h2><a name="doormotor"></a> 4. DoorMotor[b, r] </h2>
+<h3> Replication: </h3>
+<ul>
+  <li>Each Car has four DoorMotor[b, r], with each controlled by
+DoorControl[b, r].&nbsp; DoorMotor[b, r] keeps track of the actual
+position of the door.&nbsp; Each Door[b,r] contributes from 0% to 50%
+of the total DoorPosition[b,r].&nbsp;&nbsp; </li>
+</ul>
+<h3> Instantiation: </h3>
+<ul>
+  <li>All DoorMotor[b, r] are at Stop at initialization. </li>
+</ul>
+<h3> Assumptions: </h3>
+None
+<h3> Input Interface: </h3>
+<ul>
+  <li>DoorMotor[b, r] </li>
+</ul>
+<h3> Output Interface: </h3>
+<ul>
+  <li>DoorPosition[b, r] (internal simulator variable) </li>
+</ul>
+<h3>Velocity Profile:</h3>
+<ul>
+  <li>Time to open the door fully is 2 seconds or less.<br>
+  </li>
+  <li>Time to close the door fully when commanded to Close is 2 seconds
+or less.</li>
+  <li>Time to close the door fully when commanded to Nudge is 20
+seconds or less if the doors are not blocked.</li>
+</ul>
+<h3> State: </h3>
+<ul>
+  <li>D_position: double precision value in units of percent of total
+door opening width.&nbsp; Since there are two doors, the range of each
+door is [0,50].&nbsp; 0 represents fully closed.&nbsp; 50 represents
+fully
+open. </li>
+</ul>
+<h3> CONSTRAINTS: </h3>
+4.1 &nbsp;&nbsp; D_position shall be within the range [0,50]
+regardless of DoorMotor[b, r] commands.<br>
+4.2&nbsp;&nbsp;&nbsp; The DoorMotors[b, r] themselves shall not
+activate DoorReversal[b, r] sensors.<br>
+4.3&nbsp;&nbsp;&nbsp; DoorMotors[b, r] shall operate properly even if
+transitioned between Open and Close (or Nudge) in either direction
+without an
+intermediate Stop command.
+<h3> BEHAVIORS: </h3>
+4.4&nbsp;&nbsp;&nbsp; DoorMotor[b, r](Stop) shall stop changes in door
+position within 100 msec.<br>
+4.5&nbsp;&nbsp;&nbsp; DoorMotor[b, r](Open) and DoorMotor[b, r](Close)
+shall cause door[b, r] to Open and Close respectively according to a
+velocity profile.<br>
+4.6&nbsp;&nbsp;&nbsp; DoorMotor[b,r](Nudge) shall cause the door to
+close at a speed that is slow enough to avoid injuring passengers
+according to a velocity profile.<br>
+4.7&nbsp;&nbsp;&nbsp; If the door is blocked by a passenger and the
+DoorMotor[b,r] is commanded to Nudge, the door shall stop when it makes
+contact with the passenger.<br>
+4.6&nbsp;&nbsp;&nbsp; D_position shall be kept updated by a physical
+model to indicate current positions of simulated doors.<br>
+<br>
+<h2><a name="doorcontrol"></a> 5. DoorControl[b, r] </h2>
+<h4> Replication: </h4>
+<ul>
+  <li>Each Car has four DoorControllers[b, r].&nbsp;&nbsp; </li>
+</ul>
+<h3> Instantiation: </h3>
+<ul>
+  <li>DoorControllers[b, r] shall command doors[b, r] to close at
+initialization. </li>
+</ul>
+<h3> Assumptions: </h3>
+<ul>
+  <li>DoorControllers[b, r] do not command doors to open unless at
+least one AtFloor [f, b] sensor is true. </li>
+  <li>DoorControllers[b, r] do not command doors to open when car is
+moving faster than Level Speed. </li>
+</ul>
+<h3> Input Interface: </h3>
+<ul>
+  <li>mAtFloor[f, b] </li>
+  <li>mDriveSpeed </li>
+  <li>mDesiredFloor </li>
+  <li>mDesiredDwell[b] </li>
+  <li>mDoorClosed[b, r] </li>
+  <li>mDoorOpened[b, r] </li>
+  <li>mDoorReversal[b, r] </li>
+  <li>mCarCall[f, b] </li>
+  <li>mHallCall[f, b, d] </li>
+  <li>mCarWeight </li>
+</ul>
+<h3> Output Interface: </h3>
+<ul>
+  <li>DoorMotor[b, r] </li>
+  <li>mDoorMotor[b, r] </li>
+</ul>
+<h3> State: </h3>
+<ul>
+  <li>Dwell, long integer with number of msec desired for door dwell
+during current cycle. </li>
+  <li>CountDown: a count-down timer for Door Dwell[b] (implemented in
+simulation by scheduling a future task execution at time of expiration)
+  </li>
+</ul>
+<h3> CONSTRAINTS: </h3>
+5.1&nbsp;&nbsp;&nbsp; DoorClosed[b, *] shall be True when there is no
+mAtFloor[f, b] that is True.<br>
+5.2&nbsp;&nbsp;&nbsp; Any DoorReversal[b,*] shall not be True for more
+than an accumulated time of 50 msec without causing all
+DoorControllers[b,*] to perform an Open or Nudge command.<br>
+5.3&nbsp;&nbsp;&nbsp; Doors should keep moving in desired direction
+unless commanded otherwise, subject to the constraints of the door
+object.<br>
+5.4&nbsp;&nbsp;&nbsp; All doors should be commanded to identical
+positions at all times.<br>
+5.5&nbsp;&nbsp;&nbsp; If CarWeight(x) &gt;= MaxCarCapacity, the doors
+shall open completely until the car is no longer overloaded.
+<h3> TIME-TRIGGERED BEHAVIORS: </h3>
+5.6 &nbsp;&nbsp; If any mAtFloor[f, b] is True and f equals
+mDesiredFloor.f, and mDriveSpeed = (0, d) or mDriveSpeed = (s, Stop)
+then: <br>
+&nbsp;&nbsp;&nbsp; 5.6.1&nbsp; DoorMotor[b, r] shall be commanded to
+Open; <br>
+&nbsp;&nbsp;&nbsp; 5.6.2&nbsp; CountDown shall be set to Dwell.<br>
+5.7 &nbsp;&nbsp; If mDoorOpened[b, r] is True, then<br>
+&nbsp;&nbsp;&nbsp; 5.7.1&nbsp; DoorMotor[b,r] shall be commanded to
+Stop.<br>
+&nbsp;&nbsp;&nbsp; 5.7.2&nbsp; CountDown shall be decremented.<br>
+5.8&nbsp; If mDoorClosed[b, r] is True, then DoorMotor[b,r] should be
+commanded to Stop.<br>
+5.9&nbsp; When CountDown &lt;= 0, DoorMotor[b,r] should be commanded
+to Nudge.<br>
+5.10 If mCarWeight(g) &gt;= MaxCarCapacity, and mDoorOpened[b, r] is
+False, DoorMotor[b, r] shall be commanded to Open.<br>
+5.11 Dwell shall be set to an appropriate value based on
+mDesiredDwell[b].<br>
+5.12 mDoorMotor[b,r] shall be set to the current value of DoorMotor[b,r]<br>
+<h2><a name="drivecontrol"></a> 6. DriveControl </h2>
+<h3> Replication: </h3>
+<ul>
+  <li>There is one DriveControl, which controls the elevator Drive (the
+main motor moving Car Up and Down).&nbsp; For simplicity we will assume
+this node never fails, although the system could be implemented with
+two such nodes, one per each of the Drive windings. </li>
+</ul>
+<h3> Instantiation: </h3>
+<ul>
+  <li>DriveControl initializes to Stopping the Drive. </li>
+</ul>
+<h3> Assumptions: </h3>
+<ul>
+  <li>DriveControl does not command Drive to move faster than
+LevelSpeed when any
+DoorClosed[b, r] is False. </li>
+  <li>DriveControl only commands Drive to stop when car is level
+with a floor. </li>
+</ul>
+<h3> Input Interface: </h3>
+<ul>
+  <li>DriveSpeed</li>
+  <li>mAtFloor[f, b] </li>
+  <li>mLevel[d]</li>
+  <li>mCarLevelPosition </li>
+  <li>mDoorClosed[b, r] </li>
+  <li>mDoorMotor[b, r] </li>
+  <li>mEmergencyBrake </li>
+  <li>mDesiredFloor </li>
+  <li>mHoistwayLimit[d] </li>
+  <li>mCarWeight</li>
+</ul>
+<h3> Output Interface: </h3>
+<ul>
+  <li>Drive </li>
+  <li>mDrive </li>
+  <li>mDriveSpeed </li>
+</ul>
+<h3> State: </h3>
+<ul>
+  <li>DesiredDirection = {Up, Down, Stop} computed desired direction
+based on comparing current floor position with Floor desired by
+Dispatcher.&nbsp; This is implicitly computed and used as a macro in
+the behavior descriptions. </li>
+  <li>CurrentFloor, is a shorthand notation for the value of whichever
+mAtFloor[f, b] is True, if any.&nbsp; If CurrentFloor is invalid it has
+a mnemonic value of None. </li>
+  <li>CommitPoint[f](v); v = {Reached, NotReached} calculated based on
+car's acceleration profile, current speed, and distance from the floor
+f, to determine whether or not the car can still stop at the next
+floor. </li>
+</ul>
+<h3> CONSTRAINTS: </h3>
+6.1&nbsp;&nbsp;&nbsp; Drive shall have been commanded to Stop whenever
+any mDoorClosed[b, r] is False.<br>
+6.2&nbsp;&nbsp;&nbsp; Drive shall have been commanded to Stop whenever
+any mDoorMotor[b, r] is commanded to Open.<br>
+6.3&nbsp;&nbsp;&nbsp; The commanded value of Drive shall either be the
+same as or "adjacent to" the value of DriveSpeed.<br>
+6.3.1&nbsp;&nbsp;&nbsp; In the following table, any entry with an 'X'
+means that that Drive
+command is considered adjacent to the corresponding value of
+{DriveSpeed}:<br>
+<table style="text-align: left; width: 100%; height: 376px;" border="1"
+ cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td colspan="7" rowspan="1"
+ style="vertical-align: top; text-align: center; font-weight: bold;">Drive
+Speed
+Values<br>
+      </td>
+    </tr>
+    <tr>
+      <td
+ style="vertical-align: bottom; background-color: rgb(221, 221, 221); font-weight: bold; text-align: center;">Drive
+Command
+Values<br>
+      </td>
+      <td style="vertical-align: top; font-weight: bold;">FastSpeed
+&gt;= DriveSpeed &gt;= SlowSpeed, UP<br>
+      </td>
+      <td style="vertical-align: top; font-weight: bold;">SlowSpeed
+&gt;= DriveSpeed &gt; LevelSpeed, UP<br>
+      </td>
+      <td style="vertical-align: top; font-weight: bold;">LevelSpeed
+&gt;= DriveSpeed &gt; 0, UP <br>
+      </td>
+      <td style="vertical-align: top; font-weight: bold;">DriveSpeed ==
+0,STOP<br>
+      </td>
+      <td style="vertical-align: top; font-weight: bold;">LevelSpeed
+&gt;= DriveSpeed &gt; 0, DOWN </td>
+      <td style="vertical-align: top; font-weight: bold;">SlowSpeed
+&gt;= DriveSpeed &gt; 0, DOWN<br>
+      </td>
+      <td style="vertical-align: top; font-weight: bold;">FastSpeed
+&gt;= DriveSpeed &gt;= SlowSpeed, DOWN<br>
+      </td>
+    </tr>
+    <tr>
+      <td
+ style="vertical-align: top; background-color: rgb(221, 221, 221); font-weight: bold; text-align: center;">Fast,
+Up<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td
+ style="vertical-align: top; background-color: rgb(221, 221, 221); font-weight: bold; text-align: center;">Slow,
+Up<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td
+ style="vertical-align: top; background-color: rgb(221, 221, 221); font-weight: bold; text-align: center;">Level,
+Up<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td
+ style="vertical-align: top; background-color: rgb(221, 221, 221); font-weight: bold; text-align: center;">Stop,
+Stop<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td
+ style="vertical-align: top; background-color: rgb(221, 221, 221); font-weight: bold; text-align: center;">Level,
+Down<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td
+ style="vertical-align: top; background-color: rgb(221, 221, 221); font-weight: bold; text-align: center;">Slow,
+Down<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+    </tr>
+    <tr>
+      <td
+ style="vertical-align: top; background-color: rgb(221, 221, 221); font-weight: bold; text-align: center;">Fast,
+Down<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">X<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+6.4&nbsp;&nbsp;&nbsp; Drive should be Stopped whenever mEmergencyBrake
+is activated.<br>
+6.5&nbsp;&nbsp;&nbsp; If mCarWeight(x) &gt;= MaxCarCapacity, the drive
+shall not be commanded to {Slow, d} or {Fast, d}until the car is no
+longer
+overloaded.
+<h3> EVENT-TRIGGERED BEHAVIORS: </h3>
+<br>
+<h2><a name="lanterncontrol"></a> 7. LanternControl[d] </h2>
+<h3> Replication: </h3>
+<ul>
+  <li>Two controllers, one for each lantern {Up, Down} mounted in the
+Car.&nbsp; Each controller controls two lightbulbs in parallel (one by
+each of the Car's front and back doors), and actuates each front/back
+pair of bulbs as a single actuator.</li>
+</ul>
+<h3> Instantiation: </h3>
+<ul>
+  <li>Lanterns are Off at initialization. </li>
+</ul>
+<h3> Assumptions: </h3>
+<ul>
+  <li>CarLanterns[d] are never commanded to be On at the same time. </li>
+</ul>
+<h3> Input Interface: </h3>
+<ul>
+  <li>mDoorClosed[b, r] </li>
+  <li>mDesiredFloor </li>
+  <li>mAtFloor[f, b] </li>
+</ul>
+<h3> Output Interface: </h3>
+<ul>
+  <li>CarLantern[d] </li>
+  <li>mCarLantern[d] </li>
+</ul>
+<h3> State: </h3>
+<ul>
+  <li>DesiredDirection = {Up, Down, Stop} computed desired direction
+based on comparing CurrentFloor with Floor desired by Dispatcher.&nbsp;
+This is implicitly computed and used as a macro in the behavior
+descriptions. </li>
+</ul>
+<h3> CONSTRAINTS: </h3>
+7.1&nbsp;&nbsp;&nbsp; Both CarLanterns[d] shall not be On at the same
+time.
+<h3> EVENT-TRIGGERED BEHAVIORS: </h3>
+<br>
+<h2><a name="hallbuttoncontrol"></a> 8. HallButtonControl[f, b, d] </h2>
+<h3> Replication: </h3>
+<ul>
+  <li>There are two HallButtonControllers[f, b, d] per hallway, one for
+each of the Up and Down HallCall buttons.&nbsp;&nbsp;&nbsp; (Topmost
+floor does not have an Up button; bottom floor does not have a Down
+button.)&nbsp; These accept HallCall button presses as well as control
+HallLight feedback lights. </li>
+</ul>
+<h3> Instantiation: </h3>
+<ul>
+  <li>All HallCalls are False at initialization. </li>
+  <li>All HallLights are off at initialization. </li>
+</ul>
+<h3> Assumptions: </h3>
+None
+<h3> Input Interface: </h3>
+<ul>
+  <li>mAtFloor[f, b] </li>
+  <li>mDesiredFloor </li>
+  <li>mDoorClosed[b, r] </li>
+  <li>HallCall[f, b, d] </li>
+</ul>
+<h3> Output Interface: </h3>
+<ul>
+  <li>HallLight[f, b, d] </li>
+  <li>mHallLight[f, b, d] </li>
+  <li>mHallCall[f, b, d] </li>
+</ul>
+<h3> State: </h3>
+<ul>
+  <li>CurrentFloor, is a shorthand notation for the value f of
+whichever mAtFloor[f, b] is True, if any.&nbsp; If CurrentFloor is
+invalid it has a mnemonic value of None. </li>
+</ul>
+<h3> CONSTRAINTS: </h3>
+None
+<h3> EVENT-TRIGGERED BEHAVIORS: </h3>
+<br>
+<h2><a name="carbuttoncontrol"></a> 9. CarButtonControl[f, b] </h2>
+<h3> Replication: </h3>
+<ul>
+  <li>There is one CarButtonController per hallway [f, b], with all
+controllers located in the Car.&nbsp;&nbsp;&nbsp; These accept CarCall
+button presses as well as control CarLight feedback lights. </li>
+</ul>
+<h3> Instantiation: </h3>
+<ul>
+  <li>All CarCalls are False at initialization. </li>
+  <li>All CarLights are off at initialization. </li>
+</ul>
+<h3> Assumptions: </h3>
+None
+<h3> Input Interface: </h3>
+<ul>
+  <li>mAtFloor[f, b] </li>
+  <li>mDesiredFloor </li>
+  <li>mDoorClosed[b, r] </li>
+  <li>CarCall[f, b] </li>
+</ul>
+<h3> Output Interface: </h3>
+<ul>
+  <li>CarLight[f, b] </li>
+  <li>mCarLight[f, b] </li>
+  <li>mCarCall[f, b] </li>
+</ul>
+<h3> State: </h3>
+<ul>
+  <li>CurrentFloor, is a shorthand notation for the value f of
+whichever mAtFloor[f, b] is True, if any.&nbsp; If CurrentFloor is
+invalid it has a mnemonic value of None. </li>
+</ul>
+<h3> CONSTRAINTS: </h3>
+None
+<h3> EVENT-TRIGGERED BEHAVIORS: </h3>
+<br>
+<h2><a name="carpositioncontrol"></a> 10. CarPositionControl </h2>
+<h3> Replication: </h3>
+<ul>
+  <li>There is one CarPositionControl instance in the car, which feeds
+values to the CarPositionIndicator. </li>
+</ul>
+<h3> Instantiation: </h3>
+<ul>
+  <li>The Car is initialized on the first Floor (Lobby). </li>
+</ul>
+<h3> Assumptions: </h3>
+None
+<h3> Input Interface: </h3>
+<ul>
+  <li>mAtFloor[f, b] </li>
+  <li>mCarLevelPosition </li>
+  <li>mDesiredFloor </li>
+  <li>mDriveSpeed </li>
+</ul>
+<h3> Output Interface: </h3>
+<ul>
+  <li>mCarPositionIndicator </li>
+  <li>CarPositionIndicator </li>
+</ul>
+<h3> State: </h3>
+<ul>
+  <li>CurrentFloor, is a shorthand notation for the value f of
+whichever mAtFloor[f, b] is True, if any.&nbsp; If CurrentFloor is
+invalid it has a mnemonic value of None.</li>
+  <li>CommitPoint[f](v); v = {Reached, NotReached} calculated based on
+car's acceleration profile, current speed, and distance from the floor
+f, to determine whether or not the car can still stop at the next
+floor. </li>
+</ul>
+<h3> CONSTRAINTS: </h3>
+10.1&nbsp;&nbsp;&nbsp; The Car can be at only one position at a time.<br>
+10.2&nbsp;&nbsp;&nbsp; The CarPositionIndicator shall display the
+current floor whenever any of the doors are open.<br>
+10.3&nbsp;&nbsp;&nbsp; The floor indicated by the car position
+indicator shall only change by one floor in either direction per update
+cycle, and should be a close approximation to the car's actual
+position.&nbsp; The direction of change shall be in the same direction
+the Drive is moving. By "close approximation" we mean within stopping
+distance in the direction of motion.
+<h3> TIME-TRIGGERED BEHAVIORS: </h3>
+10.4 &nbsp;&nbsp;&nbsp; Whenever any mAtFloor[f, b] is True,
+CarPositionIndicator shall be commanded to display CurrentFloor.&nbsp;
+<h2><a name="dispatcher"></a> 11. Dispatcher </h2>
+<h3> Replication: </h3>
+<ul>
+  <li>There is one Dispatcher in the system, corresponding with the
+Car. </li>
+</ul>
+<h3> Instantiation: </h3>
+<ul>
+  <li>The Dispatcher is initialized to send the car to the Lobby, have
+the Lobby as the desired destination, and have a preferred direction of
+"Stopped" (i.e., no preferred direction). </li>
+</ul>
+<h3> Assumptions: </h3>
+<ul>
+  <li>Dispatcher never sets DesiredFloor.f to be above MaxFloor or
+below Lobby (1). </li>
+</ul>
+<h3> Input Interface: </h3>
+<ul>
+  <li>mAtFloor[f, b] </li>
+  <li>mDoorClosed[b, r]&nbsp; </li>
+  <li>mHallCall[f, b, d]&nbsp;&nbsp; </li>
+  <li>mCarCall[f, b]&nbsp;&nbsp;&nbsp; </li>
+  <li>mCarWeight </li>
+</ul>
+<h3> Output Interface: </h3>
+<ul>
+  <li>mDesiredFloor </li>
+  <li>mDesiredDwell </li>
+</ul>
+<h3> State: </h3>
+<ul>
+  <li>Target: an integer Floor number for desired Floor, initialized to
+Lobby = 1. </li>
+</ul>
+<h3> CONSTRAINTS: </h3>
+11.1&nbsp;&nbsp;&nbsp; Target shall be a valid Floor number from 1 ..
+MaxFloor inclusive.<br>
+11.2&nbsp;&nbsp;&nbsp; The desired direction d of mDesiredFloor(f, b,
+d) shall not be Up when f = MaxFloor .<br>
+11.3&nbsp;&nbsp;&nbsp; The desired direction d of mDesiredFloor(f, b,
+d) shall not be Down when f = 1.
+<h3> TIME-TRIGGERED BEHAVIORS: </h3>
+11.4&nbsp;&nbsp;&nbsp; mDesiredFloor.f shall always be set to Target.<br>
+11.5&nbsp;&nbsp;&nbsp; mDesiredFloor.d shall always be set to Stop.<br>
+11.6&nbsp;&nbsp;&nbsp; Whenever any mDoorClosed [b, r] is False, then<br>
+&nbsp;&nbsp; 11.6.1&nbsp; Target
+shall be set equal to ((f mod MaxFloors) + 1) <br>
+&nbsp;&nbsp; 11.6.2 &nbsp; mDesiredFloor.b shall
+be set to b, where f, b is whichever mAtFloor[f, b] is True<br>
+11.7&nbsp; If all mAtFloor[f, b] are False AND any mDoorClosed [b, r]
+is False (which means doors are not
+closed between floors!); then<br>
+&nbsp;&nbsp;&nbsp; 11.7.1&nbsp;&nbsp; Target shall be set to 1<br>
+&nbsp;&nbsp;&nbsp; 11.7.2&nbsp;&nbsp; mDesiredFloor.b
+shall be set to None .<br>
+11.8 &nbsp; If two mAtFloor[f, b] values are True with the same value
+f, then mDesiredFloor.b shall be set to Both.<br>
+11.9 &nbsp;&nbsp; mDesiredDwell shall always be set to a constant
+appropriate value for door open dwell. &nbsp; &nbsp;
+<p> &nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp; </p>
+</body>
+</html>

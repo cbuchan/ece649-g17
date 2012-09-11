@@ -1,0 +1,2 @@
+;there is only one test in the sample file.  Your file shall contain all tests.
+DoorControl doorcontrol.cf doorcontrol_test1.mf

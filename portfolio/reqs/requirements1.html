@@ -1,0 +1,918 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+  <meta name="generator"
+ content="HTML Tidy for Windows (vers 15 August 2007), see www.w3.org">
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=ISO-8859-1">
+  <meta name="Author" content="Charles P. Shelton">
+  <meta name="GENERATOR"
+ content="Mozilla/4.77 [en] (Windows NT 5.0; U) [Netscape]">
+  <title>18-649 Requirements I - System Objects and Message Dictionary</title>
+</head>
+<body>
+<center>
+<h1> 18649 - Behavioral Requirements I</h1>
+<h1>System Objects and Message Dictionary </h1>
+</center>
+<hr style="width: 100%; height: 2px;"> 18649 &lt;semester&gt;<br>
+Group x - Student names and andrewIds
+<hr style="width: 100%; height: 2px;">
+<h2>Table of Contents</h2>
+<ul>
+  <li><a href="#topreq">Elevator Top-Level Requirements</a></li>
+  <li><a href="#buildingdesc">Building Description</a></li>
+  <li><a href="#notation">Notation</a></li>
+  <ul>
+    <li><a href="#repnotation">Replication Notation</a></li>
+    <li><a href="#repsd">Replication in Sequence Diagrams</a></li>
+    <li><a href="#repreqs">Replication in Behavioral Requirements</a></li>
+  </ul>
+  <li><a href="#init">Initialization</a></li>
+  <li><a href="#systemelements">System Elements</a></li>
+  <ul>
+    <li><a href="#car">The Car</a></li>
+    <li><a href="#physicalsensors">Physical State Sensors</a></li>
+    <li><a href="#smartsensors">Smart Sensors</a></li>
+    <li><a href="#environlystate">Environment-only System State</a><br>
+    </li>
+    <li><a href="#sysactuators">System Actuators</a></li>
+    <li><a href="#environlyactuators">Environment-only Actuators</a></li>
+    <li><a href="#controlobj">Control System Objects</a></li>
+  </ul>
+  <li><a href="#messagedictionary">Network Message Dictionary</a></li>
+  <ul>
+    <li><a href="#enviromessages">Environment Object Messages</a></li>
+    <li><a href="#controllermessages">Controller Messages</a></li>
+    <li><a href="#removedmessages">Removed Messages</a><br>
+    </li>
+  </ul>
+</ul>
+<h2><a name="topreq"></a> Elevator High-Level Requirements </h2>
+R-T1.&nbsp; All passengers shall eventually be delivered to their
+intended destination floor.<br>
+R-T2.&nbsp; Any unsafe condition shall cause an emergency stop.<br>
+R-T3.&nbsp; An emergency stop should never occur.<br>
+R-T4.&nbsp; Performance shall be optimized to the extent possible,
+where performance is defined by the formula: <b><br>
+</b>
+<ul>
+  <li> <b>( 4 * average_passenger_delivery_time) +&nbsp;
+maximum_passenger_delivery_time</b> </li>
+  <li>Performance is improved by reducing that value (short delivery
+times are better).&nbsp;&nbsp; Delivery time is counted from the time a
+passenger arrives at a floor to begin a trip and ends when that
+passenger exits the elevator car.&nbsp; (Note: this is an arbitrary
+formula for this project, but the general idea holds true for real
+elevators.) </li>
+</ul>
+R-T5.&nbsp; Passenger satisfaction shall be optimized to the extent
+possible, where satisfaction is defined by the formula:<br>
+<ul>
+  <li><span style="font-weight: bold;">( 4 *
+average_passenger_satisfaction) + minimum_passenger_satisfaction</span><br>
+  </li>
+</ul>
+<span style="font-weight: bold;">Note:</span> The full set of example
+requirements provided should result in an elevator with safe behavior
+that meets top-level requirements other than having poor optimization
+of performance.&nbsp; While it is obvious that the Dispatcher behavior
+can be optimized, there are also other, more subtle, behavioral
+optimizations possible as well.<br>
+<h2><a name="buildingdesc"></a> Building description </h2>
+The Building the elevator is in has floors numbered from 1 ..
+MaxFloor.&nbsp; In this case, MaxFloor = 8<br>
+<br>
+The setup of hallway entrances is as follows:<br>
+<table style="text-align: left; width: 271px; height: 256px;" border="1"
+ cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td> Floor Number<br>
+      </td>
+      <td> Hallway Description<br>
+      </td>
+    </tr>
+    <tr>
+      <td> 8<br>
+      </td>
+      <td> FH only<br>
+      </td>
+    </tr>
+    <tr>
+      <td> 7<br>
+      </td>
+      <td> FH and BH<br>
+      </td>
+    </tr>
+    <tr>
+      <td> 6<br>
+      </td>
+      <td> FH only<br>
+      </td>
+    </tr>
+    <tr>
+      <td> 5<br>
+      </td>
+      <td> FH only<br>
+      </td>
+    </tr>
+    <tr>
+      <td> 4<br>
+      </td>
+      <td> FH only<br>
+      </td>
+    </tr>
+    <tr>
+      <td> 3<br>
+      </td>
+      <td> FH only<br>
+      </td>
+    </tr>
+    <tr>
+      <td> 2<br>
+      </td>
+      <td> BH only<br>
+      </td>
+    </tr>
+    <tr>
+      <td> 1 (lobby)<br>
+      </td>
+      <td> FH and BH<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+"FH" is a shorthand for front hallway, and "BH" is a shorthand for back
+hallway&nbsp; Floor #1, the lobby, is the lowest floor in the building.<br>
+<h2><a name="notation"></a> Notation </h2>
+<h3><a name="repnotation"></a> Replication Notation </h3>
+<ul>
+  <li>f - floor, 1-8 </li>
+  <li>b - hallway, FRONT or BACK </li>
+  <li>r - side, LEFT or RIGHT </li>
+  <li>d - direction, UP or DOWN<br>
+  </li>
+</ul>
+<p> "[...]" indicates an array of objects or values.&nbsp;&nbsp; There
+are 10 valid hallways, and so there are 17 separate and distinct
+HallCall[f, b, d] sensors -- 2 of them at each valid hallway, except
+for the top and bottom floors which only have 1 sensor per valid
+hallway. </p>
+<p> "(...)" indicates a list of values associated with a
+sensor/actuator.&nbsp; Single-valued inputs/outputs can have the "("
+and ")" omitted as a notational convenience.<br>
+</p>
+<p> The suffixes "_up", "_down", "_front", and "_back" may be used in
+lieu of a direction subscript, to make things more readable. e.g.:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HallCall_up[f, b] means
+HallCall[f, b, up]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HallCall_down[f, b] means
+HallCall[f, b, down]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HallCall_front[f, d] means
+HallCall[f, front, d]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HallCall_back[f, d] means
+HallCall[f, back, d]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HallCall_up_front[f] means
+HallCall[f, front, up]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; and so on...<br>
+</p>
+<p> Similarly, subscripting may be eliminated in general if desired
+using an underscore notation. e.g.:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CarLantern_down means
+CarLantern[down]<br>
+</p>
+<p> Multi-attributed items may have a particular state referred to by
+concatenating elements, e.g.: Motor might have state FastUp or
+SlowDown. ("StopStop" can always be abbreviated by "Stop") </p>
+<p> Single attributes of a multi-attribute item are referred to using
+"." notation.&nbsp; For example DesiredFloor.f refers to attribute "f"
+of "DesiredFloor". </p>
+<p> If a letter instead of a value is used in a subscript, it is
+assumed that it can take any valid value.&nbsp; If the same letter is
+used in multiple clauses within a single requirement element, it is
+assumed that the letter takes the same value in all instances.&nbsp;
+For example, in the phrase:<br>
+&nbsp;"AtFloor[f, b] ... CarCall[f, b]&nbsp; ...&nbsp; HallCall[g, b,
+d]"<br>
+The Floor f and Hallway b for AtFloor and CarCall can be any valid
+floor and valid hallway, but would have to be the same floor and
+hallway.&nbsp; However, the floor for HallCall might or might not be
+the same floor as for AtFloor and CarCall since it is a different
+symbolic letter. </p>
+<h3><a name="repsd"></a> Replication in Sequence Diagrams </h3>
+<p> Replication is a problem in UML Sequence Diagrams. Rather than
+introducing an attempt at formal notation (which gets very confusing
+quickly), we will resort to using comments when multiple instances of
+something are supposed to be coordinated (e.g., "wait for all doors to
+close" will be a text comment in Sequence Diagrams, but shall be
+represented rigorously in behavioral requirements).<br>
+</p>
+<h3><a name="repreqs"></a> Replication in Behavioral Requirements </h3>
+<p> Because the controllers are written in a generic way, it's
+important to pay attention to the way the replication notation is used
+in the behavioral requirements.&nbsp; Here are some general guidelines:<br>
+</p>
+<ul>
+  <li>"set mDoorMotor[b,r] to CLOSE" - refers to the particular
+mDoorMotor output for hallway b, side r. </li>
+  <li>"if any mDoorMotor[b,r] is set to CLOSE" - this statement would
+be considered true if any of the four door motor messages (front-left,
+front-right, back-left, back-right) were set to CLOSE. </li>
+  <li>"if all mDoorMotor[b,r] are set to CLOSE" - considered true if
+all four door motors were set to CLOSE </li>
+  <li>"if any mDoorReversal[b,*] is true" - use the star notation to
+denote replication in one dimension but not another.&nbsp; This
+statement would be considered true either the left or right door
+reversal on the b hallway of the car was true.&nbsp; This notation does
+    <span style="font-style: italic;">not</span> check the door
+reversals on the opposite hallway. </li>
+</ul>
+<h2><a name="init"></a> Initialization<br>
+</h2>
+<p> Because ultimately we will do this all in simulation, we're going
+to make your life easy by telling you the initial state of the system
+(the "initialization" state) such as putting the elevator car at the
+lobby floor with the doors closed.&nbsp; In a real elevator the
+controllers have to figure out the system state for themselves when
+power is applied.<br>
+</p>
+<h2><a name="systemelements"></a> System Elements </h2>
+This section describes the elements of the system that are already
+provided<br>
+<h3><a name="car"></a> The Car
+</h3>
+The notation "Car" refers to the elevator Car that travels in a
+hoistway.&nbsp; The movement of the Car itself is hidden within the
+environment model, so it can only be observed through sensors and
+controlled through actuators.<br>
+<h3><a name="physicalsensors"></a> Physical State Sensors </h3>
+These objects are instantiate in the system but do not have a network
+interface.&nbsp; These objects must be read through the physical
+interface of a controller.<br>
+<ul>
+  <li> <b>CarCall[f, b](v)</b>: Car Call buttons.&nbsp; v = {True,
+False}. </li>
+  <li
+ style="list-style-type: none; list-style-image: none; list-style-position: outside; display: inline;">
+    <ul>
+      <li>One per Floor and Hallway [f, b] combination, all located in
+the CAR.&nbsp; No button object is instantiated for [f,b] combinations
+where there is no landing. </li>
+      <li>CarCall objects do not send network messages. </li>
+      <li>Set to False at initialization. </li>
+    </ul>
+  </li>
+  <li> <b>HallCall[f, b, d](v)</b>: Hall Call buttons.&nbsp;&nbsp; v =
+{Pressed, Idle}.<br>
+    <ul>
+      <li>One per Floor, Hallway, and Direction [f, b, d] combination,
+all located in the hallways. No button is instantiated for floors that
+have no landing.&nbsp; Also, the topmost floor does not have Up
+buttons; bottommost floor does not have Down buttons. </li>
+      <li>HallCall objects do not send network messages. </li>
+      <li>Set to False at initialization. </li>
+    </ul>
+    <br>
+    <b>DriveSpeed(s,d)</b>: main drive speed readout.&nbsp;&nbsp; <i>s</i>
+is speed s = {double 0 .. } in meters/sec <i>d</i> is direction d =
+{Up, Down, Stop}
+    <ul>
+      <li>One per Car. </li>
+      <li>Provides information about the current drive speed set by
+Drive(s,d) !! but this is the actual drive status rather than the
+status commanded by Drive(s,d).&nbsp; (Note that there will be a time
+delay between commanding the drive to change speed and the drive
+actually attaining that speed.&nbsp; This lets you know when the
+commanded speed is actually attained.) </li>
+      <li>Initialized to (0, Stop). </li>
+    </ul>
+  </li>
+</ul>
+<h3><a name="smartsensors"></a> Smart Sensors </h3>
+These sensor values are available for use by the control system.&nbsp;
+The below-listed values will correspond to network messages in the
+implementation phase.<br>
+Note:&nbsp; If an object that sends a network message is not
+instantiated (such as an atFloor sensor at a [f,b] without a landing),
+then no network message with that CAN id is ever sent.<br>
+<ul>
+  <li> <b>AtFloor[f, b](v)</b>: Floor proximity sensor.&nbsp;&nbsp; v
+= {True, False}.<br>
+    <ul>
+      <li>One per Floor and Hallway [f, b] combination. </li>
+      <li>Indicates True at a point where the Car is approximately
+level with floor f.&nbsp; If there is no landing at a particular
+hallway on a particular floor, then no sensor is instantiated for that
+landing, so no network messages will be sent.&nbsp; For example, there
+is a back landing but no front landing at the second floor, so an
+AtFloor[2,back] sensor will be instantiated, but an AtFloor[2,front]
+sensor will not be instantiated.&nbsp; It is assumed that the width of
+the Stop zone is such that the Drive has enough time to switch from
+going at Slow speed to Stop and still have the car level with the
+floor. </li>
+      <li
+ style="list-style-type: none; list-style-image: none; list-style-position: outside; display: inline;">
+        <ul>
+          <li>Set to False at initialization, except the lobby switch
+is set to True at initialization. </li>
+          <li>AtFloor[f, b] shall be set True if and only if
+CarPosition is within 150 msec of travel time of floor position f at
+Slow speed in either direction and there is a hallway at [f, b].</li>
+          <li><span style="font-weight: bold;">Note:&nbsp; the AtFloor
+sensor will not be triggered if the car is going faster than Slow.</span><br>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<ul>
+  <li> <b>CarLevelPosition(x)</b>: Car position sensor.&nbsp; x =
+{integer 0 .. } in millimeters<br>
+    <ul>
+      <li>One per Car. </li>
+      <li>Reports approximate position of car in hoistway based on
+position sensors placed at 10 cm intervals in the hoistway.&nbsp; Gets
+updated each time the car passes one of these sensors. </li>
+      <li>Set to Lobby position at initialization. &nbsp; </li>
+    </ul>
+&nbsp; </li>
+  <li> <b>DoorClosed[b, r](v)</b>: Door Closed switches.&nbsp;&nbsp; v
+= {True, False}.<br>
+    <ul>
+      <li>One per Door [b, r] for b = {Front, Back} and r = {Left,
+Right}. </li>
+      <li>Indicates True when the Door[b, r] is fully closed. </li>
+      <li>Set to True at initialization. </li>
+      <li>DoorClosed[b, r] shall be True if and only if DoorPosition[b,
+r] has a value less than 1. </li>
+    </ul>
+&nbsp; </li>
+  <li> <b>DoorOpened[b, r](v)</b>: Door Opened switches.&nbsp;&nbsp; v
+= {True, False}.<br>
+    <ul>
+      <li>One per Door [b, r] for b = {Front, Back} and r = {Left,
+Right}. </li>
+      <li>Indicates True when the Door[b, r] is fully open. </li>
+      <li>Set to False at initialization. </li>
+      <li>DoorOpened[b, r] shall be True if and only if DoorPosition[b,
+r] has a value greater than 490. </li>
+    </ul>
+&nbsp; </li>
+  <li> <b>DoorReversal[b, r](v)</b>: Door Reversal
+sensors.&nbsp;&nbsp; v = {True, False}.<br>
+    <ul>
+      <li>One per Door [b, r] for b = {Front, Back} and r = {Left,
+Right}. </li>
+      <li>Indicates True whenever the Door [b, r] senses an obstruction
+in the doorway. </li>
+      <li>Set to False at initialization.&nbsp; </li>
+    </ul>
+  </li>
+</ul>
+<ul>
+  <li><span style="font-weight: bold;">Level[d](v)</span>:&nbsp;
+Leveling sensors.&nbsp; v = {True, False}.&nbsp; These sensors allow
+for more accurate leveling of the car.<br>
+  </li>
+  <ul>
+    <li>One per direction, affixed to the car a fixed distance above
+and below the car.</li>
+    <li>In addition to the sensors, there is a leveling vane at every
+floor.&nbsp; The leveling vane is a protrusion that is exactly centered
+on the floor position.<br>
+    </li>
+    <li>The leveling sensors are beam sensors.&nbsp; When the car is
+level, one sensor is above the vane and the other is below.&nbsp; Since
+the vane does not obstruct either sensor, both read true.&nbsp; If the
+car is out of level, one or the other of the sensors will be blocked by
+the vane and read false.</li>
+    <li>The width of the vane and position of the level sensors is
+configures so that when the atFloor[f,b] sensor becomes true (as the
+car approaches the floor), one of the leveling sensors will already be
+blocked.&nbsp; Thus, if any mAtFloor[f,b] is true and both leveling
+sensors are true, the car is level.</li>
+    <li>When the car is at a floor and both sensors are true, the level
+error is less than or equal to 5mm.<br>
+      <br>
+    </li>
+  </ul>
+  <li><b>HoistwayLimit[d](v)</b>: Safety limit switches in the
+hoistway.&nbsp;&nbsp; v = {True, False}. One pair per Car, d = {Up,
+Down}.<br>
+    <ul>
+      <li>A HoistwayLimit[d] switch activates when the car has over-run
+the hoistway limits (used as a trigger for emergency stopping). The
+d=Up switch is at top of hoistway; d=Down switch is at bottom of
+hoistway. </li>
+      <li>Set to False at initialization. </li>
+    </ul>
+&nbsp; </li>
+  <li> <b>CarWeight(x)</b>: Car weight sensor.&nbsp;&nbsp; x = {int 0
+.. } in tenths of pounds (lbs)&nbsp;
+    <ul>
+      <li>One per Car. </li>
+      <li>Provides information about current total weight of passengers
+in the car in tenths of pounds (lbs). &nbsp; The car weight sensor
+shall not be affected by the acceleration/deceleration of the car.
+&nbsp; MaxCarCapacity is the maximum allowable weight for safe travel
+in car. </li>
+      <li>CarWeight is set to 0 at initialization. (Car is empty)<br>
+        <br>
+      </li>
+    </ul>
+  </li>
+  <li> <span style="font-weight: bold;">CarWeightAlarm(v):</span> v =
+{True, False} </li>
+  <li
+ style="list-style-type: none; list-style-image: none; list-style-position: outside; display: inline;">
+    <ul>
+      <li>One per Car </li>
+      <li>Provides information about the status of the buzzer.&nbsp;
+The buzzer rings any time the car is overweight. </li>
+      <li>Set to false at initialization<br>
+      </li>
+    </ul>
+  </li>
+</ul>
+<h3><a name="environlystate"></a> Environmental-Only System State: </h3>
+These values keep track of current system state.&nbsp; They are not
+accessible to the
+control system, but have been used in the specifications for building
+the simulation system.<br>
+<ul>
+  <li> <b>DoorPosition[b, r](x)</b>: Amount that the door is
+open.&nbsp;&nbsp; x = {integer 0 .. 500} </li>
+  <li
+ style="list-style-type: none; list-style-image: none; list-style-position: outside; display: inline;">
+    <ul>
+      <li>One per Door [b, r] for b = {Front, Back} and r = {Left,
+Right}. </li>
+      <li>Value is the amount the door is open as a thousandth of
+doorway width.&nbsp; Each DoorPosition[b, r] can range from 0 to
+500.&nbsp; With both Door_Front[r] open at 500 the entire front doorway
+is opened overall. With both Door_Back[r] open at 500 the entire back
+doorway is opened overall. </li>
+      <li>Set to 0 at initialization (front doors closed). </li>
+    </ul>
+  </li>
+  <li> <b>CarPosition(x)</b>: Vertical position of car.&nbsp;&nbsp; x
+= {integer 0.. } in millimeters </li>
+  <li
+ style="list-style-type: none; list-style-image: none; list-style-position: outside; display: inline;">
+    <ul>
+      <li>Tracks the position of the car in meters (not the same as
+floor number or CarLevelPosition). </li>
+      <li>Set to Lobby position at initialization. </li>
+    </ul>
+  </li>
+</ul>
+<h3><a name="sysactuators"></a> System Actuators </h3>
+The below-listed values will correspond to network messages in the
+implementation phase.&nbsp; All actuators are assumed to "remember"
+their last commanded value and stay there unless commanded otherwise or
+forced otherwise by system/environment constraints.<br>
+<ul>
+  <li> <b>DoorMotor[b, r](m)</b>: Door motor.&nbsp;&nbsp; m = {Open,
+Close, Nudge, Stop} </li>
+  <li
+ style="list-style-type: none; list-style-image: none; list-style-position: outside; display: inline;">
+    <ul>
+      <li>One per Door [b, r] for b = {Front, Back} and r = {Left,
+Right}. </li>
+      <li>Opens and closes the door.&nbsp; It is permissible to
+transition directly from Open to Close, Open to Nudge, Nudge to Open,
+and Close to Open without first
+commanding a Stop, although the door requires some time to change
+directions. </li>
+      <li>Set to Stop at initialization; see DoorMotor object
+description for details. </li>
+    </ul>
+  </li>
+  <li> <b>CarLantern[d](k)</b>: Car Lanterns.&nbsp;&nbsp;&nbsp;&nbsp;
+k = {On, Off}. </li>
+  <li
+ style="list-style-type: none; list-style-image: none; list-style-position: outside; display: inline;">
+    <ul>
+      <li>One set per Car, d = {Up, Down}. </li>
+      <li>These are the Up/Down arrows placed on the car door frames.
+Used by Passengers on a Floor to figure out whether to enter the Car. </li>
+      <li>Set to Off at initialization.&nbsp; </li>
+    </ul>
+  </li>
+  <li> <b>CarLight[f, b](k)</b>: Car Call Button lights.&nbsp;&nbsp; k
+= {On, Off}. </li>
+  <li
+ style="list-style-type: none; list-style-image: none; list-style-position: outside; display: inline;">
+    <ul>
+      <li>One per CarCall[f, b] button. </li>
+      <li>The light inside the car call button, used to indicate to
+passengers that a car call has been registered by the dispatcher. </li>
+      <li>Set to Off at initialization. &nbsp; </li>
+    </ul>
+  </li>
+  <li> <b>CarPositionIndicator(f)</b>: Position Indicator in
+Car.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; f = {integer 1..MaxFloor}. </li>
+  <li
+ style="list-style-type: none; list-style-image: none; list-style-position: outside; display: inline;">
+    <ul>
+      <li>One per Car. </li>
+      <li>Displays floor status information to the passengers in the
+Car. </li>
+      <li>Set to 1 at initialization.&nbsp; </li>
+    </ul>
+  </li>
+  <li> <b>HallLight[f, b, d](k)</b>: Hall Call Button
+lights.&nbsp;&nbsp; k = {On, Off}. </li>
+  <li
+ style="list-style-type: none; list-style-image: none; list-style-position: outside; display: inline;">
+    <ul>
+      <li>One per HallCall[f, b, d] button. </li>
+      <li>The light inside the hall call button, used to indicate to
+passengers that a hall call at that Floor f has been registered by the
+Dispatcher for direction d. </li>
+      <li>Set to Off at initialization.&nbsp; </li>
+    </ul>
+  </li>
+  <li> <b>Drive(s,d)</b>: 3-speed main elevator drive.&nbsp;&nbsp; <i>s</i>
+is speed s = {Fast, Slow, Level, Stop}, <i>d</i> is direction d = {Up,
+Down,
+Stop} </li>
+  <li
+ style="list-style-type: none; list-style-image: none; list-style-position: outside; display: inline;">
+    <ul>
+      <li>One per Car. </li>
+      <li>Moves the Car up and down the hoistway according to a
+velocity profile that depends on a variety of physical factors. </li>
+      <li>Set to (Stop, Stop) at initialization; see Drive object for
+details. </li>
+      <li>Note that current Drive speed can be determined via
+DriveSpeed(s,d) and is not necessarily the same as the Drive command
+because of the acceleration profile.</li>
+      <li>While the drive is stopped, if the car weight changes, the
+car may move downward as a result of cable slip.<br>
+      </li>
+    </ul>
+  </li>
+</ul>
+<ul>
+  <li><b>CarWeightAlarm(k):</b> Car weight overload alarm.&nbsp; k =
+{On,
+Off}.</li>
+  <ul>
+    <li>Buzzer that sounds when the CarWeight sensor detects that the
+elevator
+is weight overloaded (above MaxCarCapacity).&nbsp; It's the signal to
+the passengers that at least one must step off the elevator before it
+continues operation.</li>
+  </ul>
+  <ul>
+    <li>Set to Off at initialization. </li>
+  </ul>
+</ul>
+<h3><a name="environlyactuators"></a> Environmental-Only Actuators </h3>
+<ul>
+  <li> <b>EmergencyBrake(b)</b>: Emergency stop brake.&nbsp; b = {On,
+Off} </li>
+  <li
+ style="list-style-type: none; list-style-image: none; list-style-position: outside; display: inline;">
+    <ul>
+      <li>Supplies emergency braking in case of safety violation such
+as hoistway limit over-run or movement with doors open. One per
+Car.&nbsp; Can be used exactly one time, after which elevator hoistway
+requires significant repair maintenance.&nbsp; Triggering the
+EmergencyBrake in simulation means that either a safety-critical
+sensor/actuator has been broken or your elevator controller has
+attempted unsafe operation.&nbsp; (If the EmergencyBrake activates
+during your final project demo due to an attempt of unsafe operation,
+there will be a scoring penalty.) </li>
+      <li>Set to Off at initialization. </li>
+    </ul>
+  </li>
+</ul>
+<h3><a name="controlobj"></a>Control System Objects </h3>
+In addition to the objects described above, there are several complex
+control system objects.&nbsp; These objects are summarized below.&nbsp;
+The detailed specification of these objects can be found in the <a
+ href="requirements2.html">Behavioral Requirements II</a>
+document.&nbsp;
+Environmental objects have already been designed and are provided by
+the system.&nbsp; The other control objects will be the primary focus
+of your design effort.<br>
+<ul>
+</ul>
+<ol>
+  <li>Passenger (environmental) - the simulated passenger that
+interacts with the physical interface of the elevator<br>
+  </li>
+  <li>Safety Sensor (environmental) - monitors the system state and
+triggers the emergency brake if an unsafe condition is detected. </li>
+  <li>Drive (environmental) - moves the car according to the Drive
+commands and the elevator acceleration profile. </li>
+  <li>DoorMotor[b,r] (environmental) - moves the doors according to the
+DoorMotor commands. </li>
+  <li>DoorControl[b,r] - controls the motion of the doors<br>
+  </li>
+  <li>DriveControl - controls the motion of the car </li>
+  <li>LanternControl[d] - controls a the direction lanterns </li>
+  <li>HallButtonControl[f,b,d] - controls the hall lights and and
+monitors hall buttons at the landings </li>
+  <li>CarButtonControl[f,b] - controls the car lights and and monitors
+car buttons inside the car </li>
+  <li>CarPositionControl - controls the output of the car position
+indicator </li>
+  <li>Dispatcher - determines the order in which floors and hallways
+are serviced<br>
+  </li>
+</ol>
+<ul>
+</ul>
+<h2><a name="messagedictionary"></a> Network Message Dictionary </h2>
+This section defines the network messages that may be sent.&nbsp; The
+design MUST follow the message dictionary.&nbsp; Following the message
+dictionary means:<br>
+<ul>
+  <li>Every message defined in the message dictionary is sent. </li>
+  <li>No message <span style="font-style: italic;">not</span> defined
+in the message dictionary is sent. </li>
+  <li>Each message carries the information described in the dictionary.
+  </li>
+</ul>
+<h3><a name="enviromessages"></a>Environmental Object Messages</h3>
+These messages are sent by environmental objects and smart sensors
+provided in the system<br>
+<br>
+<table style="width: 800px;" border="1">
+  <tbody>
+    <tr>
+      <td> Source Node Name<br>
+      </td>
+      <td> Message Name </td>
+      <td> Replication<br>
+      </td>
+      <td style="vertical-align: top;">Number of fields<br>
+      </td>
+      <td style="vertical-align: top;">Description<br>
+      </td>
+    </tr>
+    <tr>
+      <td> Safety Object<br>
+      </td>
+      <td> mEmergencyBrake </td>
+      <td> none </td>
+      <td style="vertical-align: top;">1<br>
+      </td>
+      <td style="vertical-align: top;">see object description<br>
+      </td>
+    </tr>
+    <tr>
+      <td> AtFloor Sensor </td>
+      <td> mAtFloor </td>
+      <td> floor, hall </td>
+      <td style="vertical-align: top;">1<br>
+      </td>
+      <td style="vertical-align: top;">see object description</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Level Sensor<br>
+      </td>
+      <td style="vertical-align: top;">mLevel<br>
+      </td>
+      <td style="vertical-align: top;">direction<br>
+      </td>
+      <td style="vertical-align: top;">1<br>
+      </td>
+      <td style="vertical-align: top;">see object description<br>
+      </td>
+    </tr>
+    <tr>
+      <td> CarLevelPosition Sensor </td>
+      <td> mCarLevelPosition </td>
+      <td> none </td>
+      <td style="vertical-align: top;">1<br>
+      </td>
+      <td style="vertical-align: top;">see object description</td>
+    </tr>
+    <tr>
+      <td> Door Closed Sensor </td>
+      <td> mDoorClosed </td>
+      <td> hall, side </td>
+      <td style="vertical-align: top;">1<br>
+      </td>
+      <td style="vertical-align: top;">see object description</td>
+    </tr>
+    <tr>
+      <td> Door reversal Sensor </td>
+      <td> mDoorReversal </td>
+      <td> hall, side </td>
+      <td style="vertical-align: top;">1<br>
+      </td>
+      <td style="vertical-align: top;">see object description</td>
+    </tr>
+    <tr>
+      <td> Weight Sensor </td>
+      <td> mCarWeight </td>
+      <td> none </td>
+      <td style="vertical-align: top;">1<br>
+      </td>
+      <td style="vertical-align: top;">see object description</td>
+    </tr>
+    <tr>
+      <td> Weight Sensor </td>
+      <td> mCarWeightAlarm </td>
+      <td> &nbsp; </td>
+      <td style="vertical-align: top;">1<br>
+      </td>
+      <td style="vertical-align: top;">see object description</td>
+    </tr>
+    <tr>
+      <td> Door Opened Sensor </td>
+      <td> mDoorOpened </td>
+      <td> hall, side </td>
+      <td style="vertical-align: top;">1<br>
+      </td>
+      <td style="vertical-align: top;">see object description</td>
+    </tr>
+    <tr>
+      <td> Hoistway Limit Sensor </td>
+      <td> mHoistwayLimit </td>
+      <td> direction </td>
+      <td style="vertical-align: top;">1<br>
+      </td>
+      <td style="vertical-align: top;">see object description</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<h3><a name="controllermessages"></a>Controller Messages</h3>
+These messages are sent by the controllers that you will design.&nbsp;
+In the later projects, you will be allowed to modify the message
+dictionary for the controllers in a limited way, but for the time
+being, you must implement the message dictionary given below:<br>
+<br>
+<table style="width: 800px;" border="1">
+  <tbody>
+    <tr>
+      <td> Source Node Name<br>
+      </td>
+      <td> Message Name </td>
+      <td> Replication<br>
+      </td>
+      <td style="vertical-align: top;">Number of Fields<br>
+      </td>
+      <td> Description </td>
+    </tr>
+    <tr>
+      <td> Drive Control </td>
+      <td> mDriveSpeed<br>
+      </td>
+      <td> none </td>
+      <td style="vertical-align: top;">2<br>
+      </td>
+      <td>The current speed and direction of the car<br>
+      <ul>
+        <li>Speed - a numeric value</li>
+        <li>Direction - one of {STOP, UP, DOWN}<br>
+        </li>
+      </ul>
+      </td>
+    </tr>
+    <tr>
+      <td> Drive Control </td>
+      <td> mDrive </td>
+      <td> none </td>
+      <td style="vertical-align: top;">2<br>
+      </td>
+      <td>The commanded speed and direction of the car<br>
+      <ul>
+        <li>Speed - one of {STOP, SLOW, FAST}<br>
+        </li>
+        <li>Direction - one of {STOP, UP, DOWN}<br>
+        </li>
+      </ul>
+      </td>
+    </tr>
+    <tr>
+      <td> Dispatcher </td>
+      <td> mDesiredDwell* </td>
+      <td> hallway </td>
+      <td style="vertical-align: top;">1<br>
+      </td>
+      <td>A numeric value indicating the desired dwell time for the
+door.<br>
+      </td>
+    </tr>
+    <tr>
+      <td> Dispatcher </td>
+      <td> mDesiredFloor** </td>
+      <td> none </td>
+      <td style="vertical-align: top;">3<br>
+      </td>
+      <td>The desired floor, hallway, and direction<br>
+      <ul>
+        <li>floor - the next floor to be serviced, [1,8]<br>
+        </li>
+        <li>hallway - the hallway to be serviced, one of {FRONT, BACK,
+BOTH, NONE}</li>
+        <li>direction - the intended direction of travel <span
+ style="font-style: italic;">after </span>servicing the desired floor,
+one of {UP, DOWN, STOP}<a name="bf20100216111524"></a><br>
+        </li>
+      </ul>
+      </td>
+    </tr>
+    <tr>
+      <td> Door Control </td>
+      <td> mDoorMotorCommand </td>
+      <td> hall, side </td>
+      <td style="vertical-align: top;">1<br>
+      </td>
+      <td>The current command to the door.&nbsp; One of {STOP, OPEN,
+CLOSE}<br>
+      </td>
+    </tr>
+    <tr>
+      <td> Hall Button<span style="">&nbsp;</span> </td>
+      <td> mHallCall </td>
+      <td> floor, hall, direction </td>
+      <td style="vertical-align: top;">1<br>
+      </td>
+      <td>Indicate the presence of a hall call in the direction at the
+floor and hall.&nbsp; One of {true, false}<br>
+      </td>
+    </tr>
+    <tr>
+      <td> Hall Button<span style="">&nbsp;</span> </td>
+      <td> mHallLight </td>
+      <td> floor, hall, direction </td>
+      <td style="vertical-align: top;">1<br>
+      </td>
+      <td>Indicate the state of the hall light&nbsp; One of {true,
+false}<br>
+      </td>
+    </tr>
+    <tr>
+      <td> Car Button </td>
+      <td> mCarCall </td>
+      <td> floor, hall </td>
+      <td style="vertical-align: top;">1<br>
+      </td>
+      <td>Indicate the presence of a car call for a certain floor and
+hall.&nbsp; One of {true, false}</td>
+    </tr>
+    <tr>
+      <td> Car Button </td>
+      <td> mCarLight </td>
+      <td> floor, hall </td>
+      <td style="vertical-align: top;">1<br>
+      </td>
+      <td>Indicate the state of the car light&nbsp; One of {true, false}</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<h3><a name="removedmessages"></a>Removed messages</h3>
+<ul>
+  <li>Starting in Project 10, you will be allowed to remove unused
+messages.&nbsp; Any message that is otherwise removed from the
+documentation should be listed here.&nbsp; See the project 10 writeup
+for more details.&nbsp; <span
+ style="font-weight: bold; color: rgb(204, 0, 0);">You MAY NOT remove
+messages from the message dictionary prior to Project 10.</span><br>
+  </li>
+</ul>
+<br>
+Notes:<br>
+*mDesiredDwell:<br>
+<ul>
+  <li>There is a separate message for the Front and Back floor.&nbsp; </li>
+  <li>This is an optional way for the Dispatcher to override any dwell
+time used by the DoorController[b]. </li>
+</ul>
+**mDesiredFloor:<br>
+<b></b>
+<ul>
+  <li>The dispatcher uses this to indicate the next floor to stop
+at.&nbsp; A direction of&nbsp; Stop means that there is no preferred
+direction.&nbsp; Directions of Up and Down have the implication that
+the next direction the elevator will move in is up or down,
+respectively.&nbsp; </li>
+  <li><span style="font-weight: bold;">Note:&nbsp; the value of desired
+direction is not necessarily the current direction of motion.&nbsp; The
+car may be moving Up with a desired direction of Down, which means that
+the elevator will go down after it stops at a floor.</span> </li>
+  <li>The value of DesiredFloor may change dynamically and
+non-monotonically.&nbsp;</li>
+  <li>Once doors begin opening the elevator is committed to perform a
+full door cycle operation. </li>
+  <li style="font-weight: bold;">The <span style="font-style: italic;">f</span>
+field (desired floor) value must change to the next floor by the time
+the doors are fully open.</li>
+  <li style="font-weight: bold;">The <span style="font-style: italic;">d</span>
+field (desired direction) value must not change while the doors are
+open.</li>
+</ul>
+</body>
+</html>
