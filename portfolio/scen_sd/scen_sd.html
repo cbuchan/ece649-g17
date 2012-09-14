@@ -371,26 +371,24 @@
       </ul>
       <h3> Scenario: </h3>
       <ol>
-        <li>Car Lantern for direction <b>d</b> lights up.<br>
-        </li>
-        <li>Door[<b>b,*</b>] starts opening.</li>
+        <li>Door[<b>b,r</b>] starts opening.</li>
+        <li>Doors finish opening.</li>
+        <li>Car Lantern for direction <b>d</b> lights up.</li>
+        <li>Hall button light [<b>f,b,d]</b> turns off. </li>
         <li>Passenger arrives at hallway [<b>f,b]</b> and observes the
           direction of car is <b>d</b>.</li>
-        <li>Doors finish opening.</li>
-        <li>Hall button light [<b>f,b,d]</b> turns off.<br>
-        </li>
       </ol>
       <h3> Post-Conditions: </h3>
       <ul>
         <li>Elevator is at passenger's floor.</li>
-        <li>Door[<b>b,*]</b> is open.</li>
+        <li>Door[<b>b,r]</b> is open.</li>
         <li>Car Lantern for direction <b>d</b> is lit.</li>
         <li>Hall button light [<b>f,b,d]</b> is off.<br>
         </li>
       </ul>
       <h3> Sequence Diagram: </h3>
-      <p> <a href="proj2_scenario7a.gif"><br>
-        </a> </p>
+      <a href="proj2_scenario7a.gif"><img alt="sd7a" src="sd7a.png"
+          border="0" height="337" width="1226"></a>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <h3> <a name="scenario7b" id="scenario7b"></a>Scenario 7B:
@@ -410,10 +408,10 @@
       <h3> Scenario: </h3>
       <ol>
         <li>Door[<b>b,*</b>] starts opening.</li>
+        <li>Doors finish opening.</li>
+        <li>Hall button light [<b>f,b,d]</b> turns off. </li>
         <li>Passenger arrives at hallway [<b>f,b]</b> and observes that
           the car has no intended direction.</li>
-        <li>Doors finish opening.<br>
-        </li>
       </ol>
       <h3> Post-Conditions: </h3>
       <ul>
@@ -424,8 +422,8 @@
         </li>
       </ul>
       <h3> Sequence Diagram: </h3>
-      <p> <a href="proj2_scenario7b.gif"><br>
-        </a> </p>
+      <a href="proj2_scenario7b.gif"><img alt="sd7b" src="sd7b.png"
+          border="0" height="337" width="1226"></a>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <h3> <a name="scenario7c" id="scenario7c"></a>Scenario 7C:
@@ -448,8 +446,8 @@
         </li>
       </ul>
       <h3> Sequence Diagram: </h3>
-      <p> <a href="proj2_scenario7c.gif"><br>
-        </a> </p>
+      <a href="proj2_scenario7c.gif"><img alt="sd7c" src="sd7c.png"
+          border="0" height="327" width="442"></a>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <p> &nbsp; </p>
