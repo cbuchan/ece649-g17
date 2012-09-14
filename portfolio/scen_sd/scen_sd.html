@@ -164,7 +164,7 @@
       <h3> <a name="scenario2a" id="scenario2a"></a>Scenario 2A:
         Passenger is in the car and elevator is not at the desired
         destination floor. </h3>
-      <h3> Author name: Example Solutions </h3>
+      <h3> Author name: Jessica Tiu</h3>
       <h3> Pre-Conditions: </h3>
       <ul type="disc">
         <li>Car is at floor <b>f</b>, with at least one Door[<b>b</b>,<b>r</b>]
@@ -175,17 +175,30 @@
         <li>Car call button for the desired destination is not lit. </li>
       </ul>
       <h3> Scenario: </h3>
+      <ol start="1" type="1">
+        <li>Passenger presses the car call button for floor <b>g</b>
+          and hallway <b>c</b>.</li>
+        <li>The car call button for [<b>g</b>,<b>c</b>] lights up.</li>
+        <li>Door[<b>b</b>,<b>r</b>] starts closing.</li>
+        <li>Doors complete closing. </li>
+      </ol>
       <h3> Post-Conditions: </h3>
+      <ul type="disc">
+        <li>Car is at floor <b>f</b>.</li>
+        <li>The car light for [<b>g</b>,<b>c</b>] is lit.</li>
+        <li>All doors are closed.</li>
+      </ul>
       <h3> Sequence Diagram: </h3>
-      <p> <a href="proj2_scenario2a.gif"><br>
-        </a> </p>
+      <p> <a href="sd2a.png"><img src="sd2a.png" alt="2A"
+            style="border: 0px solid ; width: 1042px; height: 338px;"></a>
+      </p>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <h3> <a name="scenario2b" id="scenario2b"></a>2B: Passenger is in
         the car and the elevator has arrived at the passenger's desired
         floor, but passenger has not yet exited the car as the doors
         begin to close. </h3>
-      <h3> Author name: Example Solutions </h3>
+      <h3> Author name: Jessica Tiu</h3>
       <h3> Pre-Conditions: </h3>
       <ul type="disc">
         <li>Passenger is in the car. </li>
@@ -194,10 +207,27 @@
         <li>At least one door[<b>b</b>,<b>r</b>] is open. </li>
       </ul>
       <h3> Scenario: </h3>
+      <ol start="1" type="1">
+        <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
+        <li> The passenger presses the car call button for floor <b>f</b>
+          and hallway <b>b</b>, where [<b>f</b>,<b>b</b>] are the same
+          desired hallway as in the pre-conditions.</li>
+        <li> The car call button for [<b>f</b>,<b>b</b>] lights up.</li>
+        <li>The door starts opening.</li>
+        <li>The door finishes opening.</li>
+        <li>The car call button for [<b>f</b>,<b>b</b>] stops being lit.</li>
+      </ol>
       <h3> Post-Conditions: </h3>
+      <ul type="disc">
+        <li>Passenger is in the car. </li>
+        <li>Elevator has arrived at the desired hallway, but the
+          passenger has not yet exited the car. </li>
+        <li>At least one door[<b>b</b>,<b>r</b>] is open. </li>
+      </ul>
       <h3> Sequence Diagram: </h3>
-      <p> <a href="proj2_scenario2b.gif"><br>
-        </a> </p>
+      <p> <a href="sd2b.png"><img src="sd2b.png" alt="2B"
+            style="border: 0px solid ; width: 968px; height: 337px;"></a>
+      </p>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <p> &nbsp; </p>
@@ -205,7 +235,7 @@
         Enters Elevator </h2>
       <h3> Scenario 3A: Passenger is waiting at a hallway for the
         elevator and has already pressed the hall call button. </h3>
-      <h3> Author name: Example Solutions </h3>
+      <h3> Author name: Jessica Tiu </h3>
       <h3> Pre-Conditions: </h3>
       <ul type="disc">
         <li>Car is about to arrive at a hallway [<b>f</b>,<b>b</b>] at
@@ -217,10 +247,24 @@
         <li>All doors are closed. </li>
       </ul>
       <h3> Scenario: </h3>
+      <ol start="1" type="1">
+        <li>The car arrives at floor <b>f</b>.</li>
+        <li>Door[<b>b</b>,<b>r</b>] starts to open.</li>
+        <li>Door[<b>b</b>,<b>r</b>] finishes opening.</li>
+        <li>Hall call button stops being lit.</li>
+        <li>The passenger enters the car.</li>
+      </ol>
       <h3> Post-Conditions: </h3>
+      <ul type="disc">
+        <li>The passenger is in the car.</li>
+        <li>The car is at floor <b>f</b>.</li>
+        <li>At least one Door[<b>b</b>,<b>r</b>] is open.</li>
+        <li>The elevator is set in direction <b>d</b>. </li>
+      </ul>
       <h3> Sequence Diagram: </h3>
-      <p> <a href="proj2_scenario3.gif"><br>
-        </a> </p>
+      <p> <a href="sd3a.png"><img src="sd3a.png" alt="3A"
+            style="border: 0px solid ; width: 1259px; height: 337px;"></a>
+      </p>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <p> &nbsp; </p>
@@ -327,18 +371,21 @@
       </ul>
       <h3> Scenario: </h3>
       <ol>
-        <li>Hall button for direction <b>d</b> lights up.<br>
+        <li>Car Lantern for direction <b>d</b> lights up.<br>
         </li>
         <li>Door[<b>b,*</b>] starts opening.</li>
         <li>Passenger arrives at hallway [<b>f,b]</b> and observes the
-          direction of car is <b>d</b>.<br>
+          direction of car is <b>d</b>.</li>
+        <li>Doors finish opening.</li>
+        <li>Hall button light [<b>f,b,d]</b> turns off.<br>
         </li>
       </ol>
       <h3> Post-Conditions: </h3>
       <ul>
         <li>Elevator is at passenger's floor.</li>
         <li>Door[<b>b,*]</b> is open.</li>
-        <li>Hall button light [<b>f,b,d]</b> is lit<br>
+        <li>Car Lantern for direction <b>d</b> is lit.</li>
+        <li>Hall button light [<b>f,b,d]</b> is off.<br>
         </li>
       </ul>
       <h3> Sequence Diagram: </h3>
@@ -364,7 +411,8 @@
       <ol>
         <li>Door[<b>b,*</b>] starts opening.</li>
         <li>Passenger arrives at hallway [<b>f,b]</b> and observes that
-          the car has no intended direction.<br>
+          the car has no intended direction.</li>
+        <li>Doors finish opening.<br>
         </li>
       </ol>
       <h3> Post-Conditions: </h3>
@@ -390,10 +438,15 @@
       </ul>
       <h3> Scenario: </h3>
       <ol>
-        <li><br>
+        <li>Door[<b>b,r] </b>starts to close.</li>
+        <li>Doors finish closing.<br>
         </li>
       </ol>
       <h3> Post-Conditions: </h3>
+      <ul>
+        <li>Doors are closed.<br>
+        </li>
+      </ul>
       <h3> Sequence Diagram: </h3>
       <p> <a href="proj2_scenario7c.gif"><br>
         </a> </p>
