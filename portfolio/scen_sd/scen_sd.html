@@ -272,7 +272,7 @@
         Exits Elevator </h2>
       <h3> Scenario 4A: Passenger is in the elevator as it arrives at
         the passenger's desired hallway. </h3>
-      <h3> Author name: Example Solutions </h3>
+      <h3> Author name: Rajeev Sharma </h3>
       <h3> Pre-Conditions: </h3>
       <ul type="disc">
         <li>Passenger is inside the car, traveling to desired floor <b>f</b>
@@ -281,10 +281,20 @@
         <li>All doors are closed. </li>
       </ul>
       <h3> Scenario: </h3>
+      <ul type="disc">
+        <li>The car arrives at floor <b>f</b>.</li>
+        <li>Door[<b>b</b>,<b>r</b>] starts to open.</li>
+        <li>Door[<b>b</b>,<b>r</b>] finishes opening.</li>
+        <li>The passenger exits the car.</li>
+      </ul>
       <h3> Post-Conditions: </h3>
+      <ul>
+        <li>The passenger is not in the car.</li>
+        <li>The car is at floor <b>f</b>.</li>
+        <li>At least one Door[<b>b</b>,<b>r</b>] is open.</li>
+      </ul>
       <h3> Sequence Diagram: </h3>
-      <p> <a href="proj2_scenario4.gif"><br>
-        </a> </p>
+      <p> <a href="sd4a.png"><img src="sd4a.png"></p>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <p> &nbsp; </p>
@@ -293,7 +303,7 @@
       <h3> <a name="scenario5a" id="scenario5a"></a>Scenario 5A:
         Passenger attempts to enter the car as the doors begin to close.
       </h3>
-      <h3> Author name: Example Solutions </h3>
+      <h3> Author name: Rajeev Sharma </h3>
       <h3> Pre-Conditions: </h3>
       <ul type="disc">
         <li>Passenger is outside the car. </li>
@@ -302,16 +312,27 @@
         <li>At least one door[<b>b</b>,<b>r</b>] is open. </li>
       </ul>
       <h3> Scenario: </h3>
+      <ul type="disc">
+        <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
+        <li>The passenger attempts to enter and is nudged by Door[<b>b</b>,<b>r</b>], triggering the door reversal sensors.</li>
+        <li>A door reversal occurs for Door[<b>b</b>,<b>r</b>].</li>
+        <li>The passenger enters the car.
+      </ul>
       <h3> Post-Conditions: </h3>
+      <ul type="disc">
+        <li>Passenger is inside the car. </li>
+        <li>Car is stopped at passenger's floor <b>f</b> and hallway <b>b</b>.
+        </li>
+        <li>At least one door[<b>b</b>,<b>r</b>] is open. </li>
+      </ul>
       <h3> Sequence Diagram: </h3>
-      <p> <a href="proj2_scenario5a.gif"><br>
-        </a> </p>
+      <p> <a href="sd5a.png"><img src="sd5a.png"></a></p>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <h3> <a name="scenario5b" id="scenario5b"></a>Scenario 5B:
         Passenger attempts to exit the car as the doors begin to close.
       </h3>
-      <h3> Author name: Example Solutions </h3>
+      <h3> Author name: Rajeev Sharma </h3>
       <h3> Pre-Conditions: </h3>
       <ul type="disc">
         <li>Passenger is inside the car. </li>
@@ -320,10 +341,19 @@
         <li>At least one door[<b>b</b>,<b>r</b>] is open. </li>
       </ul>
       <h3> Scenario: </h3>
+      <ul type="disc">
+        <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
+        <li>The passenger attempts to exit and is nudged by Door[<b>b</b>,<b>r</b>], triggering the door reversal sensors.</li>
+        <li>A door reversal occurs for Door[<b>b</b>,<b>r</b>].</li>
+        <li>The passenger exits the car.
+      </ul>
       <h3> Post-Conditions: </h3>
+      <li>Passenger is no longer inside the car. </li>
+        <li>Car is stopped at floor <b>f</b> and hallway <b>b</b>.
+        </li>
+        <li>At least one door[<b>b</b>,<b>r</b>] is open. </li>
       <h3> Sequence Diagram: </h3>
-      <p> <a href="proj2_scenario5b.gif"><br>
-        </a> </p>
+      <p> <a href="sd5b.png"><img src="sd5b.png"></a></p>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <p> &nbsp; </p>
