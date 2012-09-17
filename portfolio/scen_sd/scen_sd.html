@@ -287,12 +287,12 @@
         <li>All doors are closed. </li>
       </ul>
       <h3> Scenario: </h3>
-      <ul type="disc">
+      <ol>
         <li>The car arrives at floor <b>f</b>.</li>
         <li>Door[<b>b</b>,<b>r</b>] starts to open.</li>
         <li>Door[<b>b</b>,<b>r</b>] finishes opening.</li>
         <li>The passenger exits the car.</li>
-      </ul>
+      </ol>
       <h3> Post-Conditions: </h3>
       <ul>
         <li>The passenger is not in the car.</li>
@@ -322,12 +322,12 @@
         <li>At least one door[<b>b</b>,<b>r</b>] is open. </li>
       </ul>
       <h3> Scenario: </h3>
-      <ul type="disc">
+      <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to enter and is nudged by Door[<b>b</b>,<b>r</b>], triggering the door reversal sensors.</li>
         <li>A door reversal occurs for Door[<b>b</b>,<b>r</b>].</li>
         <li>The passenger enters the car.
-      </ul>
+      </ol>
       <h3> Post-Conditions: </h3>
       <ul type="disc">
         <li>Passenger is inside the car. </li>
@@ -355,12 +355,12 @@
         <li>At least one door[<b>b</b>,<b>r</b>] is open. </li>
       </ul>
       <h3> Scenario: </h3>
-      <ul type="disc">
+      <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to exit and is nudged by Door[<b>b</b>,<b>r</b>], triggering the door reversal sensors.</li>
         <li>A door reversal occurs for Door[<b>b</b>,<b>r</b>].</li>
         <li>The passenger exits the car.
-      </ul>
+      </ol>
       <h3> Post-Conditions: </h3>
       <li>Passenger is no longer inside the car. </li>
         <li>Car is stopped at floor <b>f</b> and hallway <b>b</b>.
@@ -577,7 +577,7 @@
       </ul>
       <h3> Scenario: </h3>
 	  <ol>
-        <li>Door[<b>b,<b>*] </b>starts to open.</li>
+        <li>Door[<b>b,<b>*] starts to open.</li>
         <li>Dispatcher computes next desired floor.<br>
 		<li>Passenger arrives and enters car.</li>
 		<li>Passenger realizes that his/her desired floor is
@@ -590,7 +590,7 @@
 		<li> Passenger is in car. </li>
 		<li> DoorControl has been notified of desired floor </li>
       <h3> Sequence Diagram: </h3>
-	  <p> <a href="sd8a.png"><img src="sd8a.png"></a></p>
+	  <p> <a href="sd9a.png"><img src="sd9a.png"></a></p>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <p> &nbsp; </p>
