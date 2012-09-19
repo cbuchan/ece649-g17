@@ -231,9 +231,6 @@
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <p> &nbsp; </p>
-	  
-	  
-	  
       <h2> <a name="usecase3" id="usecase3"></a>Use Case 3: Passenger
         Enters Elevator </h2>
       <h3> Scenario 3A: Passenger is waiting at a hallway for the
@@ -271,9 +268,6 @@
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <p> &nbsp; </p>
-	  
-	  
-	  
       <h2> <a name="usecase4" id="usecase4"></a>Use Case 4: Passenger
         Exits Elevator </h2>
       <h3> Scenario 4A: Passenger is in the elevator as it arrives at
@@ -300,16 +294,15 @@
         <li>At least one Door[<b>b</b>,<b>r</b>] is open.</li>
       </ul>
       <h3> Sequence Diagram: </h3>
-      <p> <a href="sd4a.png"><img src="sd4a.png"></p>
-      <div align="center">
-        <hr align="center" size="2" width="100%"> </div>
-      <p> &nbsp; </p>
-	  
-	  
-	  
-	  
-      <h2> <a name="usecase5" id="usecase5"></a>Use Case 5: Passenger
-        Triggers Door Reversal </h2>
+      <p> <a href="sd4a.png"><img src="sd4a.png"></a></p>
+      <a href="sd4a.png">
+        <div align="center">
+          <hr align="center" size="2" width="100%"> </div>
+        <p> &nbsp; </p>
+      </a>
+      <h2><a href="sd4a.png"> </a><a name="usecase5" id="usecase5"></a>Use
+
+        Case 5: Passenger Triggers Door Reversal </h2>
       <h3> <a name="scenario5a" id="scenario5a"></a>Scenario 5A:
         Passenger attempts to enter the car as the doors begin to close.
       </h3>
@@ -324,9 +317,11 @@
       <h3> Scenario: </h3>
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
-        <li>The passenger attempts to enter and is nudged by Door[<b>b</b>,<b>r</b>], triggering the door reversal sensors.</li>
+        <li>The passenger attempts to enter and is nudged by Door[<b>b</b>,<b>r</b>],
+
+          triggering the door reversal sensors.</li>
         <li>A door reversal occurs for Door[<b>b</b>,<b>r</b>].</li>
-        <li>The passenger enters the car.
+        <li>The passenger enters the car. </li>
       </ol>
       <h3> Post-Conditions: </h3>
       <ul type="disc">
@@ -339,10 +334,6 @@
       <p> <a href="sd5a.png"><img src="sd5a.png"></a></p>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
-		
-		
-		
-		
       <h3> <a name="scenario5b" id="scenario5b"></a>Scenario 5B:
         Passenger attempts to exit the car as the doors begin to close.
       </h3>
@@ -357,26 +348,21 @@
       <h3> Scenario: </h3>
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
-        <li>The passenger attempts to exit and is nudged by Door[<b>b</b>,<b>r</b>], triggering the door reversal sensors.</li>
+        <li>The passenger attempts to exit and is nudged by Door[<b>b</b>,<b>r</b>],
+
+          triggering the door reversal sensors.</li>
         <li>A door reversal occurs for Door[<b>b</b>,<b>r</b>].</li>
-        <li>The passenger exits the car.
+        <li>The passenger exits the car. </li>
       </ol>
       <h3> Post-Conditions: </h3>
       <li>Passenger is no longer inside the car. </li>
-        <li>Car is stopped at floor <b>f</b> and hallway <b>b</b>.
-        </li>
-        <li>At least one door[<b>b</b>,<b>r</b>] is open. </li>
+      <li>Car is stopped at floor <b>f</b> and hallway <b>b</b>. </li>
+      <li>At least one door[<b>b</b>,<b>r</b>] is open. </li>
       <h3> Sequence Diagram: </h3>
       <p> <a href="sd5b.png"><img src="sd5b.png"></a></p>
       <div align="center">
         <hr align="center" size="2" width="200%"> </div>
       <p> &nbsp; </p>
-	  
-	  
-	  
-	  
-	  
-	  
       <h2> <a name="usecase6" id="usecase6"></a>Use Case 6: Determine
         Car Position </h2>
       <h3> Scenario 6A: Car moves from hallway f on floor x to adjacent
@@ -397,30 +383,26 @@
         <li>Car is moving in hoistway. </li>
       </ul>
       <h3> Scenario: </h3>
-	  <ol>
-		<li>There are no CarCalls or HallCalls. 
-		<li>AtFloor[<b>x,f</b>] is set to FALSE as it passes hallway [x,f].</li>
+      <ol>
+        <li>There are no CarCalls or HallCalls. </li>
+        <li>AtFloor[<b>x,f</b>] is set to FALSE as it passes hallway
+          [x,f].</li>
         <li>AtFloor[<b>y,g</b>] is set to TRUE.</li>
         <li>Car levels to prepare for stop</li>
         <li>Car stops to more quickly service future HallCall</li>
       </ol>
       <h3> Post-Conditions: </h3>
-		<li>There are no passengers in the car. </li>
-        <li>Car is stopped and ready for departure. </li>
-        <li>All doors are closed.</li>
-		<li>All HallLights are off.</li>
-		<li>All CarLights are off.</li>
-		<li>Both CarLanterns are off.</li>
+      <li>There are no passengers in the car. </li>
+      <li>Car is stopped and ready for departure. </li>
+      <li>All doors are closed.</li>
+      <li>All HallLights are off.</li>
+      <li>All CarLights are off.</li>
+      <li>Both CarLanterns are off.</li>
       <h3> Sequence Diagram: </h3>
       <p> <a href="sd6a.png"><img src="sd6a.png"></a></p>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <p> &nbsp; </p>
-	  
-	  
-	  
-	  
-	  
       <h2> <a name="usecase7" id="usecase7"></a>Use Case 7: Determine
         Car Direction </h2>
       <h3> <a name="scenario7a" id="scenario7a"></a>Scenario 7A:
@@ -439,11 +421,11 @@
       <h3> Scenario: </h3>
       <ol>
         <li>Door[<b>b,r</b>] starts opening.</li>
-        <li>Doors finish opening.</li>
         <li>CarLantern for direction <b>d</b> lights up.</li>
         <li>HallLight[<b>f,b,d]</b> turns off. </li>
         <li>Passenger arrives at hallway [<b>f,b]</b> and observes the
           direction of car is <b>d</b>.</li>
+        <li>Doors finish opening.</li>
       </ol>
       <h3> Post-Conditions: </h3>
       <ul>
@@ -475,17 +457,19 @@
       <h3> Scenario: </h3>
       <ol>
         <li>Door[<b>b,*</b>] starts opening.</li>
-        <li>Doors finish opening.</li>
+        <li>CarLanterns are commanded to be off.<br>
+        </li>
         <li>Hall button light [<b>f,b,d]</b> turns off. </li>
         <li>Passenger arrives at hallway [<b>f,b]</b> and observes that
           the car has no intended direction.</li>
+        <li>Doors finish opening.</li>
       </ol>
       <h3> Post-Conditions: </h3>
       <ul>
         <li>Elevator is at passenger's floor.</li>
         <li>Door[<b>b,*]</b> is open.</li>
-        <li>Both Car Lanterns are off (CarLantern[*] is off).</li>
-        <li>Both Hall Lanterns are off.<br>
+        <li>Both Car Lanterns are off.</li>
+        <li>HallLight[f,b,d] is off.<br>
         </li>
       </ul>
       <h3> Sequence Diagram: </h3>
@@ -518,16 +502,11 @@
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <p> &nbsp; </p>
-	  
-	  
-	  
-	  
-	  
       <h2> <a name="usecase8" id="usecase8"></a>Use Case 8: Move Car to
         Next Floor </h2>
       <h3> Scenario 8A: Elevator moves from {floor f, hallway b} to
         {floor g, hallway c} in direction d. </h3>
-	  <h3> Author name: Jesse Salazar (jessesal)<br>
+      <h3> Author name: Jesse Salazar (jessesal)<br>
       </h3>
       <p> Note: You will want to create other scenarios that involve
         fast speed for your elevator, but this is a starting point. </p>
@@ -538,33 +517,31 @@
         <li>Drive is stopped. </li>
       </ul>
       <h3> Scenario: </h3>
-	  <ol>
+      <ol>
         <li>Door[<b>b,r] </b>starts to close.</li>
         <li>Doors finish closing.<br>
-		<li>Car begins moving toward hallway[g,c].</li>
-		<li>AtFloor[<b>g,c</b>] is set to TRUE. </li>
-		<li>Car stops at hallway[g,c].</li>
+        </li>
+        <li>Car begins moving toward hallway[g,c].</li>
+        <li>AtFloor[<b>g,c</b>] is set to TRUE. </li>
+        <li>Car stops at hallway[g,c].</li>
       </ol>
       <h3> Post-Conditions: </h3>
-	  <ul>
+      <ul>
         <li>Doors are closed.<br>
-		<li>Car is stopped at hallway[g,c]</li>
+        </li>
+        <li>Car is stopped at hallway[g,c]</li>
       </ul>
       <h3> Sequence Diagram: </h3>
       <p> <a href="sd8a.png"><img src="sd8a.png"></a></p>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <p> &nbsp; </p>
-	  
-	  
-	  
-	  
       <h2> <a name="usecase9" id="usecase9"></a>Use Case 9: Cycle Doors
       </h2>
       <h3> Scenario 9A: Elevator stops at hallway and doors open.
         Dispatcher computes next desired floor just as doors open. Doors
         close. </h3>
-	  <h3> Author name: Jesse Salazar (jessesal)<br>
+      <h3> Author name: Jesse Salazar (jessesal)<br>
       </h3>
       <p> Note: This dispatcher is really dumb and stops at every floor,
         in order. It would be much better to stop only at floors with
@@ -576,25 +553,31 @@
         <li>All doors are closed. </li>
       </ul>
       <h3> Scenario: </h3>
-	  <ol>
-        <li>Door[<b>b,<b>*] starts to open.</li>
-        <li>Dispatcher computes next desired floor.<br>
-		<li>Passenger arrives and enters car.</li>
-		<li>Passenger realizes that his/her desired floor is
-		alread selected. </li>
-		<li>Doors[<b>b,<b>*] close.</li>
+      <ol>
+        <li>Door[<b>b,<b>*] starts to open.</b></b></li>
+        <b><b>
+            <li>Dispatcher computes next desired floor.<br>
+            </li>
+            <li>Passenger arrives and enters car.</li>
+            <li>Passenger realizes that his/her desired floor is alread
+              selected. </li>
+            <li>Doors[<b>b,<b>*] close.</b></b></li>
+            <b><b> </b></b></b></b>
       </ol>
-      <h3> Post-Conditions: </h3>
-	  <ul>
-		<li> Doors are closed </li>
-		<li> Passenger is in car. </li>
-		<li> DoorControl has been notified of desired floor </li>
-      <h3> Sequence Diagram: </h3>
-	  <p> <a href="sd9a.png"><img src="sd9a.png"></a></p>
-      <div align="center">
-        <hr align="center" size="2" width="100%"> </div>
-      <p> &nbsp; </p>
-      <br>
-    </div>
+      <b><b><b>
+            <h3> Post-Conditions: </h3>
+            <ul>
+              <li> Doors are closed </li>
+              <li> Passenger is in car. </li>
+              <li> DoorControl has been notified of desired floor </li>
+              <h3> Sequence Diagram: </h3>
+              <p> <a href="sd9a.png"><img src="sd9a.png"></a></p>
+              <div align="center">
+                <hr align="center" size="2" width="100%"> </div>
+              <p> &nbsp; </p>
+              <br>
+            </ul>
+          </b></b></b></div>
+    <b><b><b> </b></b></b>
   </body>
 </html>
