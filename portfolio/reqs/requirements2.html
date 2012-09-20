@@ -1148,6 +1148,11 @@
     doors
     shall open completely until the car is no longer overloaded.
     <h3> TIME-TRIGGERED BEHAVIORS: </h3>
+	6.6 &nbsp;&nbsp; If any mAtFloor[f,b] is True, then Drive[s,d] should be
+	set to (Level,d).
+	
+	
+	
     5.6 &nbsp;&nbsp; If any mAtFloor[f, b] is True and f equals
     mDesiredFloor.f, and mDriveSpeed = (0, d) or mDriveSpeed = (s, Stop)
     then: <br>
@@ -1169,6 +1174,20 @@
     mDesiredDwell[b].<br>
     5.12 mDoorMotor[b,r] shall be set to the current value of
     DoorMotor[b,r]<br>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
     <h2><a name="drivecontrol"></a> 6. DriveControl </h2>
     <h3> Replication: </h3>
     <ul>
@@ -1438,7 +1457,37 @@
     longer
     overloaded.
     <h3> EVENT-TRIGGERED BEHAVIORS: </h3>
+	5.6 &nbsp;&nbsp; If any mAtFloor[f, b] is True and f equals
+    mDesiredFloor.f, and mDriveSpeed = (0, d) or mDriveSpeed = (s, Stop)
+    then: <br>
+    &nbsp;&nbsp;&nbsp; 5.6.1&nbsp; DoorMotor[b, r] shall be commanded to
+    Open; <br>
+    &nbsp;&nbsp;&nbsp; 5.6.2&nbsp; CountDown shall be set to Dwell.<br>
+    5.7 &nbsp;&nbsp; If mDoorOpened[b, r] is True, then<br>
+    &nbsp;&nbsp;&nbsp; 5.7.1&nbsp; DoorMotor[b,r] shall be commanded to
+    Stop.<br>
+    &nbsp;&nbsp;&nbsp; 5.7.2&nbsp; CountDown shall be decremented.<br>
+    5.8&nbsp; If mDoorClosed[b, r] is True, then DoorMotor[b,r] should
+    be
+    commanded to Stop.<br>
+    5.9&nbsp; When CountDown &lt;= 0, DoorMotor[b,r] should be commanded
+    to Nudge.<br>
+    5.10 If mCarWeight(g) &gt;= MaxCarCapacity, and mDoorOpened[b, r] is
+    False, DoorMotor[b, r] shall be commanded to Open.<br>
+    5.11 Dwell shall be set to an appropriate value based on
+    mDesiredDwell[b].<br>
+    5.12 mDoorMotor[b,r] shall be set to the current value of
+    DoorMotor[b,r]<br>
     <br>
+	
+	
+	
+	
+	
+	
+	
+	
+	
     <h2><a name="lanterncontrol"></a> 7. LanternControl[d] </h2>
     <h3> Replication: </h3>
     <ul>
