@@ -1534,18 +1534,12 @@
     <h3> CONSTRAINTS: </h3>
     None
     <h3> EVENT-TRIGGERED BEHAVIORS: </h3>
-		<ul>
-			<li>8.1 HallCall[f,b,d]=true shall result in 
-				<ul><li>8.1.1 HallLight[f,b,d]=on and</li>
-				<li>8.2.2 mHallCall[f,b,d]=true.</li></ul>
-			</li>
-
-			<li>8.2 mDoorClosed[b,r]=false with mAtFloor[f,b]=True and mDesiredFloor=[f,b,d] shall result in 
-				<ul><li>8.2.1 HallLight[f,b,d]=off and </li>
-				<li>8.2.2 mHallCall[f,b,d]=false. </li></ul>
-			</li>
-		</ul>
-
+		8.1 If HallCall[f,b,d]=Pressed <br>
+		&nbsp;&nbsp; 8.1.1 HallLight[f,b,d] shall be set to On.<br>
+		8.2 If mDoorClosed[b,r]=false with mAtFloor[f,b]=True and mDesiredFloor=[f,b,d] <br>
+		&nbsp;&nbsp; 8.2.1 HallLight[f,b,d] shall be set to Off.<br>
+		8.3 mHallCall[f,b,d] shall be set to the current value of HallCall[f,b,d]<br>
+		8.4 mHallLight[f,b,d] shall be set to the current value of HallLight[f,b,d]
     <br>
     <h2><a name="carbuttoncontrol"></a> 9. CarButtonControl[f, b] </h2>
     <h3> Replication: </h3>
