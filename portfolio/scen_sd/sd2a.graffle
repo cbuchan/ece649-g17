@@ -50,6 +50,51 @@
 	<key>GraphicsList</key>
 	<array>
 		<dict>
+			<key>Class</key>
+			<string>LineGraphic</string>
+			<key>Head</key>
+			<dict>
+				<key>ID</key>
+				<integer>35</integer>
+				<key>Position</key>
+				<real>0.31532001495361328</real>
+			</dict>
+			<key>ID</key>
+			<integer>90</integer>
+			<key>Layer</key>
+			<integer>0</integer>
+			<key>OrthogonalBarAutomatic</key>
+			<true/>
+			<key>OrthogonalBarPoint</key>
+			<string>{0, 0}</string>
+			<key>OrthogonalBarPosition</key>
+			<real>-1</real>
+			<key>Points</key>
+			<array>
+				<string>{493.92841, 82.677155}</string>
+				<string>{132.13322, 82.677162}</string>
+			</array>
+			<key>Style</key>
+			<dict>
+				<key>stroke</key>
+				<dict>
+					<key>HeadArrow</key>
+					<string>FilledArrow</string>
+					<key>LineType</key>
+					<integer>2</integer>
+					<key>TailArrow</key>
+					<string>0</string>
+				</dict>
+			</dict>
+			<key>Tail</key>
+			<dict>
+				<key>ID</key>
+				<integer>44</integer>
+				<key>Position</key>
+				<real>0.31531995534896851</real>
+			</dict>
+		</dict>
+		<dict>
 			<key>Bounds</key>
 			<string>{{136.14169, 151.35432}, {130, 14}}</string>
 			<key>Class</key>
@@ -323,7 +368,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{185.19293, 67.803154}, {145, 14}}</string>
+			<string>{{161.11345, 66.141731}, {120, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -334,6 +379,15 @@
 			<integer>80</integer>
 			<key>Layer</key>
 			<integer>0</integer>
+			<key>Line</key>
+			<dict>
+				<key>ID</key>
+				<integer>38</integer>
+				<key>Position</key>
+				<real>0.26231628656387329</real>
+				<key>RotationType</key>
+				<integer>0</integer>
+			</dict>
 			<key>Shape</key>
 			<string>Rectangle</string>
 			<key>Style</key>
@@ -364,7 +418,7 @@
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\f0\fs24 \cf0 1c. mDoorMotor[b,r]=Close}</string>
+\f0\fs24 \cf0 1c. mCarCall[g,c]=true}</string>
 				<key>VerticalPad</key>
 				<integer>0</integer>
 			</dict>
@@ -664,51 +718,6 @@
 				<integer>35</integer>
 				<key>Position</key>
 				<real>0.48601758480072021</real>
-			</dict>
-		</dict>
-		<dict>
-			<key>Class</key>
-			<string>LineGraphic</string>
-			<key>Head</key>
-			<dict>
-				<key>ID</key>
-				<integer>35</integer>
-				<key>Position</key>
-				<real>0.31532001495361328</real>
-			</dict>
-			<key>ID</key>
-			<integer>64</integer>
-			<key>Layer</key>
-			<integer>0</integer>
-			<key>OrthogonalBarAutomatic</key>
-			<true/>
-			<key>OrthogonalBarPoint</key>
-			<string>{0, 0}</string>
-			<key>OrthogonalBarPosition</key>
-			<real>-1</real>
-			<key>Points</key>
-			<array>
-				<string>{493.92841, 82.677155}</string>
-				<string>{132.13322, 82.677162}</string>
-			</array>
-			<key>Style</key>
-			<dict>
-				<key>stroke</key>
-				<dict>
-					<key>HeadArrow</key>
-					<string>FilledArrow</string>
-					<key>LineType</key>
-					<integer>2</integer>
-					<key>TailArrow</key>
-					<string>0</string>
-				</dict>
-			</dict>
-			<key>Tail</key>
-			<dict>
-				<key>ID</key>
-				<integer>44</integer>
-				<key>Position</key>
-				<real>0.31531995534896851</real>
 			</dict>
 		</dict>
 		<dict>
@@ -1623,7 +1632,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2012-09-16 20:29:25 +0000</string>
+	<string>2012-09-20 18:30:32 +0000</string>
 	<key>Modifier</key>
 	<string>Jessica Tiu</string>
 	<key>NotesVisible</key>
