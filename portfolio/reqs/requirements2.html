@@ -1023,13 +1023,18 @@
     5.8&nbsp; If mDoorClosed[b, r] is True, then DoorMotor[b,r] should
     be commanded to Stop.<br>
     5.9&nbsp; When CountDown &lt;= 0, DoorMotor[b,r] should be commanded
-    to Nudge.<br>
+    to Close.<br>
     5.10 If mCarWeight(g) &gt;= MaxCarCapacity, and mDoorOpened[b, r] is
     False, DoorMotor[b, r] shall be commanded to Open.<br>
     5.11 Dwell shall be set to an appropriate value based on
     mDesiredDwell[b].<br>
     5.12 mDoorMotor[b,r] shall be set to the current value of
     DoorMotor[b,r]<br>
+    5.13 If mDoorReversal=true, and mDoorOpened[b,r] is False,
+    DoorMotor[b,r] shall be commanded to Open.<br>
+    5.14 If mCarCall[g,c] is received and any mAtFloor[f,b] is True such
+    that f equals g, then DoorMotor[b,r] shall be commanded to Open.<br>
+    <br>
     <h2><a name="drivecontrol"></a> 6. DriveControl </h2>
     <h3> Replication: </h3>
     <ul>
