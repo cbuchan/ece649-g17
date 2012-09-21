@@ -2413,7 +2413,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2012-09-21 20:14:18 +0000</string>
+	<string>2012-09-21 21:19:37 +0000</string>
 	<key>Modifier</key>
 	<string>Collin Buchan</string>
 	<key>NotesVisible</key>
@@ -2513,7 +2513,7 @@
 		<key>SidebarWidth</key>
 		<integer>120</integer>
 		<key>VisibleRegion</key>
-		<string>{{192.91338872404006, 4.7244095197724096}, {618.11024550355694, 500.0000075092467}}</string>
+		<string>{{192.12598713741133, 4.7244095197724096}, {618.11024550355694, 500.0000075092467}}</string>
 		<key>Zoom</key>
 		<real>1.2699999809265137</real>
 		<key>ZoomValues</key>

@@ -1282,11 +1282,8 @@
     <h3> EVENT-TRIGGERED BEHAVIORS: </h3>
     6.6 &nbsp;&nbsp; If any mAtFloor[f,b] is True, then Drive[s,d] shall
     be set to (Level,d).<br>
-    6.7 &nbsp;&nbsp; If mLevel[*] is True, then: <br>
-    &nbsp;&nbsp;&nbsp; 6.7.1 &nbsp; Drive[s,d] shall be commanded to
-    (Stop,d) or (Stop,Stop); <br>
-    &nbsp;&nbsp;&nbsp; 6.7.2 &nbsp; mDoorMotor[b,*] shall be commanded
-    to Open. <br>
+    6.7 &nbsp;&nbsp; If mLevel[*] = True, then Drive[s,d] shall be
+    commanded to (Stop,d) or (Stop,Stop).<br>
     6.8 &nbsp;&nbsp; If mDoorClosed[b,r] is True, and
     mDesiredDirection.d is not Stop, then Drive[s,d] shall be commanded
     to (Slow,d).<br>
