@@ -435,34 +435,35 @@
           </td>
           <td valign="top">cbuchan<br>
           </td>
-          <td valign="top">C6.2<br>
+          <td valign="top">BR5.12<br>
           </td>
-          <td valign="top">Constraint traces to requirement BR5.12,
-            which did not trace to any sequence diagram arc. <br>
+          <td valign="top">BR5.12 did not trace to any arc. <br>
           </td>
-          <td valign="top">Put DoorMotor[b,r]=Open before
-            Drive[s,d]=(Stop,d), and added mDoorMotor[b,r] after
-            DoorMotor[b,r] command.<br>
-          </td>
+          <td valign="top">Added an mDoorMotor command after
+            DoorMotor=Open. Also added an mDriveSpeed message to satisfy
+            BR5.6 </td>
           <td valign="top">SD4A, sd_req_traceability.xls<br>
           </td>
         </tr>
         <tr>
-          <td valign="top"><br>
+          <td valign="top">20<br>
           </td>
-          <td valign="top"><br>
+          <td valign="top">9/21/2012<br>
           </td>
-          <td valign="top"><br>
+          <td valign="top">9/21/2012<br>
           </td>
-          <td valign="top"><br>
+          <td valign="top">jessesal<br>
           </td>
-          <td valign="top"><br>
+          <td valign="top">SD9A<br>
           </td>
-          <td valign="top"><br>
+          <td valign="top">mDoorMotorCommand is defined in
+            requirements1, but not requirements2 (needs to be changed to
+            DoorMotor[b,*]; Dwell is never set<br>
           </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top"><br>
+          <td valign="top">Changed mDoorMotorCommand to DoorMotr; Set
+            mDesiredDwell after mDesiredFloor message (arc 3);</td>
+          <td valign="top">SD9A,<br>
+            sd_req_traceability.xls<br>
           </td>
         </tr>
       </tbody>
