@@ -266,10 +266,6 @@
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <p> &nbsp; </p>
-	  
-	  
-	  
-	  
       <h2> <a name="usecase4" id="usecase4"></a>Use Case 4: Passenger
         Exits Elevator </h2>
       <h3> Scenario 4A: Passenger is in the elevator as it arrives at
@@ -285,6 +281,11 @@
       <h3> Scenario: </h3>
       <ol>
         <li>The car arrives at floor <b>f</b>.</li>
+        <li>DriveControl sets drive speed to <b>Level</b> and Car
+          reaches a level state.<br>
+        </li>
+        <li>DriveControl sets drive speed to <b>Stop</b>.<br>
+        </li>
         <li>Door[<b>b</b>,<b>r</b>] starts to open.</li>
         <li>Door[<b>b</b>,<b>r</b>] finishes opening.</li>
         <li>The passenger exits the car.</li>
@@ -305,6 +306,11 @@
       <h2><a href="sd4a.png"> </a><a name="usecase5" id="usecase5"></a>Use
 
 
+
+
+
+
+
         Case 5: Passenger Triggers Door Reversal </h2>
       <h3> <a name="scenario5a" id="scenario5a"></a>Scenario 5A:
         Passenger attempts to enter the car as the doors begin to close.
@@ -321,6 +327,11 @@
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to enter and is nudged by Door[<b>b</b>,<b>r</b>],
+
+
+
+
+
 
 
           triggering the door reversal sensors.</li>
@@ -353,6 +364,11 @@
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to exit and is nudged by Door[<b>b</b>,<b>r</b>],
+
+
+
+
+
 
 
           triggering the door reversal sensors.</li>
@@ -408,8 +424,6 @@
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <p> &nbsp; </p>
-	  
-	  
       <h2> <a name="usecase7" id="usecase7"></a>Use Case 7: Determine
         Car Direction </h2>
       <h3> <a name="scenario7a" id="scenario7a"></a>Scenario 7A:
@@ -562,26 +576,69 @@
       <h3> Scenario: </h3>
       <ol>
         <li>Door[<b>b</b>,<b>*</b>] starts to open.</li>
-            <li>Dispatcher computes next desired floor.<br>
-            </li>
-            <li>Passenger arrives and enters car.</li>
-            <li>Passenger realizes that his/her desired floor is alread
-              selected. </li>
-            <li>Doors[<b>b</b>,<b>*</b>] close.</li>
+        <li>Dispatcher computes next desired floor.</li>
+        <li>Dispatcher computes desired dwell.<br>
+        </li>
+        <li>CarLantern[d] turns on after new direction is computed.</li>
+        <li>Door[<b>b,*]</b> finishes opening.<br>
+        </li>
+        <li>Passenger arrives and enters car.</li>
+        <li>Passenger realizes that his/her desired floor is already
+          selected. </li>
+        <li>Doors[<b>b</b>,<b>*</b>] close after countdown expires.</li>
       </ol>
-            <h3> Post-Conditions: </h3>
-            <ul>
-              <li> Doors are closed </li>
-              <li> Passenger is in car. </li>
-              <li> DoorControl has been notified of desired floor </li>
-              <h3> Sequence Diagram: </h3>
-              <p> <a href="sd9a.png"><img src="sd9a.png"></a></p>
-              <div align="center">
-                <hr align="center" size="2" width="100%"> </div>
-              <p> &nbsp; </p>
-              <br>
-            </ul>
-          </b></b></b></div>
-    <b><b><b> </b></b></b>
+      <h3> Post-Conditions: </h3>
+      <ul>
+        <li> Doors are closed </li>
+        <li> Passenger is in car. </li>
+        <li> DoorControl has been notified of desired floor </li>
+        <h3> Sequence Diagram: </h3>
+        <p> <a href="sd9a.png"><img src="sd9a.png"></a></p>
+        <div align="center">
+          <hr align="center" size="2" width="100%"> </div>
+        <p>&nbsp; <br>
+        </p>
+      </ul>
+      <h2> <a name="usecase8" id="usecase8"></a>Use Case 10: Passenger
+        Triggers Overweight Sensor<br>
+      </h2>
+      <h3> Scenario 10A: Elevator moves from {floor f, hallway b} to
+        {floor g, hallway c} in direction d. </h3>
+      <h3> Author name: Collin Buchan (cbuchan)<br>
+      </h3>
+      <h3> Pre-Conditions: </h3>
+      <ul type="disc">
+        <li>Elevator is at floor <b>f</b>, with at least one Door[<b>b</b>,<b>r</b>]
+          open. </li>
+        <li>mCarWeight(g) is less than MaxCarCapacity, but mCarWeight(g)
+          plus 150 (weight of one passenger) &gt;= MaxCarCapacity<br>
+        </li>
+      </ul>
+      <h3> Scenario: </h3>
+      <ol>
+        <li>Passenger enters car.<br>
+        </li>
+        <li>mCarWeight exceeds or is equal to MaxCarCapacity.<br>
+        </li>
+        <li>Doors are commanded to open.<br>
+        </li>
+        <li>CarWeightAlarm sounds.</li>
+      </ol>
+      <h3> Post-Conditions: </h3>
+      <ul>
+        <li>Doors are open.<br>
+        </li>
+        <li>Passenger is in car.</li>
+        <li>Elevator is at floor <b>f</b>.&nbsp;</li>
+        <li>CarWeightAlarm=true.<br>
+        </li>
+      </ul>
+      <h3> Sequence Diagram: </h3>
+      <img alt="sd10a" src="sd10a.png" height="298" width="660">
+      <div align="center">
+        <hr align="center" size="2" width="100%"> </div>
+      <ul>
+      </ul>
+    </div>
   </body>
 </html>
