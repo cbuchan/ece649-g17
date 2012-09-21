@@ -38,12 +38,11 @@
       <li>Artifact(s) chagned - a list of the artifacts that were
         modified to resolve the issue.&nbsp; This should be a specific
         list, such as "doorcontrol requirements", "SD 1.4A",
-        "DriveControl statechart", "doorcontrol.java"<br>
-      </li>
+        "DriveControl statechart", "doorcontrol.java"</li>
     </ul>
     <br>
-    <table style="text-align: left; width: 100%;" border="1"
-      cellpadding="2" cellspacing="2">
+    <table style="text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="857" width="788">
       <tbody>
         <tr>
           <td style="vertical-align: top;">Issue #<br>
@@ -180,11 +179,251 @@
           </td>
           <td style="vertical-align: top;">SD5A, SD5B<br>
           </td>
-          <td style="vertical-align: top;">Door speed should be close, not nudge<br>
+          <td style="vertical-align: top;">Door speed should be close,
+            not nudge<br>
           </td>
           <td style="vertical-align: top;">Changed nudge ot close<br>
           </td>
           <td style="vertical-align: top;">SD5A, SD5B<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">7<br>
+            <br>
+          </td>
+          <td valign="top">9/20/2012<br>
+          </td>
+          <td valign="top">9/20/2012<br>
+          </td>
+          <td valign="top">jessesal<br>
+          </td>
+          <td valign="top">SD3A,<br>
+            SD4A<br>
+          </td>
+          <td valign="top">DriveControl should level the car before
+            mLevel[*]=True is sent<br>
+          </td>
+          <td valign="top">Added DriveControl command to Level the car
+            after mAtFloor arrives. BR6.6 already in place<br>
+          </td>
+          <td valign="top">SD3A,<br>
+            SD4A<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">8<br>
+          </td>
+          <td valign="top">9/20/2012<br>
+          </td>
+          <td valign="top">9/20/2012<br>
+          </td>
+          <td valign="top">jessesal<br>
+          </td>
+          <td valign="top">SD3A,<br>
+            SD4A<br>
+          </td>
+          <td valign="top">DriveControl should wait for mLevel[*]=True
+            instead of mLevel[d]=True<br>
+          </td>
+          <td valign="top">Changed arc 1d. appropriately<br>
+          </td>
+          <td valign="top">SD3A,<br>
+            SD4A<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">9<br>
+            <br>
+          </td>
+          <td valign="top">9/20/2012<br>
+          </td>
+          <td valign="top">9/20/2012<br>
+          </td>
+          <td valign="top">rdsharma<br>
+          </td>
+          <td valign="top">SD2B<br>
+          </td>
+          <td valign="top">CarCall[f,c] (arc 2a) should be CarCall[f,b]<br>
+          </td>
+          <td valign="top">Changed arc 2a. appropriately<br>
+          </td>
+          <td valign="top">SD2B<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">10<br>
+          </td>
+          <td valign="top">9/20/2012<br>
+          </td>
+          <td valign="top">9/20/2012<br>
+          </td>
+          <td valign="top">jessesal<br>
+          </td>
+          <td valign="top">SD9A<br>
+          </td>
+          <td valign="top">Unnecessary mDesiredFloor message(step 2b),
+            as DriveControl does not utilize it in this case.<br>
+          </td>
+          <td valign="top">Removed unnecessary message, removed
+            DriveControl object, as it is no longer utilized<br>
+          </td>
+          <td valign="top">SD9A<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">11<br>
+          </td>
+          <td valign="top">9/20/2012<br>
+          </td>
+          <td valign="top">9/20/2012<br>
+          </td>
+          <td valign="top">jessesal<br>
+          </td>
+          <td valign="top">SD2B<br>
+          </td>
+          <td valign="top">CarCall[f,b] should be set to False once the
+            doors open again<br>
+          </td>
+          <td valign="top">Added arc 7 to set CarCall[f,b] to False<br>
+          </td>
+          <td valign="top">SD2B<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">12<br>
+          </td>
+          <td valign="top">9/20/2012<br>
+          </td>
+          <td valign="top">9/20/2012<br>
+          </td>
+          <td valign="top">jessesal<br>
+          </td>
+          <td valign="top">SD8A<br>
+          </td>
+          <td valign="top">Numbering is out of order<br>
+          </td>
+          <td valign="top">Fixed numbering on the sequence diagram<br>
+          </td>
+          <td valign="top">SD8A<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">13<br>
+          </td>
+          <td valign="top">9/20/2012<br>
+          </td>
+          <td valign="top">9/20/2012<br>
+          </td>
+          <td valign="top">jessesal<br>
+          </td>
+          <td valign="top">BR5.9<br>
+          </td>
+          <td valign="top">Requirement 5.9 needs to set "Close" instead
+            of "Nudge"<br>
+          </td>
+          <td valign="top">Changed BR5.9 to set mDoorMotor to "Close"<br>
+          </td>
+          <td valign="top">BR5.9<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">14<br>
+          </td>
+          <td valign="top">9/21/2012<br>
+          </td>
+          <td valign="top">9/21/2012<br>
+          </td>
+          <td valign="top">cbuchan<br>
+          </td>
+          <td valign="top">SD2B<br>
+          </td>
+          <td valign="top">Arc 2c and 4 reflect the need for
+            CarButtonControl to send mCarCall[f,b] to DoorControl (and
+            in the future <b>when elevator is NOT dumb</b>, also to
+            Dispatcher)<br>
+          </td>
+          <td valign="top">Added BR5.14, and modified SD2B to send
+            mCarCall[f,b] message upon carCall<br>
+          </td>
+          <td valign="top">SD2B, BR5.14</td>
+        </tr>
+        <tr>
+          <td valign="top">15<br>
+          </td>
+          <td valign="top">9/21/2012<br>
+          </td>
+          <td valign="top">9/21/2012<br>
+          </td>
+          <td valign="top">cbuchan<br>
+          </td>
+          <td valign="top">SD5A<br>
+          </td>
+          <td valign="top">On mDoorReversal, if doors are not open,
+            command doors to open per C5.2. There was no requirement
+            reflecting this. <br>
+          </td>
+          <td valign="top">Added BR5.13 to open the doors if
+            mDoorReversal is True, and doors are NOT opened<br>
+          </td>
+          <td valign="top">BR5.13<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">16<br>
+          </td>
+          <td valign="top">9/21/2012<br>
+          </td>
+          <td valign="top">9/21/2012<br>
+          </td>
+          <td valign="top">rdsharma<br>
+          </td>
+          <td valign="top">SD8A<br>
+          </td>
+          <td valign="top">Arcs 1 and 3 needed color fix (for
+            consistency)<br>
+          </td>
+          <td valign="top">Corrected inconsistent colors<br>
+          </td>
+          <td valign="top">SD8A<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">17<br>
+          </td>
+          <td valign="top">9/21/2012<br>
+          </td>
+          <td valign="top">9/21/2012<br>
+          </td>
+          <td valign="top">cbuchan<br>
+          </td>
+          <td valign="top">BR6.7.2<br>
+          </td>
+          <td valign="top">BR6.7.2 was an erred behavior<br>
+          </td>
+          <td valign="top">BR6.7.2 eliminated<br>
+          </td>
+          <td valign="top">BR6.7.2, <br>
+            sd_req_traceability.xls<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">18<br>
+          </td>
+          <td valign="top">9/21/2012<br>
+          </td>
+          <td valign="top">9/21/2012<br>
+          </td>
+          <td valign="top">cbuchan<br>
+          </td>
+          <td valign="top">SD3A<br>
+          </td>
+          <td valign="top">DriveControl sends mDoorMotor to DoorControl,
+            but mDoorMotor is not an output for DriveControl<br>
+          </td>
+          <td valign="top">mAtFloor is instead sent to both DriveControl
+            and DoorControl<br>
+          </td>
+          <td valign="top">SD3A, sd_req_traceability.xls<br>
           </td>
         </tr>
         <tr>
