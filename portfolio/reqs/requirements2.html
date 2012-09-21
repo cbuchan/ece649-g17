@@ -1636,6 +1636,12 @@
     <h3> CONSTRAINTS: </h3>
     None
     <h3> EVENT-TRIGGERED BEHAVIORS: </h3>
+    8.1 If CarCall[<b>f</b>,<b>b</b>]=True and mDoorOpened[b,r]=False<br>
+    &nbsp;&nbsp; 8.1.1 mCarCall[<b>f</b>,<b>b</b>] shall be set to True.<br>
+    &nbsp;&nbsp; 8.1.2 CarLight[<b>f</b>,<b>b</b>] shall be set to On.<br>
+    8.2 If CarCall[<b>f</b>,<b>b</b>]=True and mDoorOpened[b,r]=True<br>
+    &nbsp;&nbsp; 8.2.1 mCarCall[<b>f</b>,<b>b</b>] shall be set to False.<br>
+    &nbsp;&nbsp; 8.2.2 CarLight[<b>f</b>,<b>b</b>] shall be set to Off.<br>
     <br>
     <h2><a name="carpositioncontrol"></a> 10. CarPositionControl </h2>
     <h3> Replication: </h3>
