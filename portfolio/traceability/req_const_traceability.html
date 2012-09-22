@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
 <html>
   <head>
-
-    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+    <meta http-equiv="content-type" content="text/html;
+      charset=ISO-8859-1">
   </head>
   <body>
     <meta http-equiv="Content-Type" content="text/html;
@@ -26,36 +26,23 @@
         Rajeev Sharma (rdsharma) </div>
       <hr style="width: 100%; height: 2px;"></center>
     <p>This table maintains traceability between the requirements
-      behaviors and
-      the constraints given for each module.<br>
+      behaviors and the constraints given for each module.<br>
     </p>
     <p><u> You must provide a row in this table for every behavioral
         requirement in the elevator control system, Sections 5 through
-        11. This
-        will
-        obviously involve adding rows to the table below.</u> You do not
-      need
-      to create
-      table rows for the environmental objects, Sections 1 through
-      4.&nbsp;
-      There constraints are already given in the columns.<br>
+        11. This will obviously involve adding rows to the table below.</u>
+      You do not need to create table rows for the environmental
+      objects, Sections 1 through 4.&nbsp; There constraints are already
+      given in the columns.<br>
     </p>
     <p>If you modify the given behaviors for the DoorControl,
-      CarPositionControl and
-      Dispatcher, this traceability table
-      should
+      CarPositionControl and Dispatcher, this traceability table should
       reflect what you hand in. So that might involve changing some of
-      the
-      given
-      answers in the table. In other words, we want the table you hand
-      in to
-      reflect
-      <i>your</i> project which will almost certainly involve you
-      changing
-      what we've
-      given below. We've just seeded it with some answers that happen to
-      match the
-      examples we've provided in the assignment to get you going.<br>
+      the given answers in the table. In other words, we want the table
+      you hand in to reflect <i>your</i> project which will almost
+      certainly involve you changing what we've given below. We've just
+      seeded it with some answers that happen to match the examples
+      we've provided in the assignment to get you going.<br>
     </p>
     Be sure to include the name of each team member who did the
     traceability for each object.<br>
@@ -66,24 +53,22 @@
       <tbody>
         <tr>
           <td><u><b>Behavioral Requirements/Constraints</b></u></td>
-          <td style="vertical-align: top;">5.1 Doors closed when not
-            at floor<br>
+          <td style="vertical-align: top;">5.1 Doors closed when not at
+            floor<br>
           </td>
           <td style="vertical-align: top;">5.2 Door reversal -&gt; doors
             open<br>
           </td>
           <td style="vertical-align: top;">5.3 Doors keep moving<br>
           </td>
-          <td style="vertical-align: top;">5.4 Identical commands<br>
+          <td style="vertical-align: top;">5.4 Identical door commands<br>
           </td>
           <td>5.5 Overweight -&gt; doors open<br>
           </td>
         </tr>
         <tr>
           <td style="vertical-align: top;"><span style="font-weight:
-              bold;">DoorControl
-              -
-              Completed by (Jessica Tiu, jtiu)</span><br>
+              bold;">DoorControl - Completed by (Jessica Tiu, jtiu)</span><br>
           </td>
           <td style="vertical-align: top;"><br>
           </td>
@@ -112,8 +97,7 @@
         </tr>
         <tr>
           <td style="vertical-align: top;">5.6.2 At a new floor --&gt;
-            set
-            countdown<br>
+            set countdown<br>
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
@@ -142,8 +126,7 @@
         </tr>
         <tr>
           <td style="vertical-align: top;">5.7.2 door open --&gt;
-            decrement
-            Counter<br>
+            decrement Counter<br>
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
@@ -227,16 +210,46 @@
           </td>
         </tr>
         <tr>
+          <td valign="top">5.13 mDoorReversal =&gt; open doors (if not
+            already open)<br>
+          </td>
+          <td valign="top">~<br>
+          </td>
+          <td valign="top">X<br>
+          </td>
+          <td valign="top">~<br>
+          </td>
+          <td valign="top">~<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">5.14 CarCall received for CurrentFloor =&gt;
+            open the doors<br>
+          </td>
+          <td valign="top">~<br>
+          </td>
+          <td valign="top">~<br>
+          </td>
+          <td valign="top">~<br>
+          </td>
+          <td valign="top">~<br>
+          </td>
+          <td valign="top">~<br>
+          </td>
+        </tr>
+        <tr>
           <td style="vertical-align: top;"> <u><b>Behavioral
                 Requirements/Constraints</b></u></td>
           <td style="vertical-align: top;">6.1 Any door not shut -&gt;
             Stop<br>
           </td>
-          <td style="vertical-align: top;">6.2 Any door set to open -&gt;
-            Stop<br>
+          <td style="vertical-align: top;">6.2 A stop will have occurred
+            whenever doors are commanded to open<br>
           </td>
-          <td style="vertical-align: top;">6.3, 6.3.1 Adjacent
-            value for Drive<br>
+          <td style="vertical-align: top;">6.3, 6.3.1 Adjacent value for
+            Drive<br>
           </td>
           <td style="vertical-align: top;">6.4 EmergencyBrake -&gt; Stop<br>
           </td>
@@ -253,35 +266,35 @@
           </td>
           <td style="vertical-align: top;"><br>
           </td>
+          <td style="vertical-align: top;">**Not required<br>
+          </td>
+          <td style="vertical-align: top;">**Not required<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">6.6 at floor -&gt; set drive
+            to level<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">X<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
           <td style="vertical-align: top;"><br>
           </td>
-          <td style="vertical-align: top;"><br>
-          </td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">6.6 at floor -> set drive to level<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
+          <td style="vertical-align: top;">6.7 car leveled -&gt; drive
+            stop<br>
           </td>
           <td style="vertical-align: top;">X<br>
           </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-
- <td style="vertical-align: top;"><br>
-          </td>
-
-        </tr>
-        <tr>
-          <td style="vertical-align: top;">6.7.1 car leveled -> drive stop<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
+          <td style="vertical-align: top;">X<br>
           </td>
           <td style="vertical-align: top;">X<br>
           </td>
@@ -291,22 +304,9 @@
           </td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">6.7.2 car leveled -> open doors<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">X<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-        </tr>
- 				<tr>
-          <td style="vertical-align: top;">6.8 door closed, has desired dir -> set drive slow
-<br>
+          <td style="vertical-align: top;">6.8 door closed, has desired
+            dir -&gt; set drive slow
+            <br>
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
@@ -319,13 +319,11 @@
           <td style="vertical-align: top;">~<br>
           </td>
         </tr>
-
         <tr>
           <td style="vertical-align: top;"><u><b>Behavioral
                 Requirements/Constraints</b></u></td>
           <td style="vertical-align: top;">7.1 Both lanterns not on at
-            same
-            time<br>
+            same time<br>
           </td>
           <td style="vertical-align: top;"><br>
           </td>
@@ -441,8 +439,7 @@
           <td style="vertical-align: top;">10.1 One position at a time<br>
           </td>
           <td style="vertical-align: top;">10.2 Any doors open -&gt;
-            Display
-            floor<br>
+            Display floor<br>
           </td>
           <td style="vertical-align: top;">10.3 Reflect actual floor,
             direction<br>
