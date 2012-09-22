@@ -311,6 +311,10 @@
 
 
 
+
+
+
+
         Case 5: Passenger Triggers Door Reversal </h2>
       <h3> <a name="scenario5a" id="scenario5a"></a>Scenario 5A:
         Passenger attempts to enter the car as the doors begin to close.
@@ -327,6 +331,10 @@
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to enter and is nudged by Door[<b>b</b>,<b>r</b>],
+
+
+
+
 
 
 
@@ -364,6 +372,10 @@
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to exit and is nudged by Door[<b>b</b>,<b>r</b>],
+
+
+
+
 
 
 
@@ -595,31 +607,60 @@
         <h3> Sequence Diagram: </h3>
         <p> <a href="sd9a.png"><img src="sd9a.png"></a></p>
         <div align="center">
-        <hr align="center" size="2" width="100%"> </div>
-      <h3> <a name="scenario9b" id="scenario9b"></a>Scenario 9B:
-        Elevator is between floors with the doors open
-      </h3>
-      <h3> Author name: Rajeev Sharma (rdsharma)<br>
+          <hr align="center" size="2" width="100%"> </div>
+        <h3> <a name="scenario9b" id="scenario9b"></a>Scenario 9B:
+          Elevator is between floors with the doors open </h3>
+        <h3> Author name: Rajeev Sharma (rdsharma)<br>
+        </h3>
+        <h3> Pre-Conditions: </h3>
+        <ul type="disc">
+          <li>Elevator is between floors (all mAtFloor[f, b] are False)</li>
+          <li>Any mDoorClosed [b, r] is False</li>
+        </ul>
+        <h3> Scenario: </h3>
+        <ol>
+          <li>Desired floor updated to [1, None, d]</li>
+        </ol>
+        <h3> Post-Conditions: </h3>
+        <ul type="disc">
+          <li>mDesiredFloor set</li>
+        </ul>
+        <h3> Sequence Diagram: </h3>
+        <a href="sd9b.png"><img alt="sd9b" src="sd9b.png"></a>
+        <div align="center">
+          <hr align="center" size="2" width="100%"> </div>
+      </ul>
+      <h3> </h3>
+      <h3><a name="scenario9b" id="scenario9b"></a>Scenario 9C: Elevator
+        arrives at a floor with doors on both sides. </h3>
+      <h3> Author name: Collin Buchan (cbuchan)<br>
       </h3>
       <h3> Pre-Conditions: </h3>
       <ul type="disc">
-        <li>Elevator is between floors (all mAtFloor[f, b] are False)</li>
-        <li>Any mDoorClosed [b, r] is False</li>
+        <li>Elevator approaching floor <b>f</b>, with doors closed. </li>
       </ul>
       <h3> Scenario: </h3>
       <ol>
-        <li>Desired floor updated to [1, None, d]</li>
+        <li>Elevator arrives at floor <b>f</b>.</li>
+        <li>Dispatcher notifies DoorControl that Both doors should be
+          opened.</li>
+        <li>Both doors open.<br>
+        </li>
       </ol>
       <h3> Post-Conditions: </h3>
-      <ul type="disc">
-        <li>mDesiredFloor set</li>
+      <ul>
+        <li>Both doors are open.<br>
+        </li>
+        <li>Elevator is at floor <b>f</b>.&nbsp;</li>
       </ul>
       <h3> Sequence Diagram: </h3>
-      <a href="sd9b.png"><img alt="sd9b" src="sd9b.png"></a>
-        <div align="center">
-          <hr align="center" size="2" width="100%"> </div>
-        <p>&nbsp; <br>
-        </p>
+      <img alt="sd9c" src="sd9c.png" height="300" width="500">
+      <div align="center">
+        <hr align="center" size="2" width="100%"> </div>
+      <p><br>
+        <br>
+      </p>
+      <ul>
       </ul>
       <h2> <a name="usecase8" id="usecase8"></a>Use Case 10: Passenger
         Triggers Overweight Sensor<br>
