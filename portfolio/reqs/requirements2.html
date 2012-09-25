@@ -1404,9 +1404,8 @@
     <h3> Replication: </h3>
     <ul>
       <li>There is one CarButtonController per hallway [f, b], with all
-        controllers located in the Car.&nbsp;&nbsp;&nbsp; These accept
-        CarCall button presses as well as control CarLight feedback
-        lights. </li>
+        controllers located in the Car. These accept CarCall button
+        presses as well as control CarLight feedback lights. </li>
     </ul>
     <h3> Instantiation: </h3>
     <ul>
@@ -1443,11 +1442,13 @@
     CarLight[<b>f</b>,<b>b</b>] shall be set to Off.<br>
     ET9.3 mCarCall[<b>f</b>,<b>b</b>] shall always be set to CarCall[<b>f</b>,<b>b</b>].<br>
     <h3>TIME-TRIGGERED BEHAVIORS: </h3>
-    <p>9.1<br>
-      9.2<br>
-      .<br>
-      .<br>
-      .</p>
+    <p>9.1 If CarCall[<b>f</b>,<b>b</b>]=True and
+      mDoorOpened[b,r]=False, CarLight[<b>f</b>,<b>b</b>] shall be set
+      to On.<br>
+      9.2 If CarCall[<b>f</b>,<b>b</b>]=True and mDoorOpened[b,r]=True,
+      CarLight[<b>f</b>,<b>b</b>] shall be set to Off.<br>
+      9.3 mCarCall[<b>f</b>,<b>b</b>] shall always be set to CarCall[<b>f</b>,<b>b</b>].<br>
+    </p>
     <h2><a name="carpositioncontrol"></a> 10. CarPositionControl </h2>
     <h3> Replication: </h3>
     <ul>
