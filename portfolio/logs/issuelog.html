@@ -41,291 +41,223 @@
         "DriveControl statechart", "doorcontrol.java"</li>
     </ul>
     <br>
-    <table style="text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="2260" width="1100">
+    <table border="1" cellpadding="2" cellspacing="2" width="100%">
       <tbody>
         <tr>
-          <td style="vertical-align: top;">Issue #<br>
+          <td valign="top">Issue #</td>
+          <td valign="top">Date Found</td>
+          <td valign="top">Date Fixed<br>
           </td>
-          <td style="vertical-align: top;">Date Found<br>
+          <td valign="top">Change Made By<br>
           </td>
-          <td style="vertical-align: top;">Date Fixed<br>
+          <td valign="top">Origin<br>
           </td>
-          <td style="vertical-align: top;">Change Made By<br>
+          <td valign="top">Description<br>
           </td>
-          <td style="vertical-align: top;">Origin<br>
+          <td valign="top">Resolution<br>
           </td>
-          <td style="vertical-align: top;">Description<br>
-          </td>
-          <td style="vertical-align: top;">Resolution<br>
-          </td>
-          <td style="vertical-align: top;">Artifact(s) Changed<br>
+          <td valign="top">Artifact(s) Changed<br>
           </td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">1<br>
+          <td valign="top">1<br>
           </td>
-          <td style="vertical-align: top;">9/19/2012<br>
+          <td valign="top">9/19/2012<br>
           </td>
-          <td style="vertical-align: top;">9/19/2012<br>
+          <td valign="top">9/19/2012</td>
+          <td valign="top">cbuchan<br>
           </td>
-          <td style="vertical-align: top;">cbuchan<br>
+          <td valign="top">SD7A, SD7B<br>
           </td>
-          <td style="vertical-align: top;">SD7A, SD7B<br>
-          </td>
-          <td style="vertical-align: top;">DoorMotor Open should not
-            change to Stop until DoorOpened reports true<br>
-          </td>
-          <td style="vertical-align: top;">Added DoorOpened object to
-            SD7A and SD7B which accounts for door opened state. Lantern
-            changes still happen on DoorClosed=false event.<br>
-          </td>
-          <td style="vertical-align: top;">SD7A, SD7B<br>
+          <td valign="top">DoorMotor Open should not change to Stop
+            until DoorOpened reports true</td>
+          <td valign="top">Added DoorOpened object to SD7A and SD7B
+            which accounts for door opened state. Lantern changes still
+            happen on DoorClosed=false event.</td>
+          <td valign="top">SD7A, SD7B<br>
           </td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">2<br>
+          <td valign="top">2<br>
           </td>
-          <td style="vertical-align: top;">9/19/2012<br>
+          <td valign="top">9/19/2012</td>
+          <td valign="top">9/19/2012</td>
+          <td valign="top">cbuchan<br>
           </td>
-          <td style="vertical-align: top;">9/19/2012<br>
+          <td valign="top">SD7C<br>
           </td>
-          <td style="vertical-align: top;">cbuchan<br>
-          </td>
-          <td style="vertical-align: top;">SD7C<br>
-          </td>
-          <td style="vertical-align: top;">When closing, Doors should
-            Close instead of Nudge to not inconvenience Passengers,
-            DoorClosed should report true, then DoorMotors should stop.
-            <br>
-          </td>
-          <td style="vertical-align: top;">DoorMotor operates at Close
-            speed, DoorClosed reports true, then DoorMotor stops<br>
-          </td>
-          <td style="vertical-align: top;">SD7C<br>
-          </td>
+          <td valign="top">When closing, Doors should Close instead of
+            Nudge to not inconvenience Passengers, DoorClosed should
+            report true, then DoorMotors should stop. </td>
+          <td valign="top">DoorMotor operates at Close speed, DoorClosed
+            reports true, then DoorMotor stops</td>
+          <td valign="top">SD7C</td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">3<br>
-          </td>
-          <td style="vertical-align: top;">9/20/2012<br>
-          </td>
-          <td style="vertical-align: top;">9/20/2012<br>
-          </td>
-          <td style="vertical-align: top;">jtiu<br>
-          </td>
-          <td style="vertical-align: top;">SD2A, SD3A, SD3B<br>
-          </td>
-          <td style="vertical-align: top;">Wrong event triggers for
-            certain events.<br>
-          </td>
-          <td style="vertical-align: top;">Fixed the sequence diagram
-            messages for those event triggers.<br>
-          </td>
-          <td style="vertical-align: top;">SD2A, SD2B, SD3A<br>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top">4<br>
+          <td valign="top">3<br>
           </td>
           <td valign="top">9/20/2012<br>
           </td>
           <td valign="top">9/20/2012<br>
           </td>
+          <td valign="top">jtiu<br>
+          </td>
+          <td valign="top">SD2A, SD3A, SD3B</td>
+          <td valign="top">Wrong event triggers for certain events.</td>
+          <td valign="top">Fixed the sequence diagram messages for those
+            event triggers.</td>
+          <td valign="top">SD2A, SD2B, SD3A</td>
+        </tr>
+        <tr>
+          <td valign="top">4</td>
+          <td valign="top">9/20/2012</td>
+          <td valign="top">9/20/2012</td>
           <td valign="top">jessesal<br>
           </td>
-          <td valign="top">SD9A<br>
-          </td>
+          <td valign="top">SD9A</td>
           <td valign="top">Unnecessary mDesiredFloor message(step 2b),
-            as DriveControl does not utilize it in this case.<br>
-          </td>
+            as DriveControl does not utilize it in this case.</td>
           <td valign="top">Removed unnecessary message, removed
-            DriveControl object, as it is no longer utilized<br>
-          </td>
-          <td valign="top">SD9A<br>
-          </td>
+            DriveControl object, as it is no longer utilized</td>
+          <td valign="top">SD9A</td>
         </tr>
         <tr>
-          <td valign="top">5</td>
-          <td valign="top">9/20/2012<br>
+          <td valign="top">5<br>
           </td>
-          <td valign="top">9/20/2012<br>
-          </td>
+          <td valign="top">9/20/2012</td>
+          <td valign="top">9/20/2012</td>
           <td valign="top">jessesal<br>
           </td>
           <td valign="top">BR5.9<br>
           </td>
           <td valign="top">Requirement 5.9 needs to set "Close" instead
-            of "Nudge"<br>
-          </td>
-          <td valign="top">Changed BR5.9 to set mDoorMotor to "Close"<br>
-          </td>
-          <td valign="top">BR5.9<br>
-          </td>
+            of "Nudge"</td>
+          <td valign="top">Changed BR5.9 to set mDoorMotor to "Close"</td>
+          <td valign="top">BR5.9</td>
         </tr>
         <tr>
-          <td valign="top">6<br>
-          </td>
-          <td valign="top">9/21/2012<br>
-          </td>
-          <td valign="top">9/21/2012<br>
-          </td>
+          <td valign="top">6</td>
+          <td valign="top">9/21/2012</td>
+          <td valign="top">9/21/2012</td>
           <td valign="top">cbuchan<br>
           </td>
-          <td valign="top">SD2B<br>
-          </td>
+          <td valign="top">SD2B</td>
           <td valign="top">Arc 2c and 4 reflect the need for
             CarButtonControl to send mCarCall[f,b] to DoorControl (and
             in the future <b>when elevator is NOT dumb</b>, also to
-            Dispatcher)<br>
-          </td>
+            Dispatcher)</td>
           <td valign="top">Added BR5.14, and modified SD2B to send
-            mCarCall[f,b] message upon carCall<br>
-          </td>
+            mCarCall[f,b] message upon carCall</td>
           <td valign="top">SD2B, BR5.14</td>
         </tr>
         <tr>
           <td valign="top">7<br>
           </td>
-          <td valign="top">9/21/2012<br>
-          </td>
-          <td valign="top">9/21/2012<br>
-          </td>
+          <td valign="top">9/21/2012</td>
+          <td valign="top">9/21/2012</td>
           <td valign="top">cbuchan<br>
           </td>
           <td valign="top">SD5A<br>
           </td>
           <td valign="top">On mDoorReversal, if doors are not open,
             command doors to open per C5.2. There was no requirement
-            reflecting this. <br>
-          </td>
+            reflecting this. </td>
           <td valign="top">Added BR5.13 to open the doors if
-            mDoorReversal is True, and doors are NOT opened<br>
-          </td>
-          <td valign="top">BR5.13<br>
-          </td>
+            mDoorReversal is True, and doors are NOT opened</td>
+          <td valign="top">BR5.13</td>
         </tr>
         <tr>
           <td valign="top">8<br>
           </td>
-          <td valign="top">9/21/2012<br>
-          </td>
-          <td valign="top">9/21/2012<br>
-          </td>
+          <td valign="top">9/21/2012</td>
+          <td valign="top">9/21/2012</td>
           <td valign="top">cbuchan<br>
           </td>
           <td valign="top">BR6.7.2<br>
           </td>
-          <td valign="top">BR6.7.2 was an erred behavior<br>
-          </td>
-          <td valign="top">BR6.7.2 eliminated<br>
-          </td>
+          <td valign="top">BR6.7.2 was an erred behavior</td>
+          <td valign="top">BR6.7.2 eliminated</td>
           <td valign="top">BR6.7.2, <br>
-            sd_req_traceability.xls<br>
-          </td>
+            sd_req_traceability.xls</td>
         </tr>
         <tr>
           <td valign="top">9<br>
           </td>
-          <td valign="top">9/21/2012<br>
-          </td>
-          <td valign="top">9/21/2012<br>
-          </td>
+          <td valign="top">9/21/2012</td>
+          <td valign="top">9/21/2012</td>
           <td valign="top">cbuchan<br>
           </td>
           <td valign="top">SD3A<br>
           </td>
           <td valign="top">DriveControl sends mDoorMotor to DoorControl,
-            but mDoorMotor is not an output for DriveControl<br>
-          </td>
+            but mDoorMotor is not an output for DriveControl</td>
           <td valign="top">mAtFloor is instead sent to both DriveControl
-            and DoorControl<br>
-          </td>
-          <td valign="top">SD3A, sd_req_traceability.xls<br>
-          </td>
+            and DoorControl</td>
+          <td valign="top">SD3A, sd_req_traceability.xls</td>
         </tr>
         <tr>
           <td valign="top">10<br>
           </td>
-          <td valign="top">9/21/2012<br>
-          </td>
-          <td valign="top">9/21/2012<br>
-          </td>
+          <td valign="top">9/21/2012</td>
+          <td valign="top">9/21/2012</td>
           <td valign="top">cbuchan<br>
           </td>
           <td valign="top">BR5.12<br>
           </td>
-          <td valign="top">BR5.12 did not trace to any arc. <br>
-          </td>
+          <td valign="top">BR5.12 did not trace to any arc. </td>
           <td valign="top">Added an mDoorMotor command after
             DoorMotor=Open. Also added an mDriveSpeed message to satisfy
-            BR5.6 </td>
-          <td valign="top">SD4A, sd_req_traceability.xls<br>
-          </td>
+            BR5.6</td>
+          <td valign="top">SD4A, sd_req_traceability.xls</td>
         </tr>
         <tr>
           <td valign="top">11<br>
           </td>
-          <td valign="top">9/21/2012<br>
-          </td>
-          <td valign="top">9/21/2012<br>
-          </td>
+          <td valign="top">9/21/2012</td>
+          <td valign="top">9/21/2012</td>
           <td valign="top">jessesal<br>
           </td>
           <td valign="top">SD9A<br>
           </td>
           <td valign="top">mDoorMotorCommand is defined in
             requirements1, but not requirements2 (needs to be changed to
-            DoorMotor[b,*]; Dwell is never set<br>
-          </td>
+            DoorMotor[b,*]; Dwell is never set</td>
           <td valign="top">Changed mDoorMotorCommand to DoorMotr; Set
             mDesiredDwell after mDesiredFloor message (arc 3);</td>
           <td valign="top">SD9A,<br>
-            sd_req_traceability.xls<br>
-          </td>
+            sd_req_traceability.xls</td>
         </tr>
         <tr>
           <td valign="top">12<br>
           </td>
-          <td valign="top">9/21/2012<br>
-          </td>
-          <td valign="top">Open (partial fix)<br>
-          </td>
+          <td valign="top">9/21/2012</td>
+          <td valign="top">9/21/2012</td>
           <td valign="top">rdsharma<br>
           </td>
           <td valign="top">SD3A, SD4A, SD7A, SD7B, SD9A,
-            sd_req_traceability.xls<br>
-          </td>
+            sd_req_traceability.xls</td>
           <td valign="top">mDesiredFloor should be set to the next floor
-            whenever doors open<br>
-          </td>
+            whenever doors open</td>
           <td valign="top">mAtFloor is instead sent to both DriveControl
-            and DoorControl<br>
-          </td>
-          <td valign="top">SD9A, sd_req_traceability.xls<br>
-          </td>
+            and DoorControl</td>
+          <td valign="top">SD9A, sd_req_traceability.xls</td>
         </tr>
         <tr>
           <td valign="top">13<br>
           </td>
-          <td valign="top">9/21/2012<br>
-          </td>
-          <td valign="top">9/21/2012<br>
-          </td>
+          <td valign="top">9/21/2012</td>
+          <td valign="top">9/21/2012</td>
           <td valign="top">rdsharma<br>
           </td>
-          <td valign="top">SD9A, sd_req_traceability.xls<br>
-          </td>
+          <td valign="top">SD9A, sd_req_traceability.xls</td>
           <td valign="top">Target (state variable) should be set
-            properly as per requirement 11.6.1<br>
-          </td>
-          <td valign="top">Add target to diagram, update tracability<br>
-          </td>
-          <td valign="top">SD9A, sd_req_traceability.xls<br>
-          </td>
+            properly as per requirement 11.6.1</td>
+          <td valign="top">Add target to diagram, update tracability</td>
+          <td valign="top">SD9A, sd_req_traceability.xls</td>
         </tr>
       </tbody>
     </table>
+    <br>
     <br>
     <br>
   </body>
