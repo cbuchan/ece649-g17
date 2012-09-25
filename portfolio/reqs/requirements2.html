@@ -1280,13 +1280,20 @@
     drive shall not be commanded to {Slow, d} or {Fast, d}until the car
     is no longer overloaded.
     <h3> EVENT-TRIGGERED BEHAVIORS: </h3>
-    6.6 &nbsp;&nbsp; If any mAtFloor[f,b] is True, then Drive[s,d] shall
-    be set to (Level,d).<br>
-    6.7 &nbsp;&nbsp; If mLevel[*] = True, then Drive[s,d] shall be
+    ET6.6 &nbsp;&nbsp; If any mAtFloor[f,b] is True, then Drive[s,d]
+    shall be set to (Level,d).<br>
+    ET6.7 &nbsp;&nbsp; If mLevel[*] = True, then Drive[s,d] shall be
     commanded to (Stop,d) or (Stop,Stop).<br>
-    6.8 &nbsp;&nbsp; If mDoorClosed[b,r] is True, and
+    ET6.8 &nbsp;&nbsp; If mDoorClosed[b,r] is True, and
     mDesiredDirection.d is not Stop, then Drive[s,d] shall be commanded
     to (Slow,d).<br>
+    <h3>TIME-TRIGGERED BEHAVIORS: </h3>
+    <p>6.6<br>
+      6.7<br>
+      .<br>
+      .<br>
+      .<br>
+    </p>
     <h2><a name="lanterncontrol"></a> 7. LanternControl[d] </h2>
     <h3> Replication: </h3>
     <ul>
@@ -1326,13 +1333,20 @@
     7.1&nbsp;&nbsp;&nbsp; Both CarLanterns[d] shall not be On at the
     same time.
     <h3> EVENT-TRIGGERED BEHAVIORS: </h3>
-    7.2 &nbsp;&nbsp; If mDoorClosed[b, r] is false and DesiredDirection
-    is not Stop, CarLantern[d] shall be set to DesiredDirection.<br>
-    7.3&nbsp;&nbsp;&nbsp; If mDoorClosed[b, r] is false and
+    ET7.2 &nbsp;&nbsp; If mDoorClosed[b, r] is false and
+    DesiredDirection is not Stop, CarLantern[d] shall be set to
+    DesiredDirection.<br>
+    ET7.3&nbsp;&nbsp;&nbsp; If mDoorClosed[b, r] is false and
     DesiredDirection is Stop, both CarLanterns[d] shall be commanded to
     be off.<br>
-    7.4&nbsp;&nbsp;&nbsp; DesiredDirection shall be kept updated by a
+    ET7.4&nbsp;&nbsp;&nbsp; DesiredDirection shall be kept updated by a
     physical model to indicate current desired direction of car.<br>
+    <h3>TIME-TRIGGERED BEHAVIORS: </h3>
+    <p>7.2<br>
+      7.3<br>
+      .<br>
+      .<br>
+      .</p>
     <h2><a name="hallbuttoncontrol"></a> 8. HallButtonControl[f, b, d] </h2>
     <h3> Replication: </h3>
     <ul>
@@ -1371,15 +1385,21 @@
     <h3> CONSTRAINTS: </h3>
     None
     <h3> EVENT-TRIGGERED BEHAVIORS: </h3>
-    8.1 If HallCall[f,b,d]=Pressed <br>
-    &nbsp;&nbsp; 8.1.1 HallLight[f,b,d] shall be set to On.<br>
-    8.2 If mDoorClosed[b,r]=false with mAtFloor[f,b]=True and
+    ET8.1 If HallCall[f,b,d]=Pressed <br>
+    &nbsp;&nbsp; ET8.1.1 HallLight[f,b,d] shall be set to On.<br>
+    ET8.2 If mDoorClosed[b,r]=false with mAtFloor[f,b]=True and
     mDesiredFloor=[f,b,d] <br>
-    &nbsp;&nbsp; 8.2.1 HallLight[f,b,d] shall be set to Off.<br>
-    8.3 mHallCall[f,b,d] shall be set to the current value of
+    &nbsp;&nbsp; ET8.2.1 HallLight[f,b,d] shall be set to Off.<br>
+    ET8.3 mHallCall[f,b,d] shall be set to the current value of
     HallCall[f,b,d]<br>
-    8.4 mHallLight[f,b,d] shall be set to the current value of
+    ET8.4 mHallLight[f,b,d] shall be set to the current value of
     HallLight[f,b,d] <br>
+    <h3>TIME-TRIGGERED BEHAVIORS: </h3>
+    <p>8.1<br>
+      8.2<br>
+      .<br>
+      .<br>
+      .</p>
     <h2><a name="carbuttoncontrol"></a> 9. CarButtonControl[f, b] </h2>
     <h3> Replication: </h3>
     <ul>
@@ -1417,12 +1437,17 @@
     <h3> CONSTRAINTS: </h3>
     None
     <h3> EVENT-TRIGGERED BEHAVIORS: </h3>
-    9.1 If CarCall[<b>f</b>,<b>b</b>]=True and mDoorOpened[b,r]=False,
+    ET9.1 If CarCall[<b>f</b>,<b>b</b>]=True and mDoorOpened[b,r]=False,
     CarLight[<b>f</b>,<b>b</b>] shall be set to On.<br>
-    9.2 If CarCall[<b>f</b>,<b>b</b>]=True and mDoorOpened[b,r]=True,
+    ET9.2 If CarCall[<b>f</b>,<b>b</b>]=True and mDoorOpened[b,r]=True,
     CarLight[<b>f</b>,<b>b</b>] shall be set to Off.<br>
-    9.3 mCarCall[<b>f</b>,<b>b</b>] shall always be set to CarCall[<b>f</b>,<b>b</b>].<br>
-    <br>
+    ET9.3 mCarCall[<b>f</b>,<b>b</b>] shall always be set to CarCall[<b>f</b>,<b>b</b>].<br>
+    <h3>TIME-TRIGGERED BEHAVIORS: </h3>
+    <p>9.1<br>
+      9.2<br>
+      .<br>
+      .<br>
+      .</p>
     <h2><a name="carpositioncontrol"></a> 10. CarPositionControl </h2>
     <h3> Replication: </h3>
     <ul>
