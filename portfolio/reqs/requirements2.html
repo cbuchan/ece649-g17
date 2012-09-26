@@ -1284,16 +1284,15 @@
     shall be set to (Level,d).<br>
     ET6.7 &nbsp;&nbsp; If mLevel[*] = True, then Drive[s,d] shall be
     commanded to (Stop,d) or (Stop,Stop).<br>
-    ET6.8 &nbsp;&nbsp; If mDoorClosed[b,r] is True, and
-    mDesiredDirection.d is not Stop, then Drive[s,d] shall be commanded
-    to (Slow,d).<br>
+    ET6.8 &nbsp;&nbsp; If mDoorClosed[*,*] is True, and mDesiredFloor.d
+    is not Stop, then Drive[s,d] shall be commanded to (Slow,d).<br>
     <h3>TIME-TRIGGERED BEHAVIORS: </h3>
-    <p>6.6<br>
-      6.7<br>
-      .<br>
-      .<br>
-      .<br>
-    </p>
+    <p>6.6 &nbsp;&nbsp; If any mAtFloor[f,b]=True and mLevel[d]=False
+      for any d, then Drive[s,d] shall be set to (Level,d).<br>
+      6.7 &nbsp;&nbsp; If any mAtFloor[f,b]=True and mLevel[*]=True,
+      then Drive[s,d] shall be commanded to (Stop,d) or (Stop,Stop).<br>
+      6.8 &nbsp;&nbsp; If mDoorClosed[*,*]=True, and mDesiredFloor.d is
+      not Stop, then Drive[s,d] shall have been commanded to (Slow,d). </p>
     <h2><a name="lanterncontrol"></a> 7. LanternControl[d] </h2>
     <h3> Replication: </h3>
     <ul>
@@ -1358,8 +1357,8 @@
     <meta charset="utf-8">
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
-      word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="97" width="525">
+      word-spacing: 0px; text-align: left;" height="97" border="1"
+      cellpadding="2" cellspacing="2" width="525">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -1615,8 +1614,8 @@
       <meta charset="utf-8">
     </h3>
     <h3>REQUIREMENTS TO STATECHART TRACEABILITY: </h3>
-    <table style="text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="121" width="409">
+    <table style="text-align: left;" height="121" border="1"
+      cellpadding="2" cellspacing="2" width="409">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
@@ -1641,8 +1640,7 @@
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);">State
-            LIGHT_ON<br>
+            204, 204);">State LIGHT_ON<br>
           </td>
           <td style="vertical-align: top;"><br>
           </td>
@@ -1653,8 +1651,7 @@
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);">State
-            LIGHT_OFF<br>
+            204, 204);">State LIGHT_OFF<br>
           </td>
           <td style="vertical-align: top;">X<br>
           </td>

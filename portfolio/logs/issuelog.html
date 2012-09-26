@@ -128,12 +128,12 @@
           <td valign="top">9/20/2012</td>
           <td valign="top">jessesal<br>
           </td>
-          <td valign="top">BR5.9<br>
+          <td valign="top">ET5.9<br>
           </td>
           <td valign="top">Requirement 5.9 needs to set "Close" instead
             of "Nudge"</td>
-          <td valign="top">Changed BR5.9 to set mDoorMotor to "Close"</td>
-          <td valign="top">BR5.9</td>
+          <td valign="top">Changed ET5.9 to set mDoorMotor to "Close"</td>
+          <td valign="top">ET5.9</td>
         </tr>
         <tr>
           <td valign="top">6</td>
@@ -146,9 +146,9 @@
             CarButtonControl to send mCarCall[f,b] to DoorControl (and
             in the future <b>when elevator is NOT dumb</b>, also to
             Dispatcher)</td>
-          <td valign="top">Added BR5.14, and modified SD2B to send
+          <td valign="top">Added ET5.14, and modified SD2B to send
             mCarCall[f,b] message upon carCall</td>
-          <td valign="top">SD2B, BR5.14</td>
+          <td valign="top">SD2B, ET5.14</td>
         </tr>
         <tr>
           <td valign="top">7<br>
@@ -162,9 +162,9 @@
           <td valign="top">On mDoorReversal, if doors are not open,
             command doors to open per C5.2. There was no requirement
             reflecting this. </td>
-          <td valign="top">Added BR5.13 to open the doors if
+          <td valign="top">Added ET5.13 to open the doors if
             mDoorReversal is True, and doors are NOT opened</td>
-          <td valign="top">BR5.13</td>
+          <td valign="top">ET5.13</td>
         </tr>
         <tr>
           <td valign="top">8<br>
@@ -202,12 +202,12 @@
           <td valign="top">9/21/2012</td>
           <td valign="top">cbuchan<br>
           </td>
-          <td valign="top">BR5.12<br>
+          <td valign="top">ET5.12<br>
           </td>
-          <td valign="top">BR5.12 did not trace to any arc. </td>
+          <td valign="top">ET5.12 did not trace to any arc. </td>
           <td valign="top">Added an mDoorMotor command after
             DoorMotor=Open. Also added an mDriveSpeed message to satisfy
-            BR5.6</td>
+            ET5.6</td>
           <td valign="top">SD4A, sd_req_traceability.xls</td>
         </tr>
         <tr>
@@ -251,9 +251,31 @@
           </td>
           <td valign="top">SD9A, sd_req_traceability.xls</td>
           <td valign="top">Target (state variable) should be set
-            properly as per BR11.6.1</td>
+            properly as per ET11.6.1</td>
           <td valign="top">Add target to diagram, update tracability</td>
           <td valign="top">SD9A, sd_req_traceability.xls</td>
+        </tr>
+        <tr>
+          <td valign="top">14<br>
+          </td>
+          <td valign="top">9/25/2012<br>
+          </td>
+          <td valign="top">9/25/2012<br>
+          </td>
+          <td valign="top">jessesal<br>
+          </td>
+          <td valign="top">ET6.8<br>
+          </td>
+          <td valign="top">Need to make sure all (not just one) doors
+            are closed before command Drive to slow; mDesiredDirection.d
+            should be changed to mDesiredFloor.d;<br>
+          </td>
+          <td valign="top">Changed ET6.8 to require both doors to be
+            closed before commanding Drive to slow; corrected typo
+            (mDesiredDirection.d);<br>
+          </td>
+          <td valign="top">ET6.8<br>
+          </td>
         </tr>
       </tbody>
     </table>
