@@ -1342,11 +1342,150 @@
     ET7.4&nbsp;&nbsp;&nbsp; DesiredDirection shall be kept updated by a
     physical model to indicate current desired direction of car.<br>
     <h3>TIME-TRIGGERED BEHAVIORS: </h3>
-    <p>7.2<br>
-      7.3<br>
-      .<br>
-      .<br>
-      .</p>
+    <p>7.2 &nbsp;&nbsp; If mDoorClosed[b, r] is false and
+      DesiredDirection is not Stop, CarLantern[d] shall be set to
+      DesiredDirection.<br>
+      7.3&nbsp;&nbsp;&nbsp; If mDoorClosed[b, r] is false and
+      DesiredDirection is Stop, both CarLanterns[d] shall be commanded
+      to be off.<br>
+      7.4&nbsp;&nbsp;&nbsp; DesiredDirection shall be kept updated by a
+      physical model to indicate current desired direction of car.<br>
+    </p>
+    <h3>STATECHART: </h3>
+    <img alt="SC_LanternControl" src="SC_LanternControl.png"
+      height="276" width="677"><br>
+    <br>
+    <meta charset="utf-8">
+    <table style="font-family: Times; letter-spacing: normal; orphans:
+      2; text-indent: 0px; text-transform: none; widows: 2;
+      word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="97" width="525">
+      <tbody>
+        <tr>
+          <td style="vertical-align: top; font-weight: bold;
+            background-color: rgb(204, 204, 204); ">Transition<br>
+          </td>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); "><span style="font-weight: bold; ">Condition</span><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T7.1<br>
+          </td>
+          <td style="vertical-align: top; ">mDoorClosed[b,r] == false
+            &amp;&amp; DesiredDirection != Stop<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T7.2<br>
+          </td>
+          <td style="vertical-align: top; ">mDoorClosed[b,r] == true ||
+            DesiredDirection == Stop<br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <h3>REQUIREMENTS TO STATECHART TRACEABILITY:<br>
+    </h3>
+    <meta charset="utf-8">
+    <span style="color: rgb(0, 0, 0); font-family: Times; font-size:
+      medium; font-style: normal; font-variant: normal; font-weight:
+      normal; letter-spacing: normal; line-height: normal; orphans: 2;
+      text-align: start; text-indent: 0px; text-transform: none;
+      white-space: normal; widows: 2; word-spacing: 0px;
+      -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;
+      display: inline !important; float: none; ">completed by Collin
+      Buchan (cbuchan)</span><br style="color: rgb(0, 0, 0);
+      font-family: Times; font-size: medium; font-style: normal;
+      font-variant: normal; font-weight: normal; letter-spacing: normal;
+      line-height: normal; orphans: 2; text-align: start; text-indent:
+      0px; text-transform: none; white-space: normal; widows: 2;
+      word-spacing: 0px; -webkit-text-size-adjust: auto;
+      -webkit-text-stroke-width: 0px; ">
+    <table style="font-family: Times; letter-spacing: normal; orphans:
+      2; text-indent: 0px; text-transform: none; widows: 2;
+      word-spacing: 0px; -webkit-text-size-adjust: auto;
+      -webkit-text-stroke-width: 0px; text-align: left; width: 409px;
+      height: 312px; " border="1" cellpadding="2" cellspacing="2">
+      <tbody>
+        <tr style="font-weight: bold; ">
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); "><br>
+          </td>
+          <td colspan="3" rowspan="1" style="vertical-align: top;
+            background-color: rgb(204, 204, 204); ">Requirements<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); "><span style="font-weight: bold; ">States</span><br>
+          </td>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); ">BR7.2<br>
+          </td>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); ">BR7.3</td>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); ">BR7.4</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); ">State 1:&nbsp; CarLantern Off<br>
+          </td>
+          <td style="vertical-align: top; "><br>
+          </td>
+          <td style="vertical-align: top; ">X<br>
+          </td>
+          <td style="vertical-align: top; ">X<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); ">State 2:&nbsp; CarLantern On<br>
+          </td>
+          <td style="vertical-align: top; ">X<br>
+          </td>
+          <td style="vertical-align: top; "><br>
+          </td>
+          <td style="vertical-align: top; ">X<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); "><span style="font-weight: bold; ">Transitions</span><br>
+          </td>
+          <td style="vertical-align: top; "><br>
+          </td>
+          <td style="vertical-align: top; "><br>
+          </td>
+          <td style="vertical-align: top; "><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); ">T7.1</td>
+          <td style="vertical-align: top; ">X<br>
+          </td>
+          <td style="vertical-align: top; "><br>
+          </td>
+          <td style="vertical-align: top; "><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); ">T7.2</td>
+          <td style="vertical-align: top; "><br>
+          </td>
+          <td style="vertical-align: top; ">X<br>
+          </td>
+          <td style="vertical-align: top; "><br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <p> </p>
     <h2><a name="hallbuttoncontrol"></a> 8. HallButtonControl[f, b, d] </h2>
     <h3> Replication: </h3>
     <ul>
