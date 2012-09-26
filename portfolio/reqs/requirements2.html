@@ -1581,12 +1581,44 @@
     CarLight[<b>f</b>,<b>b</b>] shall be set to Off.<br>
     ET9.3 mCarCall[<b>f</b>,<b>b</b>] shall always be set to CarCall[<b>f</b>,<b>b</b>].<br>
     <h3>TIME-TRIGGERED BEHAVIORS: </h3>
-    <p>9.1 If CarCall[<b>f</b>,<b>b</b>]=True and
-      mDoorOpened[b,r]=False, CarLight[<b>f</b>,<b>b</b>] shall be set
-      to On.<br>
-      9.2 If CarCall[<b>f</b>,<b>b</b>]=True and mDoorOpened[b,r]=True,
-      CarLight[<b>f</b>,<b>b</b>] shall be set to Off.<br>
+    <p>9.1 If mCarCall[<b>f</b>,<b>b</b>]=False, CarLight[<b>f</b>,<b>b</b>]
+      shall be set to Off.<br>
+      9.2 If mCarCall[<b>f</b>,<b>b</b>]=True, CarLight[<b>f</b>,<b>b</b>]
+      shall be set to On.<br>
       9.3 mCarCall[<b>f</b>,<b>b</b>] shall always be set to CarCall[<b>f</b>,<b>b</b>].<br>
+    </p>
+    <h3>STATECHART: </h3>
+    <img alt="SC_CarButtonControl" src="SC_CarButtonControl.png"
+      height="385" width="670">
+    <table style="text-align: left; width: 800px;" border="1"
+      cellpadding="2" cellspacing="2">
+      <tbody>
+        <tr>
+          <td style="vertical-align: top;">Trigger #<br>
+          </td>
+          <td style="vertical-align: top;">Trigger Conditions<br>
+          </td>
+          <td style="vertical-align: top;">Actions<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">T9.1</td>
+          <td style="vertical-align: top;"><br>
+          </td>
+          <td style="vertical-align: top;"><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">T9.2</td>
+          <td style="vertical-align: top;"><br>
+          </td>
+          <td style="vertical-align: top;"><br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p><br>
+      <br>
     </p>
     <h2><a name="carpositioncontrol"></a> 10. CarPositionControl </h2>
     <h3> Replication: </h3>
