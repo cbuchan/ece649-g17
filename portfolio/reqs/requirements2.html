@@ -1712,7 +1712,190 @@
       6.7 &nbsp;&nbsp; If any mAtFloor[f,b]=True and mLevel[*]=True,
       then Drive[s,d] shall be commanded to (Stop,d) or (Stop,Stop).<br>
       6.8 &nbsp;&nbsp; If mDoorClosed[*,*]=True, and mDesiredFloor.d is
-      not Stop, then Drive[s,d] shall have been commanded to (Slow,d). </p>
+      not Stop, then Drive[s,d] shall have been commanded to (Slow,d).<br>
+    </p>
+    <h3>STATECHART: </h3>
+    <img alt="SD_DriveControl" src="SC_DriveControl.png" height="795"
+      width="903">
+    <table style="font-family: Times; letter-spacing: normal; orphans:
+      2; text-indent: 0px; text-transform: none; widows: 2;
+      word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="113" width="525">
+      <tbody>
+        <tr>
+          <td style="vertical-align: top; font-weight: bold;
+            background-color: rgb(204, 204, 204); ">Transition:<br>
+          </td>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); "><span style="font-weight: bold; ">Condition</span>:<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T6.1<br>
+          </td>
+          <td style="vertical-align: top; ">DesiredDirection~=Stop
+            &amp;&amp; mDoorClosed[b,r]==True &amp;&amp;
+            mCarWeight&lt;MaxCarCapacity &amp;&amp;
+            mEmergencyBrake[b]==Off<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T6.2<br>
+          </td>
+          <td style="vertical-align: top; ">mEmergencyBrake[b]==On<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">T6.3<br>
+          </td>
+          <td valign="top">DesiredDirection==Stop &amp;&amp;
+            mDoorClosed==True &amp;&amp; mLevel[d]==False (for any d)<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">T6.4<br>
+          </td>
+          <td valign="top">mLevel[*]==True || mEmergencyBrake[b]==On<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">T6.5<br>
+          </td>
+          <td valign="top">mLevel[d]==False (for any d) <br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <h3>REQUIREMENTS TO STATECHART TRACEABILITY:</h3>
+    <span style="color: rgb(0, 0, 0); font-family: Times; font-size:
+      medium; font-style: normal; font-variant: normal; font-weight:
+      normal; letter-spacing: normal; line-height: normal; orphans: 2;
+      text-align: start; text-indent: 0px; text-transform: none;
+      white-space: normal; widows: 2; word-spacing: 0px;
+      -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;
+      display: inline !important; float: none; ">Completed by: Jesse
+      Salazar (jessesal)<br>
+    </span>
+    <table style="font-family: Times; letter-spacing: normal; orphans:
+      2; text-indent: 0px; text-transform: none; widows: 2;
+      word-spacing: 0px; -webkit-text-size-adjust: auto;
+      -webkit-text-stroke-width: 0px; text-align: left; width: 409px;
+      height: 312px; " border="1" cellpadding="2" cellspacing="2">
+      <tbody>
+        <tr style="font-weight: bold; ">
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); "><br>
+          </td>
+          <td colspan="3" rowspan="1" style="vertical-align: top;
+            background-color: rgb(204, 204, 204); ">Requirements:<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); "><span style="font-weight: bold; ">States</span>:<br>
+          </td>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); ">BR6.6<br>
+          </td>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); ">BR6.7</td>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); ">BR6.8</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); ">State 1:&nbsp; Drive Stopped<br>
+          </td>
+          <td style="vertical-align: top; "><br>
+          </td>
+          <td style="vertical-align: top; "><br>
+          </td>
+          <td style="vertical-align: top; "><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); ">State 2:&nbsp; Drive Slow<br>
+          </td>
+          <td style="vertical-align: top; "><br>
+          </td>
+          <td style="vertical-align: top; "><br>
+          </td>
+          <td style="vertical-align: top; "><br>
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor="#cccccc" valign="top">State 3: Drive Leveling<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); "><span style="font-weight: bold; ">Transitions</span>:<br>
+          </td>
+          <td style="vertical-align: top; "><br>
+          </td>
+          <td style="vertical-align: top; "><br>
+          </td>
+          <td style="vertical-align: top; "><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); ">T6.1</td>
+          <td style="vertical-align: top; "><br>
+          </td>
+          <td style="vertical-align: top; "><br>
+          </td>
+          <td style="vertical-align: top; ">X<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); ">T6.2</td>
+          <td style="vertical-align: top; "><br>
+          </td>
+          <td style="vertical-align: top; "><br>
+          </td>
+          <td style="vertical-align: top; "><br>
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor="#cccccc" valign="top">T6.3</td>
+          <td valign="top">X<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor="#cccccc" valign="top">T6.4<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top">X<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor="#cccccc" valign="top">T6.5<br>
+          </td>
+          <td valign="top">X<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
     <h2><a name="lanterncontrol"></a> 7. LanternControl[d] </h2>
     <h3> Replication: </h3>
     <ul>
