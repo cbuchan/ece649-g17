@@ -1284,240 +1284,15 @@
     shall be set to (Level,d).<br>
     ET6.7 &nbsp;&nbsp; If mLevel[*] = True, then Drive[s,d] shall be
     commanded to (Stop,d) or (Stop,Stop).<br>
-    ET6.8 &nbsp;&nbsp; If mDoorClosed[*,*] is True, and DesiredDirection
+    ET6.8 &nbsp;&nbsp; If mDoorClosed[*,*] is True, and mDesiredFloor.d
     is not Stop, then Drive[s,d] shall be commanded to (Slow,d).<br>
-    <h3>TIME-TRIGGERED BEHAVIORS: <br>
-    </h3>
-    <p>Question: Can we set state-vars in primary states, and assume
-      their value is maintained in later states (after transition)?<br>
-      Question: Should I create a separate requirement which updates
-      DesiredDirection based on mDesiredFloor.f compared to
-      CurrentFloor?<br>
-      Question: Peer-review for collin --&gt; Don't we need to set EVERY
-      output during EVERY state?<br>
-      Question: Am I supposed to assume a numeric speed for mDriveSpeed?<br>
-      Question: What is the numerical speed during leveling? <br>
-      Note: Need to update all traceability docs to reflect new BR6.9<br>
-    </p>
+    <h3>TIME-TRIGGERED BEHAVIORS: </h3>
     <p>6.6 &nbsp;&nbsp; If any mAtFloor[f,b]=True and mLevel[d]=False
       for any d, then Drive[s,d] shall be set to (Level,d).<br>
       6.7 &nbsp;&nbsp; If any mAtFloor[f,b]=True and mLevel[*]=True,
       then Drive[s,d] shall be commanded to (Stop,d) or (Stop,Stop).<br>
-      6.8 &nbsp;&nbsp; If mDoorClosed[*,*]=True, and DesiredDirection is
-      not Stop, then Drive[s,d] shall have been commanded to (Slow,d).<br>
-      6.9&nbsp;&nbsp;&nbsp; If mEmergencyBrake[b]=On, then Drive[s,d]
-      shall be commanded to Stop.<br>
-    </p>
-    <h3>STATECHART:</h3>
-    <img alt="State Chart - DriveControl" src="SC_DriveControl.png"
-      height="491" width="558"><br>
-    <br>
-    <br>
-    <table style="font-family: Times; letter-spacing: normal; orphans:
-      2; text-indent: 0px; text-transform: none; widows: 2;
-      word-spacing: 0px; text-align: left;" height="113" border="1"
-      cellpadding="2" cellspacing="2" width="525">
-      <tbody>
-        <tr>
-          <td style="vertical-align: top; font-weight: bold;
-            background-color: rgb(204, 204, 204); ">Transition:<br>
-          </td>
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204); "><span style="font-weight: bold; ">Condition</span>:<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; ">T6.1<br>
-          </td>
-          <td style="vertical-align: top; ">DesiredDirection~=Stop
-            &amp;&amp; mDoorClosed[b,r]==True &amp;&amp;
-            mCarWeight&lt;MaxCarCapacity &amp;&amp;
-            mEmergencyBrake[b]==Off<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; ">T6.2<br>
-          </td>
-          <td style="vertical-align: top; ">mEmergencyBrake[b]==On<br>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top">T6.3<br>
-          </td>
-          <td valign="top">DesiredDirection==Stop &amp;&amp;
-            mDoorClosed==True &amp;&amp; mLevel[d]==False (for any d)<br>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top">T6.4<br>
-          </td>
-          <td valign="top">mLevel[*]==True || mEmergencyBrake[b]==On<br>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top">T6.5<br>
-          </td>
-          <td valign="top">mLevel[d]==False (for any d) <br>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <p><br>
-    </p>
-    <h3>REQUIREMENTS TO STATECHART TRACEABILITY:</h3>
-    <span style="color: rgb(0, 0, 0); font-family: Times; font-size:
-      medium; font-style: normal; font-variant: normal; font-weight:
-      normal; letter-spacing: normal; line-height: normal; orphans: 2;
-      text-align: start; text-indent: 0px; text-transform: none;
-      white-space: normal; widows: 2; word-spacing: 0px;
-      -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;
-      display: inline !important; float: none; ">Completed by: Jesse
-      Salazar (jessesal)<br>
-    </span>
-    <table style="font-family: Times; letter-spacing: normal; orphans:
-      2; text-indent: 0px; text-transform: none; widows: 2;
-      word-spacing: 0px; text-align: left; height: 312px; width: 409px;"
-      border="1" cellpadding="2" cellspacing="2">
-      <tbody>
-        <tr style="font-weight: bold; ">
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204); "><br>
-          </td>
-          <td colspan="4" rowspan="1" style="vertical-align: top;
-            background-color: rgb(204, 204, 204); ">Requirements:<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204); "><span style="font-weight: bold; ">States</span>:<br>
-          </td>
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204); ">BR6.6<br>
-          </td>
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204); ">BR6.7</td>
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204); ">BR6.8</td>
-          <td bgcolor="#cccccc" valign="top">BR6.9<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204); ">State 1:&nbsp; Drive Stopped<br>
-          </td>
-          <td style="vertical-align: top; "><br>
-          </td>
-          <td style="vertical-align: top; ">X<br>
-          </td>
-          <td style="vertical-align: top; "><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204); ">State 2:&nbsp; Drive Slow<br>
-          </td>
-          <td style="vertical-align: top; "><br>
-          </td>
-          <td style="vertical-align: top; "><br>
-          </td>
-          <td style="vertical-align: top; ">X<br>
-          </td>
-          <td valign="top"><br>
-          </td>
-        </tr>
-        <tr>
-          <td bgcolor="#cccccc" valign="top">State 3: Drive Leveling<br>
-          </td>
-          <td valign="top">X<br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204); "><span style="font-weight: bold; ">Transitions</span>:<br>
-          </td>
-          <td style="vertical-align: top; "><br>
-          </td>
-          <td style="vertical-align: top; "><br>
-          </td>
-          <td style="vertical-align: top; "><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204); ">T6.1</td>
-          <td style="vertical-align: top; "><br>
-          </td>
-          <td style="vertical-align: top; "><br>
-          </td>
-          <td style="vertical-align: top; ">X<br>
-          </td>
-          <td valign="top"><br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204); ">T6.2</td>
-          <td style="vertical-align: top; "><br>
-          </td>
-          <td style="vertical-align: top; "><br>
-          </td>
-          <td style="vertical-align: top; "><br>
-          </td>
-          <td valign="top">X<br>
-          </td>
-        </tr>
-        <tr>
-          <td bgcolor="#cccccc" valign="top">T6.3</td>
-          <td valign="top">X<br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-        </tr>
-        <tr>
-          <td bgcolor="#cccccc" valign="top">T6.4<br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top">X<br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-        </tr>
-        <tr>
-          <td bgcolor="#cccccc" valign="top">T6.5<br>
-          </td>
-          <td valign="top">X<br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <br>
-    <p><br>
-    </p>
-    <p><br>
-    </p>
+      6.8 &nbsp;&nbsp; If mDoorClosed[*,*]=True, and mDesiredFloor.d is
+      not Stop, then Drive[s,d] shall have been commanded to (Slow,d). </p>
     <h2><a name="lanterncontrol"></a> 7. LanternControl[d] </h2>
     <h3> Replication: </h3>
     <ul>
@@ -1582,8 +1357,8 @@
     <meta charset="utf-8">
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
-      word-spacing: 0px; text-align: left;" height="97" border="1"
-      cellpadding="2" cellspacing="2" width="525">
+      word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="97" width="525">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -1619,7 +1394,7 @@
       text-align: start; text-indent: 0px; text-transform: none;
       white-space: normal; widows: 2; word-spacing: 0px;
       -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;
-      display: inline !important; float: none; ">Completed by: Collin
+      display: inline !important; float: none; ">completed by Collin
       Buchan (cbuchan)</span><br style="color: rgb(0, 0, 0);
       font-family: Times; font-size: medium; font-style: normal;
       font-variant: normal; font-weight: normal; letter-spacing: normal;
@@ -1758,196 +1533,11 @@
     ET8.4 mHallLight[f,b,d] shall be set to the current value of
     HallLight[f,b,d] <br>
     <h3>TIME-TRIGGERED BEHAVIORS: </h3>
-    <p>8.1  If any HallCall[f,b,d]=Pressed<br>
-      &nbsp;&nbsp; 8.1.1 HallLight[f,b,d] shall be set to On.<br>
-      &nbsp;&nbsp; 8.1.2 mHallLight[f,b,d] shall be set to True.<br>
-      &nbsp;&nbsp; 8.1.3 mHallCall[f,b,d] shall be set to True.<br>
-      8.2  If mDoorClosed[b,r] = false while mAtFloor[f,b] = true and mDesiredFloor.f=f<br>
-      &nbsp;&nbsp; 8.2.1 HallLight[f,b,d] shall be set to Off.<br>
-      &nbsp;&nbsp; 8.2.2 mHallLight[f,b,d] shall be set to False.<br>
-      &nbsp;&nbsp; 8.2.3 mHallCall[f,b,d] shall be set to False.<br>
-    </p>
-    <h3>STATECHART: </h3>
-    <img alt="SC_LanternControl" src="SC_HallButtonControl.png"><br>
-    <br>
-    <meta charset="utf-8">
-    <table style="font-family: Times; letter-spacing: normal; orphans:
-      2; text-indent: 0px; text-transform: none; widows: 2;
-      word-spacing: 0px; text-align: left;" height="97" border="1"
-      cellpadding="2" cellspacing="2" width="525">
-      <tbody>
-        <tr>
-          <td style="vertical-align: top; font-weight: bold;
-            background-color: rgb(204, 204, 204); ">Transition<br>
-          </td>
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204); "><span style="font-weight: bold; ">Condition</span><br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; ">T8.1<br>
-          </td>
-          <td style="vertical-align: top; ">HallCall[f,b,d]==Pressed<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; ">T8.2<br>
-          </td>
-          <td style="vertical-align: top; ">mDoorClosed[b,r]==false &amp;&amp; mAtFloor[f,b]==true &amp;&amp; mDesiredFloor.f==f<br>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <br>
-    <h3>REQUIREMENTS TO STATECHART TRACEABILITY:<br>
-    </h3>
-    <table style="text-align: left;" height="342" border="1"
-      cellpadding="2" cellspacing="2" width="790">
-      <tbody>
-        <tr style="font-weight: bold;">
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);"><br>
-          </td>
-          <td colspan="8" rowspan="1" style="vertical-align: top;
-            background-color: rgb(204, 204, 204);">Requirements<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);"><span style="font-weight: bold;">States</span><br>
-          </td>
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);">BR8.1<br>
-          </td>
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);">BR8.1.1<br>
-          </td>
-          <td bgcolor="#cccccc" valign="top">BR8.1.2<br>
-          </td>
-          <td bgcolor="#cccccc" valign="top">BR8.1.3</td>
-          <td bgcolor="#cccccc" valign="top">BR8.2<br>
-          </td>
-          <td bgcolor="#cccccc" valign="top">BR8.2.1</td>
-          <td bgcolor="#cccccc" valign="top">BR8.2.2<br>
-          </td>
-          <td bgcolor="#cccccc" valign="top">BR8.2.3<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);">State HALL_CALL_OFF<br>
-          </td>
-          <td style="vertical-align: top;" align="center"
-            valign="middle"><br>
-          </td>
-          <td style="vertical-align: top;" align="center"
-            valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);">State HALL_CALL_ON<br>
-          </td>
-          <td style="vertical-align: top;" align="center"
-            valign="middle"><br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);" bgcolor="#cccccc"><span style="font-weight:
-              bold;">Transitions</span><br>
-          </td>
-          <td style="vertical-align: top;" align="center"
-            valign="middle"><br>
-          </td>
-          <td style="vertical-align: top;" align="center"
-            valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);" bgcolor="#cccccc">T8.1<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          <td style="vertical-align: top;" align="center"
-            valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);" bgcolor="#cccccc">T8.2<br>
-          </td>
-          <td style="vertical-align: top;" align="center"
-            valign="middle"><br>
-          </td>
-          <td style="vertical-align: top;" align="center"
-            valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <br>
+    <p>8.1<br>
+      8.2<br>
+      .<br>
+      .<br>
+      .</p>
     <h2><a name="carbuttoncontrol"></a> 9. CarButtonControl[f, b] </h2>
     <h3> Replication: </h3>
     <ul>
@@ -2024,8 +1614,8 @@
       <meta charset="utf-8">
     </h3>
     <h3>REQUIREMENTS TO STATECHART TRACEABILITY: </h3>
-    <table style="text-align: left;" height="121" border="1"
-      cellpadding="2" cellspacing="2" width="409">
+    <table style="text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="121" width="409">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
@@ -2212,7 +1802,7 @@
     r] is False (which means doors are not closed between floors!); then<br>
     &nbsp;&nbsp;&nbsp; 11.7.1&nbsp;&nbsp; Target shall be set to 1<br>
     &nbsp;&nbsp;&nbsp; 11.7.2&nbsp;&nbsp; mDesiredFloor.b shall be set
-    to None<br>
+    to None .<br>
     11.8 &nbsp; If two mAtFloor[f, b] values are True with the same
     value f, then mDesiredFloor.b shall be set to Both.<br>
     11.9 &nbsp;&nbsp; mDesiredDwell shall always be set to a constant
@@ -2265,8 +1855,16 @@
       </tbody>
     </table>
     <h3>REQUIREMENTS TO STATECHART TRACEABILITY: </h3>
-    <table style="text-align: left;" height="342" border="1"
-      cellpadding="2" cellspacing="2" width="790">
+    <p><span style="color: rgb(0, 0, 0); font-family: Times; font-size:
+        medium; font-style: normal; font-variant: normal; font-weight:
+        normal; letter-spacing: normal; line-height: normal; orphans: 2;
+        text-align: start; text-indent: 0px; text-transform: none;
+        white-space: normal; widows: 2; word-spacing: 0px;
+        -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;
+        display: inline !important; float: none; ">completed by Collin
+        Buchan (cbuchan)</span></p>
+    <table style="text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="342" width="790">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
