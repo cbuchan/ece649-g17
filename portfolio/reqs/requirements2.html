@@ -2736,29 +2736,77 @@
           </td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">T11.2</td>
-          <td style="vertical-align: top;">mDoorClosed[b,r] == false
-            &amp;&amp; NumTrue(mAtFloor[f,b]) &gt; 0<br>
+          <td valign="top">T11.2<br>
           </td>
+          <td valign="top">mDoorClosed[b,r] == false &amp;&amp;
+            NumTrue(mAtFloor[f,b]) == 0</td>
         </tr>
         <tr>
           <td valign="top">T11.3<br>
           </td>
-          <td valign="top">mAtFloor[f,front] == true &amp;&amp;
-            mAtFloor[f,back] == false<br>
-          </td>
+          <td valign="top">mDoorClosed[b,r] == false &amp;&amp;
+            NumTrue(mAtFloor[f,b]) == 0</td>
         </tr>
         <tr>
-          <td valign="top">T11.4<br>
-          </td>
-          <td valign="top">mAtFloor[f,front] == false &amp;&amp;
-            mAtFloor[f,back] == true</td>
+          <td style="vertical-align: top;">T11.4</td>
+          <td style="vertical-align: top;">mDoorClosed[b,r] == false
+            &amp;&amp; mAtFloor[f,front] == true &amp;&amp;
+            mAtFloor[f,back] == false </td>
         </tr>
         <tr>
           <td valign="top">T11.5<br>
           </td>
-          <td valign="top">mAtFloor[f,front] == true &amp;&amp;
-            mAtFloor[f,back] == true</td>
+          <td valign="top">mDoorClosed[b,r] == false &amp;&amp;
+            mAtFloor[f,front] == true &amp;&amp; mAtFloor[f,back] ==
+            false </td>
+        </tr>
+        <tr>
+          <td valign="top">T11.6<br>
+          </td>
+          <td valign="top">mDoorClosed[b,r] == false &amp;&amp;
+            mAtFloor[f,front] == true &amp;&amp; mAtFloor[f,back] ==
+            false </td>
+        </tr>
+        <tr>
+          <td valign="top">T11.7<br>
+          </td>
+          <td valign="top">mDoorClosed[b,r] == false &amp;&amp;
+            mAtFloor[f,front] == false &amp;&amp; mAtFloor[f,back] ==
+            true </td>
+        </tr>
+        <tr>
+          <td valign="top">T11.8</td>
+          <td valign="top">mDoorClosed[b,r] == false &amp;&amp;
+            mAtFloor[f,front] == false &amp;&amp; mAtFloor[f,back] ==
+            true </td>
+        </tr>
+        <tr>
+          <td valign="top">T11.9</td>
+          <td valign="top">mDoorClosed[b,r] == false &amp;&amp;
+            mAtFloor[f,front] == false &amp;&amp; mAtFloor[f,back] ==
+            true
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">T11.10</td>
+          <td valign="top">mDoorClosed[b,r] == false &amp;&amp;
+            mAtFloor[f,front] == true &amp;&amp; mAtFloor[f,back] ==
+            true
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">T11.11</td>
+          <td valign="top">mDoorClosed[b,r] == false &amp;&amp;
+            mAtFloor[f,front] == true &amp;&amp; mAtFloor[f,back] ==
+            true
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">T11.12</td>
+          <td valign="top">mDoorClosed[b,r] == false &amp;&amp;
+            mAtFloor[f,front] == true &amp;&amp; mAtFloor[f,back] ==
+            true
+          </td>
         </tr>
       </tbody>
     </table>
@@ -2808,29 +2856,6 @@
             204, 204);">State DEFAULT_TARGET<br>
           </td>
           <td style="vertical-align: top;" align="center"
-            valign="middle"><br>
-          </td>
-          <td style="vertical-align: top;" align="center"
-            valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);">State SET_TARGET<br>
-          </td>
-          <td style="vertical-align: top;" align="center"
             valign="middle">X<br>
           </td>
           <td style="vertical-align: top;" align="center"
@@ -2840,43 +2865,23 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
           <td align="center" valign="middle">X<br>
-          </td>
-        </tr>
-        <tr>
-          <td bgcolor="#cccccc" valign="top">State NEXT_FLR_TARGET<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" valign="middle">X<br>
           </td>
         </tr>
         <tr>
           <td bgcolor="#cccccc" valign="top">State HALL_FRONT<br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" valign="middle">X<br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" valign="middle">X<br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle">X<br>
           </td>
@@ -2886,17 +2891,17 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" valign="middle">X<br>
           </td>
         </tr>
         <tr>
           <td bgcolor="#cccccc" valign="top">State HALL_BACK<br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" valign="middle">X<br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" valign="middle">X<br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle">X<br>
           </td>
@@ -2906,17 +2911,17 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" valign="middle">X<br>
           </td>
         </tr>
         <tr>
           <td bgcolor="#cccccc" valign="top">State HALL_BOTH<br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" valign="middle">X<br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" valign="middle">X<br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
@@ -2926,7 +2931,7 @@
           </td>
           <td align="center" valign="middle">X<br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" valign="middle">X<br>
           </td>
         </tr>
         <tr>
@@ -2986,13 +2991,13 @@
           <td style="vertical-align: top;" align="center"
             valign="middle"><br>
           </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
           <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
@@ -3008,11 +3013,11 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
+          <td align="center" valign="middle"><br>
+          </td>
           <td align="center" valign="middle">X<br>
           </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
@@ -3026,7 +3031,7 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle">X<br>
           </td>
@@ -3042,6 +3047,139 @@
         <tr>
           <td bgcolor="#cccccc" valign="top">T11.5<br>
           </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor="#cccccc" valign="top">T11.6</td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor="#cccccc" valign="top">T11.7</td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor="#cccccc" valign="top">T11.8</td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor="#cccccc" valign="top">T11.9</td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor="#cccccc" valign="top">T11.10</td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor="#cccccc" valign="top">T11.11</td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor="#cccccc" valign="top">T11.12</td>
           <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
