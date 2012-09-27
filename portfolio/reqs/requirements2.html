@@ -1740,7 +1740,7 @@
           <td style="vertical-align: top; ">T6.1<br>
           </td>
           <td style="vertical-align: top; ">DesiredDirection~=Stop
-            &amp;&amp; mDoorClosed[b,r]==True &amp;&amp;
+            &amp;&amp; mDoorClosed[*,*]==True &amp;&amp;
             mCarWeight&lt;MaxCarCapacity &amp;&amp;
             mEmergencyBrake[b]==Off<br>
           </td>
@@ -1755,19 +1755,23 @@
           <td valign="top">T6.3<br>
           </td>
           <td valign="top">DesiredDirection==Stop &amp;&amp;
-            mDoorClosed==True &amp;&amp; mLevel[d]==False (for any d)<br>
+            mDoorClosed==True &amp;&amp; mDesiredFloor.f==CurrentFloor
+            &amp;&amp; <br>
+            mLevel[d]==False (for any d)<br>
           </td>
         </tr>
         <tr>
           <td valign="top">T6.4<br>
           </td>
-          <td valign="top">mLevel[*]==True || mEmergencyBrake[b]==On<br>
+          <td valign="top">(mLevel[*]==True &amp;&amp;
+            mDesiredFloor.f==CurrentFloor) || mEmergencyBrake[b]==On<br>
           </td>
         </tr>
         <tr>
           <td valign="top">T6.5<br>
           </td>
-          <td valign="top">mLevel[d]==False (for any d) <br>
+          <td valign="top">mLevel[d]==False for any d (car needs
+            re-leveling)<br>
           </td>
         </tr>
       </tbody>
