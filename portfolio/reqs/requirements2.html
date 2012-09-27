@@ -1758,11 +1758,15 @@
     ET8.4 mHallLight[f,b,d] shall be set to the current value of
     HallLight[f,b,d] <br>
     <h3>TIME-TRIGGERED BEHAVIORS: </h3>
-    <p>8.1<br>
-      8.2<br>
-      .<br>
-      .<br>
-      .</p>
+    <p>8.1  If any HallCall[f,b,d]=Pressed<br>
+      &nbsp;&nbsp; 8.1.1 HallLight[f,b,d] shall be set to On.<br>
+      &nbsp;&nbsp; 8.1.2 mHallLight[f,b,d] shall be set to True.<br>
+      &nbsp;&nbsp; 8.1.3 mHallCall[f,b,d] shall be set to True.<br>
+      8.2  If mDoorClosed[b,r] = false while mAtFloor[f,b] = true and mDesiredFloor.f=f<br>
+      &nbsp;&nbsp; 8.2.1 HallLight[f,b,d] shall be set to Off.<br>
+      &nbsp;&nbsp; 8.2.2 mHallLight[f,b,d] shall be set to False.<br>
+      &nbsp;&nbsp; 8.2.3 mHallCall[f,b,d] shall be set to False.<br>
+    </p>
     <h2><a name="carbuttoncontrol"></a> 9. CarButtonControl[f, b] </h2>
     <h3> Replication: </h3>
     <ul>
