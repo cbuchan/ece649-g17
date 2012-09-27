@@ -50,6 +50,8 @@
 	<key>GraphicsList</key>
 	<array>
 		<dict>
+			<key>AllowLabelDrop</key>
+			<false/>
 			<key>Class</key>
 			<string>LineGraphic</string>
 			<key>Head</key>
@@ -57,21 +59,14 @@
 				<key>ID</key>
 				<integer>4</integer>
 				<key>Info</key>
-				<integer>1</integer>
+				<integer>6</integer>
 			</dict>
 			<key>ID</key>
-			<integer>21</integer>
-			<key>OrthogonalBarAutomatic</key>
-			<true/>
-			<key>OrthogonalBarPoint</key>
-			<string>{0, 0}</string>
-			<key>OrthogonalBarPosition</key>
-			<real>-1</real>
+			<integer>24</integer>
 			<key>Points</key>
 			<array>
-				<string>{315.78244, 95}</string>
-				<string>{405.78244, 95}</string>
-				<string>{444.06488, 151.00002}</string>
+				<string>{315, 108}</string>
+				<string>{353.56482, 151}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -79,10 +74,10 @@
 				<dict>
 					<key>HeadArrow</key>
 					<string>FilledArrow</string>
-					<key>LineType</key>
-					<integer>2</integer>
 					<key>TailArrow</key>
 					<string>0</string>
+					<key>TailScale</key>
+					<real>0.5</real>
 				</dict>
 			</dict>
 		</dict>
@@ -306,6 +301,7 @@
 				<string>{-0.5, 0}</string>
 				<string>{0.5, 0}</string>
 				<string>{0.5, -0.5}</string>
+				<string>{-0.50000012, -0.49999988}</string>
 			</array>
 			<key>Shape</key>
 			<string>Rectangle</string>
@@ -320,7 +316,8 @@
 \f0\fs24 \cf0 State LIGHT_OFF\
 \
 mCarCall[f,b]=CarCall[f,b]\
-CarLight[f,b]=Off}</string>
+CarLight[f,b]=Off\
+mCarLight[f,b]=CarLight[f,b]}</string>
 			</dict>
 		</dict>
 		<dict>
@@ -350,7 +347,8 @@ CarLight[f,b]=Off}</string>
 \f0\fs24 \cf0 State LIGHT_ON\
 \
 mCarCall[f,b]=CarCall[f,b]\
-CarLight[f,b]=On}</string>
+CarLight[f,b]=On\
+mCarLight[f,b]=CarLight[f,b]}</string>
 			</dict>
 		</dict>
 	</array>
@@ -401,7 +399,7 @@ CarLight[f,b]=On}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2012-09-26 03:35:14 +0000</string>
+	<string>2012-09-27 16:11:55 +0000</string>
 	<key>Modifier</key>
 	<string>Jessica Tiu</string>
 	<key>NotesVisible</key>

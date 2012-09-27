@@ -1315,8 +1315,8 @@
     <br>
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
-      word-spacing: 0px; text-align: left;" height="113" border="1"
-      cellpadding="2" cellspacing="2" width="525">
+      word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="113" width="525">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -1582,8 +1582,8 @@
     <meta charset="utf-8">
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
-      word-spacing: 0px; text-align: left;" height="97" border="1"
-      cellpadding="2" cellspacing="2" width="525">
+      word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="97" width="525">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -1758,11 +1758,12 @@
     ET8.4 mHallLight[f,b,d] shall be set to the current value of
     HallLight[f,b,d] <br>
     <h3>TIME-TRIGGERED BEHAVIORS: </h3>
-    <p>8.1  If any HallCall[f,b,d]=Pressed<br>
+    <p>8.1 If any HallCall[f,b,d]=Pressed<br>
       &nbsp;&nbsp; 8.1.1 HallLight[f,b,d] shall be set to On.<br>
       &nbsp;&nbsp; 8.1.2 mHallLight[f,b,d] shall be set to True.<br>
       &nbsp;&nbsp; 8.1.3 mHallCall[f,b,d] shall be set to True.<br>
-      8.2  If mDoorClosed[b,r] = false while mAtFloor[f,b] = true and mDesiredFloor.f=f<br>
+      8.2 If mDoorClosed[b,r] = false while mAtFloor[f,b] = true and
+      mDesiredFloor.f=f<br>
       &nbsp;&nbsp; 8.2.1 HallLight[f,b,d] shall be set to Off.<br>
       &nbsp;&nbsp; 8.2.2 mHallLight[f,b,d] shall be set to False.<br>
       &nbsp;&nbsp; 8.2.3 mHallCall[f,b,d] shall be set to False.<br>
@@ -1773,8 +1774,8 @@
     <meta charset="utf-8">
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
-      word-spacing: 0px; text-align: left;" height="97" border="1"
-      cellpadding="2" cellspacing="2" width="525">
+      word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="97" width="525">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -1793,7 +1794,8 @@
         <tr>
           <td style="vertical-align: top; ">T8.2<br>
           </td>
-          <td style="vertical-align: top; ">mDoorClosed[b,r]==false &amp;&amp; mAtFloor[f,b]==true &amp;&amp; mDesiredFloor.f==f<br>
+          <td style="vertical-align: top; ">mDoorClosed[b,r]==false
+            &amp;&amp; mAtFloor[f,b]==true &amp;&amp; mDesiredFloor.f==f<br>
           </td>
         </tr>
       </tbody>
@@ -1801,8 +1803,8 @@
     <br>
     <h3>REQUIREMENTS TO STATECHART TRACEABILITY:<br>
     </h3>
-    <table style="text-align: left;" height="342" border="1"
-      cellpadding="2" cellspacing="2" width="790">
+    <table style="text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="342" width="790">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
@@ -1864,6 +1866,7 @@
             valign="middle"><br>
           </td>
           <td align="center" valign="middle">X<br>
+          </td>
           <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle">X<br>
@@ -1906,6 +1909,7 @@
             204, 204);" bgcolor="#cccccc">T8.1<br>
           </td>
           <td align="center" valign="middle">X<br>
+          </td>
           <td style="vertical-align: top;" align="center"
             valign="middle"><br>
           </td>
@@ -1995,6 +1999,7 @@
       9.2 If mCarCall[<b>f</b>,<b>b</b>]=True, CarLight[<b>f</b>,<b>b</b>]
       shall be set to On.<br>
       9.3 mCarCall[<b>f</b>,<b>b</b>] shall always be set to CarCall[<b>f</b>,<b>b</b>].<br>
+      9.4 mCarLight[<b>f</b>,<b>b</b>] shall always be set to CarLight[<b>f</b>,<b>b</b>].<br>
     </p>
     <h3>STATECHART: </h3>
     <img alt="SC_CarButtonControl" src="SC_CarButtonControl.png"
@@ -2024,14 +2029,14 @@
       <meta charset="utf-8">
     </h3>
     <h3>REQUIREMENTS TO STATECHART TRACEABILITY: </h3>
-    <table style="text-align: left;" height="121" border="1"
-      cellpadding="2" cellspacing="2" width="409">
+    <table style="text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="121" width="409">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);"><br>
           </td>
-          <td colspan="3" rowspan="1" style="vertical-align: top;
+          <td colspan="4" rowspan="1" style="vertical-align: top;
             background-color: rgb(204, 204, 204);">Requirements<br>
           </td>
         </tr>
@@ -2047,6 +2052,8 @@
           </td>
           <td bgcolor="#cccccc" valign="top">BR9.3<br>
           </td>
+          <td bgcolor="#cccccc" valign="top">BR9.4<br>
+          </td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
@@ -2055,6 +2062,8 @@
           <td style="vertical-align: top;"><br>
           </td>
           <td style="vertical-align: top;">X<br>
+          </td>
+          <td valign="top">X<br>
           </td>
           <td valign="top">X<br>
           </td>
@@ -2069,6 +2078,8 @@
           </td>
           <td valign="top">X<br>
           </td>
+          <td valign="top">X<br>
+          </td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
@@ -2077,6 +2088,8 @@
           <td style="vertical-align: top;"><br>
           </td>
           <td style="vertical-align: top;"><br>
+          </td>
+          <td valign="top"><br>
           </td>
           <td valign="top"><br>
           </td>
@@ -2091,6 +2104,8 @@
           </td>
           <td valign="top">X<br>
           </td>
+          <td valign="top"><br>
+          </td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
@@ -2101,6 +2116,8 @@
           <td style="vertical-align: top;">X<br>
           </td>
           <td valign="top">X<br>
+          </td>
+          <td valign="top"><br>
           </td>
         </tr>
       </tbody>
@@ -2265,8 +2282,8 @@
       </tbody>
     </table>
     <h3>REQUIREMENTS TO STATECHART TRACEABILITY: </h3>
-    <table style="text-align: left;" height="342" border="1"
-      cellpadding="2" cellspacing="2" width="790">
+    <table style="text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="342" width="790">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
