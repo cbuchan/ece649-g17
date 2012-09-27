@@ -1357,8 +1357,8 @@
     <meta charset="utf-8">
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
-      word-spacing: 0px; text-align: left;" height="97" border="1"
-      cellpadding="2" cellspacing="2" width="525">
+      word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="97" width="525">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -1614,8 +1614,8 @@
       <meta charset="utf-8">
     </h3>
     <h3>REQUIREMENTS TO STATECHART TRACEABILITY: </h3>
-    <table style="text-align: left;" height="121" border="1"
-      cellpadding="2" cellspacing="2" width="409">
+    <table style="text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="121" width="409">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
@@ -1809,8 +1809,343 @@
     appropriate value for door open dwell. &nbsp;&nbsp; &nbsp; <br>
     <h3>STATECHART:</h3>
     <img alt="SC_Dispatcher" src="SC_Dispatcher.png" height="550"
-      width="766">
-    <p> &nbsp;<br>
+      width="766">&nbsp; <br>
+    <table style="text-align: left; width: 800px;" border="1"
+      cellpadding="2" cellspacing="2">
+      <tbody>
+        <tr>
+          <td style="vertical-align: top; font-weight: bold;
+            background-color: rgb(204, 204, 204);">Transition<br>
+          </td>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);"><span style="font-weight: bold;">Condition</span><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">T11.1</td>
+          <td style="vertical-align: top;">mDoorClosed[b,r] == false
+            &amp;&amp; NumTrue(mAtFloor[f,b]) == 0<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">T11.2</td>
+          <td style="vertical-align: top;">mDoorClosed[b,r] == false
+            &amp;&amp; NumTrue(mAtFloor[f,b]) &gt; 0<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">T11.3<br>
+          </td>
+          <td valign="top">mAtFloor[f,front] == true &amp;&amp;
+            mAtFloor[f,back] == false<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">T11.4<br>
+          </td>
+          <td valign="top">mAtFloor[f,front] == false &amp;&amp;
+            mAtFloor[f,back] == true</td>
+        </tr>
+        <tr>
+          <td valign="top">T11.5<br>
+          </td>
+          <td valign="top">mAtFloor[f,front] == true &amp;&amp;
+            mAtFloor[f,back] == true</td>
+        </tr>
+      </tbody>
+    </table>
+    <h3>REQUIREMENTS TO STATECHART TRACEABILITY: </h3>
+    <table style="text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="342" width="790">
+      <tbody>
+        <tr style="font-weight: bold;">
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);"><br>
+          </td>
+          <td colspan="8" rowspan="1" style="vertical-align: top;
+            background-color: rgb(204, 204, 204);">Requirements<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);"><span style="font-weight: bold;">States</span><br>
+          </td>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);">BR11.4<br>
+          </td>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);">BR11.5<br>
+          </td>
+          <td bgcolor="#cccccc" valign="top">BR11.6.1<br>
+          </td>
+          <td bgcolor="#cccccc" valign="top">BR11.6.2</td>
+          <td bgcolor="#cccccc" valign="top">BR11.7.1<br>
+          </td>
+          <td bgcolor="#cccccc" valign="top">BR11.7.2</td>
+          <td bgcolor="#cccccc" valign="top">BR11.8<br>
+          </td>
+          <td bgcolor="#cccccc" valign="top">BR11.9<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);">State DEFAULT_TARGET<br>
+          </td>
+          <td style="vertical-align: top;" align="center"
+            valign="middle"><br>
+          </td>
+          <td style="vertical-align: top;" align="center"
+            valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);">State SET_TARGET<br>
+          </td>
+          <td style="vertical-align: top;" align="center"
+            valign="middle">X<br>
+          </td>
+          <td style="vertical-align: top;" align="center"
+            valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor="#cccccc" valign="top">State NEXT_FLR_TARGET<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor="#cccccc" valign="top">State HALL_FRONT<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor="#cccccc" valign="top">State HALL_BACK<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor="#cccccc" valign="top">State HALL_BOTH<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);" bgcolor="#cccccc"><span style="font-weight:
+              bold;">Transitions</span><br>
+          </td>
+          <td style="vertical-align: top;" align="center"
+            valign="middle"><br>
+          </td>
+          <td style="vertical-align: top;" align="center"
+            valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);" bgcolor="#cccccc">T11.1<br>
+          </td>
+          <td style="vertical-align: top;" align="center"
+            valign="middle"><br>
+          </td>
+          <td style="vertical-align: top;" align="center"
+            valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);" bgcolor="#cccccc">T11.2<br>
+          </td>
+          <td style="vertical-align: top;" align="center"
+            valign="middle"><br>
+          </td>
+          <td style="vertical-align: top;" align="center"
+            valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor="#cccccc" valign="top">T11.3<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor="#cccccc" valign="top">T11.4<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor="#cccccc" valign="top">T11.5<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p><br>
       &nbsp; </p>
   </body>
 </html>
