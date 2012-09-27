@@ -316,6 +316,7 @@
 
 
 
+
         Case 5: Passenger Triggers Door Reversal </h2>
       <h3> <a name="scenario5a" id="scenario5a"></a>Scenario 5A:
         Passenger attempts to enter the car as the doors begin to close.
@@ -332,6 +333,7 @@
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to enter and is nudged by Door[<b>b</b>,<b>r</b>],
+
 
 
 
@@ -374,6 +376,7 @@
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to exit and is nudged by Door[<b>b</b>,<b>r</b>],
+
 
 
 
@@ -473,7 +476,7 @@
       </ul>
       <h3> Sequence Diagram: </h3>
       <a href="proj2_scenario7a.gif"><img alt="sd7a" src="sd7a.png"
-          border="0" height="337" width="1226"></a>
+          height="337" border="0" width="1226"></a>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <h3> <a name="scenario7b" id="scenario7b"></a>Scenario 7B:
@@ -510,7 +513,7 @@
       </ul>
       <h3> Sequence Diagram: </h3>
       <a href="proj2_scenario7b.gif"><img alt="sd7b" src="sd7b.png"
-          border="0" height="337" width="1226"></a>
+          height="337" border="0" width="1226"></a>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <h3> <a name="scenario7c" id="scenario7c"></a>Scenario 7C:
@@ -534,7 +537,7 @@
       </ul>
       <h3> Sequence Diagram: </h3>
       <a href="proj2_scenario7c.gif"><img alt="sd7c" src="sd7c.png"
-          border="0" height="327" width="442"></a>
+          height="327" border="0" width="442"></a>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <p> &nbsp; </p>
@@ -629,10 +632,13 @@
       <h3> Scenario: </h3>
       <ol>
         <li>Desired floor updated to [1, None, d]</li>
+        <li>Emergency brake is activated</li>
       </ol>
       <h3> Post-Conditions: </h3>
       <ul type="disc">
         <li>mDesiredFloor set</li>
+        <li>Drive is set to Stop<br>
+        </li>
       </ul>
       <h3> Sequence Diagram: </h3>
       <h3><a href="sd9b.png"><img alt="sd9b" src="sd9b.png"></a><br>

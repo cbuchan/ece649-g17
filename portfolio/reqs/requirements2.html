@@ -1036,7 +1036,8 @@
     that f equals g, then DoorMotor[b,r] shall be commanded to Open.<br>
     <br>
     <h3>STATECHART: </h3>
-    <img alt="SC_DoorControl" src="SC_DoorControl.png"><br>
+    <img alt="SC_DoorControl" src="SC_DoorControl.png" height="511"
+      width="593"><br>
     <br>
     <meta charset="utf-8">
     <table style="font-family: Times; letter-spacing: normal; orphans:
@@ -1102,8 +1103,8 @@
     <h3>REQUIREMENTS TO STATECHART TRACEABILITY:</h3>
     <p>completed by Rajeev Sharma (rdsharma)<br>
     </p>
-    <table style="text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="342" width="790">
+    <table style="text-align: left;" height="342" border="1"
+      cellpadding="2" cellspacing="2" width="790">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
@@ -1704,23 +1705,26 @@
     shall be set to (Level,d).<br>
     ET6.7 &nbsp;&nbsp; If mLevel[*] = True, then Drive[s,d] shall be
     commanded to (Stop,d) or (Stop,Stop).<br>
-    ET6.8 &nbsp;&nbsp; If mDoorClosed[*,*] is True, and mDesiredFloor.d
+    ET6.8 &nbsp;&nbsp; If mDoorClosed[*,*] is True, and DesiredDirection
     is not Stop, then Drive[s,d] shall be commanded to (Slow,d).<br>
+    ET6.9&nbsp;&nbsp;&nbsp; If mEmergencyBrake[b]=On, then Drive[s,d]
+    shall be commanded to Stop.
     <h3>TIME-TRIGGERED BEHAVIORS: </h3>
     <p>6.6 &nbsp;&nbsp; If any mAtFloor[f,b]=True and mLevel[d]=False
       for any d, then Drive[s,d] shall be set to (Level,d).<br>
       6.7 &nbsp;&nbsp; If any mAtFloor[f,b]=True and mLevel[*]=True,
       then Drive[s,d] shall be commanded to (Stop,d) or (Stop,Stop).<br>
-      6.8 &nbsp;&nbsp; If mDoorClosed[*,*]=True, and mDesiredFloor.d is
+      6.8 &nbsp;&nbsp; If mDoorClosed[*,*]=True, and DesiredDirection is
       not Stop, then Drive[s,d] shall have been commanded to (Slow,d).<br>
-    </p>
+      6.9&nbsp;&nbsp;&nbsp; If mEmergencyBrake[b]=On, then Drive[s,d]
+      shall be commanded to Stop. </p>
     <h3>STATECHART: </h3>
-    <img alt="SD_DriveControl" src="SC_DriveControl.png" height="795"
-      width="903">
+    <img alt="SD_DriveControl" src="SC_DriveControl.png" height="545"
+      width="620">
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
-      word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="113" width="525">
+      word-spacing: 0px; text-align: left;" height="113" border="1"
+      cellpadding="2" cellspacing="2" width="525">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -1786,7 +1790,7 @@
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204); "><br>
           </td>
-          <td colspan="3" rowspan="1" style="vertical-align: top;
+          <td colspan="4" rowspan="1" style="vertical-align: top;
             background-color: rgb(204, 204, 204); ">Requirements:<br>
           </td>
         </tr>
@@ -1801,6 +1805,8 @@
             204, 204); ">BR6.7</td>
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204); ">BR6.8</td>
+          <td bgcolor="#cccccc" valign="top">BR6.9<br>
+          </td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
@@ -1808,9 +1814,11 @@
           </td>
           <td style="vertical-align: top; "><br>
           </td>
-          <td style="vertical-align: top; "><br>
+          <td style="vertical-align: top; ">X<br>
           </td>
           <td style="vertical-align: top; "><br>
+          </td>
+          <td valign="top"><br>
           </td>
         </tr>
         <tr>
@@ -1821,11 +1829,15 @@
           </td>
           <td style="vertical-align: top; "><br>
           </td>
-          <td style="vertical-align: top; "><br>
+          <td style="vertical-align: top; ">X<br>
+          </td>
+          <td valign="top"><br>
           </td>
         </tr>
         <tr>
           <td bgcolor="#cccccc" valign="top">State 3: Drive Leveling<br>
+          </td>
+          <td valign="top">X<br>
           </td>
           <td valign="top"><br>
           </td>
@@ -1844,6 +1856,8 @@
           </td>
           <td style="vertical-align: top; "><br>
           </td>
+          <td valign="top"><br>
+          </td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
@@ -1853,6 +1867,8 @@
           <td style="vertical-align: top; "><br>
           </td>
           <td style="vertical-align: top; ">X<br>
+          </td>
+          <td valign="top"><br>
           </td>
         </tr>
         <tr>
@@ -1864,10 +1880,14 @@
           </td>
           <td style="vertical-align: top; "><br>
           </td>
+          <td valign="top">X<br>
+          </td>
         </tr>
         <tr>
           <td bgcolor="#cccccc" valign="top">T6.3</td>
           <td valign="top">X<br>
+          </td>
+          <td valign="top"><br>
           </td>
           <td valign="top"><br>
           </td>
@@ -1883,11 +1903,15 @@
           </td>
           <td valign="top"><br>
           </td>
+          <td valign="top"><br>
+          </td>
         </tr>
         <tr>
           <td bgcolor="#cccccc" valign="top">T6.5<br>
           </td>
           <td valign="top">X<br>
+          </td>
+          <td valign="top"><br>
           </td>
           <td valign="top"><br>
           </td>
@@ -1960,8 +1984,8 @@
     <meta charset="utf-8">
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
-      word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="97" width="525">
+      word-spacing: 0px; text-align: left;" height="97" border="1"
+      cellpadding="2" cellspacing="2" width="525">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -2152,8 +2176,8 @@
     <meta charset="utf-8">
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
-      word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="97" width="525">
+      word-spacing: 0px; text-align: left;" height="97" border="1"
+      cellpadding="2" cellspacing="2" width="525">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -2182,8 +2206,8 @@
     <h3>REQUIREMENTS TO STATECHART TRACEABILITY:</h3>
     <p>completed by Rajeev Sharma (rdsharma)<br>
     </p>
-    <table style="text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="342" width="790">
+    <table style="text-align: left;" height="342" border="1"
+      cellpadding="2" cellspacing="2" width="790">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
@@ -2424,8 +2448,8 @@
         display: inline !important; float: none; ">completed by Jessica
         Tiu (jtiu)<br>
       </span></p>
-    <table style="text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="233" width="552">
+    <table style="text-align: left;" height="233" border="1"
+      cellpadding="2" cellspacing="2" width="552">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
@@ -2596,8 +2620,8 @@
     <img alt="SC_CarPositionControl" src="SC_CarPositionControl.png"
       height="337" width="466"><br>
     <br>
-    <table style="text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="58" width="324">
+    <table style="text-align: left;" height="58" border="1"
+      cellpadding="2" cellspacing="2" width="324">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -2624,8 +2648,8 @@
         display: inline !important; float: none; ">completed by Jesse
         Salazar (jessesal)<br>
       </span></p>
-    <table style="text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="86" width="304">
+    <table style="text-align: left;" height="86" border="1"
+      cellpadding="2" cellspacing="2" width="304">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
@@ -2819,8 +2843,8 @@
         -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;
         display: inline !important; float: none; ">completed by Collin
         Buchan (cbuchan)</span></p>
-    <table style="text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="342" width="790">
+    <table style="text-align: left;" height="342" border="1"
+      cellpadding="2" cellspacing="2" width="790">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
