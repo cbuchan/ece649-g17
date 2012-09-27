@@ -1710,10 +1710,12 @@
     ET6.9&nbsp;&nbsp;&nbsp; If mEmergencyBrake[b]=On, then Drive[s,d]
     shall be commanded to Stop.
     <h3>TIME-TRIGGERED BEHAVIORS: </h3>
-    <p>6.6 &nbsp;&nbsp; If any mAtFloor[f,b]=True and mLevel[d]=False
-      for any d, then Drive[s,d] shall be set to (Level,d).<br>
-      6.7 &nbsp;&nbsp; If any mAtFloor[f,b]=True and mLevel[*]=True,
-      then Drive[s,d] shall be commanded to (Stop,d) or (Stop,Stop).<br>
+    <p>6.6 &nbsp;&nbsp; If any mAtFloor[f,b]=True and
+      mDesiredFloor.f=CurrentFloor and mLevel[d]=False for any d, then
+      Drive[s,d] shall be set to (Level,d).<br>
+      6.7 &nbsp;&nbsp; If any mAtFloor[f,b]=True and
+      mDesiredFloor.f=CurrentFloor and mLevel[*]=True, then Drive[s,d]
+      shall be commanded to (Stop,d) or (Stop,Stop).<br>
       6.8 &nbsp;&nbsp; If mDoorClosed[*,*]=True, and DesiredDirection is
       not Stop, then Drive[s,d] shall have been commanded to (Slow,d).<br>
       6.9&nbsp;&nbsp;&nbsp; If mEmergencyBrake[b]=On, then Drive[s,d]
@@ -2808,29 +2810,25 @@
           <td valign="top">T11.9</td>
           <td valign="top">mDoorClosed[b,r] == false &amp;&amp;
             mAtFloor[f,front] == false &amp;&amp; mAtFloor[f,back] ==
-            true
-          </td>
+            true </td>
         </tr>
         <tr>
           <td valign="top">T11.10</td>
           <td valign="top">mDoorClosed[b,r] == false &amp;&amp;
             mAtFloor[f,front] == true &amp;&amp; mAtFloor[f,back] ==
-            true
-          </td>
+            true </td>
         </tr>
         <tr>
           <td valign="top">T11.11</td>
           <td valign="top">mDoorClosed[b,r] == false &amp;&amp;
             mAtFloor[f,front] == true &amp;&amp; mAtFloor[f,back] ==
-            true
-          </td>
+            true </td>
         </tr>
         <tr>
           <td valign="top">T11.12</td>
           <td valign="top">mDoorClosed[b,r] == false &amp;&amp;
             mAtFloor[f,front] == true &amp;&amp; mAtFloor[f,back] ==
-            true
-          </td>
+            true </td>
         </tr>
       </tbody>
     </table>
