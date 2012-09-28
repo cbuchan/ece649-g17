@@ -2164,7 +2164,7 @@
       &nbsp;&nbsp; 8.1.1 HallLight[f,b,d] shall be set to On.<br>
       &nbsp;&nbsp; 8.1.2 mHallLight[f,b,d] shall be set to True.<br>
       &nbsp;&nbsp; 8.1.3 mHallCall[f,b,d] shall be set to True.<br>
-      8.2 If mDoorClosed[b,r] = false while mAtFloor[f,b] = true and
+      8.2 If mDoorOpened[b,r] = true while mAtFloor[f,b] = true and
       mDesiredFloor.f=f<br>
       &nbsp;&nbsp; 8.2.1 HallLight[f,b,d] shall be set to Off.<br>
       &nbsp;&nbsp; 8.2.2 mHallLight[f,b,d] shall be set to False.<br>
@@ -2190,14 +2190,70 @@
         <tr>
           <td style="vertical-align: top; ">T8.1<br>
           </td>
-          <td style="vertical-align: top; ">HallCall[f,b,d]==Pressed<br>
+          <td style="vertical-align: top; ">HallCall[f,b,Up]==Pressed<br>
           </td>
         </tr>
         <tr>
           <td style="vertical-align: top; ">T8.2<br>
           </td>
-          <td style="vertical-align: top; ">mDoorClosed[b,r]==false
-            &amp;&amp; mAtFloor[f,b]==true &amp;&amp; mDesiredFloor.f==f<br>
+          <td style="vertical-align: top; ">HallCall[f,b,Down]==Pressed<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T8.3<br>
+          </td>
+          <td style="vertical-align: top; ">HallCall[f,b,Down]==Pressed<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T8.4<br>
+          </td>
+          <td style="vertical-align: top; ">HallCall[f,b,Up]==Pressed<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T8.5<br>
+          </td>
+          <td style="vertical-align: top; ">mDoorOpened[b,r]==true
+            &amp;&amp; mAtFloor[f,b]==true 
+            &amp;&amp; mDesiredFloor.f==f 
+            &amp;&amp; (mDesiredFloor.d==Stop || mDesiredFloor.d==Up)<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T8.6<br>
+          </td>
+          <td style="vertical-align: top; ">mDoorOpened[b,r]==true
+            &amp;&amp; mAtFloor[f,b]==true 
+            &amp;&amp; mDesiredFloor.f==f 
+            &amp;&amp; (mDesiredFloor.d==Stop || mDesiredFloor.d==Down)<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T8.7<br>
+          </td>
+          <td style="vertical-align: top; ">mDoorOpened[b,r]==true
+            &amp;&amp; mAtFloor[f,b]==true 
+            &amp;&amp; mDesiredFloor.f==f 
+            &amp;&amp; mDesiredFloor.d==Down<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T8.8<br>
+          </td>
+          <td style="vertical-align: top; ">mDoorOpened[b,r]==true
+            &amp;&amp; mAtFloor[f,b]==true 
+            &amp;&amp; mDesiredFloor.f==f 
+            &amp;&amp; mDesiredFloor.d==Up<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T8.9<br>
+          </td>
+          <td style="vertical-align: top; ">mDoorOpened[b,r]==true
+            &amp;&amp; mAtFloor[f,b]==true 
+            &amp;&amp; mDesiredFloor.f==f 
+            &amp;&amp; mDesiredFloor.d==Stop<br>
           </td>
         </tr>
       </tbody>
@@ -2263,7 +2319,33 @@
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);">State HALL_CALL_ON<br>
+            204, 204);">State HALL_CALL_UP<br>
+          </td>
+          <td align="center" valign="middle"><br></td>
+          <td align="center" valign="middle">X<br></td>
+          <td align="center" valign="middle">X<br></td>
+          <td align="center" valign="middle">X<br></td>
+          <td align="center" valign="middle"><br></td>
+          <td align="center" valign="middle">X<br></td>
+          <td align="center" valign="middle">X<br></td>
+          <td align="center" valign="middle">X<br></td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);">State HALL_CALL_DOWN<br>
+          </td>
+          <td align="center" valign="middle"><br></td>
+          <td align="center" valign="middle">X<br></td>
+          <td align="center" valign="middle">X<br></td>
+          <td align="center" valign="middle">X<br></td>
+          <td align="center" valign="middle"><br></td>
+          <td align="center" valign="middle">X<br></td>
+          <td align="center" valign="middle">X<br></td>
+          <td align="center" valign="middle">X<br></td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);">State HALL_CALL_BOTH<br>
           </td>
           <td style="vertical-align: top;" align="center"
             valign="middle"><br>
@@ -2332,6 +2414,164 @@
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);" bgcolor="#cccccc">T8.2<br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td style="vertical-align: top;" align="center"
+            valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);" bgcolor="#cccccc">T8.3<br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td style="vertical-align: top;" align="center"
+            valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);" bgcolor="#cccccc">T8.4<br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td style="vertical-align: top;" align="center"
+            valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);" bgcolor="#cccccc">T8.5<br>
+          </td>
+          <td style="vertical-align: top;" align="center"
+            valign="middle"><br>
+          </td>
+          <td style="vertical-align: top;" align="center"
+            valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);" bgcolor="#cccccc">T8.6<br>
+          </td>
+          <td style="vertical-align: top;" align="center"
+            valign="middle"><br>
+          </td>
+          <td style="vertical-align: top;" align="center"
+            valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);" bgcolor="#cccccc">T8.7<br>
+          </td>
+          <td style="vertical-align: top;" align="center"
+            valign="middle"><br>
+          </td>
+          <td style="vertical-align: top;" align="center"
+            valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);" bgcolor="#cccccc">T8.8<br>
+          </td>
+          <td style="vertical-align: top;" align="center"
+            valign="middle"><br>
+          </td>
+          <td style="vertical-align: top;" align="center"
+            valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);" bgcolor="#cccccc">T8.9<br>
           </td>
           <td style="vertical-align: top;" align="center"
             valign="middle"><br>
