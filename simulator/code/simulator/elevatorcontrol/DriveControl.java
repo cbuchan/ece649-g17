@@ -206,19 +206,20 @@ public class DriveControl extends Controller {
             	/*            	
             	 * Drive[s,d]=(Stop,Stop);
             	 * mDrive[s,d]=(Stop,Stop);
-            	 * mDriveSpeed[s,d]=(Stop,Stop);	**also fix the state chart, it says (0,Stop)
+            	 * mDriveSpeed[s,d]=(Stop,DesiredDirection);
             	 */
+							desiredDir=getDesiredDir();
+
             	localDrive.set(Speed.STOP, Direction.STOP);
             	mDrive.set(Speed.STOP, Direction.STOP);
-            	mDriveSpeed.set(Speed.STOP, Direction.STOP);
-            	
-                desiredDir=getDesiredDir();
+            	mDriveSpeed.set(Speed.STOP, desiredDir);
             	
             	//transitions
             	/*
             	 * T6.1 DesiredDirection~=Stop && mDoorClosed[*,*]==True && 
             	 * 		mCarWeight<MaxCarCapacity && mEmergencyBrake[b]==Off
-            	 * T6.5 mLevel[d]==False for any d (car needs re-leveling)
+            	 * T6.5 DesiredDirection==Stop && mDoorClosed==True && 
+            	 * 		mDesiredFloor.f==CurrentFloor && mLevel[d]==False (for any d)
             	 */
             	if (!desiredDir.equals(Direction.STOP) && 
             			networkDoorClosedArray.getBothClosed() &&
@@ -226,7 +227,11 @@ public class DriveControl extends Controller {
             			!mEmergencyBrake.getValue()){            		
             		newState = State.STATE_DRIVE_SLOW;
             	}
-            	else if (!mLevelUp.getValue() || !mLevelDown.getValue()){           		
+            	else if (desiredDir.equals(Direction.STOP) &&
+            			networkDoorClosedArray.getBothClosed() &&
+            			mDesiredFloor.getFloor()==networkAtFloorArray.getCurrentFloor() &&
+            			(!mLevelUp.getValue() || !mLevelDown.getValue())){
+     		
             		newState = State.STATE_DRIVE_LEVEL;
             	}
             	else { newState=state; }
@@ -236,16 +241,16 @@ public class DriveControl extends Controller {
             	
             	//state actions for DRIVE_LEVEL
             	/*            	
-            	 * Drive[s,d]=(Level,d);
-            	 * mDrive[s,d]=(Level,d);
-            	 * mDriveSpeed[s,d]=(0,Stop);	**also fix the state chart, it says (0,Stop)
+            	 * Drive[s,d]=(Level,DesiredDirection);
+            	 * mDrive[s,d]=(Level,DesiredDirection);
+            	 * mDriveSpeed[s,d]=(Stop,Stop);
             	 */
+							desiredDir=getDesiredDir();
+
             	localDrive.set(Speed.LEVEL, desiredDir);
             	mDrive.set(Speed.LEVEL, desiredDir);
             	mDriveSpeed.set(Speed.STOP, Direction.STOP);
-            	
-                desiredDir=getDesiredDir();
-            	
+            	            	
             	//transitions
             	/*
             	 * T6.4 (mLevel[*]==True && mDesiredFloor.f==CurrentFloor) || mEmergencyBrake[b]==On
@@ -266,12 +271,13 @@ public class DriveControl extends Controller {
             	 * mDrive[s,d]=(Slow,d);
             	 * mDriveSpeed[s,d]=(s,Stop);
             	 */
+
+							desiredDir=getDesiredDir();
+
             	localDrive.set(Speed.SLOW, desiredDir);
             	mDrive.set(Speed.SLOW, desiredDir);
-            	mDriveSpeed.set(localDrive.speed(), Direction.STOP);
-            	
-                desiredDir=getDesiredDir();
-            	
+            	mDriveSpeed.set(Speed.SLOW, desiredDir);
+            	            	
             	//transitions
             	/*
             	 * T6.2 mEmergencyBrake[b]==On

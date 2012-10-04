@@ -2,3 +2,4 @@
 .DS_Store
 /simulator/Simulator.iml
 /simulator/.idea/
+*.class
