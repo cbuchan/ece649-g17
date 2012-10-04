@@ -208,10 +208,10 @@ public class DriveControl extends Controller {
 
                 //state actions for DRIVE_STOPPED
                 /*
-                     * Drive[s,d]=(Stop,Stop);
-                     * mDrive[s,d]=(Stop,Stop);
-                     * mDriveSpeed[s,d]=(Stop,DesiredDirection);
-                     */
+                 * Drive[s,d]=(Stop,Stop);
+                 * mDrive[s,d]=(Stop,Stop);
+                 * mDriveSpeed[s,d]=(Stop,DesiredDirection);
+                 */
                 desiredDir = getDesiredDir();
 
                 localDrive.set(Speed.STOP, Direction.STOP);
@@ -220,11 +220,11 @@ public class DriveControl extends Controller {
 
                 //transitions
                 /*
-                     * T6.1 DesiredDirection~=Stop && mDoorClosed[*,*]==True &&
-                     * 		mCarWeight<MaxCarCapacity && mEmergencyBrake[b]==Off
-                     * T6.5 DesiredDirection==Stop && mDoorClosed==True &&
-                     * 		mDesiredFloor.f==CurrentFloor && mLevel[d]==False (for any d)
-                     */
+                 * T6.1 DesiredDirection~=Stop && mDoorClosed[*,*]==True &&
+                 * 		mCarWeight<MaxCarCapacity && mEmergencyBrake[b]==Off
+                 * T6.5 DesiredDirection==Stop && mDoorClosed==True &&
+                 * 		mDesiredFloor.f==CurrentFloor && mLevel[d]==False (for any d)
+                 */
                 if (!desiredDir.equals(Direction.STOP) &&
                         networkDoorClosedFront.getBothClosed() && networkDoorClosedBack.getBothClosed() &&
                         mCarWeight.getWeight() < Elevator.MaxCarCapacity &&
@@ -245,10 +245,10 @@ public class DriveControl extends Controller {
 
                 //state actions for DRIVE_LEVEL
                 /*
-                     * Drive[s,d]=(Level,DesiredDirection);
-                     * mDrive[s,d]=(Level,DesiredDirection);
-                     * mDriveSpeed[s,d]=(Stop,Stop);
-                     */
+                 * Drive[s,d]=(Level,DesiredDirection);
+                 * mDrive[s,d]=(Level,DesiredDirection);
+                 * mDriveSpeed[s,d]=(Stop,Stop);
+                 */
                 desiredDir = getDesiredDir();
 
                 localDrive.set(Speed.LEVEL, desiredDir);
@@ -257,8 +257,8 @@ public class DriveControl extends Controller {
 
                 //transitions
                 /*
-                     * T6.4 (mLevel[*]==True && mDesiredFloor.f==CurrentFloor) || mEmergencyBrake[b]==On
-                     */
+                 * T6.4 (mLevel[*]==True && mDesiredFloor.f==CurrentFloor) || mEmergencyBrake[b]==On
+                 */
                 if ((mLevelUp.getValue() || mLevelDown.getValue()) &&
                         mDesiredFloor.getFloor() == networkAtFloorArray.getCurrentFloor() ||
                         mEmergencyBrake.getValue()) {
@@ -271,12 +271,13 @@ public class DriveControl extends Controller {
                 break;
             case STATE_DRIVE_SLOW:
 
+
                 //state actions for DRIVE_SLOW
                 /*
-                     * Drive[s,d]=(Slow,d);
-                     * mDrive[s,d]=(Slow,d);
-                     * mDriveSpeed[s,d]=(s,Stop);
-                     */
+                 * Drive[s,d]=(Slow,d);
+                 * mDrive[s,d]=(Slow,d);
+                 * mDriveSpeed[s,d]=(s,Stop);
+                 */
 
                 desiredDir = getDesiredDir();
 
@@ -284,16 +285,12 @@ public class DriveControl extends Controller {
                 mDrive.set(Speed.SLOW, desiredDir);
                 mDriveSpeed.set(Speed.SLOW, desiredDir);
 
-                System.out.println("drive.s=" + localDrive.speed() + " drive.d=" + localDrive.direction());
-                System.out.println("mdrive.s=" + mDrive.getSpeed() + " mdrive.d=" + mDrive.getDirection());
-                System.out.println("mdrivespeed.s=" + mDriveSpeed.getSpeed() + " mdrivespeed.d=" + mDriveSpeed.getDirection());
-
                 //transitions
                 /*
-                     * T6.2 mEmergencyBrake[b]==On
-                     * T6.3 DesiredDirection==Stop && mDoorClosed==True &&
-                     * 		mDesiredFloor.f==CurrentFloor && mLevel[d]==False (for any d)
-                     */
+                 * T6.2 mEmergencyBrake[b]==On
+                 * T6.3 DesiredDirection==Stop && mDoorClosed==True &&
+                 * 		mDesiredFloor.f==CurrentFloor && mLevel[d]==False (for any d)
+                 */
                 if (mEmergencyBrake.getValue()) {
                     newState = State.STATE_DRIVE_STOPPED;
                 } else if (desiredDir.equals(Direction.STOP) &&
