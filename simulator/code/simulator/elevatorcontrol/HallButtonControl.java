@@ -1,8 +1,3 @@
-/* 18649 Fall 2012
- * Collin Buchan
- * cbuchan
- */
-
 package simulator.elevatorcontrol;
 
 import jSimPack.SimTime;
@@ -18,6 +13,12 @@ import simulator.payloads.HallLightPayload;
 import simulator.payloads.HallLightPayload.WriteableHallLightPayload;
 import simulator.payloads.translators.BooleanCanPayloadTranslator;
 
+/**
+ * HallButtonControl controls responds to passenger input on the hall buttons
+ * and eventually will notify the dispatcher when a passenger is requesting pickup
+ *
+ * @author Collin Buchan
+ */
 public class HallButtonControl extends Controller {
 
     /**
