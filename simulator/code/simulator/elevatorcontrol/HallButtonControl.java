@@ -1,8 +1,3 @@
-/* 18649 Fall 2012
- * Collin Buchan
- * cbuchan
- */
-
 package simulator.elevatorcontrol;
 
 import jSimPack.SimTime;
@@ -18,6 +13,12 @@ import simulator.payloads.HallLightPayload;
 import simulator.payloads.HallLightPayload.WriteableHallLightPayload;
 import simulator.payloads.translators.BooleanCanPayloadTranslator;
 
+/**
+ * HallButtonControl controls responds to passenger input on the hall buttons
+ * and eventually will notify the dispatcher when a passenger is requesting pickup
+ *
+ * @author Collin Buchan
+ */
 public class HallButtonControl extends Controller {
 
     /**
@@ -36,6 +37,11 @@ public class HallButtonControl extends Controller {
     private WriteableCanMailbox networkHallLightOut;
     // translator for the hall light message -- this is a generic translator
     private BooleanCanPayloadTranslator mHallLight;
+
+    // send network hall call
+    private WriteableCanMailbox networkHallCallOut;
+    // translator for the hall call message -- this is a generic translator
+    private BooleanCanPayloadTranslator mHallCall;
 
     //received door closed message
     private ReadableCanMailbox networkDoorClosedFrontLeft;
@@ -75,13 +81,12 @@ public class HallButtonControl extends Controller {
     private State state = State.STATE_HALL_CALL_OFF;
 
     /**
-     * The arguments listed in the .cf configuration file should match the order and
-     * type given here.
+     * The arguments listed in the .cf configuration file should match the order and type given here.
      * <p/>
-     * For your elevator controllers, you should make sure that the constructor matches
-     * the method signatures in ControllerBuilder.makeAll().
+     * For your elevator controllers, you should make sure that the constructor matches the method signatures in
+     * ControllerBuilder.makeAll().
      */
-    public HallButtonControl(SimTime period, int floor, Hallway hallway, Direction direction, boolean verbose) {
+    public HallButtonControl(int floor, Hallway hallway, Direction direction, SimTime period, boolean verbose) {
         //call to the Controller superclass constructor is required
         super("HallButtonControl" + ReplicationComputer.makeReplicationString(floor, hallway, direction), verbose);
 
@@ -140,6 +145,13 @@ public class HallButtonControl extends Controller {
         //with a period specified by the period parameter.
         canInterface.sendTimeTriggered(networkHallLightOut, period);
 
+
+        // Registration of mHallCall message
+        networkHallCallOut = CanMailbox.getWriteableCanMailbox(
+                MessageDictionary.HALL_CALL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(floor, hallway, direction));
+        mHallCall = new BooleanCanPayloadTranslator(networkHallCallOut);
+        canInterface.sendTimeTriggered(networkHallCallOut, period);
+
         /*
          * Registration for the mDoorClosed message is similar to the mHallLight message
          *
@@ -155,20 +167,17 @@ public class HallButtonControl extends Controller {
         //the period of updates will be determined by the sender of the message
         canInterface.registerTimeTriggered(networkDoorClosedFrontLeft);
 
-        /*
-        * Registration for the mDesiredFloor message
-        */
+
+        // Registration for the mDesiredFloor message
         networkDesiredFloor = CanMailbox.getReadableCanMailbox(MessageDictionary.DESIRED_FLOOR_CAN_ID);
         mDesiredFloor = new DesiredFloorCanPayloadTranslator(networkDesiredFloor);
         canInterface.registerTimeTriggered(networkDesiredFloor);
 
-        /*
-        * Registration for the mAtFloor message
-        */
+        // Registration for the mAtFloor message
         networkAtFloor = CanMailbox.getReadableCanMailbox(
                 MessageDictionary.AT_FLOOR_BASE_CAN_ID + ReplicationComputer.computeReplicationId(floor, hallway));
         mAtFloor = new AtFloorCanPayloadTranslator(networkAtFloor, floor, hallway);
-        canInterface.registerTimeTriggered(networkDesiredFloor);
+        canInterface.registerTimeTriggered(networkAtFloor);
 
         /* issuing the timer start method with no callback data means a NULL value
          * will be passed to the callback later.  Use the callback data to distinguish
@@ -191,6 +200,7 @@ public class HallButtonControl extends Controller {
                 //state actions for 'HALL_CALL_OFF'
                 localHallLight.set(false);
                 mHallLight.set(false);
+                mHallCall.set(false);
 
                 //transitions -- note that transition conditions are mutually exclusive
                 //#transition 'T8.1'
@@ -205,11 +215,12 @@ public class HallButtonControl extends Controller {
                 //state actions for 'HALL_CALL_ON'
                 localHallLight.set(true);
                 mHallLight.set(true);
+                mHallCall.set(true);
 
                 //transitions -- note that transition conditions are mutually exclusive
                 //#transition 'T8.2'
                 if (mDoorClosedFrontLeft.getValue() == false && mAtFloor.getValue() == true && mDesiredFloor.getFloor() == floor &&
-                        (mDesiredFloor.getDirection().equals(Direction.STOP) || mDesiredFloor.getDirection().equals(direction))) {
+                        (mDesiredFloor.getDirection() == Direction.STOP || mDesiredFloor.getDirection() == direction)) {
                     newState = State.STATE_HALL_CALL_OFF;
                 } else {
                     newState = state;

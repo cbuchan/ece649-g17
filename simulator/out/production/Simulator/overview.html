@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type"
+ content="text/html; charset=ISO-8859-1">
+  <title> 18-649: Elevator API </title>
+</head>
+<body>
+The elevator simulator for 18-649: Distributed Embedded Systems. The
+packages
+<code>jSimPack</code>, <code>simulator.framework</code>,
+<code>simulator.elevatormodules</code>, and <code>simulator.payloads</code>
+form the core of the simulator itself. They provide the infrastructure
+that
+allow other modules to send messages to each other on a simulated CAN
+network,
+and it provides a centralized time keeping system in the form of a
+discrete
+event simulation. The package <code>simulator.elevatorcontrol</code>
+is where
+students will write the controllers that
+<ul>
+  <li> Control the lights on the buttons inside the car and in the
+hallways </li>
+  <li> Open and close the doors </li>
+  <li> Move the car up and down the hoistway </li>
+</ul>
+Students are not expected to modify classes in the other packages,
+unless
+course staff tells them otherwise.
+<h2> Interacting with the Simulation </h2>
+Controllers must extend {@link simulator.framework.Controller} in
+order to
+send and receive physical and CAN network messages.
+See the documentation for this class for more
+information.
+<h3> The Harness </h3>
+The {@link simulator.framework.Harness} is the backbone that provides
+all the CAN and physical networks and event scheduling. It is also the
+master time keeper
+for
+the simulation. The only methods you will need to use are {@link
+simulator.framework.Harness#getTime()} and (indirectly) {@link
+simulator.framework.Harness#log(String,Object...)}.
+<h2> Interacting with Other Simulation Modules </h2>
+<h3> Networks </h3>
+There are two networks provided by the Harness:
+A "physical" network object {@link simulator.framework.PhysicalNetwork}
+(interactions with system objects are implemented using a message
+passing architecture)
+and a
+A CAN network object {@link simulator.framework.CANNetwork}. You do not
+access
+these object directly, but rather through {@link
+simulator.framework.NetworkConnection}
+objects. The connection objects you need are already provided in the
+{@link simulator.framework.Controller} object. These connection objects
+enforce
+the input and output interface requirements, namely: only one object
+may send a CAN message
+with a given message ID, and each controller may have only one Physical
+input and
+one physical output.
+<h3> Physical Messages </h3>
+Physical messages are represented by {@link
+simulator.payloads.PhysicalPayload} objects.
+Each message type is a distinct subclass of the abstract class
+<code>PhysicalPayload</code>. The concrete classes defined in {@link
+simulator.payloads} are the only message types available to you this
+semester.
+Each PhysicalPayload defines the fields that carry the information your
+controllers will need so they can perform their functions. These
+correspond to physical information about the system and physical and
+outputs
+(button state, light state, etc).
+See the documentation in specific Payload objects for details.
+<h3>Network Messages </h3>
+There is a special payload object called {@link
+simulator.payloads.CanMailbox}
+that represents CAN messages sent on the CAN network. In contrast to
+the
+physical messages, there is only one message type that is sent on the
+CAN network.
+CAN messages payloads are distinguished by their IDs. They contain a
+bit set
+which represents the raw message payload. In order to obtain a get/set
+interface
+for specific can message types, you must use a {@link
+simulator.payloads.translators.CanPayloadTranslator}.
+The CanPayloadTranslator abstract class contains helper methods to
+assist you
+in packing values into the CanMailbox bit set.
+Two generic translators are defined in the {@link
+simulator.payloads.translators} package:
+{@link simulator.payloads.translators.CanPayloadTranslator}.
+You will eventually define additional PayloadTranslators when you do a
+network
+schedule analysis.
+Note that, while it is theoretcially possible to interact directly with
+the CanMailbox object,
+you must use a CanPayloadTranslator object when inserting and asserting
+messages
+in the {@link simulator.framework.MessageInjector}.<br>
+<br>
+<span style="font-weight: bold;">Readable and Writeable</span><br>
+<br>
+Message payload objects (physical and network) cannot be instantiated
+directly.&nbsp; Instead, each provides a Readable and Writeable wrapper
+class which enforce the correct read/write semantics on the network
+interfaces.<br>
+<h2> Have fun! </h2>
+Explore the rest of the documentation for more information. You might
+not use
+all of the classes throughout the course, and for the first several
+weeks you
+will be designing your elevator without writing any code. So, if
+something
+doesn't make sense right away, don't worry. Wait a few weeks until the
+coding
+begins and try again.
+Have fun!
+<br>
+</body>
+</html>
