@@ -279,10 +279,6 @@ public class DriveControl extends Controller {
             	localDrive.set(Speed.SLOW, desiredDir);
             	mDrive.set(Speed.SLOW, desiredDir);
             	mDriveSpeed.set(Speed.SLOW, desiredDir);
-
-							System.out.println("drive.s="+localDrive.speed()+" drive.d="+localDrive.direction());							
-							System.out.println("mdrive.s="+mDrive.getSpeed()+" mdrive.d="+mDrive.getDirection());
-							System.out.println("mdrivespeed.s="+mDriveSpeed.getSpeed()+" mdrivespeed.d="+mDriveSpeed.getDirection());
             	            	
             	//transitions
             	/*

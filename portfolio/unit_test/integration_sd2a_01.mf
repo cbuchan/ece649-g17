@@ -1,0 +1,25 @@
+; Integration Test -- Sequence Diagram 2A
+; Author: Jessica Tiu
+; Team 14: Jesse Salazar, Collin Buchan, Jessica Tiu, Rajeev Sharma
+; Last modified 2012-10-04
+
+#INCLUDE allDefines.mf ;include CAN id and period definitions
+
+;insert pre-conditions
+;car at floor f with at least one door[b,r] open
+0s	I MESSAGE_PERIOD N AT_FLOOR[7][FRONT]_CAN_ID AtFloor 7 FRONT = true
+0s	I MESSAGE_PERIOD N DOOR_OPEN_SENSOR_[BACK][RIGHT]_CAN_ID DoorOpened BACK RIGHT = true
+;passenger in car, elevator not at the desired floor
+0s	I MESSAGE_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 2 BACK STOP
+;car call for destination is false, car light not lit
+0s	I MESSAGE_PERIOD N CAR_CALL_[2][BACK]_CAN_ID Boolean = false
+0s	I MESSAGE_PERIOD N CAR_LIGHT_[2][BACK]_CAN_ID Boolean = false
+
+;1a. send CarCall=true
+0s	I MESSAGE_PERIOD F CarCall 2 BACK = true
+
+;check that 1c. results -- CarButtonControl
+;1c. car light turns on
+0s	A F CarLight 2 BACK : isLighted == true 
+
+
