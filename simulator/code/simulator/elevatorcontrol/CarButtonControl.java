@@ -1,5 +1,5 @@
 /* 18649 Fall 2012
- * Jesse Salazar (group  17)
+ * Jesse Salazar (Group  17)
  * jessesal 
  */
 
@@ -12,13 +12,13 @@ import simulator.framework.*;
 import simulator.payloads.CanMailbox;
 import simulator.payloads.CanMailbox.ReadableCanMailbox;
 import simulator.payloads.CanMailbox.WriteableCanMailbox;
-import simulator.payloads.HallCallPayload;
-import simulator.payloads.HallCallPayload.ReadableHallCallPayload;
-import simulator.payloads.HallLightPayload;
-import simulator.payloads.HallLightPayload.WriteableHallLightPayload;
+import simulator.payloads.CarCallPayload;
+import simulator.payloads.CarCallPayload.ReadableCarCallPayload;
+import simulator.payloads.CarLightPayload;
+import simulator.payloads.CarLightPayload.WriteableCarLightPayload;
 import simulator.payloads.translators.BooleanCanPayloadTranslator;
 
-public class HallButtonControl extends Controller {
+public class CarButtonControl extends Controller {
 
     /**
      * ************************************************************************
@@ -28,14 +28,20 @@ public class HallButtonControl extends Controller {
     //note that inputs are Readable objects, while outputs are Writeable objects
 
     //local physical state
-    private ReadableHallCallPayload localHallCall;
-    private WriteableHallLightPayload localHallLight;
+    private ReadableCarCallPayload localCarCall;
+    private WriteableCarLightPayload localCarLight;
 
     //network interface
-    // receive hall call from the other button
-    private WriteableCanMailbox networkHallLightOut;
-    // translator for the hall light message -- this is a generic translator
-    private BooleanCanPayloadTranslator mHallLight;
+    // Output mCarCall message 
+    private WriteableCanMailbox networkCarCall;
+    // translator for the CarCall message -- this is a generic translator
+    private BooleanCanPayloadTranslator mCarCall;
+	
+	//network interface
+    // Output mCarLight message 
+    private WriteableCanMailbox networkCarLightOut;
+    // translator for the CarCall message -- this is a generic translator
+    private BooleanCanPayloadTranslator mCarLight;
 
     //received door closed message
     private ReadableCanMailbox networkDoorClosedFrontLeft;
@@ -57,39 +63,46 @@ public class HallButtonControl extends Controller {
 
     //these variables keep track of which instance this is.
     private final Hallway hallway;
-    private final Direction direction;
+    //private final Direction direction;
     private final int floor;
 
     //store the period for the controller
     private SimTime period;
 
     //internal constant declarations
+	
 
     //enumerate states
     private enum State {
-        STATE_HALL_CALL_OFF,
-        STATE_HALL_CALL_ON,
+        STATE_LIGHT_OFF,
+        STATE_LIGHT_ON,
     }
 
     //state variable initialized to the initial state FLASH_OFF
-    private State state = State.STATE_HALL_CALL_OFF;
+    private State state = State.STATE_LIGHT_OFF;
 
     /**
      * The arguments listed in the .cf configuration file should match the order and
      * type given here.
      * <p/>
-     * For your elevator controllers, you should make sure that the constructor matches
-     * the method signatures in ControllerBuilder.makeAll().
+     * For your elevator controllers, you should make sure that the constructor 
+	 * matches the method signatures in the following file:
+	 *			simulator.framework.ControllerBuilder.makeAll()
+	 *
+	 * controllers.add(createControllerObject("CarButtonControl",floor, hallway,
+     * 				   MessageDictionary.CAR_BUTTON_CONTROL_PERIOD, verbose));
      */
-    public HallButtonControl(SimTime period, int floor, Hallway hallway, Direction direction, boolean verbose) {
+    public CarButtonControl(int floor, Hallway hallway, SimTime period, 
+							 boolean verbose) {
         //call to the Controller superclass constructor is required
-        super("HallButtonControl" + ReplicationComputer.makeReplicationString(floor, hallway, direction), verbose);
+        super("CarButtonControl" + 
+			  ReplicationComputer.makeReplicationString(floor, hallway), 
+			  verbose);
 
         //stored the constructor arguments in internal state
         this.period = period;
         this.floor = floor;
         this.hallway = hallway;
-        this.direction = direction;
 
         /*
         * The log() method is inherited from the Controller class.  It takes an
@@ -101,30 +114,35 @@ public class HallButtonControl extends Controller {
         * Do NOT call with concatenated objects like:
         *   log("object=" + object);
         */
-        log("Created HallButtonControl[", this.floor, "][", this.hallway, "][", this.direction, "]");
+        log("Created CarButtonControl[", this.floor, "][", this.hallway, "]");
 
         //initialize physical state
-        //create a payload object for this floor,hallway,direction using the
-        //static factory method in HallCallPayload.
-        localHallCall = HallCallPayload.getReadablePayload(floor, hallway, direction);
-        //register the payload with the physical interface (as in input) -- it will be updated
-        //periodically when the hall call button state is modified.
-        physicalInterface.registerTimeTriggered(localHallCall);
+        //create a payload object for this floor,hallway using the
+        //static factory method in CarCallPayload.
+        localCarCall = CarCallPayload.getReadablePayload(floor, hallway);
+        //register the payload with the physical interface (as in input) 
+		// => It will be updated periodically when the car call button 
+		// state is modified.
+        physicalInterface.registerTimeTriggered(localCarCall);
 
-        //create a payload object for this floor,hallway,direction
+        //create a payload object for this floor,hallway
         //this is an output, so it is created with the Writeable static factory method
-        localHallLight = HallLightPayload.getWriteablePayload(floor, hallway, direction);
+        localCarLight = CarLightPayload.getWriteablePayload(floor, hallway);
         //register the payload to be sent periodically -- whatever value is stored
-        //in the localHallLight object will be sent out periodically with the period
+        //in the localCarLight object will be sent out periodically with the period
         //specified by the period parameter.
-        physicalInterface.sendTimeTriggered(localHallLight, period);
+        physicalInterface.sendTimeTriggered(localCarLight, period);
 
+		
+		
+		
+		
         //initialize network interface
         //create a can mailbox - this object has the binary representation of the message data
         //the CAN message ids are declared in the MessageDictionary class.  The ReplicationComputer
         //class provides utility methods for computing offsets for replicated controllers
-        networkHallLightOut = CanMailbox.getWriteableCanMailbox(MessageDictionary.HALL_LIGHT_BASE_CAN_ID +
-                ReplicationComputer.computeReplicationId(floor, hallway, direction));
+        networkCarLightOut = CanMailbox.getWriteableCanMailbox(MessageDictionary.CAR_LIGHT_BASE_CAN_ID +
+                ReplicationComputer.computeReplicationId(floor, hallway));
         /*
          * Create a translator with a reference to the CanMailbox.  Use the
          * translator to read and write values to the mailbox
@@ -135,13 +153,39 @@ public class HallButtonControl extends Controller {
          * of the course.  When we get to network scheduling, you may wish to write
          * your own translators, although you can do so at any time.
          */
-        mHallLight = new BooleanCanPayloadTranslator(networkHallLightOut);
+        mCarLight = new BooleanCanPayloadTranslator(networkCarLightOut);
         //register the mailbox to have its value broadcast on the network periodically
         //with a period specified by the period parameter.
-        canInterface.sendTimeTriggered(networkHallLightOut, period);
-
+        canInterface.sendTimeTriggered(networkCarLightOut, period);
+		
+		
+		
+		
+		//initialize network interface
+        //create a can mailbox - this object has the binary representation of the message data
+        //the CAN message ids are declared in the MessageDictionary class.  The ReplicationComputer
+        //class provides utility methods for computing offsets for replicated controllers
+        networkCarCall = CanMailbox.getWriteableCanMailbox(MessageDictionary.CAR_CALL_BASE_CAN_ID +
+															   ReplicationComputer.computeReplicationId(floor, hallway));
+		/*
+         * Create a translator with a reference to the CanMailbox.  Use the
+         * translator to read and write values to the mailbox
+         *
+         * Note the use of the BooleanCanPayloadTranslator.  This translator, along with
+         * IntegerCanPayloadTranslator, are provided for your use.  They are not
+         * very bandwidth efficient, but they will be adequate for the first part
+         * of the course.  When we get to network scheduling, you may wish to write
+         * your own translators, although you can do so at any time.
+         */
+        mCarCall = new BooleanCanPayloadTranslator(networkCarCall);
+        //register the mailbox to have its value broadcast on the network periodically
+        //with a period specified by the period parameter.
+        canInterface.sendTimeTriggered(networkCarCall, period);
+		
+		
+		
         /*
-         * Registration for the mDoorClosed message is similar to the mHallLight message
+         * Registration for the mDoorClosed message is similar to the mCarLight message
          *
          * To register for network messages from the smart sensors or other objects
          * defined in elevator modules, use the translators already defined in
@@ -155,6 +199,7 @@ public class HallButtonControl extends Controller {
         //the period of updates will be determined by the sender of the message
         canInterface.registerTimeTriggered(networkDoorClosedFrontLeft);
 
+		
         /*
         * Registration for the mDesiredFloor message
         */
@@ -162,6 +207,7 @@ public class HallButtonControl extends Controller {
         mDesiredFloor = new DesiredFloorCanPayloadTranslator(networkDesiredFloor);
         canInterface.registerTimeTriggered(networkDesiredFloor);
 
+		
         /*
         * Registration for the mAtFloor message
         */
@@ -187,30 +233,31 @@ public class HallButtonControl extends Controller {
     public void timerExpired(Object callbackData) {
         State newState = state;
         switch (state) {
-            case STATE_HALL_CALL_OFF:
-                //state actions for 'HALL_CALL_OFF'
-                localHallLight.set(false);
-                mHallLight.set(false);
+            case STATE_LIGHT_ON:
+                //state actions for 'LIGHT_ON'
+				mCarCall.setValue(localCarCall.isPressed()); 
+                localCarLight.set(true);
+                mCarLight.set(localCarLight.isLighted());
 
-                //transitions -- note that transition conditions are mutually exclusive
-                //#transition 'T8.1'
-                //if (localHallCall.pressed() && mDoorClosedFrontLeft.getValue() == true) {
-                if (localHallCall.pressed()) {
-                    newState = State.STATE_HALL_CALL_ON;
+                //transitions -- transition conditions are mutually exclusive
+                //#transition 'T9.1'
+                //if (mCarCall.getValue()==false) {
+                if (mCarCall.getValue()==false) {
+                    newState = State.STATE_LIGHT_OFF;
                 } else {
                     newState = state;
                 }
                 break;
-            case STATE_HALL_CALL_ON:
-                //state actions for 'HALL_CALL_ON'
-                localHallLight.set(true);
-                mHallLight.set(true);
+            case STATE_LIGHT_OFF:
+                //state actions for 'LIGHT_OFF'
+                mCarCall.setValue(localCarCall.isPressed()); 
+                localCarLight.set(false);
+                mCarLight.set(localCarLight.isLighted());
 
                 //transitions -- note that transition conditions are mutually exclusive
-                //#transition 'T8.2'
-                if (mDoorClosedFrontLeft.getValue() == false && mAtFloor.getValue() == true && mDesiredFloor.getFloor() == floor &&
-                        (mDesiredFloor.getDirection().equals(Direction.STOP) || mDesiredFloor.getDirection().equals(direction))) {
-                    newState = State.STATE_HALL_CALL_OFF;
+                //#transition 'T9.2'
+                if (mCarCall.getValue()==true) {
+                    newState = State.STATE_LIGHT_ON;
                 } else {
                     newState = state;
                 }
