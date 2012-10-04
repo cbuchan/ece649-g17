@@ -16,10 +16,22 @@
 0s	I MESSAGE_PERIOD N CAR_LIGHT_[2][BACK]_CAN_ID Boolean = false
 
 ;1a. send CarCall=true
-0s	I MESSAGE_PERIOD F CarCall 2 BACK = true
+0.4s	I MESSAGE_PERIOD F CarCall 2 BACK = true
 
-;check that 1c. results -- CarButtonControl
-;1c. car light turns on
-0s	A F CarLight 2 BACK : isLighted == true 
+;check that 1c. and 2. result (CarButtonControl)
+;1c. mCarCall true
+0.8s	A N CAR_CALL_[2][BACK]_CAN_ID Boolean 2 BACK : getValue == true
+;2. car light turns on
+1.2s	A F CarLight 2 BACK : isLighted == true 
 
+;check 3. DoorMotor[b,r]=Closed (DoorControl)
+1.6s	A F DoorMotor FRONT RIGHT : command == CLOSE
+1.6s	A F DoorMotor FRONT LEFT : command == CLOSE
 
+;check 4a. mDoorClosed received
+2.0s	A N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT : getValue == true
+2.0s	A N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT : getValue == true
+
+;check 4b. DoorMotor=Stop results (DoorControl)
+2.4s	A	F	DoorMotor FRONT RIGHT : command == STOP
+2.4s	A F DoorMotor FRONT LEFT : command == STOP
