@@ -7,7 +7,7 @@
 #DEFINE DISPATCHER_PERIOD                             50.0ms
 #DEFINE DOOR_CONTROL_PERIOD                           10.0ms
 #DEFINE DRIVE_CONTROL_PERIOD                          10.0ms
-#DEFINE MESSAGE_PERIOD                          			250.0ms
+#DEFINE MESSAGE_PERIOD                          			100.0ms
 
 ;module periods
 #DEFINE AT_FLOOR_PERIOD                               50.0ms

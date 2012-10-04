@@ -8,30 +8,30 @@
 
 #INCLUDE allDefines.mf ;include CAN id and period definitions
 
+;check that state is DRIVE_STOPPED initially
+0.11s A S DriveControl : STATE == STATE_DRIVE_STOPPED
+0.11s	A F Drive : speed == STOP
+0.11s	A F Drive : direction == STOP
+0.11s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == STOP
+0.11s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == STOP
+0.11s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed == STOP
+0.11s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == UP
+
 ;set conditions for T6.1
 ;desired direction not stop (desired direction is up)
-0s	I MESSAGE_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
-0s	I MESSAGE_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 8 FRONT STOP
+0.12s	I MESSAGE_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
+0.12s	I MESSAGE_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 8 FRONT STOP
 ;all doors closed
-0s	I MESSAGE_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
-0s	I MESSAGE_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
-0s	I MESSAGE_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
-0s	I MESSAGE_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
+0.12s	I MESSAGE_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
+0.12s	I MESSAGE_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
+0.12s	I MESSAGE_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
+0.12s	I MESSAGE_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
 ;car weight less than max capacity
-0s	I MESSAGE_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 0
+0.12s	I MESSAGE_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 0
 ;emergency brake off
-0s	I MESSAGE_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = false
+0.12s	I MESSAGE_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = false
 
-;check that state is DRIVE_STOPPED initially
-0.21s A S DriveControl : STATE == STATE_DRIVE_STOPPED
-0.21s	A F Drive : speed == STOP
-0.21s	A F Drive : direction == STOP
-0.21s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == STOP
-0.21s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == STOP
-0.21s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed == STOP
-0.21s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == UP
-
-;T6.1 -- FAILED
+;T6.1
 ;check that state is DRIVE_SLOW
 0.51s A S DriveControl : STATE == STATE_DRIVE_SLOW
 0.51s	A F Drive : speed == SLOW
@@ -104,12 +104,12 @@
 ;level is true for any d && desired floor is current floor
 2.81s	I MESSAGE_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
 2.81s I MESSAGE_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
-;OR emergency brake on
+;OR emergency brake on -- need to test this branch
 2.81s	I MESSAGE_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = false
 
 ;T6.4
 ;check that state is DRIVE_STOPPED
-3.31s A S DriveControl : STATE == STATE_DRIVE_STOP
+3.31s A S DriveControl : STATE == STATE_DRIVE_STOPPED
 3.31s	A F Drive : speed == STOP
 3.31s	A F Drive : direction == STOP
 3.31s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == STOP

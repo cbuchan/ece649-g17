@@ -50,8 +50,9 @@ public class DriveControl extends Controller {
 	private ReadableCanMailbox networkEmergencyBrake;
 	private ReadableCanMailbox networkCarWeight;
 	private ReadableCanMailbox networkDesiredFloor;
-    private DoorClosedArray    networkDoorClosedArray;
-    private AtFloorArray       networkAtFloorArray;
+  private DoorClosedArray    networkDoorClosedFront;
+  private DoorClosedArray		 networkDoorClosedBack;
+  private AtFloorArray       networkAtFloorArray;
 
 	//translators for input network messages
 	private LevelingCanPayloadTranslator mLevelUp;
@@ -159,7 +160,8 @@ public class DriveControl extends Controller {
         		CanMailbox.getReadableCanMailbox(MessageDictionary.CAR_WEIGHT_CAN_ID);
         networkDesiredFloor=
         		CanMailbox.getReadableCanMailbox(MessageDictionary.DESIRED_FLOOR_CAN_ID);
-        networkDoorClosedArray=new Utility.DoorClosedArray(Hallway.BOTH, canInterface);
+        networkDoorClosedFront=new Utility.DoorClosedArray(Hallway.FRONT, canInterface);
+        networkDoorClosedBack=new Utility.DoorClosedArray(Hallway.BACK, canInterface);
         networkAtFloorArray=new Utility.AtFloorArray(canInterface);
         
         mLevelUp=
@@ -222,13 +224,13 @@ public class DriveControl extends Controller {
             	 * 		mDesiredFloor.f==CurrentFloor && mLevel[d]==False (for any d)
             	 */
             	if (!desiredDir.equals(Direction.STOP) && 
-            			networkDoorClosedArray.getBothClosed() &&
+            			networkDoorClosedFront.getBothClosed() && networkDoorClosedBack.getBothClosed() &&
             			mCarWeight.getWeight()<Elevator.MaxCarCapacity &&
             			!mEmergencyBrake.getValue()){            		
             		newState = State.STATE_DRIVE_SLOW;
             	}
             	else if (desiredDir.equals(Direction.STOP) &&
-            			networkDoorClosedArray.getBothClosed() &&
+            			networkDoorClosedFront.getBothClosed() && networkDoorClosedBack.getBothClosed() &&
             			mDesiredFloor.getFloor()==networkAtFloorArray.getCurrentFloor() &&
             			(!mLevelUp.getValue() || !mLevelDown.getValue())){
      		
@@ -277,6 +279,10 @@ public class DriveControl extends Controller {
             	localDrive.set(Speed.SLOW, desiredDir);
             	mDrive.set(Speed.SLOW, desiredDir);
             	mDriveSpeed.set(Speed.SLOW, desiredDir);
+
+							System.out.println("drive.s="+localDrive.speed()+" drive.d="+localDrive.direction());							
+							System.out.println("mdrive.s="+mDrive.getSpeed()+" mdrive.d="+mDrive.getDirection());
+							System.out.println("mdrivespeed.s="+mDriveSpeed.getSpeed()+" mdrivespeed.d="+mDriveSpeed.getDirection());
             	            	
             	//transitions
             	/*
@@ -288,7 +294,7 @@ public class DriveControl extends Controller {
             		newState = State.STATE_DRIVE_STOPPED;
             	}
             	else if (desiredDir.equals(Direction.STOP) &&
-            			networkDoorClosedArray.getBothClosed() &&
+            			networkDoorClosedFront.getBothClosed() && networkDoorClosedBack.getBothClosed() &&
             			mDesiredFloor.getFloor()==networkAtFloorArray.getCurrentFloor() &&
             			(!mLevelUp.getValue() || !mLevelDown.getValue())){
             		newState = State.STATE_DRIVE_LEVEL;

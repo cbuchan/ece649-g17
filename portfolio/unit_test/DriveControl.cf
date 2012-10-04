@@ -2,4 +2,4 @@
 ; Jessica Tiu
 ; jtiu
 ;
-DriveControl 200ms TRUE
+DriveControl 100ms TRUE
