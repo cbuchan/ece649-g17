@@ -18,6 +18,14 @@ import simulator.payloads.CarLightPayload;
 import simulator.payloads.CarLightPayload.WriteableCarLightPayload;
 import simulator.payloads.translators.BooleanCanPayloadTranslator;
 
+
+/**
+ * CarButtonControl responds to passenger CarCall button presses. There is one 
+ * CarButtonControll per hallway[f,b]. CarButtonControl also controls CarLight
+ * feedback lights. 
+ *
+ * @author Jesse Salazar
+ */
 public class CarButtonControl extends Controller {
 
     /**
