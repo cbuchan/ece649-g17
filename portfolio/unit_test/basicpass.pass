@@ -1,0 +1,2 @@
+; creates a passenger at the 7th floor front hallway wishing to go down to floor 1
+1.0s 7 FRONT 1 FRONT
