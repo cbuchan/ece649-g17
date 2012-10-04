@@ -68,8 +68,8 @@ public class DoorControl extends Controller {
     private final Side side;
 
     // local state variables
-    int dwell = 0;
-    int countDown = 0;
+    private int dwell = 0;
+    private SimTime countDown = SimTime.ZERO;
 
     //store the period for the controller
     private SimTime period;
@@ -177,7 +177,7 @@ public class DoorControl extends Controller {
                 mDoorMotorCommand.setCommand(DoorCommand.NUDGE);
 
                 dwell = mDesiredDwell.getDwell();
-                countDown = 0;
+                countDown = SimTime.ZERO;
 
                 //transitions -- note that transition conditions are mutually exclusive
                 //#transition 'T5.1'
@@ -209,7 +209,7 @@ public class DoorControl extends Controller {
                 mDoorMotorCommand.setCommand(DoorCommand.STOP);
 
                 dwell = mDesiredDwell.getDwell();
-                countDown = 0;
+                countDown = SimTime.ZERO;
 
                 //transitions
                 //#transition 'T5.3'
@@ -236,7 +236,7 @@ public class DoorControl extends Controller {
                 mDoorMotorCommand.setCommand(DoorCommand.OPEN);
 
                 dwell = mDesiredDwell.getDwell();
-                countDown = dwell;
+                countDown = new SimTime(dwell, SimTime.SimTimeUnit.SECOND);
 
                 //transitions
                 //#transition 'T5.4'
@@ -253,12 +253,12 @@ public class DoorControl extends Controller {
                 mDoorMotorCommand.setCommand(DoorCommand.STOP);
 
                 dwell = mDesiredDwell.getDwell();
-                // FIXME:  decrement coundown
+                countDown = SimTime.subtract(countDown, period);
 
                 //transitions
                 //#transition 'T5.5'
                 //if (countDown <= 0)
-                if (countDown <= 0) {
+                if (countDown.isLessThanOrEqual(SimTime.ZERO)) {
                     newState = State.STATE_DOOR_CLOSING;
                 } else {
                     newState = state;
