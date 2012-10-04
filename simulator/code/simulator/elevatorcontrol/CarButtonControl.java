@@ -48,7 +48,7 @@ public class CarButtonControl extends Controller {
 	//network interface
     // Output mCarLight message 
     private WriteableCanMailbox networkCarLightOut;
-    // translator for the CarCall message -- this is a generic translator
+    // translator for the CarLight message -- this is a generic translator
     private BooleanCanPayloadTranslator mCarLight;
 
     //received door closed message
@@ -71,7 +71,6 @@ public class CarButtonControl extends Controller {
 
     //these variables keep track of which instance this is.
     private final Hallway hallway;
-    //private final Direction direction;
     private final int floor;
 
     //store the period for the controller
@@ -207,6 +206,7 @@ public class CarButtonControl extends Controller {
         //the period of updates will be determined by the sender of the message
         canInterface.registerTimeTriggered(networkDoorClosedFrontLeft);
 
+		
 		
         /*
         * Registration for the mDesiredFloor message
