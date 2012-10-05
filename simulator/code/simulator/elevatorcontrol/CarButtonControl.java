@@ -1,6 +1,9 @@
 /* 18649 Fall 2012
- * Jesse Salazar (Group  17)
- * jessesal 
+ * (Group  17)
+ * Jesse Salazar (jessesal) - Author
+ * Rajeev Sharma (rdsharma) 
+ * Collin Buchan (cbuchan)
+ * Jessica Tiu   (jtiu)
  */
 
 package simulator.elevatorcontrol;

@@ -1,3 +1,11 @@
+/* 18649 Fall 2012
+ * (Group  17)
+ * Jesse Salazar (jessesal)
+ * Rajeev Sharma (rdsharma) - Author
+ * Collin Buchan (cbuchan)
+ * Jessica Tiu   (jtiu)
+ */
+
 package simulator.elevatorcontrol;
 
 import jSimPack.SimTime;
