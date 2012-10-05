@@ -1,4 +1,10 @@
-/*
+/* 18649 Fall 2012
+ * (Group  17)
+ * Jesse Salazar (jessesal)
+ * Rajeev Sharma (rdsharma) - Editor
+ * Collin Buchan (cbuchan)
+ * Jessica Tiu   (jtiu)
+ *
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
