@@ -5,8 +5,5 @@
 ; Rajeev Sharma (rdsharma) *
 ; * Author
 
-<<<<<<< HEAD
 DoorControl 100ms FRONT LEFT TRUE
-=======
-DoorControl 100ms FRONT LEFT TRUE
->>>>>>> b1dd27a134c7a041a8be6da962eafca71c83756f
+
