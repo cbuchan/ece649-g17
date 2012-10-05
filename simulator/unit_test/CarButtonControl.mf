@@ -14,64 +14,37 @@
 ; Note: This test file demonstrates network/framework message injections
 ;       and network/framework/controller state assertions.
 
-#INCLUDE unit_test/defines.mf ;include CAN id and period definitions
+#INCLUDE defines.mf ;include CAN id and period definitions
 
 ;initialize
-0s  I  CAR_BUTTON_CONTROL_PERIOD F CarCall 4 FRONT DOWN = false
-0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID
-DoorClosed FRONT LEFT = true
+0s  I  CAR_BUTTON_CONTROL_PERIOD F CarCall 4 FRONT = false
+0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
 
-; check that the CarLight is off initially
-0.21s  A S CarButtonControl[4][FRONT][DOWN] : STATE == STATE_LIGHT_OFF
-0.21s  A F CarLight 4 FRONT DOWN : lighted == false
-0.21s  A N CAR_CALL_[4][FRONT][DOWN]_CAN_ID Boolean : getValue == false
-0.21s  A N CAR_LIGHT_[4][FRONT][DOWN]_CAN_ID Boolean : getValue == false
+; check that the CarLight is off initially, and that initial state values are correct
+0.21s  A S CarButtonControl[4][FRONT] : STATE == STATE_LIGHT_OFF
+0.21s  A F CarLight 4 FRONT : lighted == false
+0.21s  A N CAR_CALL_[4][FRONT]_CAN_ID Boolean : getValue == false
+0.21s  A N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean : getValue == false
 
-;set conditions for T9.1
-0.70s  I  CAR_BUTTON_CONTROL_PERIOD F mCarCall 4 FRONT DOWN = true
-0.90s  I  CAR_BUTTON_CONTROL_PERIOD F mCarCall 4 FRONT DOWN = false
-
-;T9.1
-;check that the light is on
-1.21s  A S HallButtonControl[4][FRONT][DOWN] : STATE == STATE_HALL_CALL_ON
-1.21s  A F HallLight 4 FRONT DOWN : lighted == true
-1.21s  A N HALL_CALL_[4][FRONT][DOWN]_CAN_ID Boolean : getValue == true
-1.21s  A N HALL_LIGHT_[4][FRONT][DOWN]_CAN_ID Boolean : getValue == true
-
-;set conditions for T9.2
-1.40s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
-1.40s  I  AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
-1.40s  I  DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 4 FRONT STOP
+;set conditions for T9.2 (T9.1 returns to initialized state, T9.2 leaves it)
+0.70s  I  CAR_BUTTON_CONTROL_PERIOD F CarCall 4 FRONT = true  ;Passenger physically pushing button
+0.90s  I  CAR_BUTTON_CONTROL_PERIOD N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean = true
 
 ;T9.2
-;check that the light is off
-1.71s  A S HallButtonControl[4][FRONT][DOWN] : STATE == STATE_HALL_CALL_OFF
-1.71s  A F HallLight 4 FRONT DOWN : lighted == false
-1.71s  A N HALL_CALL_[4][FRONT][DOWN]_CAN_ID Boolean : getValue == false
-1.71s  A N HALL_LIGHT_[4][FRONT][DOWN]_CAN_ID Boolean : getValue == false
+;check that the light is on and that the proper values are set
+1.21s  A S CarButtonControl[4][FRONT] : STATE == STATE_LIGHT_ON
+1.21s  A F CarLight 4 FRONT : lighted == true
+1.21s  A N CAR_CALL_[4][FRONT]_CAN_ID Boolean : getValue == true
+1.21s  A N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean : getValue == true
 
-;prepare elevator for T9.1 (door closes on its way to another floor)
-1.60s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
+;set conditions for T9.1 (return to initial state)
+1.40s  I  CAR_BUTTON_CONTROL_PERIOD F CarCall 4 FRONT  = false  ;The CarCall ceases to be true
+1.40s  I  CAR_BUTTON_CONTROL_PERIOD N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean = false
 
-;set conditions for T9.1
-2.30s  I  HALL_BUTTON_CONTROL_PERIOD F HallCall 4 FRONT DOWN  = true
-2.50s  I  HALL_BUTTON_CONTROL_PERIOD F HallCall 4 FRONT DOWN  = false
 
 ;T9.1
-;check that the light is on
-2.71s  A S HallButtonControl[4][FRONT][DOWN] : STATE == STATE_HALL_CALL_ON
-2.71s  A F HallLight 4 FRONT DOWN : lighted == true
-2.71s  A N HALL_CALL_[4][FRONT][DOWN]_CAN_ID Boolean : getValue == true
-2.71s  A N HALL_LIGHT_[4][FRONT][DOWN]_CAN_ID Boolean : getValue == true
-
-;set secondary conditions for T9.2
-3.00s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
-3.00s  I  AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
-3.00s  I  DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 4 FRONT DOWN
-
-;T9.2
-;check that the light is off
-3.21s  A S HallButtonControl[4][FRONT][DOWN] : STATE == STATE_HALL_CALL_OFF
-3.21s  A F HallLight 4 FRONT DOWN : lighted == false
-3.21s  A N HALL_CALL_[4][FRONT][DOWN]_CAN_ID Boolean : getValue == false
-3.21s  A N HALL_LIGHT_[4][FRONT][DOWN]_CAN_ID Boolean : getValue == false
+;check that the light is off and that the proper values are set
+1.71s  A S CarButtonControl[4][FRONT] : STATE == STATE_LIGHT_OFF
+1.71s  A F CarLight 4 FRONT : lighted == false
+1.71s  A N CAR_CALL_[4][FRONT]_CAN_ID Boolean : getValue == false
+1.71s  A N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean : getValue == false
