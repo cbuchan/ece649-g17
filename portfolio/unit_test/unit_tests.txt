@@ -4,3 +4,4 @@
 HallButtonControl HallButtonControl.cf HallButtonControl_01.mf
 DriveControl DriveControl.cf DriveControl_01.mf
 DoorControl doorcontrol.cf doorcontrol_test1.mf
+CarButtonControl CarButtonControl.cf CarButtonControl.mf
