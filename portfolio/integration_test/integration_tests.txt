@@ -1,2 +1,4 @@
 ;there is only one test in the sample file.  Your file shall contain all tests.
 SD1A.1 sd1a1.cf sd1a1.mf
+SD2A.1 SD2A_01.cf SD2A_01.mf
+SD3A.1 SD3A_01.cf SD3A_01.mf
