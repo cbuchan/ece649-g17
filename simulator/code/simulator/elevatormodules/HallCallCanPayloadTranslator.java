@@ -19,7 +19,7 @@ public class HallCallCanPayloadTranslator extends BooleanCanTranslator {
      */
     public HallCallCanPayloadTranslator(WriteableCanMailbox payload, int floor, Hallway hallway, Direction direction) {
         super(payload,
-                MessageDictionary.CAR_CALL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(floor, hallway, direction), 
+                MessageDictionary.HALL_CALL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(floor, hallway, direction), 
                 "HallCall" + ReplicationComputer.makeReplicationString(floor, hallway, direction));
     }
 
@@ -31,7 +31,7 @@ public class HallCallCanPayloadTranslator extends BooleanCanTranslator {
      */
     public HallCallCanPayloadTranslator(ReadableCanMailbox payload, int floor, Hallway hallway, Direction direction) {
         super(payload,
-                MessageDictionary.CAR_CALL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(floor, hallway, direction),
+                MessageDictionary.HALL_CALL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(floor, hallway, direction),
                 "HallCall" + ReplicationComputer.makeReplicationString(floor, hallway, direction));
     }
 

@@ -1,0 +1,25 @@
+; 18649 Fall 2012 - Group 17
+; Jesse Salazar (jessesal)
+; Jessica Tiu (jtiu)
+; Collin Buchan (cbuchan)
+; Rajeev Sharma (rdsharma) *
+; * Author
+
+; Unit test for DoorControl
+
+;Note:  Assertions must be inserted more than two periods after a message or physical
+;value has been inserted to be sure that the change propagates through the system
+
+;this test file demonstrates network and framework message injections
+;and network, framework, and controller state assertions.
+
+#INCLUDE unit_test/defines.mf ;include CAN id and period definitions
+
+;initialize
+;0s     I DOOR__PERIOD F DoorMotor FRONT LEFT = STOP
+0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
+
+;check that the light is off initially
+0.11s  A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_CLOSING
+0.11s  A F DoorMotor FRONT LEFT : command == NUDGE
+0.11s  A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == NUDGE

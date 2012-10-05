@@ -7,7 +7,7 @@
 
 ; Integration Test for SD3A
 
-#INCLUDE unit_test/defines.mf ;include CAN id and period definitions
+#INCLUDE defines.mf ;include CAN id and period definitions
 
 ;========================================================================
 ;initialize
@@ -16,9 +16,9 @@
 ;HallCall[4,UP] has been pressed
 ;Elevator is going in direction UP
 ;Passenger is outside car, doors are closed
-0s  I  HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[4][FRONT][UP]_CAN_ID HallCall 4 FRONT UP  = true
+0s  I  HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[4][FRONT][UP]_CAN_ID HallCall 4 FRONT UP = true
 0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
-0s  I  DRIVE_PERIOD N DRIVE_SPEED_CAN_ID DriveSpeed = SLOW UP
+;0s  I  DRIVE_PERIOD N DRIVE_SPEED_CAN_ID DriveSpeed = SLOW UP
 
 ;========================================================================
 ;Scenario Step 1
@@ -27,23 +27,23 @@
 1.0s  I  AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
 
 ;Arc 1c
-0.21s  A  F Drive : speed = LEVEL
-0.21s  A  F Drive : direction = UP
+0.21s  A  F Drive : speed == LEVEL
+0.21s  A  F Drive : direction == UP
 
 ;Arc 1d
 ; Note: it is unlikely that leveling sensors will both fire at once.
 ; TODO: Fix this behavior in the DriveController (First seen in SD3A)
-2.0s  I  LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Level UP = true
-2.0s  I  LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Level DOWN = true
+2.0s  I  LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
+2.0s  I  LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
 
 ;Arc 1e
-2.21s  A  F Drive : speed = STOP
+2.21s  A  F Drive : speed == STOP
 
 ;========================================================================
 ;Scenario Step 2
 ;========================================================================
 ;Arc 2a
-2.41s  A  F DoorMotor FRONT LEFT : command = OPEN
+2.41s  A  F DoorMotor FRONT LEFT : command == OPEN
 
 ;Arc 2b
 3.00s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
@@ -61,7 +61,7 @@
 4.0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
 
 ;Arc 4b
-4.21s  A  F DoorMotor FRONT LEFT : command = STOP
+4.21s  A  F DoorMotor FRONT LEFT : command == STOP
 
 ;========================================================================
 ;Scenario Step 5

@@ -5,4 +5,5 @@
 ; Rajeev Sharma (rdsharma)
 ; * Author
 
-HallButtonControl 100ms 4 FRONT DOWN TRUE
+DoorControl 100ms FRONT LEFT TRUE
+CarButtonControl 4 FRONT 100ms TRUE
