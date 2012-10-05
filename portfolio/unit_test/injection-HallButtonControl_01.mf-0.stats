@@ -1,13 +1,13 @@
 
 Simulator Parameters:
-Command line = -cf unit_test/HallButtonControl.cf -mf unit_test/HallButtonControl_01.mf
+Command line = -cf HallButtonControl.cf -mf HallButtonControl_01.mf
 RandomSeed = 1349395600498
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
 Real time rate = null
-Message File = unit_test/HallButtonControl_01.mf
-Controller File = unit_test/HallButtonControl.cf
+Message File = HallButtonControl_01.mf
+Controller File = HallButtonControl.cf
 
 Assertion Results:
 @0.21s:  PASSED HallButtonControl[4][FRONT][DOWN]::checkState(STATE) ?== STATE_HALL_CALL_OFF PASSED

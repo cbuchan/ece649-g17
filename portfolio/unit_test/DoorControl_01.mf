@@ -13,13 +13,13 @@
 ;this test file demonstrates network and framework message injections
 ;and network, framework, and controller state assertions.
 
-#INCLUDE unit_test/defines.mf ;include CAN id and period definitions
+#INCLUDE defines.mf ;include CAN id and period definitions
 
 ;initialize
 0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
 0s     I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = false
 0s     I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
-0s     I DOOR_CONTROL_PERIOD N CAR_CALL_[1][FRONT]_CAN_ID CarCall 1 FRONT = false
+0s     I DOOR_CONTROL_PERIOD N CAR_CALL_[1][FRONT]_CAN_ID Boolean = false
 0s     I DOOR_REVERSAL_NETWORK_PERIOD N DOOR_REVERSAL_SENSOR_[FRONT][LEFT]_CAN_ID DoorReversal FRONT LEFT = false
 
 ;check that the light is off initially
@@ -38,7 +38,7 @@
 
 ;set conditions for T5.3
 0.91s  I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
-0.91s  I DOOR_CONTROL_PERIOD N CAR_CALL_[1][FRONT]_CAN_ID CarCall 1 FRONT = true
+0.91s  I DOOR_CONTROL_PERIOD N CAR_CALL_[1][FRONT]_CAN_ID Boolean = true
 
 ;#transition T5.3
 ;check state

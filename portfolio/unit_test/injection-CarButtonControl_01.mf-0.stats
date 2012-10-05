@@ -1,13 +1,13 @@
 
 Simulator Parameters:
-Command line = -cf /Users/jessesalazar/ece649-g17/simulator/unit_test/CarButtonControl.cf -mf /Users/jessesalazar/ece649-g17/simulator/unit_test/CarButtonControl.mf
+Command line = -cf CarButtonControl.cf -mf CarButtonControl_01.mf
 RandomSeed = 1349402548564
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
 Real time rate = null
-Message File = /Users/jessesalazar/ece649-g17/simulator/unit_test/CarButtonControl.mf
-Controller File = /Users/jessesalazar/ece649-g17/simulator/unit_test/CarButtonControl.cf
+Message File = CarButtonControl_01.mf
+Controller File = CarButtonControl.cf
 
 Assertion Results:
 @0.21s:  PASSED CarButtonControl[4][FRONT]::checkState(STATE) ?== STATE_LIGHT_OFF PASSED
