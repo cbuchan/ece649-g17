@@ -16,7 +16,7 @@
 ;HallCall[4,UP] has been pressed
 ;Elevator is going in direction UP
 ;Passenger is outside car, doors are closed
-0s  I  HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[4][FRONT][UP]_CAN_ID HallCall 4 FRONT UP = true
+0s  I  HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[4][FRONT][UP]_CAN_ID Boolean = true
 0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
 ;0s  I  DRIVE_PERIOD N DRIVE_SPEED_CAN_ID DriveSpeed = SLOW UP
 

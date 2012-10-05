@@ -1,6 +1,6 @@
 ; Integration Test -- Sequence Diagram 2A
 ; Author: Jessica Tiu
-; Team 14: Jesse Salazar, Collin Buchan, Jessica Tiu, Rajeev Sharma
+; Team 17: Jesse Salazar, Collin Buchan, Jessica Tiu, Rajeev Sharma
 ; Last modified 2012-10-04
 
 #INCLUDE defines.mf ;include CAN id and period definitions
@@ -20,7 +20,7 @@
 
 ;check that 1c. and 2. result (CarButtonControl)
 ;1c. mCarCall true
-0.8s	A N CAR_CALL_[2][BACK]_CAN_ID CarCall 2 BACK : getValue == true
+0.8s	A N CAR_CALL_[2][BACK]_CAN_ID Boolean : getValue == true
 ;2. car light turns on
 1.2s	A F CarLight 2 BACK : isLighted == true 
 
