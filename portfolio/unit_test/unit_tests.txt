@@ -1,3 +1,6 @@
-;there is only one test in the sample file.  Your file shall contain all tests.
+;=============================================================
+;UNIT TESTS
+;=============================================================
+HallButtonControl HallButtonControl.cf HallButtonControl_01.mf
+DriveControl DriveControl.cf DriveControl_01.mf
 DoorControl doorcontrol.cf doorcontrol_test1.mf
-DriveControl DriveControl.cf DriveControl.mf

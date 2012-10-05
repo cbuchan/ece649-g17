@@ -6,10 +6,11 @@
 ;Note:  Assertions must be inserted more than two periods after a message or physical
 ;value has been inserted to be sure that the change propagates through the system
 
-#INCLUDE allDefines.mf ;include CAN id and period definitions
+#INCLUDE defines.mf ;include CAN id and period definitions
 
+;#state 'S6.1 STATE_DRIVE_STOPPED'
 ;check that state is DRIVE_STOPPED initially
-0.21s A S DriveControl : STATE == STATE_DRIVE_STOPPED
+0.21s	A S DriveControl : STATE == STATE_DRIVE_STOPPED
 0.21s	A F Drive : speed == STOP
 0.21s	A F Drive : direction == STOP
 0.21s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == STOP
@@ -17,6 +18,7 @@
 0.21s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed == STOP
 0.21s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == UP
 
+;#transition 'T6.1'
 ;set conditions for T6.1
 ;desired direction not stop (desired direction is up)
 0.3s	I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
@@ -31,9 +33,9 @@
 ;emergency brake off
 0.3s	I WEIGHT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = false
 
-;T6.1
+;#state 'S6.2 STATE_DRIVE_SLOW'
 ;check that state is DRIVE_SLOW
-1.0s A S DriveControl : STATE == STATE_DRIVE_SLOW
+1.0s	A S DriveControl : STATE == STATE_DRIVE_SLOW
 1.0s	A F Drive : speed == SLOW
 1.0s	A F Drive : direction == UP
 1.0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == SLOW
@@ -41,13 +43,14 @@
 1.0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed == SLOW
 1.0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == UP
 
+;#transition 'T6.2'
 ;set conditions for T6.2
 ;emergency brake on
 1.2s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = true
 
-;T6.2
+;#state 'S6.1 STATE_DRIVE_STOPPED'
 ;check that state is DRIVE_STOPPED
-2.0s A S DriveControl : STATE == STATE_DRIVE_STOPPED
+2.0s	A S DriveControl : STATE == STATE_DRIVE_STOPPED
 2.0s	A F Drive : speed == STOP
 2.0s	A F Drive : direction == STOP
 2.0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == STOP
@@ -55,6 +58,7 @@
 2.0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed == STOP
 2.0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == UP
 
+;#transition 'T6.1'
 ;transition to DRIVE_SLOW
 ;desired direction not stop
 2.2s	I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
@@ -71,6 +75,7 @@
 
 ;state is now DRIVE_SLOW at 1.61s
 
+;#transition 'T6.3'
 ;set conditions for T6.3
 ;desired direction is stop
 ;desired floor = current floor
@@ -90,7 +95,7 @@
 3.0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = false
 3.0s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = false
 
-;T6.3 -- FAILED
+;#state 'S6.3 STATE_DRIVE_LEVEL'
 ;check that state is DRIVE_LEVEL
 4.0s A S DriveControl : STATE == STATE_DRIVE_LEVEL
 4.0s	A F Drive : speed == LEVEL
@@ -100,6 +105,7 @@
 4.0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed == STOP
 4.0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == STOP
 
+;#transition 'T6.4'
 ;set conditions for T6.4a (not emergency brake branch)
 ;level is true for any d && desired floor is current floor
 4.2s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
@@ -107,6 +113,7 @@
 ;OR emergency brake on 
 4.2s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = false
 
+;#state 'S6.1 STATE_DRIVE_STOPPED'
 ;T6.4a (!emergency brake)
 ;check that state is DRIVE_STOPPED
 5.0s A S DriveControl : STATE == STATE_DRIVE_STOPPED
@@ -117,12 +124,13 @@
 5.0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed == STOP
 5.0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == STOP
 
+;#transition 'T6.5'
 ;set conditions for T6.5
 ;level false for any d
 5.2s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = false
 5.2s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = false
 
-;T6.5
+;#state 'S6.3 STATE_DRIVE_LEVEL'
 ;check that state is DRIVE_LEVEL
 6.0s A S DriveControl : STATE == STATE_DRIVE_LEVEL
 6.0s	A F Drive : speed == LEVEL
@@ -132,6 +140,7 @@
 6.0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed == STOP
 6.0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == STOP
 
+;#transition 'T6.4'
 ;set conditions for T6.4b (emergency brake branch)
 ;level is true for any d && desired floor is current floor
 6.2s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
@@ -139,6 +148,7 @@
 ;OR emergency brake on
 6.2s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = true
 
+;#state 'S6.1 STATE_DRIVE_STOPPED'
 ;T6.4b (emergency brake)
 ;check that state is DRIVE_STOPPED
 7.0s A S DriveControl : STATE == STATE_DRIVE_STOPPED
