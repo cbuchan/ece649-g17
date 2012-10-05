@@ -1,0 +1,25 @@
+
+Simulator Parameters:
+Command line = -cf Integration_SD3A_01.cf -mf Integration_SD3A_01.mf
+RandomSeed = 1349401772749
+CanNetworkBitTime = 0 ns
+Effective Can Bitrate = Infinity
+Run Time = null
+Real time rate = null
+Message File = Integration_SD3A_01.mf
+Controller File = Integration_SD3A_01.cf
+
+Assertion Results:
+@0.21s:  FAILED simulator.payloads.DrivePayload$ReadableDrivePayload@37d2068d :: speed ?== LEVEL FAILED
+@0.21s:  FAILED simulator.payloads.DrivePayload$ReadableDrivePayload@2e0ece65 :: direction ?== UP FAILED
+@2.21s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@67ad77a7 :: speed ?== STOP PASSED
+@2.41s:  FAILED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@6aa6aeed :: command ?== OPEN FAILED
+@3.21s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@60072ffb :: lighted ?== false PASSED
+@4.21s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@6016a786 :: command ?== STOP PASSED
+
+
+******************Summary******************
+Passed:  3
+Failed:  3
+Total :  6
+
