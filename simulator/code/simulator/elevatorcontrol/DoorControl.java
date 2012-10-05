@@ -2,7 +2,6 @@ package simulator.elevatorcontrol;
 
 import jSimPack.SimTime;
 import simulator.elevatormodules.CarWeightCanPayloadTranslator;
-import simulator.elevatormodules.DesiredDwellCanPayloadTranslator;
 import simulator.elevatormodules.DoorClosedCanPayloadTranslator;
 import simulator.elevatormodules.DoorOpenedCanPayloadTranslator;
 import simulator.elevatormodules.DoorReversalCanPayloadTranslator;
@@ -175,6 +174,7 @@ public class DoorControl extends Controller {
      * each state.  Each case block executes actions for that state, then executes
      * a transition to the next state if the transition conditions are met.
      */
+    @Override
     public void timerExpired(Object callbackData) {
         State newState = state;
         switch (state) {
