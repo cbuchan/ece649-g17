@@ -1,6 +1,0 @@
-; 18649 <semester>
-; group #
-; student names and andrewID's
-; sd1a1.mf
-
-;TODO  add test statements
