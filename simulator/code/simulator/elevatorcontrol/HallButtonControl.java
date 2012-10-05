@@ -34,7 +34,6 @@ public class HallButtonControl extends Controller {
     private WriteableHallLightPayload localHallLight;
 
     //input network messages
-    private ReadableCanMailbox networkDoorClosedFrontLeft;
     private ReadableCanMailbox networkDesiredFloor;
     private ReadableCanMailbox networkAtFloor;
     private DoorClosedArray networkDoorClosed;
@@ -74,7 +73,7 @@ public class HallButtonControl extends Controller {
      * For your elevator controllers, you should make sure that the constructor matches the method signatures in
      * ControllerBuilder.makeAll().
      */
-    public HallButtonControl(int floor, Hallway hallway, Direction direction, SimTime period, boolean verbose) {
+    public HallButtonControl(SimTime period, int floor, Hallway hallway, Direction direction, boolean verbose) {
         //call to the Controller superclass constructor is required
         super("HallButtonControl" + ReplicationComputer.makeReplicationString(floor, hallway, direction), verbose);
 
@@ -138,7 +137,6 @@ public class HallButtonControl extends Controller {
 
         //register to receive periodic updates to the mailbox via the CAN network
         //the period of updates will be determined by the sender of the message
-        canInterface.registerTimeTriggered(networkDoorClosedFrontLeft);
         canInterface.registerTimeTriggered(networkDesiredFloor);
         canInterface.registerTimeTriggered(networkAtFloor);
 
