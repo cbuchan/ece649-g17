@@ -13,7 +13,7 @@
 ;this test file demonstrates network and framework message injections
 ;and network, framework, and controller state assertions.
 
-#INCLUDE unit_test/defines.mf ;include CAN id and period definitions
+#INCLUDE defines.mf ;include CAN id and period definitions
 
 ;initialize
 0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
