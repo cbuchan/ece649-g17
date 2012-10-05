@@ -6,16 +6,16 @@ package simulator.elevatorcontrol;
 
 import java.util.HashMap;
 import simulator.elevatormodules.AtFloorCanPayloadTranslator;
-import simulator.elevatormodules.CarCallCanPayloadTranslator;
 import simulator.elevatormodules.DoorClosedCanPayloadTranslator;
-import simulator.payloads.CANNetwork;
 import simulator.framework.Elevator;
 import simulator.framework.Hallway;
 import simulator.framework.Harness;
 import simulator.framework.ReplicationComputer;
 import simulator.framework.Side;
+import simulator.payloads.CANNetwork.CanConnection;
 import simulator.payloads.CanMailbox;
 import simulator.payloads.CanMailbox.ReadableCanMailbox;
+import simulator.payloads.translators.BooleanCanPayloadTranslator;
 
 /**
  * This class provides some example utility classes that might be useful in more
@@ -23,7 +23,7 @@ import simulator.payloads.CanMailbox.ReadableCanMailbox;
  * below), but you may not use utility classes in such a way that they constitute
  * a communication channel between controllers.
  *
- * @author justinr2
+ * @author justinr2, rdsharma
  */
 public class Utility {
 
@@ -32,7 +32,7 @@ public class Utility {
         HashMap<Integer, DoorClosedCanPayloadTranslator> translatorArray = new HashMap<Integer, DoorClosedCanPayloadTranslator>();
         public final Hallway hallway;
 
-        public DoorClosedArray(Hallway hallway, CANNetwork.CanConnection conn) {
+        public DoorClosedArray(Hallway hallway, CanConnection conn) {
             this.hallway = hallway;
             for (Side s : Side.values()) {
                 int index = ReplicationComputer.computeReplicationId(hallway, s);
@@ -51,29 +51,29 @@ public class Utility {
     
     public static class CarCallArray {
 
-        HashMap<Integer, CarCallCanPayloadTranslator> translatorArray = new HashMap<Integer, CarCallCanPayloadTranslator>(Elevator.numFloors);
+        public final int numFloors = Elevator.numFloors;
         public final Hallway hallway;
+        public BooleanCanPayloadTranslator[] translatorArray;
 
-        public CarCallArray(Hallway hallway, CANNetwork.CanConnection conn) {
+        public CarCallArray(Hallway hallway, CanConnection conn) {
             this.hallway = hallway;
-            for (int i = 1; i <= Elevator.numFloors; ++i) {
-                int index = ReplicationComputer.computeReplicationId(i, hallway);
-                ReadableCanMailbox m = CanMailbox.getReadableCanMailbox(MessageDictionary.CAR_CALL_BASE_CAN_ID + index);
-                CarCallCanPayloadTranslator t = new CarCallCanPayloadTranslator(m, i, hallway);
+            translatorArray = new BooleanCanPayloadTranslator[numFloors];
+            for (int i = 0; i < numFloors; ++i) {
+                ReadableCanMailbox m = CanMailbox.getReadableCanMailbox(
+                        MessageDictionary.CAR_CALL_BASE_CAN_ID + 
+                        ReplicationComputer.computeReplicationId(i+1, hallway));
+                BooleanCanPayloadTranslator t = new BooleanCanPayloadTranslator(m);
                 conn.registerTimeTriggered(m);
-                translatorArray.put(index, t);
+                translatorArray[i] = t;
             }
         }
 
         public boolean getValueForFloor(int floor) {
-            if (floor < 1 || floor > Elevator.numFloors || floor == MessageDictionary.NONE)
-                return false;
-            int index = ReplicationComputer.computeReplicationId(floor, hallway);
-            CarCallCanPayloadTranslator t = translatorArray.get(MessageDictionary.CAR_CALL_BASE_CAN_ID + index);
-            if (t == null) {
+            if (floor < 1 || floor > numFloors) {
                 return false;
             }
-            return t.getValue();
+            
+            return translatorArray[floor-1].getValue();
         }
     }
 
@@ -82,7 +82,7 @@ public class Utility {
         public HashMap<Integer, AtFloorCanPayloadTranslator> networkAtFloorsTranslators = new HashMap<Integer, AtFloorCanPayloadTranslator>();
         public final int numFloors = Elevator.numFloors;
 
-        public AtFloorArray(CANNetwork.CanConnection conn) {
+        public AtFloorArray(CanConnection conn) {
             for (int i = 0; i < numFloors; i++) {
                 int floor = i + 1;
                 for (Hallway h : Hallway.replicationValues) {

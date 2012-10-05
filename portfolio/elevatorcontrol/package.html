@@ -34,23 +34,24 @@
         </tr>
         <tr>
           <td valign="top"><a href="HallButtonControl.java">HallButtonControl.java</a></td>
-          <td valign="top"><br>
+          <td valign="top">Implementation of HallButtonControl object.
+            States: HALL_CALL_OFF, HALL_CALL_ON<br>
           </td>
         </tr>
         <tr>
           <td valign="top"><a href="CarButtonControl.java">CarButtonControl.java</a></td>
-          <td valign="top"><br>
-          </td>
+          <td valign="top">Implementation of CarButtonControl object.
+            States: LIGHT_ON, LIGHT_OFF </td>
         </tr>
         <tr>
           <td valign="top"><a href="DoorControl.java">DoorControl.java</a></td>
-          <td valign="top"><br>
-          </td>
+          <td valign="top">Implementation of DoorControl object. States:
+            DOOR_CLOSING, DOOR_CLOSED, DOOR_OPENING, DOOR_CLOSED </td>
         </tr>
         <tr>
           <td valign="top"><a href="DriveControl.java">DriveControl.java</a></td>
-          <td valign="top"><br>
-          </td>
+          <td valign="top">Implementation of DriveControl object.
+            States: DRIVE_STOPPED, DRIVE_LEVEL, DRIVE_SLOW </td>
         </tr>
       </tbody>
     </table>
@@ -69,20 +70,31 @@
         <tr>
           <td valign="top"><a
               href="DesiredFloorCanPayloadTranslator.java">DesiredFloorCanPayloadTranslator.java</a></td>
-          <td valign="top"><br>
+          <td valign="top">CAN payload translator for mDesiredFloor<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><a
+href="file:///Users/Collin/Workspace/ece649-g17/portfolio/elevatorcontrol/DesiredDwellCanPayloadTranslator.java">DesiredDwellCanPayloadTranslator.java</a></td>
+          <td valign="top">CAN payload translator for mDesiredDwell<br>
           </td>
         </tr>
         <tr>
           <td valign="top"><a
               href="DoorMotorCommandCanPayloadTranslator.java">DoorMotorCommandCanPayloadTranslator.java</a></td>
-          <td valign="top"><br>
+          <td valign="top">CAN payload translator for mDoorMotor<br>
           </td>
         </tr>
         <tr>
           <td valign="top"><a
               href="DriveCommandCanPayloadTranslator.java">DriveCommandCanPayloadTranslator.java</a></td>
-          <td valign="top"><br>
+          <td valign="top">CAN payload translator for mDrive<br>
           </td>
+        </tr>
+        <tr>
+          <td valign="top"><a href="DriveSpeedCanPayloadTranslator.java">DriveSpeedCanPayloadTranslator.java</a><br>
+          </td>
+          <td valign="top">CAN payload translator for mDriveSpeed</td>
         </tr>
       </tbody>
     </table>
@@ -98,25 +110,28 @@
         </tr>
         <tr>
           <td valign="top"><a href="Utility.java">Utility.java</a></td>
-          <td valign="top"><br>
-          </td>
+          <td valign="top">This class provides some example utility
+            classes that might be useful in more than one spot.</td>
         </tr>
         <tr>
           <td valign="top"><a href="MessageDictionary.java">MessageDictionary.java</a><br>
           </td>
-          <td valign="top"><br>
+          <td valign="top">This class defines constants for CAN IDs that
+            are used throughout the simulator.<br>
           </td>
         </tr>
         <tr>
           <td valign="top"><a href="SampleDispatcherMonitor.java">SampleDispatcherMonitor.java</a><br>
           </td>
-          <td valign="top"><br>
+          <td valign="top">This example monitor shows how to use the
+            RuntimeMonitor hooks to check for fast speed between floors.<br>
           </td>
         </tr>
         <tr>
           <td valign="top"><a href="SamplePerformanceMonitor.java">SamplePerformanceMonitor.java</a><br>
           </td>
-          <td valign="top"><br>
+          <td valign="top">This monitor detects the number of stops
+            where the car becomes overweight when the door are open. <br>
           </td>
         </tr>
       </tbody>
