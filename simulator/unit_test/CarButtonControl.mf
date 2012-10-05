@@ -1,0 +1,50 @@
+; 18649 Fall 2012 - Group 17
+; Jesse Salazar (jessesal)*
+; Jessica Tiu (jtiu)
+; Colin Buchan (cbuchan)
+; Rajeev Sharma (rdsharma)
+; * Author
+
+; Unit test for CarButtonControl
+
+; Note: Assertions must be inserted more than two periods after a message
+;       or physical value has been inserted to be sure that the change 
+;       propagates through the system.
+
+; Note: This test file demonstrates network/framework message injections
+;       and network/framework/controller state assertions.
+
+#INCLUDE defines.mf ;include CAN id and period definitions
+
+;initialize
+0s  I  CAR_BUTTON_CONTROL_PERIOD F CarCall 4 FRONT = false
+0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
+
+; check that the CarLight is off initially, and that initial state values are correct
+0.21s  A S CarButtonControl[4][FRONT] : STATE == STATE_LIGHT_OFF
+0.21s  A F CarLight 4 FRONT : lighted == false
+0.21s  A N CAR_CALL_[4][FRONT]_CAN_ID Boolean : getValue == false
+0.21s  A N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean : getValue == false
+
+;set conditions for T9.2 (T9.1 returns to initialized state, T9.2 leaves it)
+0.70s  I  CAR_BUTTON_CONTROL_PERIOD F CarCall 4 FRONT = true  ;Passenger physically pushing button
+0.90s  I  CAR_BUTTON_CONTROL_PERIOD N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean = true
+
+;T9.2
+;check that the light is on and that the proper values are set
+1.21s  A S CarButtonControl[4][FRONT] : STATE == STATE_LIGHT_ON
+1.21s  A F CarLight 4 FRONT : lighted == true
+1.21s  A N CAR_CALL_[4][FRONT]_CAN_ID Boolean : getValue == true
+1.21s  A N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean : getValue == true
+
+;set conditions for T9.1 (return to initial state)
+1.40s  I  CAR_BUTTON_CONTROL_PERIOD F CarCall 4 FRONT  = false  ;The CarCall ceases to be true
+1.40s  I  CAR_BUTTON_CONTROL_PERIOD N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean = false
+
+
+;T9.1
+;check that the light is off and that the proper values are set
+1.71s  A S CarButtonControl[4][FRONT] : STATE == STATE_LIGHT_OFF
+1.71s  A F CarLight 4 FRONT : lighted == false
+1.71s  A N CAR_CALL_[4][FRONT]_CAN_ID Boolean : getValue == false
+1.71s  A N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean : getValue == false
