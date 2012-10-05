@@ -66,6 +66,8 @@ public class Utility {
         }
 
         public boolean getValueForFloor(int floor) {
+            if (floor < 1 || floor > Elevator.numFloors || floor == MessageDictionary.NONE)
+                return false;
             int index = ReplicationComputer.computeReplicationId(floor, hallway);
             CarCallCanPayloadTranslator t = translatorArray.get(MessageDictionary.CAR_CALL_BASE_CAN_ID + index);
             if (t == null) {

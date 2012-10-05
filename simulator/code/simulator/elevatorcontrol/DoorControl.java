@@ -161,6 +161,11 @@ public class DoorControl extends Controller {
 
         networkCarCallArray = new Utility.CarCallArray(hallway, canInterface);
 
+        networkCarWeight = CanMailbox.getReadableCanMailbox(
+                MessageDictionary.CAR_WEIGHT_CAN_ID);
+        mCarWeight = new CarWeightCanPayloadTranslator(networkCarWeight);
+        canInterface.registerTimeTriggered(networkCarWeight);
+
         timer.start(period);
     }
 
@@ -194,11 +199,11 @@ public class DoorControl extends Controller {
                 } else if (
                         ((networkAtFloorArray.getCurrentFloor() == mDesiredFloor.getFloor())
                                 && (Speed.isStopOrLevel(mDriveSpeed.getSpeed()) || (mDriveSpeed.getDirection() == Direction.STOP)))
-                                || ((mCarWeight.getWeight() > Elevator.MaxCarCapacity)
+                        || ((mCarWeight.getWeight() > Elevator.MaxCarCapacity)
                                 && (mDoorOpened.getValue() == false))
-                                || ((mDoorReversal.getValue() == true)
+                        || ((mDoorReversal.getValue() == true)
                                 && (mDoorOpened.getValue() == false))
-                                || (networkCarCallArray.getValueForFloor(networkAtFloorArray.getCurrentFloor()) == true)
+                        || (networkCarCallArray.getValueForFloor(networkAtFloorArray.getCurrentFloor()) == true)
                         ) {
                     newState = State.STATE_DOOR_OPENING;
                 } else {

@@ -98,7 +98,7 @@ public class CarButtonControl extends Controller {
 	 *
 	 * controllers.add(createControllerObject("CarButtonControl",floor, hallway,
      * 				   MessageDictionary.CAR_BUTTON_CONTROL_PERIOD, verbose));
-     */
+     */ 
     public CarButtonControl(int floor, Hallway hallway, SimTime period, 
 							 boolean verbose) {
         //call to the Controller superclass constructor is required
