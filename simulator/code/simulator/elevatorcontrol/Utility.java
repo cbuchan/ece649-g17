@@ -6,6 +6,7 @@ package simulator.elevatorcontrol;
 
 import java.util.HashMap;
 import simulator.elevatormodules.AtFloorCanPayloadTranslator;
+import simulator.elevatormodules.CarCallCanPayloadTranslator;
 import simulator.elevatormodules.DoorClosedCanPayloadTranslator;
 import simulator.payloads.CANNetwork;
 import simulator.framework.Elevator;
@@ -45,6 +46,32 @@ public class Utility {
         public boolean getBothClosed() {
             return translatorArray.get(ReplicationComputer.computeReplicationId(hallway, Side.LEFT)).getValue() &&
                     translatorArray.get(ReplicationComputer.computeReplicationId(hallway, Side.RIGHT)).getValue();
+        }
+    }
+    
+    public static class CarCallArray {
+
+        HashMap<Integer, CarCallCanPayloadTranslator> translatorArray = new HashMap<Integer, CarCallCanPayloadTranslator>(Elevator.numFloors);
+        public final Hallway hallway;
+
+        public CarCallArray(Hallway hallway, CANNetwork.CanConnection conn) {
+            this.hallway = hallway;
+            for (int i = 0; i < Elevator.numFloors; ++i) {
+                int index = ReplicationComputer.computeReplicationId(i, hallway);
+                ReadableCanMailbox m = CanMailbox.getReadableCanMailbox(MessageDictionary.CAR_CALL_BASE_CAN_ID + index);
+                CarCallCanPayloadTranslator t = new CarCallCanPayloadTranslator(m, i, hallway);
+                conn.registerTimeTriggered(m);
+                translatorArray.put(index, t);
+            }
+        }
+
+        public boolean getValueForFloor(int floor) {
+            int index = ReplicationComputer.computeReplicationId(floor, hallway);
+            CarCallCanPayloadTranslator t = translatorArray.get(MessageDictionary.CAR_CALL_BASE_CAN_ID + index);
+            if (t == null) {
+                return false;
+            }
+            return t.getValue();
         }
     }
 
