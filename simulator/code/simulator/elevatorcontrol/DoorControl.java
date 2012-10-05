@@ -218,6 +218,7 @@ public class DoorControl extends Controller {
                 dwell = mDesiredDwell.getDwell();
                 countDown = SimTime.ZERO;
 
+                log("CarCall[1]: ", networkCarCallArray.getValueForFloor(1));
                 //transitions
                 //#transition 'T5.3'
                 //if ( mAtFloor[f,b]==True && mDesiredFloor.f==f && ( mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) )

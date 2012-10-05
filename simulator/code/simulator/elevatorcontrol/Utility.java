@@ -51,33 +51,29 @@ public class Utility {
     
     public static class CarCallArray {
 
-        HashMap<Integer, BooleanCanPayloadTranslator> translatorArray = 
-                new HashMap<Integer, BooleanCanPayloadTranslator>(
-                Elevator.numFloors);
+        public final int numFloors = Elevator.numFloors;
         public final Hallway hallway;
+        public BooleanCanPayloadTranslator[] translatorArray;
 
         public CarCallArray(Hallway hallway, CanConnection conn) {
             this.hallway = hallway;
-            for (int i = 1; i <= Elevator.numFloors; ++i) {
-                int index = ReplicationComputer.computeReplicationId(i, hallway);
+            translatorArray = new BooleanCanPayloadTranslator[numFloors];
+            for (int i = 0; i < numFloors; ++i) {
                 ReadableCanMailbox m = CanMailbox.getReadableCanMailbox(
-                        MessageDictionary.CAR_CALL_BASE_CAN_ID + index);
+                        MessageDictionary.CAR_CALL_BASE_CAN_ID + 
+                        ReplicationComputer.computeReplicationId(i+1, hallway));
                 BooleanCanPayloadTranslator t = new BooleanCanPayloadTranslator(m);
                 conn.registerTimeTriggered(m);
-                translatorArray.put(index, t);
+                translatorArray[i] = t;
             }
         }
 
         public boolean getValueForFloor(int floor) {
-            if (floor < 1 || floor > Elevator.numFloors || floor == MessageDictionary.NONE) {
+            if (floor < 1 || floor > numFloors) {
                 return false;
             }
-            int index = ReplicationComputer.computeReplicationId(floor, hallway);
-            BooleanCanPayloadTranslator t = translatorArray.get(MessageDictionary.CAR_CALL_BASE_CAN_ID + index);
-            if (t == null) {
-                return false;
-            }
-            return t.getValue();
+            
+            return translatorArray[floor-1].getValue();
         }
     }
 
