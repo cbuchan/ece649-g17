@@ -39,12 +39,15 @@
 ;set conditions for T5.3
 0.91s  I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
 0.91s  I DOOR_CONTROL_PERIOD N CAR_CALL_[1][FRONT]_CAN_ID Boolean = true
+0.91s  I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 1 FRONT STOP
+
 
 ;#transition T5.3
 ;check state
 1.31s  A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPENING
 1.31s  A F DoorMotor FRONT LEFT : command == OPEN
 1.31s  A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == OPEN
+
 
 ;set conditions for T5.4
 1.41s  I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT = 1
@@ -53,11 +56,12 @@
 
 ;#transition T5.4
 ;check state
-1.81s  A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPENED
+1.81s  A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPEN
 1.81s  A F DoorMotor FRONT LEFT : command == STOP
 1.81s  A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == STOP
 
 ;set conditions for T5.5
+2.0s  I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 2 FRONT STOP
 
 ;#transition T5.5
 ;check state
