@@ -1,6 +1,10 @@
+; 18649 Fall 2012 - Group 17
+; Jesse Salazar (jessesal)
+; Jessica Tiu (jtiu)*
+; Colin Buchan (cbuchan)
+; Rajeev Sharma (rdsharma)
+; * Author
 ; Unit test for DriveControl
-; Author: Jessica Tiu
-; Team 14: Jesse Salazar, Collin Buchan, Jessica Tiu, Rajeev Sharma
 ; Last modified 2012-10-03
 
 ;Note:  Assertions must be inserted more than two periods after a message or physical

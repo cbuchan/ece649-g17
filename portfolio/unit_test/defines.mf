@@ -1,3 +1,9 @@
+; 18649 Fall 2012 - Group 17
+; Jesse Salazar (jessesal)*
+; Jessica Tiu (jtiu)
+; Colin Buchan (cbuchan)
+; Rajeev Sharma (rdsharma)
+; * Author
 ;The following lines are automatically generated and designed to be compatible with the .mf #DEFINE directive.
 ;controller periods
 #DEFINE HALL_BUTTON_CONTROL_PERIOD                    100.0ms
