@@ -6,4 +6,4 @@
 ; * Author
 
 DoorControl 100ms FRONT LEFT TRUE
-CarButtonControl 100ms 4 FRONT TRUE
+CarButtonControl 4 FRONT 100ms TRUE
