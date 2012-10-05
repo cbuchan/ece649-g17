@@ -249,7 +249,6 @@ public class CarButtonControl extends Controller {
 
                 //transitions -- transition conditions are mutually exclusive
                 //#transition 'T9.1'
-                //if (mCarCall.getValue()==false) {
                 if (mCarCall.getValue()==false) {
                     newState = State.STATE_LIGHT_OFF;
                 } else {
