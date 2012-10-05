@@ -57,29 +57,29 @@
 
 ;#transition T5.4
 ;check state
-1.81s  A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPEN
-1.81s  A F DoorMotor FRONT LEFT : command == STOP
-1.81s  A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == STOP
+2.0s  A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPEN
+2.0s  A F DoorMotor FRONT LEFT : command == STOP
+2.0s  A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == STOP
 
 ;set conditions for T5.5
-2.0s  I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 2 FRONT STOP
+3.0s  I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 2 FRONT STOP
 
 ;#transition T5.5
 ;check state
 ;should have transitioned due to countdown timer
-3.31s  A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_CLOSING
-3.31s  A F DoorMotor FRONT LEFT : command == NUDGE
-3.31s  A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == NUDGE
+4.31s  A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_CLOSING
+4.31s  A F DoorMotor FRONT LEFT : command == NUDGE
+4.31s  A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == NUDGE
 
 ;set conditions for T5.2
-3.41s  I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
-3.41s  I DOOR_CONTROL_PERIOD N CAR_CALL_[1][FRONT]_CAN_ID Boolean = true
+4.41s  I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
+4.41s  I DOOR_CONTROL_PERIOD N CAR_CALL_[1][FRONT]_CAN_ID Boolean = true
 
 ;#transition T5.2
 ;check state
-3.81s  A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPENING
-3.81s  A F DoorMotor FRONT LEFT : command == OPEN
-3.81s  A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == OPEN
+4.81s  A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPENING
+4.81s  A F DoorMotor FRONT LEFT : command == OPEN
+4.81s  A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == OPEN
 
 ;TODO: Test door reversal
 ;3.41s  I DOOR_REVERSAL_NETWORK_PERIOD N DOOR_REVERSAL_SENSOR_[FRONT][LEFT]_CAN_ID Boolean = true
