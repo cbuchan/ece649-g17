@@ -219,17 +219,19 @@ public class DriveControl extends Controller {
                 mDriveSpeed.set(Speed.STOP, desiredDir);
 
                 //transitions
-                /*
-                 * T6.1 DesiredDirection~=Stop && mDoorClosed[*,*]==True &&
-                 * 		mCarWeight<MaxCarCapacity && mEmergencyBrake[b]==Off
-                 * T6.5 DesiredDirection==Stop && mDoorClosed==True &&
-                 * 		mDesiredFloor.f==CurrentFloor && mLevel[d]==False (for any d)
-                 */
+                
+                //#transition 'T6.1' 
+								// DesiredDirection~=Stop && mDoorClosed[*,*]==True &&
+                // 		mCarWeight<MaxCarCapacity && mEmergencyBrake[b]==Off
                 if (!desiredDir.equals(Direction.STOP) &&
                         networkDoorClosedFront.getBothClosed() && networkDoorClosedBack.getBothClosed() &&
                         mCarWeight.getWeight() < Elevator.MaxCarCapacity &&
                         !mEmergencyBrake.getValue()) {
                     newState = State.STATE_DRIVE_SLOW;
+
+								//#transition 'T6.5' 
+								// DesiredDirection==Stop && mDoorClosed==True &&
+                // 		mDesiredFloor.f==CurrentFloor && mLevel[d]==False (for any d)  
                 } else if (desiredDir.equals(Direction.STOP) &&
                         networkDoorClosedFront.getBothClosed() && networkDoorClosedBack.getBothClosed() &&
                         mDesiredFloor.getFloor() == networkAtFloorArray.getCurrentFloor() &&
@@ -256,9 +258,9 @@ public class DriveControl extends Controller {
                 mDriveSpeed.set(Speed.STOP, Direction.STOP);
 
                 //transitions
-                /*
-                 * T6.4 (mLevel[*]==True && mDesiredFloor.f==CurrentFloor) || mEmergencyBrake[b]==On
-                 */
+
+                //#transition 'T6.4' 
+								// (mLevel[*]==True && mDesiredFloor.f==CurrentFloor) || mEmergencyBrake[b]==On
                 if ((mLevelUp.getValue() || mLevelDown.getValue()) &&
                         mDesiredFloor.getFloor() == networkAtFloorArray.getCurrentFloor() ||
                         mEmergencyBrake.getValue()) {
@@ -286,13 +288,15 @@ public class DriveControl extends Controller {
                 mDriveSpeed.set(Speed.SLOW, desiredDir);
 
                 //transitions
-                /*
-                 * T6.2 mEmergencyBrake[b]==On
-                 * T6.3 DesiredDirection==Stop && mDoorClosed==True &&
-                 * 		mDesiredFloor.f==CurrentFloor && mLevel[d]==False (for any d)
-                 */
+               
+                //#transition 'T6.2'
+								// mEmergencyBrake[b]==On
                 if (mEmergencyBrake.getValue()) {
                     newState = State.STATE_DRIVE_STOPPED;
+
+                //#transition 'T6.3' 
+								// DesiredDirection==Stop && mDoorClosed==True &&
+                // 		mDesiredFloor.f==CurrentFloor && mLevel[d]==False (for any d)
                 } else if (desiredDir.equals(Direction.STOP) &&
                         networkDoorClosedFront.getBothClosed() && networkDoorClosedBack.getBothClosed() &&
                         mDesiredFloor.getFloor() == networkAtFloorArray.getCurrentFloor() &&

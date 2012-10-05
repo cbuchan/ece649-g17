@@ -56,7 +56,7 @@ public class Utility {
 
         public CarCallArray(Hallway hallway, CANNetwork.CanConnection conn) {
             this.hallway = hallway;
-            for (int i = 0; i < Elevator.numFloors; ++i) {
+            for (int i = 1; i <= Elevator.numFloors; ++i) {
                 int index = ReplicationComputer.computeReplicationId(i, hallway);
                 ReadableCanMailbox m = CanMailbox.getReadableCanMailbox(MessageDictionary.CAR_CALL_BASE_CAN_ID + index);
                 CarCallCanPayloadTranslator t = new CarCallCanPayloadTranslator(m, i, hallway);
