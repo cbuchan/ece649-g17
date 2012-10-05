@@ -84,7 +84,7 @@ public class DoorControl extends Controller {
         STATE_DOOR_OPEN,
     }
 
-    //state variable initialized to the initial state FLASH_OFF
+    //state variable initialized to the initial state DOOR_CLOSING
     private State state = State.STATE_DOOR_CLOSING;
 
     /**
@@ -160,6 +160,8 @@ public class DoorControl extends Controller {
         canInterface.registerTimeTriggered(networkDoorReversal);
 
         networkCarCallArray = new Utility.CarCallArray(hallway, canInterface);
+
+        timer.start(period);
     }
 
     /*
