@@ -3,5 +3,4 @@
 /simulator/Simulator.iml
 /simulator/.idea/
 *.class
-/simulator/out/production/Simulator/simulator/elevatorcontrol/Utility$AtFloorArray.class
-/simulator/out/production/Simulator/simulator/elevatorcontrol/Utility.class
+/simulator/out/

@@ -1,0 +1,54 @@
+; 18649 Fall 2012 - Group 17
+; Jesse Salazar (jessesal)
+; Jessica Tiu (jtiu)
+; Collin Buchan (cbuchan) *
+; Rajeev Sharma (rdsharma)
+; * Author
+
+; Unit test for CarPositionControl
+
+; Note: Assertions must be inserted more than two periods after a message
+;       or physical value has been inserted to be sure that the change 
+;       propagates through the system.
+
+; Note: This test file demonstrates network/framework message injections
+;       and network/framework/controller state assertions.
+
+#INCLUDE defines.mf ;include CAN id and period definitions
+
+;initialize
+0s   I  AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
++0s  I  AT_FLOOR_PERIOD N AT_FLOOR_[1][BACK]_CAN_ID AtFloor 1 BACK = true
++0s  I  AT_FLOOR_PERIOD N AT_FLOOR_[2][BACK]_CAN_ID AtFloor 2 BACK = false
+
+; #state 'DISPLAY_FLOOR'
+; check initialization parameters
++0.41s  A S CarPositionControl : STATE == STATE_DISPLAY_FLOOR
++0s  A F CarPositionIndicator : floor == 1
++0s  A N CAR_POSITION_CAN_ID Integer : getValue == 1
+
+;arrive at a floor
++0.21s  I  AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = false
++0s  I  AT_FLOOR_PERIOD N AT_FLOOR_[1][BACK]_CAN_ID AtFloor 1 BACK = false
++0s  I  AT_FLOOR_PERIOD N AT_FLOOR_[2][BACK]_CAN_ID AtFloor 2 BACK = true
+
+; #state 'DISPLAY_FLOOR'
++0.21s  A S CarPositionControl : STATE == STATE_DISPLAY_FLOOR
++0s  A F CarPositionIndicator : floor == 2
++0s  A N CAR_POSITION_CAN_ID Integer : getValue == 2
+
+;travel to next floor...
++0.21s  I  AT_FLOOR_PERIOD N AT_FLOOR_[2][BACK]_CAN_ID AtFloor 2 BACK = false
+
+; #state 'DISPLAY_FLOOR'
++0.21s  A S CarPositionControl : STATE == STATE_DISPLAY_FLOOR
++0s  A F CarPositionIndicator : floor == 2
++0s  A N CAR_POSITION_CAN_ID Integer : getValue == 2
+
+;arrive at next floor...
++0.21s  I  AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
+
+; #state 'DISPLAY_FLOOR'
++0.21s  A S CarPositionControl : STATE == STATE_DISPLAY_FLOOR
++0s  A F CarPositionIndicator : floor == 3
++0s  A N CAR_POSITION_CAN_ID Integer : getValue == 3
