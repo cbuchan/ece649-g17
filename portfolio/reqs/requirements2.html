@@ -1713,8 +1713,7 @@
     </h3>
     <p> 6.6 &nbsp;&nbsp; DriveDirection shall be updated every Drive
       period using the values of mDesiredFloor.f and CurrentFloor.<br>
-      6.7 &nbsp;&nbsp; If mAtFloor[f, b] is true, and DesiredDirection
-      is Stop,<br>
+      6.7 &nbsp;&nbsp; If DesiredDirection is Stop,<br>
       &nbsp;&nbsp;&nbsp; 6.7.1&nbsp;&nbsp;&nbsp; If mLevel[<b>*</b>] is
       true, then Drive[s, d] shall be commanded to (Stop, Stop).<br>
       &nbsp;&nbsp;&nbsp; 6.7.2&nbsp;&nbsp;&nbsp; If mLevel[<b>Up</b>] is
@@ -1751,9 +1750,8 @@
         <tr>
           <td style="vertical-align: top; ">T6.1<br>
           </td>
-          <td style="vertical-align: top; ">mAtFloor[f,b] == true
+          <td style="vertical-align: top; ">DesiredDirection == Stop
             &amp;&amp; <br>
-            DesiredDirection == Stop &amp;&amp; <br>
             mLevel[Up] == true<br>
           </td>
         </tr>
@@ -1764,15 +1762,13 @@
             MaxCarCapacity || <br>
             mEmergencyBrake[b] == true || <br>
             mDoorClosed[*,*] == false ||<br>
-            (mAtFloor[f,b] == true &amp;&amp; mLevel[*] == true
-            &amp;&amp; DesiredDirection == Stop)<br>
+            (mLevel[*] == true &amp;&amp; DesiredDirection == Stop)<br>
           </td>
         </tr>
         <tr>
           <td valign="top">T6.3<br>
           </td>
-          <td valign="top">mAtFloor[f,b] == true &amp;&amp; <br>
-            DesiredDirection == Stop &amp;&amp; <br>
+          <td valign="top">DesiredDirection == Stop &amp;&amp; <br>
             mLevel[Down] == true </td>
         </tr>
         <tr>
@@ -1781,35 +1777,30 @@
           <td valign="top">mCarWeight[x] &gt;= MaxCarCapacity || <br>
             mEmergencyBrake[b] == true || <br>
             mDoorClosed[*,*] == false ||<br>
-            (mAtFloor[f,b] == true &amp;&amp; mLevel[*] == true
-            &amp;&amp; DesiredDirection == Stop) </td>
+            (mLevel[*] == true &amp;&amp; DesiredDirection == Stop) </td>
         </tr>
         <tr>
           <td valign="top">T6.5<br>
           </td>
-          <td valign="top">mAtFloor[f,b] == true &amp;&amp; <br>
-            DesiredDirection == Stop &amp;&amp; <br>
+          <td valign="top">DesiredDirection == Stop &amp;&amp; <br>
             mLevel[Down] == true</td>
         </tr>
         <tr>
           <td valign="top">T6.6<br>
           </td>
-          <td valign="top">mAtFloor[f,b] == true &amp;&amp; <br>
-            DesiredDirection == Stop &amp;&amp; <br>
+          <td valign="top">DesiredDirection == Stop &amp;&amp; <br>
             mLevel[Up] == true</td>
         </tr>
         <tr>
           <td valign="top">T6.7<br>
           </td>
-          <td valign="top">mAtFloor[f,b] == true &amp;&amp; <br>
-            DesiredDirection == Stop &amp;&amp; <br>
+          <td valign="top">DesiredDirection == Stop &amp;&amp; <br>
             mLevel[Up] == true</td>
         </tr>
         <tr>
           <td valign="top">T6.8<br>
           </td>
-          <td valign="top">mAtFloor[f,b] == true &amp;&amp; <br>
-            DesiredDirection == Stop &amp;&amp; <br>
+          <td valign="top">DesiredDirection == Stop &amp;&amp; <br>
             mLevel[Down] == true</td>
         </tr>
         <tr>
@@ -2226,11 +2217,12 @@
     ET7.4&nbsp;&nbsp;&nbsp; DesiredDirection shall be kept updated by a
     physical model to indicate current desired direction of car.<br>
     <h3>TIME-TRIGGERED BEHAVIORS: </h3>
-    <p>7.2 &nbsp;&nbsp; If mDesiredFloor.d = d and any mDoorClosed[b,r]=false,
-      CarLantern[d] and mCarLantern[d] shall be set to On.<br>
-      7.3&nbsp;&nbsp;&nbsp; If all mDoorClosed[b,r]=true, CarLantern[d] and 
-      mCarLantern[d] shall be set to Off.<br>
-      7.4&nbsp;&nbsp;&nbsp; If mDesiredFloor.d != d, CarLantern[d] and 
+    <p>7.2 &nbsp;&nbsp; If mDesiredFloor.d = d and any
+      mDoorClosed[b,r]=false, CarLantern[d] and mCarLantern[d] shall be
+      set to On.<br>
+      7.3&nbsp;&nbsp;&nbsp; If all mDoorClosed[b,r]=true, CarLantern[d]
+      and mCarLantern[d] shall be set to Off.<br>
+      7.4&nbsp;&nbsp;&nbsp; If mDesiredFloor.d != d, CarLantern[d] and
       mCarLantern[d] shall be set to Off.<br>
     </p>
     <h3>STATECHART: </h3>
@@ -2253,15 +2245,15 @@
         <tr>
           <td style="vertical-align: top; ">T7.1<br>
           </td>
-          <td style="vertical-align: top; ">(mDesiredFloor.d == d) &amp;&amp; 
-            (any mDoorClosed[b,r] == false)<br>
+          <td style="vertical-align: top; ">(mDesiredFloor.d == d)
+            &amp;&amp; (any mDoorClosed[b,r] == false)<br>
           </td>
         </tr>
         <tr>
           <td style="vertical-align: top; ">T7.2<br>
           </td>
-          <td style="vertical-align: top; ">(mDesiredFloor.d != d) || (all 
-            mDoorClosed[b,r] == true)<br>
+          <td style="vertical-align: top; ">(mDesiredFloor.d != d) ||
+            (all mDoorClosed[b,r] == true)<br>
           </td>
         </tr>
       </tbody>
@@ -2276,7 +2268,7 @@
       text-align: start; text-indent: 0px; text-transform: none;
       white-space: normal; widows: 2; word-spacing: 0px;
       -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;
-      display: inline !important; float: none; ">completed by Rajeev 
+      display: inline !important; float: none; ">completed by Rajeev
       Sharma (rdsharma)</span><br style="color: rgb(0, 0, 0);
       font-family: Times; font-size: medium; font-style: normal;
       font-variant: normal; font-weight: normal; letter-spacing: normal;
