@@ -1,0 +1,9 @@
+; 18649 Fall 2012 - Group 17
+; Jesse Salazar (jessesal)
+; Jessica Tiu (jtiu)
+; Collin Buchan (cbuchan) *
+; Rajeev Sharma (rdsharma)
+; * Author
+
+DoorControl 100ms FRONT LEFT TRUE
+Dispatcher 100ms TRUE
