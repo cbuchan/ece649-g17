@@ -5,6 +5,6 @@
 ; Rajeev Sharma (rdsharma)
 ; * Author
 
-CarLanternControl 100ms TRUE
+LanternControl 100ms TRUE
 DriveControl 100ms TRUE
 Dispatcher 100ms TRUE
