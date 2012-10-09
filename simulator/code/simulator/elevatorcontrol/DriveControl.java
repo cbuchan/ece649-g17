@@ -11,7 +11,7 @@ package simulator.elevatorcontrol;
 
 import jSimPack.SimTime;
 import simulator.elevatorcontrol.Utility.AtFloorArray;
-import simulator.elevatorcontrol.Utility.DoorClosedArray;
+import simulator.elevatorcontrol.Utility.DoorClosedHallwayArray;
 import simulator.elevatormodules.CarWeightCanPayloadTranslator;
 import simulator.elevatormodules.LevelingCanPayloadTranslator;
 import simulator.framework.Controller;
@@ -61,8 +61,8 @@ public class DriveControl extends Controller {
     private ReadableCanMailbox networkEmergencyBrake;
     private ReadableCanMailbox networkCarWeight;
     private ReadableCanMailbox networkDesiredFloor;
-    private DoorClosedArray networkDoorClosedFront;
-    private DoorClosedArray networkDoorClosedBack;
+    private DoorClosedHallwayArray networkDoorClosedFront;
+    private DoorClosedHallwayArray networkDoorClosedBack;
     private AtFloorArray networkAtFloorArray;
 
     //translators for input network messages
@@ -171,8 +171,8 @@ public class DriveControl extends Controller {
                 CanMailbox.getReadableCanMailbox(MessageDictionary.CAR_WEIGHT_CAN_ID);
         networkDesiredFloor =
                 CanMailbox.getReadableCanMailbox(MessageDictionary.DESIRED_FLOOR_CAN_ID);
-        networkDoorClosedFront = new Utility.DoorClosedArray(Hallway.FRONT, canInterface);
-        networkDoorClosedBack = new Utility.DoorClosedArray(Hallway.BACK, canInterface);
+        networkDoorClosedFront = new Utility.DoorClosedHallwayArray(Hallway.FRONT, canInterface);
+        networkDoorClosedBack = new Utility.DoorClosedHallwayArray(Hallway.BACK, canInterface);
         networkAtFloorArray = new Utility.AtFloorArray(canInterface);
 
         mLevelUp =
@@ -233,7 +233,7 @@ public class DriveControl extends Controller {
                 // DesiredDirection~=Stop && mDoorClosed[*,*]==True &&
                 // 		mCarWeight<MaxCarCapacity && mEmergencyBrake[b]==Off
                 if (!desiredDir.equals(Direction.STOP) &&
-                        networkDoorClosedFront.getBothClosed() && networkDoorClosedBack.getBothClosed() &&
+                        networkDoorClosedFront.getAllClosed() && networkDoorClosedBack.getAllClosed() &&
                         mCarWeight.getWeight() < Elevator.MaxCarCapacity &&
                         !mEmergencyBrake.getValue()) {
                     newState = State.STATE_DRIVE_SLOW;
@@ -242,7 +242,7 @@ public class DriveControl extends Controller {
                     // DesiredDirection==Stop && mDoorClosed==True &&
                     // 		mDesiredFloor.f==CurrentFloor && mLevel[d]==False (for any d)
                 } else if (desiredDir.equals(Direction.STOP) &&
-                        networkDoorClosedFront.getBothClosed() && networkDoorClosedBack.getBothClosed() &&
+                        networkDoorClosedFront.getAllClosed() && networkDoorClosedBack.getAllClosed() &&
                         mDesiredFloor.getFloor() == networkAtFloorArray.getCurrentFloor() &&
                         (!mLevelUp.getValue() || !mLevelDown.getValue())) {
 
@@ -307,7 +307,7 @@ public class DriveControl extends Controller {
                     // DesiredDirection==Stop && mDoorClosed==True &&
                     // 		mDesiredFloor.f==CurrentFloor && mLevel[d]==False (for any d)
                 } else if (desiredDir.equals(Direction.STOP) &&
-                        networkDoorClosedFront.getBothClosed() && networkDoorClosedBack.getBothClosed() &&
+                        networkDoorClosedFront.getAllClosed() && networkDoorClosedBack.getAllClosed() &&
                         mDesiredFloor.getFloor() == networkAtFloorArray.getCurrentFloor() &&
                         (!mLevelUp.getValue() || !mLevelDown.getValue())) {
                     newState = State.STATE_DRIVE_LEVEL;

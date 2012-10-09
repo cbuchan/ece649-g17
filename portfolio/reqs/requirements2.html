@@ -1975,23 +1975,15 @@
     ET7.4&nbsp;&nbsp;&nbsp; DesiredDirection shall be kept updated by a
     physical model to indicate current desired direction of car.<br>
     <h3>TIME-TRIGGERED BEHAVIORS: </h3>
-    <p>7.2 &nbsp;&nbsp; If mDoorClosed[b, r] is false and
-      DesiredDirection is not Stop, CarLantern[d] shall be set to
-      DesiredDirection.<br>
-      7.3&nbsp;&nbsp;&nbsp; If mDoorClosed[b, r] is false and
-      DesiredDirection is Stop, both CarLanterns[d] shall be commanded
-      to be off.<br>
-      7.4&nbsp;&nbsp;&nbsp; DesiredDirection shall be kept updated by a
-      physical model to indicate current desired direction of car.<br>
+    <p>7.2 &nbsp;&nbsp; If mDesiredFloor.d = d and any mDoorClosed[b,r]=false,
+      CarLantern[d] and mCarLantern[d] shall be set to On.<br>
+      7.3&nbsp;&nbsp;&nbsp; If all mDoorClosed[b,r]=true, CarLantern[d] and 
+      mCarLantern[d] shall be set to Off.<br>
+      7.4&nbsp;&nbsp;&nbsp; If mDesiredFloor.d != d, CarLantern[d] and 
+      mCarLantern[d] shall be set to Off.<br>
     </p>
     <h3>STATECHART: </h3>
-    <img alt="SC_LanternControl" src="SC_LanternControl.png"
-      height="276" width="677"><br>
-    <br>
-    Notation. ~DesiredDirection =&gt;<br>
-    ~Up=Down<br>
-    ~Down=Up<br>
-    ~Stop is not applicable in State 2. (DesiredDirection is never Stop)<br>
+    <img alt="SC_LanternControl" src="SC_LanternControl.png"><br>
     <br>
     <meta charset="utf-8">
     <table style="font-family: Times; letter-spacing: normal; orphans:
@@ -2010,15 +2002,15 @@
         <tr>
           <td style="vertical-align: top; ">T7.1<br>
           </td>
-          <td style="vertical-align: top; ">mDoorClosed[b,r] == false
-            &amp;&amp; DesiredDirection != Stop<br>
+          <td style="vertical-align: top; ">(mDesiredFloor.d == d) &amp;&amp; 
+            (any mDoorClosed[b,r] == false)<br>
           </td>
         </tr>
         <tr>
           <td style="vertical-align: top; ">T7.2<br>
           </td>
-          <td style="vertical-align: top; ">mDoorClosed[b,r] == true ||
-            DesiredDirection == Stop<br>
+          <td style="vertical-align: top; ">(mDesiredFloor.d != d) || (all 
+            mDoorClosed[b,r] == true)<br>
           </td>
         </tr>
       </tbody>
@@ -2033,8 +2025,8 @@
       text-align: start; text-indent: 0px; text-transform: none;
       white-space: normal; widows: 2; word-spacing: 0px;
       -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;
-      display: inline !important; float: none; ">completed by Collin
-      Buchan (cbuchan)</span><br style="color: rgb(0, 0, 0);
+      display: inline !important; float: none; ">completed by Rajeev 
+      Sharma (rdsharma)</span><br style="color: rgb(0, 0, 0);
       font-family: Times; font-size: medium; font-style: normal;
       font-variant: normal; font-weight: normal; letter-spacing: normal;
       line-height: normal; orphans: 2; text-align: start; text-indent:
@@ -2069,7 +2061,7 @@
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204); ">State 1:&nbsp; CarLantern Off<br>
+            204, 204); ">State 1:&nbsp; CAR_LANTERN_OFF<br>
           </td>
           <td style="vertical-align: top; "><br>
           </td>
@@ -2080,13 +2072,13 @@
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204); ">State 2:&nbsp; CarLantern On<br>
+            204, 204); ">State 2:&nbsp; CAR_LANTERN_ON<br>
           </td>
           <td style="vertical-align: top; ">X<br>
           </td>
           <td style="vertical-align: top; "><br>
           </td>
-          <td style="vertical-align: top; ">X<br>
+          <td style="vertical-align: top; "><br>
           </td>
         </tr>
         <tr>
@@ -2117,7 +2109,7 @@
           </td>
           <td style="vertical-align: top; ">X<br>
           </td>
-          <td style="vertical-align: top; "><br>
+          <td style="vertical-align: top; ">X<br>
           </td>
         </tr>
       </tbody>

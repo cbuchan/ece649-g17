@@ -34,24 +34,88 @@ import simulator.payloads.translators.BooleanCanPayloadTranslator;
 public class Utility {
 
     public static class DoorClosedArray {
+        
+        /* Design decision:  since the Hallway enum contains special cases such 
+         * as NONE and BOTH, hard code the class to enum values rather than 
+         * looping through them as we do in the other array classes.  This hurts
+         * modularity but results in much cleaner and more efficient code.
+         */
+        
+        private final DoorClosedHallwayArray front;
+        private final DoorClosedHallwayArray back;
+        
+        public DoorClosedArray(CanConnection conn) {
+            front = new DoorClosedHallwayArray(Hallway.FRONT, conn);
+            back = new DoorClosedHallwayArray(Hallway.BACK, conn);
+        }
+        
+        public boolean getAllClosed() {
+            return front.getAllClosed() && back.getAllClosed();
+        }
+        
+        public boolean getAllHallwayClosed(Hallway hallway) {
+            if (hallway == Hallway.BOTH) {
+                return getAllClosed();
+            } else if (hallway == Hallway.FRONT) {
+                return front.getAllClosed();
+            } else if (hallway == Hallway.BACK) {
+                return back.getAllClosed();
+            }
+            return false;
+        }
+        
+        public boolean getClosed(Hallway hallway, Side side) {
+            if (hallway == Hallway.BOTH) {
+                return front.getClosed(side) && back.getClosed(side);
+            } else if (hallway == Hallway.FRONT) {
+                return front.getClosed(side);
+            } else if (hallway == Hallway.BACK) {
+                return back.getClosed(side);
+            }
+            return false;
+        }
+    }
+    
+    public static class DoorClosedHallwayArray {
 
-        HashMap<Integer, DoorClosedCanPayloadTranslator> translatorArray = new HashMap<Integer, DoorClosedCanPayloadTranslator>();
+        private HashMap<Integer, DoorClosedCanPayloadTranslator> 
+                translatorArray;
         public final Hallway hallway;
 
-        public DoorClosedArray(Hallway hallway, CanConnection conn) {
+        public DoorClosedHallwayArray(Hallway hallway, CanConnection conn) {
             this.hallway = hallway;
+            
+            translatorArray = 
+                    new HashMap<Integer, DoorClosedCanPayloadTranslator>(
+                    Side.values().length);
+            
             for (Side s : Side.values()) {
-                int index = ReplicationComputer.computeReplicationId(hallway, s);
-                ReadableCanMailbox m = CanMailbox.getReadableCanMailbox(MessageDictionary.DOOR_CLOSED_SENSOR_BASE_CAN_ID + index);
-                DoorClosedCanPayloadTranslator t = new DoorClosedCanPayloadTranslator(m, hallway, s);
+                int index = ReplicationComputer.computeReplicationId(hallway, 
+                        s);
+                ReadableCanMailbox m = CanMailbox.getReadableCanMailbox(
+                        MessageDictionary.DOOR_CLOSED_SENSOR_BASE_CAN_ID 
+                        + index);
+                DoorClosedCanPayloadTranslator t = 
+                        new DoorClosedCanPayloadTranslator(m, hallway, s);
                 conn.registerTimeTriggered(m);
                 translatorArray.put(index, t);
             }
         }
 
-        public boolean getBothClosed() {
-            return translatorArray.get(ReplicationComputer.computeReplicationId(hallway, Side.LEFT)).getValue() &&
-                    translatorArray.get(ReplicationComputer.computeReplicationId(hallway, Side.RIGHT)).getValue();
+        public boolean getAllClosed() {
+            for (DoorClosedCanPayloadTranslator translator 
+                    : translatorArray.values()) {
+                if (!translator.getValue()) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        public boolean getClosed(Side side) {
+            return translatorArray.get(
+                    ReplicationComputer.computeReplicationId(hallway, side))
+                    .getValue();
         }
     }
     
