@@ -51,7 +51,6 @@ public class Utility {
         }
 
         public boolean getAllClosed() {
-            System.out.println("Front is " + front.getAllClosed() + ", back is " + back.getAllClosed());
             return (front.getAllClosed() && back.getAllClosed());
         }
 
@@ -103,7 +102,6 @@ public class Utility {
         }
 
         public boolean getAllClosed() {
-            System.out.println("Left is " + left.getValue() + ", right is " + right.getValue());
             return (left.getValue() && right.getValue());
         }
 
