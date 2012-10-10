@@ -1,9 +1,13 @@
-; 18649 Fall 2012 - Group 17
-; Jesse Salazar (jessesal)
-; Jessica Tiu (jtiu)
-; Collin Buchan (cbuchan) *
-; Rajeev Sharma (rdsharma)
-; * Author
+;========================================================================
+; Configuration File for SD2A
+;========================================================================
+;18649 Fall 2012
+;Group17
+;Collin Buchan (cbuchan) 
+;Rajeev Sharma (rdsharma)
+;Jesse Salazar (jessesal)
+;Jessica Tiu   (jtiu) - Author
+;========================================================================
 
 DoorControl 100ms FRONT LEFT TRUE
 CarButtonControl 4 FRONT 100ms TRUE

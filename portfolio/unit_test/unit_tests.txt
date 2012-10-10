@@ -1,11 +1,12 @@
+;=============================================================
+;UNIT TESTS
+;=============================================================
 ;18649 Fall 2012
 ;Group17
 ;Collin Buchan (cbuchan)
 ;Rajeev Sharma (rdsharma)
 ;Jesse Salazar (jessesal)
 ;Jessica Tiu   (jtiu)
-;=============================================================
-;UNIT TESTS
 ;=============================================================
 HallButtonControl HallButtonControl.cf HallButtonControl_01.mf
 DriveControl DriveControl.cf DriveControl_01.mf

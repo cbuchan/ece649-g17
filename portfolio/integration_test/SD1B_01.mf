@@ -1,0 +1,65 @@
+;========================================================================
+; Integration Test for SD1B
+;========================================================================
+;18649 Fall 2012
+;Group17
+;Collin Buchan (cbuchan) - Author
+;Rajeev Sharma (rdsharma)
+;Jesse Salazar (jessesal)
+;Jessica Tiu   (jtiu)
+;========================================================================
+
+#INCLUDE defines.mf ;include CAN id and period definitions
+
+;========================================================================
+;initialize
+;========================================================================
+;Car is at same floor as passenger (Floor 4).
+;Car is traveling in same direction d (Direction DOWN) as desired by passenger.
+;At least one door[b,r] (FRONT, LEFT) is open.
+;Hall button light [f,b,d] (FRONT, LEFT, DOWN) for passenger's desired direction is off.
+
+0s  I  HALL_BUTTON_CONTROL_PERIOD F HallCall 4 FRONT DOWN  = false
+0s  I  DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
+0s  I  AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
+0s  A  F HallLight 4 FRONT DOWN : lighted == false
+
+;========================================================================
+;1. Door[b,r] starts closing.
+;========================================================================
+;Arc 1a
++0.21s  A  S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_CLOSING
++0s     A  F DoorMotor FRONT LEFT : command == NUDGE
+
+;========================================================================
+;2. Passenger arrives at a hallway [f, b] to use the elevator, with
+;   intent to travel in direction d.
+;3. Passenger presses hall call button before doors are fully closed,
+;   but after doors are too fully closed for passenger to enter.
+;========================================================================
+;passenger makes a hall call
+;arc 2, 3a, 3b
++0.21s  I  HALL_BUTTON_CONTROL_PERIOD F HallCall 4 FRONT DOWN  = true
++0.21s  I  HALL_BUTTON_CONTROL_PERIOD F HallCall 4 FRONT DOWN  = false
+
+;========================================================================
+;4. Hall button lights up.
+;========================================================================
+;arc 4
++0.21s  A  F HallLight 4 FRONT DOWN : lighted == true
++0s     A  N HALL_LIGHT_[4][FRONT][DOWN]_CAN_ID Boolean : getValue == true
+
+;========================================================================
+;5. Doors complete closing.
+;========================================================================
+;arc 5a, 5b
++0.21s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
++0.41s  A  F DoorMotor FRONT LEFT : command == STOP
+
+;========================================================================
+;Post Conditions
+;========================================================================
+;Elevator is at the passenger's floor.
+;Door is closed.
+;Hall button light for passenger's desired direction is on.
+

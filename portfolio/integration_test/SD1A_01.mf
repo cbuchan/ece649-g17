@@ -1,11 +1,13 @@
-; 18649 Fall 2012 - Group 17
-; Jesse Salazar (jessesal)
-; Jessica Tiu (jtiu)
-; Collin Buchan (cbuchan) *
-; Rajeev Sharma (rdsharma)
-; * Author
-
+;========================================================================
 ; Integration Test for SD1A
+;========================================================================
+;18649 Fall 2012
+;Group17
+;Collin Buchan (cbuchan) - Author
+;Rajeev Sharma (rdsharma)
+;Jesse Salazar (jessesal)
+;Jessica Tiu   (jtiu)
+;========================================================================
 
 #INCLUDE defines.mf ;include CAN id and period definitions
 
@@ -13,19 +15,23 @@
 ;initialize
 ;========================================================================
 ;All doors are closed.
-;Passenger has already arrived at a hallway to use the elevator.
-;Car is at another floor.
-
+;Passenger has already arrived at a hallway (Floor 4, Hallway FRONT) to use the elevator.
+;Car is at another floor (Floor 3).
+0s  I  HALL_BUTTON_CONTROL_PERIOD F HallCall 4 FRONT DOWN  = false
 0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
+0s  I  AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
 
 ;========================================================================
 ;Scenario Step 1
 ;========================================================================
+;passenger presses button and releases
 ;Arcs 1a and 1b
-+0.21s  I  HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[4][FRONT][UP]_CAN_ID Boolean = true
++0.21s  I  HALL_BUTTON_CONTROL_PERIOD F HallCall 4 FRONT DOWN  = true
++0.21s  I  HALL_BUTTON_CONTROL_PERIOD F HallCall 4 FRONT DOWN  = false
 
 ;========================================================================
 ;Scenario Step 2
 ;========================================================================
 ;Arc 2a and 2b
-+0.21s  A  F HallLight 4 FRONT UP : lighted == true
++0.21s  A  F HallLight 4 FRONT DOWN : lighted == true
++0s  A N HALL_LIGHT_[4][FRONT][DOWN]_CAN_ID Boolean : getValue == true

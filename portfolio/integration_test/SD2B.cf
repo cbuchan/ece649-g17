@@ -1,9 +1,13 @@
-; 18649 Fall 2012 - Group 17
-; Jesse Salazar (jessesal)
-; Jessica Tiu (jtiu)
-; Collin Buchan (cbuchan) *
-; Rajeev Sharma (rdsharma)
-; * Author
+;========================================================================
+; Configuration File for SD2B
+;========================================================================
+;18649 Fall 2012
+;Group17
+;Collin Buchan (cbuchan) - Author
+;Rajeev Sharma (rdsharma)
+;Jesse Salazar (jessesal)
+;Jessica Tiu   (jtiu)
+;========================================================================
 
-DoorControl 100ms FRONT LEFT TRUE
-DriveControl 4 FRONT 100ms TRUE
+DoorControl 100ms FRONT RIGHT TRUE
+CarButtonControl 4 FRONT 100ms TRUE
