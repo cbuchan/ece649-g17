@@ -1,0 +1,93 @@
+; 18649 Fall 2012 - Group 17
+; Jesse Salazar (jessesal)
+; Jessica Tiu (jtiu) *
+; Colin Buchan (cbuchan)
+; Rajeev Sharma (rdsharma)
+; * Author
+; Unit test for DriveControl
+; Last modified 2012-10-09
+
+;Note:  Assertions must be inserted more than two periods after a message or physical
+;value has been inserted to be sure that the change propagates through the system
+
+#INCLUDE defines.mf ;include CAN id and period definitions
+
+
+;test path
+;#transition 'T6.9'
+;#transition 'T6.8'
+;#transition 'T6.4'			-- branch
+;#transition 'T6.3'
+;==============================1.0===========================================
+
+;#state 'STATE_DRIVE_STOPPED'
++1.0s	A S DriveControl : STATE == STATE_DRIVE_STOPPED
+;===============================2.0==========================================
+
+;#transition 'T6.3'
+
+;initial conditions
+;all doors closed
++1.0s	I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
++0s	I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
++0s	I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
++0s	I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
+;desired direction is stop
++0s	I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
++0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 3 FRONT STOP
+;level down is true
++0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = false
++0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
+;===============================3.0==========================================
+
+;#state 'STATE_DRIVE_LEVEL_DOWN
++1.0s	A S DriveControl : STATE == STATE_DRIVE_LEVEL_DOWN
+;================================4.0=========================================
+
+;#transition 'T6.4'
+;car weight >= max OR				set all of these OR conditions false for now
+;emergency brake OR
+;door closed = false OR
+;both level true
++1.0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
++0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
+;desired direction stop
++0s	I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
++0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 3 FRONT STOP
+;===============================5.0==========================================
+
+;#state 'STATE_DRIVE_STOPPED'
++1.0s	A S DriveControl : STATE == STATE_DRIVE_STOPPED
+;================================6.0=========================================
+
+;#transition 'T6.9'
+;set conditions for T6.9
+;all doors closed
++1.0s	I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
++0s	I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
++0s	I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
++0s	I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
+;desired dir not stop
++0s	I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
++0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 4 FRONT STOP
+;car weight < max
++0s	I WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 0
+;=================================7.0========================================
+
+;#state 'STATE_DRIVE_SLOW'
++1.0s	A S DriveControl : STATE == STATE_DRIVE_SLOW
+;==================================8.0=======================================
+
+;#transition 'T6.8'
+;desired direction is stop
++1.0s	I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
++0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 3 FRONT STOP
+;level down is true
++0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
++0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = false
+;==================================9.0=======================================
+
+;#state 'STATE_DRIVE_LEVEL_DOWN'
++1.0s	A S DriveControl : STATE == STATE_DRIVE_LEVEL_DOWN
+;=========================================================================
+
