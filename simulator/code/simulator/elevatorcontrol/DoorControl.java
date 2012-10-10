@@ -21,8 +21,7 @@ import simulator.payloads.DoorMotorPayload;
 import simulator.payloads.DoorMotorPayload.WriteableDoorMotorPayload;
 
 /**
- * HallButtonControl controls responds to passenger input on the hall buttons
- * and eventually will notify the dispatcher when a passenger is requesting pickup
+ * DoorControl controls DoorMotor objects based on current call and safety states.
  *
  * @author Rajeev Sharma
  */
@@ -89,6 +88,7 @@ public class DoorControl extends Controller {
         STATE_DOOR_CLOSED,
         STATE_DOOR_OPENING,
         STATE_DOOR_OPEN,
+        STATE_DOOR_OPEN_E,
     }
 
     //state variable initialized to the initial state DOOR_CLOSING
@@ -195,25 +195,24 @@ public class DoorControl extends Controller {
                 countDown = SimTime.ZERO;
 
                 //transitions -- note that transition conditions are mutually exclusive
-                //#transition 'T5.1'
-                //if (mDoorClosed[b,r]==True)
-                if (mDoorClosed.getValue() == true) {
-                    newState = State.STATE_DOOR_CLOSED;
-                    //#transition 'T5.2'
-                    //if ( mAtFloor[f,b]==True && mDesiredFloor.f==f && ( mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) )
-                    //      || ( mCarWeight(g) >= MaxCarCapacity && mDoorOpened[b,r]==False )
-                    //      || ( mDoorReversal==True && mDoorOpened[b,r]==False )
-                    //      || ( mCarCall[f,b]==True && mAtFloor[f,b]==True ) {
-                } else if (
-                        ((networkAtFloorArray.getCurrentFloor() == mDesiredFloor.getFloor())
+                //#transition 'T5.5'
+                //if ( mAtFloor[f,b]==True && mDesiredFloor.f==f && ( mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) )
+                //      || ( mCarWeight(g) >= MaxCarCapacity && mDoorOpened[b,r]==False )
+                //      || ( mDoorReversal==True && mDoorOpened[b,r]==False )
+                //      || ( mCarCall[f,b]==True && mAtFloor[f,b]==True ) {
+                if (    ((networkAtFloorArray.getCurrentFloor() == mDesiredFloor.getFloor())
                                 && (Speed.isStopOrLevel(mDriveSpeed.getSpeed()) || (mDriveSpeed.getDirection() == Direction.STOP)))
-                        || ((mCarWeight.getWeight() > Elevator.MaxCarCapacity)
+                        || ((mCarWeight.getWeight() >= Elevator.MaxCarCapacity)
                                 && (mDoorOpened.getValue() == false))
                         || ((mDoorReversal.getValue() == true)
                                 && (mDoorOpened.getValue() == false))
                         || (networkCarCallArray.getValueForFloor(networkAtFloorArray.getCurrentFloor()) == true)
                         ) {
                     newState = State.STATE_DOOR_OPENING;
+                //#transition 'T5.1'
+                //if (mDoorClosed[b,r]==True)
+                } else if (mDoorClosed.getValue() == true) {
+                    newState = State.STATE_DOOR_CLOSED;
                 } else {
                     newState = state;
                 }
@@ -227,17 +226,17 @@ public class DoorControl extends Controller {
                 countDown = SimTime.ZERO;
 
                 //transitions
-                //#transition 'T5.3'
+                //#transition 'T5.2'
                 //if ( mAtFloor[f,b]==True && mDesiredFloor.f==f && ( mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) )
                 //      || ( mCarWeight(g) >= MaxCarCapacity && mDoorOpened[b,r]==False )
                 //      || ( mDoorReversal==True && mDoorOpened[b,r]==False )
                 //      || ( mCarCall[f,b]==True && mAtFloor[f,b]==True ) {
-                if (((networkAtFloorArray.getCurrentFloor() == mDesiredFloor.getFloor())
-                        && (Speed.isStopOrLevel(mDriveSpeed.getSpeed()) || (mDriveSpeed.getDirection() == Direction.STOP)))
-                        || ((mCarWeight.getWeight() > Elevator.MaxCarCapacity)
-                        && (mDoorOpened.getValue() == false))
+                if (    ((networkAtFloorArray.getCurrentFloor() == mDesiredFloor.getFloor())
+                                && (Speed.isStopOrLevel(mDriveSpeed.getSpeed()) || (mDriveSpeed.getDirection() == Direction.STOP)))
+                        || ((mCarWeight.getWeight() >= Elevator.MaxCarCapacity)
+                                && (mDoorOpened.getValue() == false))
                         || ((mDoorReversal.getValue() == true)
-                        && (mDoorOpened.getValue() == false))
+                                && (mDoorOpened.getValue() == false))
                         || (networkCarCallArray.getValueForFloor(networkAtFloorArray.getCurrentFloor()) == true)
                         ) {
                     newState = State.STATE_DOOR_OPENING;
@@ -254,10 +253,20 @@ public class DoorControl extends Controller {
                 countDown = new SimTime(dwell, SimTime.SimTimeUnit.SECOND);
 
                 //transitions
-                //#transition 'T5.4'
-                //if (mDoorOpened[b,r] = true
-                if (mDoorOpened.getValue() == true) {
+                //#transition 'T5.3'
+                //if (mDoorOpened[b,r]==True) && (mCarWeight(g) < MaxCarCapacity) && (mDoorReversal==False)
+                if (    (mDoorOpened.getValue() == true)
+                        && (mCarWeight.getWeight() < Elevator.MaxCarCapacity)
+                        && (mDoorReversal.getValue() == false)
+                        ) {
                     newState = State.STATE_DOOR_OPEN;
+                //#transition 'T5.6'
+                //if (mDoorOpened[b,r]==True) && ( (mCarWeight(g) >= MaxCarCapacity) || (mDoorReversal==True) )
+                } else if ( (mDoorOpened.getValue() == true)
+                        && ( (mCarWeight.getWeight() >= Elevator.MaxCarCapacity) 
+                                || (mDoorReversal.getValue() == true) )
+                        ) {
+                    newState = State.STATE_DOOR_OPEN_E;
                 } else {
                     newState = state;
                 }
@@ -271,10 +280,35 @@ public class DoorControl extends Controller {
                 countDown = SimTime.subtract(countDown, period);
 
                 //transitions
-                //#transition 'T5.5'
+                //#transition 'T5.4'
                 //if (countDown <= 0)
                 if (countDown.isLessThanOrEqual(SimTime.ZERO)) {
                     newState = State.STATE_DOOR_CLOSING;
+                //#transition 'T5.7'
+                //if (mCarWeight(g) >= MaxCarCapacity) || (mDoorReversal==True)
+                } else if ( (mCarWeight.getWeight() >= Elevator.MaxCarCapacity)
+                        || (mDoorReversal.getValue() == true)
+                        ) {
+                    newState = State.STATE_DOOR_OPEN_E;
+                } else {
+                    newState = state;
+                }
+                break;
+            case STATE_DOOR_OPEN_E:
+                //state actions
+                localDoorMotor.set(DoorCommand.STOP);
+                mDoorMotorCommand.setCommand(DoorCommand.STOP);
+
+                dwell = mDesiredDwell.getDwell();
+                countDown = new SimTime(dwell, SimTime.SimTimeUnit.SECOND);
+
+                //transitions
+                //#transition 'T5.8'
+                //if (mCarWeight(g) < MaxCarCapacity) && (mDoorReversal==False)
+                if (    (mCarWeight.getWeight() < Elevator.MaxCarCapacity)
+                        && (mDoorReversal.getValue() == false)
+                        ) {
+                    newState = State.STATE_DOOR_OPEN;
                 } else {
                     newState = state;
                 }

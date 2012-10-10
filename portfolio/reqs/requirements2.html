@@ -1101,9 +1101,8 @@
         <tr>
           <td style="vertical-align: top; ">T5.6<br>
           </td>
-          <td style="vertical-align: top; ">( mCarWeight(g) &gt;=
-            MaxCarCapacity &amp;&amp; mDoorOpened[b,r]==True )<br>
-            || ( mDoorReversal==True &amp;&amp; mDoorOpened[b,r]==True )<br>
+          <td style="vertical-align: top; ">mDoorOpened[b,r] == True &amp;&amp;
+            ( mCarWeight(g) &gt;= MaxCarCapacity || mDoorReversal==True )<br>
           </td>
         </tr>
         <tr>
