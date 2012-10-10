@@ -43,7 +43,8 @@ public class LanternControl extends Controller {
     private ReadableCanMailbox networkDesiredFloor;
     private DesiredFloorCanPayloadTranslator mDesiredFloor;
 
-    private Utility.AtFloorArray networkAtFloorArray;
+    //Readd when used
+    //private Utility.AtFloorArray networkAtFloorArray;
     
     //these variables keep track of which instance this is.
     private final Direction direction;
@@ -71,13 +72,13 @@ public class LanternControl extends Controller {
      */
     public LanternControl(SimTime period, Direction direction, boolean verbose) {
         //call to the Controller superclass constructor is required
-        super("HallButtonControl" + ReplicationComputer.makeReplicationString(direction), verbose);
+        super("LanternControl" + ReplicationComputer.makeReplicationString(direction), verbose);
 
         //stored the constructor arguments in internal state
         this.period = period;
         this.direction = direction;
 
-        log("Created HallButtonControl", ReplicationComputer.makeReplicationString(direction));
+        log("Created LanternControl", ReplicationComputer.makeReplicationString(direction));
 
         localCarLantern = CarLanternPayload.getWriteablePayload(direction);
         physicalInterface.sendTimeTriggered(localCarLantern, period);
@@ -99,7 +100,8 @@ public class LanternControl extends Controller {
         mDesiredFloor = new DesiredFloorCanPayloadTranslator(networkDesiredFloor);
         canInterface.registerTimeTriggered(networkDesiredFloor);
 
-        networkAtFloorArray = new Utility.AtFloorArray(canInterface);
+        // Readd when used
+        //networkAtFloorArray = new Utility.AtFloorArray(canInterface);
 
         timer.start(period);
     }
@@ -122,8 +124,8 @@ public class LanternControl extends Controller {
                 //transitions -- note that transition conditions are mutually exclusive
                 //#transition 'T7.1'
                 //if any mDoorClosed[b,r] == false && mDesiredFloor.d == d
-                if (! networkDoorClosedArray.getAllClosed() 
-                        && mDesiredFloor.getDirection() == direction) {
+                if ( (!networkDoorClosedArray.getAllClosed()) 
+                        && (mDesiredFloor.getDirection() == direction) ) {
                     newState = State.STATE_CAR_LANTERN_ON;
                 } else {
                     newState = state;
@@ -137,8 +139,8 @@ public class LanternControl extends Controller {
                 //transitions
                 //#transition 'T7.2'
                 //if all mDoorClosed[b,r] == true || mDesiredFloor.d != d
-                if (networkDoorClosedArray.getAllClosed() 
-                        || mDesiredFloor.getDirection() != direction) {
+                if ( (networkDoorClosedArray.getAllClosed())
+                        || (mDesiredFloor.getDirection() != direction) ) {
                     newState = State.STATE_CAR_LANTERN_OFF;
                 } else {
                     newState = state;

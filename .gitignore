@@ -1,6 +1,9 @@
 /.DS_Store
 .DS_Store
-/simulator/out/
+/simulator/out
+/simulator/doc
 /simulator/Simulator.iml
 /simulator/.idea/
 *.class
+
+

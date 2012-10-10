@@ -37,21 +37,21 @@ public class Utility {
     public static class DoorClosedArray {
 
         /* Design decision:  since the Hallway enum contains special cases such 
-        * as NONE and BOTH, hard code the class to enum values rather than
-        * looping through them as we do in the other array classes.  This hurts
-        * modularity but results in much cleaner and more efficient code.
-        */
-
-        private final DoorClosedHallwayArray front;
-        private final DoorClosedHallwayArray back;
-
+         * as NONE and BOTH, hard code the class to enum values rather than 
+         * looping through them as we do in the other array classes.  This hurts
+         * modularity but results in much cleaner and more efficient code.
+         */
+        
+        private DoorClosedHallwayArray front;
+        private DoorClosedHallwayArray back;
+        
         public DoorClosedArray(CanConnection conn) {
             front = new DoorClosedHallwayArray(Hallway.FRONT, conn);
             back = new DoorClosedHallwayArray(Hallway.BACK, conn);
         }
 
         public boolean getAllClosed() {
-            return front.getAllClosed() && back.getAllClosed();
+            return (front.getAllClosed() && back.getAllClosed());
         }
 
         public boolean getAllHallwayClosed(Hallway hallway) {
@@ -78,45 +78,40 @@ public class Utility {
     }
 
     public static class DoorClosedHallwayArray {
-
-        private HashMap<Integer, DoorClosedCanPayloadTranslator>
-                translatorArray;
+        
+        private DoorClosedCanPayloadTranslator left;
+        private DoorClosedCanPayloadTranslator right;
         public final Hallway hallway;
 
         public DoorClosedHallwayArray(Hallway hallway, CanConnection conn) {
             this.hallway = hallway;
 
-            translatorArray =
-                    new HashMap<Integer, DoorClosedCanPayloadTranslator>(
-                            Side.values().length);
+            ReadableCanMailbox m_l = CanMailbox.getReadableCanMailbox(
+                    MessageDictionary.DOOR_CLOSED_SENSOR_BASE_CAN_ID +
+                    ReplicationComputer.computeReplicationId(hallway, 
+                    Side.LEFT));
+            left = new DoorClosedCanPayloadTranslator(m_l, hallway, Side.LEFT);
+            conn.registerTimeTriggered(m_l);
 
-            for (Side s : Side.values()) {
-                int index = ReplicationComputer.computeReplicationId(hallway,
-                        s);
-                ReadableCanMailbox m = CanMailbox.getReadableCanMailbox(
-                        MessageDictionary.DOOR_CLOSED_SENSOR_BASE_CAN_ID
-                                + index);
-                DoorClosedCanPayloadTranslator t =
-                        new DoorClosedCanPayloadTranslator(m, hallway, s);
-                conn.registerTimeTriggered(m);
-                translatorArray.put(index, t);
-            }
+            ReadableCanMailbox m_r = CanMailbox.getReadableCanMailbox(
+                    MessageDictionary.DOOR_CLOSED_SENSOR_BASE_CAN_ID +
+                    ReplicationComputer.computeReplicationId(hallway, 
+                    Side.RIGHT));
+            right = new DoorClosedCanPayloadTranslator(m_r, hallway, Side.RIGHT);
+            conn.registerTimeTriggered(m_r);
         }
 
         public boolean getAllClosed() {
-            for (DoorClosedCanPayloadTranslator translator
-                    : translatorArray.values()) {
-                if (!translator.getValue()) {
-                    return false;
-                }
-            }
-            return true;
+            return (left.getValue() && right.getValue());
         }
 
         public boolean getClosed(Side side) {
-            return translatorArray.get(
-                    ReplicationComputer.computeReplicationId(hallway, side))
-                    .getValue();
+            if (side == Side.LEFT) {
+                return left.getValue();
+            } else if (side == Side.RIGHT) {
+                return right.getValue();
+            }
+            throw new RuntimeException("Invalid side specified");
         }
     }
 
