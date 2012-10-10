@@ -79,7 +79,7 @@ public class DriveControl extends Controller {
     private enum State {
         STATE_DRIVE_STOPPED,
         STATE_DRIVE_LEVEL_UP,
-				STATE_DRIVE_LEVEL_DOWN,
+		STATE_DRIVE_LEVEL_DOWN,
         STATE_DRIVE_SLOW,
     }
 
@@ -264,7 +264,7 @@ public class DriveControl extends Controller {
                 		mEmergencyBrake.getValue() ||
                 		!(networkDoorClosedFront.getAllClosed() && networkDoorClosedBack.getAllClosed()) ||
                 		(mLevelUp.getValue() && mLevelDown.getValue() &&
-                				desiredDir.equals(Direction.STOP)){
+                				desiredDir.equals(Direction.STOP))){
                 	newState = State.STATE_DRIVE_STOPPED;
                 }
         
@@ -295,7 +295,7 @@ public class DriveControl extends Controller {
                 		mEmergencyBrake.getValue() ||
                 		!(networkDoorClosedFront.getAllClosed() && networkDoorClosedBack.getAllClosed()) ||
                 		(mLevelUp.getValue() && mLevelDown.getValue() &&
-                				desiredDir.equals(Direction.STOP)){
+                				desiredDir.equals(Direction.STOP))){
                 	newState = State.STATE_DRIVE_STOPPED;
                 }
                 
@@ -337,7 +337,6 @@ public class DriveControl extends Controller {
                 else if (mCarWeight.getWeight() >= Elevator.MaxCarCapacity ||
                 		mEmergencyBrake.getValue()){
                 	newState = State.STATE_DRIVE_STOPPED;
-                }
                 	
                 } else {
                     newState = state;
