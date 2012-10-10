@@ -17,52 +17,52 @@
 ;initialize
 ;========================================================================
 ;car at floor f with at least one door[b,r] open
-0s	I AT_FLOOR_PERIOD N AT_FLOOR_[7][FRONT]_CAN_ID AtFloor 7 FRONT = true
-0s	I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[BACK][RIGHT]_CAN_ID DoorOpened BACK RIGHT = true
++0s	I AT_FLOOR_PERIOD N AT_FLOOR_[7][FRONT]_CAN_ID AtFloor 7 FRONT = true
++0s	I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[BACK][RIGHT]_CAN_ID DoorOpened BACK RIGHT = true
 
 ;passenger in car, elevator not at the desired floor
-0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 2 BACK STOP
++0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 2 BACK STOP
 ;car call for destination is false, car light not lit
-0s	I CAR_BUTTON_CONTROL_PERIOD N CAR_CALL_[2][BACK]_CAN_ID Boolean = false
-0s	I CAR_BUTTON_CONTROL_PERIOD N CAR_LIGHT_[2][BACK]_CAN_ID Boolean = false
++0s	I CAR_BUTTON_CONTROL_PERIOD N CAR_CALL_[2][BACK]_CAN_ID Boolean = false
++0s	I CAR_BUTTON_CONTROL_PERIOD N CAR_LIGHT_[2][BACK]_CAN_ID Boolean = false
 
 ;========================================================================
 ;1. Passenger presses the car call button for floor g and hallway c.
 ;========================================================================
 ;1a. send CarCall = true
-0.4s	I CAR_BUTTON_CONTROL_PERIOD F CarCall 2 BACK = true
++0s	I CAR_BUTTON_CONTROL_PERIOD F CarCall 2 BACK = true
 
 ;check that 1c. and 2. result (CarButtonControl)
 ;1c. mCarCall true
-0.8s	A N CAR_CALL_[2][BACK]_CAN_ID Boolean : getValue == true
++1.0s	A N CAR_CALL_[2][BACK]_CAN_ID Boolean : getValue == true
 
 ;========================================================================
 ;2. The car call button for [g,c] lights up.
 ;========================================================================
 ;2. car light turns on
-1.2s	A F CarLight 2 BACK : isLighted == true 
++0s	A F CarLight 2 BACK : isLighted == true 
 
 ;========================================================================
 ;3. Door[b,r] starts closing.
 ;========================================================================
 ;check 3. DoorMotor[b,r]=Closed (DoorControl)
-1.6s	A F DoorMotor FRONT RIGHT : command == CLOSE
-1.6s	A F DoorMotor FRONT LEFT : command == CLOSE
++0s	A F DoorMotor FRONT RIGHT : command == CLOSE
++0s	A F DoorMotor FRONT LEFT : command == CLOSE
 
 ;insert mDoorClosed = true
-2.0s	I	DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
-2.0s	I	DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
++1.0s	I	DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
++0s	I	DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
 
 ;========================================================================
 ;4. Doors complete closing.
 ;========================================================================
 ;check 4a. mDoorClosed received
-2.4s	A N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT : getValue == true
-2.4s	A N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT : getValue == true
++1.0s	A N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT : getValue == true
++0s	A N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT : getValue == true
 
 ;check 4b. DoorMotor=Stop results (DoorControl)
-2.8s	A F	DoorMotor FRONT RIGHT : command == STOP
-2.8s	A F DoorMotor FRONT LEFT : command == STOP
++0s	A F	DoorMotor FRONT RIGHT : command == STOP
++0s	A F DoorMotor FRONT LEFT : command == STOP
 
 ;========================================================================
 ;Post Conditions
