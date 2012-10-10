@@ -1039,7 +1039,7 @@
     <img alt="SC_DoorControl" src="SC_DoorControl.png"><br>
     <br>
     <meta charset="utf-8">
-    <table style="font-family: Times; letter-spacing: normal; orphans:
+<table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
       word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
       cellspacing="2">
@@ -1064,74 +1064,57 @@
           <td style="vertical-align: top; "> ( mAtFloor[f,b]==True
             &amp;&amp; mDesiredFloor.f==f &amp;&amp; (
             mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) )<br>
+            || ( mCarWeight(g) &gt;= MaxCarCapacity &amp;&amp;
+            mDoorOpened[b,r]==False )<br>
+            || ( mDoorReversal==True &amp;&amp; mDoorOpened[b,r]==False
+            )<br>
             || ( mCarCall[f,b]==True &amp;&amp; mAtFloor[f,b]==True )<br>
           </td>
         </tr>
         <tr>
           <td style="vertical-align: top; ">T5.3<br>
           </td>
-          <td style="vertical-align: top; "> ( mAtFloor[f,b]==True
-            &amp;&amp; mDesiredFloor.f==f &amp;&amp; (
-            mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) )<br>
-            || ( mCarCall[f,b]==True &amp;&amp; mAtFloor[f,b]==True )<br>
+          <td style="vertical-align: top; ">mDoorOpened[b,r]==True
+            &amp;&amp; mCarWeight(g) &lt; MaxCarCapacity
+            &amp;&amp; mDoorReversal==False<br>
           </td>
         </tr>
         <tr>
           <td style="vertical-align: top; ">T5.4<br>
           </td>
-          <td style="vertical-align: top; ">mDoorOpened[b,r]==True<br>
+          <td style="vertical-align: top; ">CountDown&lt;=0<br>
           </td>
         </tr>
         <tr>
           <td style="vertical-align: top; ">T5.5<br>
           </td>
-          <td style="vertical-align: top; ">CountDown&lt;=0<br>
+          <td style="vertical-align: top; "> ( mAtFloor[f,b]==True
+            &amp;&amp; mDesiredFloor.f==f &amp;&amp; (
+            mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) )<br>
+            || ( mCarWeight(g) &gt;= MaxCarCapacity &amp;&amp;
+            mDoorOpened[b,r]==False )<br>
+            || ( mDoorReversal==True &amp;&amp; mDoorOpened[b,r]==False
+            )<br>
+            || ( mCarCall[f,b]==True &amp;&amp; mAtFloor[f,b]==True )<br>
           </td>
         </tr>
         <tr>
           <td style="vertical-align: top; ">T5.6<br>
           </td>
           <td style="vertical-align: top; ">( mCarWeight(g) &gt;= MaxCarCapacity &amp;&amp;
-            mDoorOpened[b,r]==False )<br>
-            || ( mDoorReversal==True &amp;&amp; mDoorOpened[b,r]==False
-            )<br>
+            mDoorOpened[b,r]==True )<br>
+            || ( mDoorReversal==True &amp;&amp; mDoorOpened[b,r]==True )<br>
           </td>
         </tr>
         <tr>
           <td style="vertical-align: top; ">T5.7<br>
           </td>
-          <td style="vertical-align: top; ">( mCarWeight(g) &gt;= MaxCarCapacity &amp;&amp;
-            mDoorOpened[b,r]==False )<br>
-            || ( mDoorReversal==True &amp;&amp; mDoorOpened[b,r]==False
-            )<br>
+          <td style="vertical-align: top; ">mCarWeight(g) &lt; MaxCarCapacity
+            &amp;&amp; mDoorReversal==False<br>
           </td>
         </tr>
         <tr>
           <td style="vertical-align: top; ">T5.8<br>
-          </td>
-          <td style="vertical-align: top; ">( mDoorOpened[b,r]==True )<br>
-            &amp;&amp; ( ( mCarWeight(g) &gt;= MaxCarCapacity &amp;&amp;
-            mDoorOpened[b,r]==False )<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|| ( mDoorReversal==True &amp;&amp; mDoorOpened[b,r]==False ) )
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; ">T5.9<br>
-          </td>
-          <td style="vertical-align: top; ">( mDoorOpened[b,r]==True )<br>
-            &amp;&amp; ( mCarWeight(g) &lt; MaxCarCapacity )<br>
-            &amp;&amp; ( mDoorReversal==False )
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; ">T5.10<br>
-          </td>
-          <td style="vertical-align: top; ">mCarWeight(g) &lt; MaxCarCapacity &amp;&amp;
-            mDoorReversal==False<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; ">T5.11<br>
           </td>
           <td style="vertical-align: top; ">mCarWeight(g) &gt;= MaxCarCapacity
             || mDoorReversal==True<br>
