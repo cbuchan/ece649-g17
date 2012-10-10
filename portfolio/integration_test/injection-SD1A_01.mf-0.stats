@@ -1,7 +1,7 @@
 
 Simulator Parameters:
 Command line = -cf SD1A.cf -mf SD1A_01.mf
-RandomSeed = 1349829090402
+RandomSeed = 1349905408049
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -10,8 +10,8 @@ Message File = SD1A_01.mf
 Controller File = SD1A.cf
 
 Assertion Results:
-@0.63s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@28d08633 :: lighted ?== true PASSED
-@0.63s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@eb64435 :: getValue ?== true PASSED
+@0.63s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@5801319c :: lighted ?== true PASSED
+@0.63s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@62587c94 :: getValue ?== true PASSED
 
 
 ******************Summary******************

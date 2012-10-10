@@ -1,0 +1,84 @@
+;========================================================================
+; Integration Test for SD4A
+;========================================================================
+;18649 Fall 2012
+;Group17
+;Collin Buchan (cbuchan) - Author
+;Rajeev Sharma (rdsharma)
+;Jesse Salazar (jessesal)
+;Jessica Tiu   (jtiu)
+;========================================================================
+
+#INCLUDE defines.mf ;include CAN id and period definitions
+
+;========================================================================
+;initialize
+;========================================================================
+;Car is at hallway [x, f] (4, FRONT).
+;All elevator doors are closed.
+;Car is moving in hoistway.
+
+0s	I  AT_FLOOR_PERIOD N AT_FLOOR_[2][BACK]_CAN_ID AtFloor 2 BACK = true
+0s	I  AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = false
+0s	I  AT_FLOOR_PERIOD N AT_FLOOR_[1][BACK]_CAN_ID AtFloor 1 BACK = false
+
+0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
+
+;elevator is approaching desired floor
+0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 1 BOTH STOP
+0s  I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT = 1
+
+
+;========================================================================
+;1. There are no CarCalls or HallCalls.
+;========================================================================
+;arc 1
++0.21s  A   N CAR_CALL_[4][FRONT]_CAN_ID Boolean : getValue == false
+
+
+;========================================================================
+;2. AtFloor[x,f] is set to FALSE as it passes hallway [x,f].
+;========================================================================
++0.21s	I  AT_FLOOR_PERIOD N AT_FLOOR_[2][BACK]_CAN_ID AtFloor 2 BACK = false
+
+;========================================================================
+;3. AtFloor[y,g] is set to TRUE.
+;========================================================================
+;arc 3
++0.21s	I  AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
++0s	    I  AT_FLOOR_PERIOD N AT_FLOOR_[1][BACK]_CAN_ID AtFloor 1 BACK = true
+
+;========================================================================
+;4. Car levels to prepare for stop
+;========================================================================
++0.21s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
++0s     I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = false
+
+;check state level
++0.41s  A  F Drive : speed == LEVEL
++0s     A  F Drive : direction == DOWN
+;========================================================================
+;5. Car stops to more quickly service future HallCall
+;========================================================================
++0.21s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
++0s     I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
+
++0s	    I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 1 BOTH STOP
++0s     I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT = 1
+
++0.21s  A  F Drive : speed == STOP
++0s     A  F Drive : direction == STOP
+
+;========================================================================
+;Post Conditions
+;========================================================================
+;There are no passengers in the car.
+;Car is stopped and ready for departure.
+;All doors are closed.
+;All HallLights are off.
+;All CarLights are off.
++0.21s  A   N CAR_CALL_[4][FRONT]_CAN_ID Boolean : getValue == false
++0s     A   N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean : getValue == false
+
+;Both CarLanterns are off.
+

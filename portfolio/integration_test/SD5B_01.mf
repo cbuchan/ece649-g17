@@ -1,5 +1,5 @@
 ;========================================================================
-; Integration Test for SD5A
+; Integration Test for SD5B
 ;========================================================================
 ;18649 Fall 2012
 ;Group14
@@ -8,7 +8,7 @@
 ;Jesse Salazar (jessesal)
 ;Jessica Tiu   (jtiu)
 ;
-;Last modified 2012-10-09 (cbuchan)
+;Last modified 2012-10-10 (cbuchan)
 ;========================================================================
 
 #INCLUDE defines.mf ;include CAN id and period definitions
@@ -33,8 +33,8 @@
 +0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == NUDGE
 
 ;========================================================================
-;2. The passenger attempts to enter and is nudged by Door[b,r],
-;   triggering the door reversal sensors.
+;2. The passenger attempts to exit and is nudged by Door[b,r], triggering
+;    the door reversal sensors.
 ;========================================================================
 ;arc 2a, 2b
 +0s    I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = false
@@ -48,15 +48,14 @@
 +0s    A F DoorMotor FRONT LEFT : command == OPEN
 +0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == OPEN
 
-
 ;========================================================================
-;4. The passenger enters the car.
+;4. The passenger exits the car.
 ;========================================================================
-;passenger enters car
+;passenger exits car
 
 ;========================================================================
 ;Post Conditions
 ;========================================================================
-;Passenger is inside the car.
-;Car is stopped at passenger's floor f and hallway b.
+;Passenger is no longer inside the car.
+;Car is stopped at floor f and hallway b.
 ;At least one door[b,r] is open.

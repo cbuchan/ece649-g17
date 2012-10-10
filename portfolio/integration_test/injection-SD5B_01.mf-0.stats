@@ -1,0 +1,25 @@
+
+Simulator Parameters:
+Command line = -cf SD5B.cf -mf SD5B_01.mf
+RandomSeed = 1349905559700
+CanNetworkBitTime = 0 ns
+Effective Can Bitrate = Infinity
+Run Time = null
+Real time rate = null
+Message File = SD5B_01.mf
+Controller File = SD5B.cf
+
+Assertion Results:
+@1.21s:  PASSED DoorControl[FRONT][LEFT]::checkState(STATE) ?== STATE_DOOR_CLOSING PASSED
+@1.21s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@375212bc :: command ?== NUDGE PASSED
+@1.21s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@17592174 :: getCommand ?== NUDGE PASSED
+@1.91s:  PASSED DoorControl[FRONT][LEFT]::checkState(STATE) ?== STATE_DOOR_OPENING PASSED
+@1.91s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@4a0c68c3 :: command ?== OPEN PASSED
+@1.91s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@522a4983 :: getCommand ?== OPEN PASSED
+
+
+******************Summary******************
+Passed:  6
+Failed:  0
+Total :  6
+

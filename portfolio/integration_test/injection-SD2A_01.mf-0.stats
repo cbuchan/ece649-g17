@@ -1,23 +1,23 @@
 
 Simulator Parameters:
-Command line = -cf SD2A_01.cf -mf SD2A_01.mf
-RandomSeed = 1349459315781
+Command line = -cf SD2A.cf -mf SD2A_01.mf
+RandomSeed = 1349905446630
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
 Real time rate = null
 Message File = SD2A_01.mf
-Controller File = SD2A_01.cf
+Controller File = SD2A.cf
 
 Assertion Results:
-@0.8s:  FAILED simulator.payloads.CanMailbox$ReadableCanMailbox@2107ebe1 :: getValue ?== true FAILED
-@1.2s:  FAILED simulator.payloads.CarLightPayload$ReadableCarLightPayload@26544ec1 :: isLighted ?== true FAILED
-@1.6s:  FAILED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@19968e23 :: command ?== CLOSE FAILED
-@1.6s:  FAILED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@378f6235 :: command ?== CLOSE FAILED
-@2.4s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2c641e9a :: getValue ?== true PASSED
-@2.4s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@33c282a1 :: getValue ?== true PASSED
-@2.8s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@77d80e6d :: command ?== STOP PASSED
-@2.8s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@348bdcd2 :: command ?== STOP PASSED
+@1.0s:  FAILED simulator.payloads.CanMailbox$ReadableCanMailbox@31f26605 :: getValue ?== true FAILED
+@1.0s:  FAILED simulator.payloads.CarLightPayload$ReadableCarLightPayload@f0f11b8 :: isLighted ?== true FAILED
+@1.0s:  FAILED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@68fe748f :: command ?== CLOSE FAILED
+@1.0s:  FAILED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@6b4da8f4 :: command ?== CLOSE FAILED
+@3.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2c641e9a :: getValue ?== true PASSED
+@3.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@33c282a1 :: getValue ?== true PASSED
+@3.0s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@151a64ed :: command ?== STOP PASSED
+@3.0s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@99b5393 :: command ?== STOP PASSED
 
 
 ******************Summary******************
