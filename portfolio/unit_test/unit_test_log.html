@@ -115,7 +115,8 @@
           <td style="vertical-align: top;"><a
               href="injection-DoorControl_01.mf-0.stats">injection-DoorControl_01.mf-0.stats</a><br>
           </td>
-          <td style="vertical-align: top;">Quick run over all states and transitions<br>
+          <td style="vertical-align: top;">Quick run over all states and
+            transitions<br>
           </td>
         </tr>
         <tr>
@@ -184,17 +185,56 @@
           <td style="vertical-align: top;"><a href="DriveControl_01.mf">DriveControl_01.mf</a><br>
           </td>
           <td style="vertical-align: top;">DRIVE_STOPPED, DRIVE_SLOW,
-            DRIVE_LEVEL / T6.1--T6.5<br>
+            DRIVE_LEVEL_UP, DRIVE_LEVEL_DOWN / T6.{1,2,5,9,6,10}<br>
           </td>
-          <td style="vertical-align: top;">49<br>
+          <td style="vertical-align: top;">33<br>
           </td>
           <td style="vertical-align: top;">0<br>
           </td>
           <td style="vertical-align: top;"><a
               href="injection-DriveControl_01.mf-0.stats">injection-DriveControl_01.mf-0.stats</a><br>
           </td>
-          <td style="vertical-align: top;">Test must be changed once the
-            state chart is revised.<br>
+          <td style="vertical-align: top;">All pass. TODO: exercise all
+            OR branches<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><a
+href="file:///Users/jessica/Documents/CMU/18-649/ece649-g17/portfolio/unit_test/DriveControl.cf">DriveControl.cf</a></td>
+          <td valign="top"><a href="DriveControl_02.mf">DriveControl_02.mf</a><br>
+          </td>
+          <td valign="top">DRIVE_STOPPED, DRIVE_SLOW,<br>
+            DRIVE_LEVEL_DOWN / T6.{9,8,1,3}<br>
+          </td>
+          <td valign="top">5<br>
+          </td>
+          <td valign="top">0<br>
+          </td>
+          <td valign="top"><a
+              href="injection-DriveControl_02.mf-0.stats">injection-DriveControl_02.mf-0.stats</a><br>
+          </td>
+          <td valign="top">All pass. TODO: exercise all OR branches</td>
+        </tr>
+        <tr>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><a
+href="file:///Users/jessica/Documents/CMU/18-649/ece649-g17/portfolio/unit_test/DriveControl.cf">DriveControl.cf</a></td>
+          <td valign="top"><a href="DriveControl_03.mf">DriveControl_03.mf</a><br>
+          </td>
+          <td valign="top">DRIVE_STOPPED, DRIVE_SLOW, DRIVE_LEVEL_UP /
+            T6.{9,7}<br>
+          </td>
+          <td valign="top">3<br>
+          </td>
+          <td valign="top">0<br>
+          </td>
+          <td valign="top"><a
+              href="injection-DriveControl_03.mf-0.stats">injection-DriveControl_03.mf-0.stats</a><br>
+          </td>
+          <td valign="top"><br>
           </td>
         </tr>
         <tr>
