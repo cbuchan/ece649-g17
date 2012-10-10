@@ -217,7 +217,7 @@ public class DriveControl extends Controller {
             case STATE_DRIVE_STOPPED:
 
                 desiredDir = getDesiredDir();
-
+                
                 //state actions for DRIVE_STOPPED
                 localDrive.set(Speed.STOP, Direction.STOP);
                 mDrive.set(Speed.STOP, Direction.STOP);
