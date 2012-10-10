@@ -11,6 +11,7 @@
 package simulator.elevatorcontrol;
 
 import java.util.HashMap;
+
 import simulator.elevatormodules.AtFloorCanPayloadTranslator;
 import simulator.elevatormodules.DoorClosedCanPayloadTranslator;
 import simulator.framework.Elevator;
@@ -34,25 +35,25 @@ import simulator.payloads.translators.BooleanCanPayloadTranslator;
 public class Utility {
 
     public static class DoorClosedArray {
-        
+
         /* Design decision:  since the Hallway enum contains special cases such 
          * as NONE and BOTH, hard code the class to enum values rather than 
          * looping through them as we do in the other array classes.  This hurts
          * modularity but results in much cleaner and more efficient code.
          */
         
-        private final DoorClosedHallwayArray front;
-        private final DoorClosedHallwayArray back;
+        private DoorClosedHallwayArray front;
+        private DoorClosedHallwayArray back;
         
         public DoorClosedArray(CanConnection conn) {
             front = new DoorClosedHallwayArray(Hallway.FRONT, conn);
             back = new DoorClosedHallwayArray(Hallway.BACK, conn);
         }
-        
+
         public boolean getAllClosed() {
-            return front.getAllClosed() && back.getAllClosed();
+            return (front.getAllClosed() && back.getAllClosed());
         }
-        
+
         public boolean getAllHallwayClosed(Hallway hallway) {
             if (hallway == Hallway.BOTH) {
                 return getAllClosed();
@@ -63,7 +64,7 @@ public class Utility {
             }
             return false;
         }
-        
+
         public boolean getClosed(Hallway hallway, Side side) {
             if (hallway == Hallway.BOTH) {
                 return front.getClosed(side) && back.getClosed(side);
@@ -75,50 +76,45 @@ public class Utility {
             return false;
         }
     }
-    
-    public static class DoorClosedHallwayArray {
 
-        private HashMap<Integer, DoorClosedCanPayloadTranslator> 
-                translatorArray;
+    public static class DoorClosedHallwayArray {
+        
+        private DoorClosedCanPayloadTranslator left;
+        private DoorClosedCanPayloadTranslator right;
         public final Hallway hallway;
 
         public DoorClosedHallwayArray(Hallway hallway, CanConnection conn) {
             this.hallway = hallway;
-            
-            translatorArray = 
-                    new HashMap<Integer, DoorClosedCanPayloadTranslator>(
-                    Side.values().length);
-            
-            for (Side s : Side.values()) {
-                int index = ReplicationComputer.computeReplicationId(hallway, 
-                        s);
-                ReadableCanMailbox m = CanMailbox.getReadableCanMailbox(
-                        MessageDictionary.DOOR_CLOSED_SENSOR_BASE_CAN_ID 
-                        + index);
-                DoorClosedCanPayloadTranslator t = 
-                        new DoorClosedCanPayloadTranslator(m, hallway, s);
-                conn.registerTimeTriggered(m);
-                translatorArray.put(index, t);
-            }
+
+            ReadableCanMailbox m_l = CanMailbox.getReadableCanMailbox(
+                    MessageDictionary.DOOR_CLOSED_SENSOR_BASE_CAN_ID +
+                    ReplicationComputer.computeReplicationId(hallway, 
+                    Side.LEFT));
+            left = new DoorClosedCanPayloadTranslator(m_l, hallway, Side.LEFT);
+            conn.registerTimeTriggered(m_l);
+
+            ReadableCanMailbox m_r = CanMailbox.getReadableCanMailbox(
+                    MessageDictionary.DOOR_CLOSED_SENSOR_BASE_CAN_ID +
+                    ReplicationComputer.computeReplicationId(hallway, 
+                    Side.RIGHT));
+            right = new DoorClosedCanPayloadTranslator(m_r, hallway, Side.RIGHT);
+            conn.registerTimeTriggered(m_r);
         }
 
         public boolean getAllClosed() {
-            for (DoorClosedCanPayloadTranslator translator 
-                    : translatorArray.values()) {
-                if (!translator.getValue()) {
-                    return false;
-                }
-            }
-            return true;
+            return (left.getValue() && right.getValue());
         }
-        
+
         public boolean getClosed(Side side) {
-            return translatorArray.get(
-                    ReplicationComputer.computeReplicationId(hallway, side))
-                    .getValue();
+            if (side == Side.LEFT) {
+                return left.getValue();
+            } else if (side == Side.RIGHT) {
+                return right.getValue();
+            }
+            throw new RuntimeException("Invalid side specified");
         }
     }
-    
+
     public static class CarCallArray {
 
         public final int numFloors = Elevator.numFloors;
@@ -130,8 +126,8 @@ public class Utility {
             translatorArray = new BooleanCanPayloadTranslator[numFloors];
             for (int i = 0; i < numFloors; ++i) {
                 ReadableCanMailbox m = CanMailbox.getReadableCanMailbox(
-                        MessageDictionary.CAR_CALL_BASE_CAN_ID + 
-                        ReplicationComputer.computeReplicationId(i+1, hallway));
+                        MessageDictionary.CAR_CALL_BASE_CAN_ID +
+                                ReplicationComputer.computeReplicationId(i + 1, hallway));
                 BooleanCanPayloadTranslator t = new BooleanCanPayloadTranslator(m);
                 conn.registerTimeTriggered(m);
                 translatorArray[i] = t;
@@ -142,9 +138,17 @@ public class Utility {
             if (floor < 1 || floor > numFloors) {
                 return false;
             }
-            
-            return translatorArray[floor-1].getValue();
+
+            return translatorArray[floor - 1].getValue();
         }
+    }
+
+    // TODO: Write HallCallArray class
+    public static class HallCallArray {
+        public HallCallArray(CanConnection conn) {
+
+        }
+
     }
 
     public static class AtFloorArray {
@@ -164,7 +168,7 @@ public class Utility {
                 }
             }
         }
-        
+
         public boolean isAtFloor(int floor, Hallway hallway) {
             return networkAtFloorsTranslators.get(ReplicationComputer.computeReplicationId(floor, hallway)).getValue();
         }
