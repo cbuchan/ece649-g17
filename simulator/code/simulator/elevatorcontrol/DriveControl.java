@@ -217,7 +217,7 @@ public class DriveControl extends Controller {
             case STATE_DRIVE_STOPPED:
 
                 desiredDir = getDesiredDir();
-
+                
                 //state actions for DRIVE_STOPPED
                 localDrive.set(Speed.STOP, Direction.STOP);
                 mDrive.set(Speed.STOP, Direction.STOP);
@@ -227,20 +227,21 @@ public class DriveControl extends Controller {
 
                 //#transition 'T6.1' 
 				if (desiredDir.equals(Direction.STOP) &&
-						mLevelUp.getValue()){
+						mLevelUp.getValue() && !mLevelDown.getValue()){
 					newState = State.STATE_DRIVE_LEVEL_UP;				
 				}
 				
                 //#transition 'T6.3' 
 				else if (desiredDir.equals(Direction.STOP) &&
-						mLevelDown.getValue()){
+						mLevelDown.getValue() && !mLevelUp.getValue()){
 					newState = State.STATE_DRIVE_LEVEL_DOWN;
 				}
 				
                 //#transition 'T6.9' 
 				else if (networkDoorClosedFront.getAllClosed() && networkDoorClosedBack.getAllClosed() &&
 						!desiredDir.equals(Direction.STOP) &&
-						mCarWeight.getWeight() < Elevator.MaxCarCapacity){
+						mCarWeight.getWeight() < Elevator.MaxCarCapacity &&
+						!mEmergencyBrake.getValue()){
 					newState = State.STATE_DRIVE_SLOW;
                 } else {
                     newState = state;
@@ -262,15 +263,15 @@ public class DriveControl extends Controller {
                 //#transition 'T6.2'
                 if (mCarWeight.getWeight() >= Elevator.MaxCarCapacity ||
                 		mEmergencyBrake.getValue() ||
-                		!(networkDoorClosedFront.getAllClosed() && networkDoorClosedBack.getAllClosed()) ||
+                		!networkDoorClosedFront.getAllClosed() || !networkDoorClosedBack.getAllClosed() ||
                 		(mLevelUp.getValue() && mLevelDown.getValue() &&
                 				desiredDir.equals(Direction.STOP))){
                 	newState = State.STATE_DRIVE_STOPPED;
-                }
-        
+                } 
+              
                 //#transition 'T6.5'
                 else if (desiredDir.equals(Direction.STOP) &&
-                		mLevelDown.getValue()){
+                		mLevelDown.getValue() && !mLevelUp.getValue()){
                 	newState = State.STATE_DRIVE_LEVEL_DOWN;
                 	
                 } else {
@@ -293,7 +294,7 @@ public class DriveControl extends Controller {
                 //#transition 'T6.4'
                 if (mCarWeight.getWeight() >= Elevator.MaxCarCapacity ||
                 		mEmergencyBrake.getValue() ||
-                		!(networkDoorClosedFront.getAllClosed() && networkDoorClosedBack.getAllClosed()) ||
+                		!networkDoorClosedFront.getAllClosed() || !networkDoorClosedBack.getAllClosed() ||
                 		(mLevelUp.getValue() && mLevelDown.getValue() &&
                 				desiredDir.equals(Direction.STOP))){
                 	newState = State.STATE_DRIVE_STOPPED;
@@ -301,7 +302,7 @@ public class DriveControl extends Controller {
                 
                 //#transition 'T6.6'
                 else if (desiredDir.equals(Direction.STOP) &&
-                		mLevelUp.getValue()){
+                		mLevelUp.getValue() && !mLevelDown.getValue()){
                 	newState = State.STATE_DRIVE_LEVEL_UP;
 
                 } else {
@@ -323,13 +324,13 @@ public class DriveControl extends Controller {
 
                 //#transition 'T6.7'
                 if (desiredDir.equals(Direction.STOP) &&
-                		mLevelUp.getValue()){
+                		mLevelUp.getValue() && !mLevelDown.getValue()){
                 	newState = State.STATE_DRIVE_LEVEL_UP;
                 }
                 
                 //#transition 'T6.8'
                 else if (desiredDir.equals(Direction.STOP) &&
-                   		mLevelDown.getValue()){
+                   		mLevelDown.getValue() && !mLevelUp.getValue()){
                    	newState = State.STATE_DRIVE_LEVEL_DOWN;
                	}
                 
