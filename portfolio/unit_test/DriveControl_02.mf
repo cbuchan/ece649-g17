@@ -14,10 +14,11 @@
 
 
 ;test path
-;#transition 'T6.9'
-;#transition 'T6.8'
-;#transition 'T6.4'			-- branch
 ;#transition 'T6.3'
+;#transition 'T6.4'		-- branch (0 0 0 1 tested, rest in DriveControl_05.mf)
+;#transition 'T6.9'		
+;#transition 'T6.8'
+
 ;==============================1.0===========================================
 
 ;#state 'STATE_DRIVE_STOPPED'
@@ -40,16 +41,22 @@
 +0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
 ;===============================3.0==========================================
 
-;#state 'STATE_DRIVE_LEVEL_DOWN
+;#state 'STATE_DRIVE_LEVEL_DOWN'
 +1.0s	A S DriveControl : STATE == STATE_DRIVE_LEVEL_DOWN
 ;================================4.0=========================================
 
-;#transition 'T6.4'
-;car weight >= max OR				set all of these OR conditions false for now
+;#transition 'T6.4': 0 0 0 1 branch
+;car weight >= max OR	
++1.0s	I WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 0		
 ;emergency brake OR
++0s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = false
 ;door closed = false OR
++0s	I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
++0s	I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
++0s	I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
++0s	I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
 ;both level true
-+1.0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
++0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
 +0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
 ;desired direction stop
 +0s	I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true

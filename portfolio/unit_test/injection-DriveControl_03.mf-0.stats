@@ -1,7 +1,7 @@
 
 Simulator Parameters:
 Command line = -cf DriveControl.cf -mf DriveControl_03.mf
-RandomSeed = 1349842534135
+RandomSeed = 1349847423076
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null

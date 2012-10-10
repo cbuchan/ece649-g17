@@ -16,6 +16,7 @@
 ;test path
 ;#transition 'T6.9'
 ;#transition 'T6.7'
+
 ;=========================================================================
 
 ;#state 'S6.1 STATE_DRIVE_STOPPED'
