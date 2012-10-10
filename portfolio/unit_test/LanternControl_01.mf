@@ -1,0 +1,67 @@
+; 18649 Fall 2012 - Group 17
+; Jesse Salazar (jessesal)
+; Jessica Tiu (jtiu)
+; Collin Buchan (cbuchan)
+; Rajeev Sharma (rdsharma) *
+; * Author
+
+; Unit test for LanternControl
+; General test, completes all transitions and states
+
+#INCLUDE defines.mf ;include CAN id and period definitions
+
+;initialize
++0s    I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
++0s    I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
++0s    I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
++0s    I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
++0s    I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 1 FRONT STOP
+
+;check initial state
++0.81s A S LanternControl[UP] : STATE == STATE_CAR_LANTERN_OFF
++0s    A F CarLantern UP : lighted == FALSE
++0s    A N CAR_LANTERN_[UP]_CAN_ID Boolean : getValue == FALSE
+
+;set DesiredFloor.d and ensure there is no transition with all doors closed
++0.09s I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 1 FRONT UP
+
+;check state
++0.81s A S LanternControl[UP] : STATE == STATE_CAR_LANTERN_OFF
++0s    A F CarLantern UP : lighted == FALSE
++0s    A N CAR_LANTERN_[UP]_CAN_ID Boolean : getValue == FALSE
+
+;open a door to set conditions for T7.1
++0.09s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = false
+
+;#transition T7.1
+;check state
++0.81s A S LanternControl[UP] : STATE == STATE_CAR_LANTERN_ON
++0s    A F CarLantern UP : lighted == TRUE
++0s    A N CAR_LANTERN_[UP]_CAN_ID Boolean : getValue == TRUE
+
+;close door to set conditions for T7.2
+0.09s  I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
+
+;#transition T7.2
+;check state
++1.81s A S LanternControl[UP] : STATE == STATE_CAR_LANTERN_OFF
++0s    A F CarLantern UP : lighted == FALSE
++0s    A N CAR_LANTERN_[UP]_CAN_ID Boolean : getValue == FALSE
+
+;open a door to set conditions for T7.1
++0.09s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = false
+
+;#transition T7.1
+;check state
++0.81s A S LanternControl[UP] : STATE == STATE_CAR_LANTERN_ON
++0s    A F CarLantern UP : lighted == TRUE
++0s    A N CAR_LANTERN_[UP]_CAN_ID Boolean : getValue == TRUE
+
+;set DesiredFloor.d to set conditions for T7.2
++0.09s I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 1 FRONT STOP
+
+;#transition T7.2
+;check state
++0.81s A S LanternControl[UP] : STATE == STATE_CAR_LANTERN_OFF
++0s    A F CarLantern UP : lighted == FALSE
++0s    A N CAR_LANTERN_[UP]_CAN_ID Boolean : getValue == FALSE
