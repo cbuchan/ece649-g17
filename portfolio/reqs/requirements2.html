@@ -1761,8 +1761,9 @@
       &nbsp;&nbsp;&nbsp; 6.7.3&nbsp;&nbsp;&nbsp; If mLevel[<b>Down</b>]
       is true, then Drive[s,d] shall be commanded to (Level, Down).<br>
       6.8 &nbsp;&nbsp; If mDoorClosed[*, *] is true, DesiredDirection is
-      not Stop, and mCarWeight(x) &lt; MaxCarCapacity, then Drive[s, d]
-      shall be commanded to (Slow, DesiredDirection).<br>
+      not Stop, mEmergencyBrake[b] is off, and mCarWeight(x) &lt;
+      MaxCarCapacity, then Drive[s, d] shall be commanded to (Slow,
+      DesiredDirection).<br>
       6.9 &nbsp;&nbsp; If mDoorClosed[b, r] is false for any [b, r],
       then Drive[s, d] shall be commanded to (Stop, Stop).<br>
       6.10 &nbsp;&nbsp; If the car weight exceeds the max weight, then
@@ -1792,7 +1793,7 @@
           </td>
           <td style="vertical-align: top; ">DesiredDirection == Stop
             &amp;&amp; <br>
-            mLevel[Up] == true<br>
+            mLevel[Up] == true &amp;&amp; mLevel[Down] == false<br>
           </td>
         </tr>
         <tr>
@@ -1801,7 +1802,7 @@
           <td style="vertical-align: top; ">mCarWeight[x] &gt;=
             MaxCarCapacity || <br>
             mEmergencyBrake[b] == true || <br>
-            mDoorClosed[*,*] == false ||<br>
+            !(mDoorClosed[*,*] == true) ||<br>
             (mLevel[*] == true &amp;&amp; DesiredDirection == Stop)<br>
           </td>
         </tr>
@@ -1809,39 +1810,44 @@
           <td valign="top">T6.3<br>
           </td>
           <td valign="top">DesiredDirection == Stop &amp;&amp; <br>
-            mLevel[Down] == true </td>
+            mLevel[Down] == true &amp;&amp; mLevel[Up] == false<br>
+          </td>
         </tr>
         <tr>
           <td valign="top">T6.4<br>
           </td>
           <td valign="top">mCarWeight[x] &gt;= MaxCarCapacity || <br>
             mEmergencyBrake[b] == true || <br>
-            mDoorClosed[*,*] == false ||<br>
+            !(mDoorClosed[*,*] == true) ||<br>
             (mLevel[*] == true &amp;&amp; DesiredDirection == Stop) </td>
         </tr>
         <tr>
           <td valign="top">T6.5<br>
           </td>
           <td valign="top">DesiredDirection == Stop &amp;&amp; <br>
-            mLevel[Down] == true</td>
+            mLevel[Down] == true &amp;&amp; mLevel[Up] == false<br>
+          </td>
         </tr>
         <tr>
           <td valign="top">T6.6<br>
           </td>
           <td valign="top">DesiredDirection == Stop &amp;&amp; <br>
-            mLevel[Up] == true</td>
+            mLevel[Up] == true &amp;&amp; mLevel[Down] == false<br>
+          </td>
         </tr>
         <tr>
           <td valign="top">T6.7<br>
           </td>
           <td valign="top">DesiredDirection == Stop &amp;&amp; <br>
-            mLevel[Up] == true</td>
+            mLevel[Up] == true &amp;&amp; mLevel[Down] == false<br>
+          </td>
         </tr>
         <tr>
           <td valign="top">T6.8<br>
           </td>
           <td valign="top">DesiredDirection == Stop &amp;&amp; <br>
-            mLevel[Down] == true</td>
+            mLevel[Down] == true &amp;&amp; mLevel[Up] == false<br>
+          </td>
         </tr>
         <tr>
           <td valign="top">T6.9<br>
