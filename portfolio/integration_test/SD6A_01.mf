@@ -1,5 +1,5 @@
 ;========================================================================
-; Integration Test for SD4A
+; Integration Test for SD6A
 ;========================================================================
 ;18649 Fall 2012
 ;Group17
@@ -7,6 +7,8 @@
 ;Rajeev Sharma (rdsharma)
 ;Jesse Salazar (jessesal)
 ;Jessica Tiu   (jtiu)
+;
+;Last modified 2012-10-10 (cbuchan)
 ;========================================================================
 
 #INCLUDE defines.mf ;include CAN id and period definitions

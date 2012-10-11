@@ -1,0 +1,98 @@
+;========================================================================
+; Integration Test for SD9A
+;========================================================================
+;18649 Fall 2012
+;Group17
+;Collin Buchan (cbuchan)
+;Rajeev Sharma (rdsharma)
+;Jesse Salazar (jessesal)
+;Jessica Tiu   (jtiu) - Author
+;
+;Last modified 2012-10-11 (jtiu)
+;========================================================================
+
+#INCLUDE defines.mf ;include CAN id and period definitions
+
+;========================================================================
+;initialize
+;========================================================================
+;Car is stopped.
+;AtFloor[f,b] was last received as True.
+;All doors are closed.
+
++0s	I AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
++0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
++0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
++0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
++0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
+
+;========================================================================
+; 1. Door[b,*] starts to open.
+;========================================================================
+;arc 1. framework message from DoorControl to DoorMotor
++0s	I	DOOR_CONTROL_PERIOD F DoorMotor FRONT LEFT = OPEN 
++0s	I	DOOR_CONTROL_PERIOD F DoorMotor FRONT RIGHT = OPEN
+
+;arc 2. network message door closed = false
++1.0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
+
+;========================================================================
+; 2. Dispatcher computes next desired floor.
+;========================================================================
+;Target set to 5, the next floor after 4: dumb elevator
+
+;arc 3. check network message desired floor is sent by dispatcher
++1.0s	A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 5
++0s	A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
++0s	A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == FRONT
+
+;========================================================================
+; 3. Dispatcher computes desired dwell.
+;========================================================================
+;arc 4. check network message desired dwell is sent by dispatcher
++1.0s	A	N	DOOR_CONTROL_PERIOD DesiredDwell : getValue > 0 
+
+;========================================================================
+; 4. CarLantern[d] turns on after new direction is computed.
+;========================================================================
+;arc 5. check framework message car lantern on sent by lantern control
++0s	A	F	CarLantern UP : lighted == true	
++0s	A	F	CarLantern DOWN : lighted == false	
+
+;========================================================================
+; 5. Door[b,*] finishes opening.
+;========================================================================
+;arc 6. network message door opened true
++1.0s  I  DOOR_OPENED_SENSOR_PERIOD N DOOR_OPENED_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
++0s  I  DOOR_OPENED_SENSOR_PERIOD N DOOR_OPENED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorOpened FRONT RIGHT = true
+
+;========================================================================
+; 6. Passenger arrives and enters car.
+;========================================================================
+;arc 7. passenger enter
+
+;========================================================================
+; 7. Passenger realizes that his/her desired floor is already selected.
+;========================================================================
+
+
+;========================================================================
+; 8. Doors[b,*] close after countdown expires.
+;========================================================================
++1.0s  I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT = 0
+
+;arc 8. check framework message door motor stop from DoorControl
++1.0s  A  F DoorMotor FRONT LEFT : command == STOP
++0s  A  F DoorMotor FRONT RIGHT : command == STOP
+
+;arc 9. check framework message door motor close from DoorControl
++1.0s  A  F DoorMotor FRONT LEFT : command == CLOSE
++0s  A  F DoorMotor FRONT RIGHT : command == CLOSE
+
+;========================================================================
+;Post Conditions
+;========================================================================
+;Doors are closed
+;Passenger is in car.
+;DoorControl has been notified of desired floor
+
