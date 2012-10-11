@@ -79,7 +79,7 @@ public class DriveControl extends Controller {
     private enum State {
         STATE_DRIVE_STOPPED,
         STATE_DRIVE_LEVEL_UP,
-		STATE_DRIVE_LEVEL_DOWN,
+		    STATE_DRIVE_LEVEL_DOWN,
         STATE_DRIVE_SLOW,
     }
 
