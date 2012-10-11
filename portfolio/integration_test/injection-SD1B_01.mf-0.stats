@@ -1,3 +1,11 @@
+/* 18649 Fall 2012
+ * (Group  17)
+ * Jesse Salazar (jessesal)
+ * Rajeev Sharma (rdsharma) 
+ * Collin Buchan (cbuchan)
+ * Jessica Tiu   (jtiu)
+ */
+
 
 Simulator Parameters:
 Command line = -cf SD1B.cf -mf SD1B_01.mf

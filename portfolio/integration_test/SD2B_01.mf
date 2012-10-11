@@ -30,7 +30,7 @@
 ;========================================================================
 ;1. Door[b,r] starts to close.
 ;========================================================================
-;arc 1a
+;arc 1.
 +0.21s  A  S DoorControl[FRONT][RIGHT] : STATE == STATE_DOOR_CLOSING
 +0s     A  F DoorMotor FRONT RIGHT : command == NUDGE
 
@@ -47,6 +47,7 @@
 ;arc 2c, 2d
 +0.21s  A   N CAR_CALL_[4][FRONT]_CAN_ID Boolean : getValue == true
 +0s     A   N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean : getValue == true
++0s     A   F CarLight 4 FRONT : lighted == true
 ;========================================================================
 ;3. Dispatcher calculates that the desired floor is the current floor,
 ;    and that the desired hallway is the current hallway.

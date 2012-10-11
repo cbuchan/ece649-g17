@@ -1,7 +1,15 @@
+/* 18649 Fall 2012
+ * (Group  17)
+ * Jesse Salazar (jessesal)
+ * Rajeev Sharma (rdsharma) 
+ * Collin Buchan (cbuchan)
+ * Jessica Tiu   (jtiu)
+ */
+
 
 Simulator Parameters:
 Command line = -cf SD3A.cf -mf SD3A_01.mf
-RandomSeed = 1349905503449
+RandomSeed = 1349990262753
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -10,16 +18,16 @@ Message File = SD3A_01.mf
 Controller File = SD3A.cf
 
 Assertion Results:
-@0.21s:  FAILED simulator.payloads.DrivePayload$ReadableDrivePayload@378f6235 :: speed ?== LEVEL FAILED
-@0.21s:  FAILED simulator.payloads.DrivePayload$ReadableDrivePayload@39d85f79 :: direction ?== UP FAILED
-@2.21s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@151a64ed :: speed ?== STOP PASSED
-@2.41s:  FAILED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@99b5393 :: command ?== OPEN FAILED
-@3.21s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@44bd928a :: lighted ?== false PASSED
-@4.21s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@5210f6d3 :: command ?== STOP PASSED
+@1.71s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@998b08 :: speed ?== LEVEL PASSED
+@1.71s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@148cc8c :: direction ?== UP PASSED
+@2.8s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@152544e :: speed ?== STOP PASSED
+@3.01s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@17471e0 :: command ?== OPEN PASSED
+@3.81s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@cec0c5 :: lighted ?== false PASSED
+@5.01s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@169ca65 :: command ?== STOP PASSED
 
 
 ******************Summary******************
-Passed:  3
-Failed:  3
+Passed:  6
+Failed:  0
 Total :  6
 
