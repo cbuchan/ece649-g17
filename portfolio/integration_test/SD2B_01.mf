@@ -31,7 +31,7 @@
 ;========================================================================
 ;1. Door[b,r] starts to close.
 ;========================================================================
-;arc 1a
+;arc 1.
 +0.21s  A  S DoorControl[FRONT][RIGHT] : STATE == STATE_DOOR_CLOSING
 +0s     A  F DoorMotor FRONT RIGHT : command == NUDGE
 
@@ -42,14 +42,15 @@
 ;2. The passenger presses the car call button for floor f and hallway b,
 ;   where [f,b] are the same desired hallway as in the pre-conditions.
 ;========================================================================
-+0.21s  I  CAR_BUTTON_CONTROL_PERIOD F CarCall 4 FRONT = true
 +0.21s  I  CAR_BUTTON_CONTROL_PERIOD F CarCall 4 FRONT = false
++0.21s  I  CAR_BUTTON_CONTROL_PERIOD F CarCall 4 FRONT = true
 
 ;========================================================================
 ;3. The car call button for [f,b] lights up.
 ;========================================================================
 +0.21s  A   N CAR_CALL_[4][FRONT]_CAN_ID Boolean : getValue == true
-+0s     A   N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean : getValue == true
++0.21s  A N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean : getValue == true
++0s  A F CarLight 4 FRONT : lighted == true
 
 ;========================================================================
 ;4. The door starts opening.
@@ -68,8 +69,10 @@
 ;========================================================================
 ;6. The car call button for [f,b] stops being lit.
 ;========================================================================
-+0.21s  A   N CAR_CALL_[4][FRONT]_CAN_ID Boolean : getValue == false
+
++0.21s  A F CarLight 4 FRONT : lighted == false
 +0s     A   N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean : getValue == false
++0.21s  A   N CAR_CALL_[4][FRONT]_CAN_ID Boolean : getValue == false
 
 ;========================================================================
 ;Post Conditions
