@@ -463,6 +463,29 @@
           <td valign="top"><br>
           </td>
         </tr>
+        <tr>
+          <td valign="top">23<br>
+          </td>
+          <td valign="top">10/11/2012<br>
+          </td>
+          <td valign="top">10/11/2012<br>
+          </td>
+          <td valign="top">rdsharma<br>
+          </td>
+          <td valign="top">SD3A<br>
+          </td>
+          <td valign="top">Previously both Level sensors were set to true 
+            simultaneously, which will not transition DriveControl out of 
+            DRIVE_SLOW.<br>
+          </td>
+          <td valign="top">Added arc 1c (mLevel[Down]=True) and shifted down 
+            other 1x arcs.  Since this sets the direction explicitly, arc 1d 
+            (previously 1c) was changed to check for (Level, Up) and arc 1e 
+            (previously 1d) was changed to set mLevel[Up] = true.
+          </td>
+          <td valign="top">SD3A, sd_req_tracability.xls<br>
+          </td>
+        </tr>
       </tbody>
     </table>
     <br>
