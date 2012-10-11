@@ -14,11 +14,13 @@ import java.util.HashMap;
 
 import simulator.elevatormodules.AtFloorCanPayloadTranslator;
 import simulator.elevatormodules.DoorClosedCanPayloadTranslator;
+import simulator.elevatormodules.HallCallCanPayloadTranslator;
 import simulator.framework.Elevator;
 import simulator.framework.Hallway;
 import simulator.framework.Harness;
 import simulator.framework.ReplicationComputer;
 import simulator.framework.Direction;
+import simulator.framework.Side;
 import simulator.payloads.CANNetwork.CanConnection;
 import simulator.payloads.CanMailbox;
 import simulator.payloads.CanMailbox.ReadableCanMailbox;
@@ -141,6 +143,15 @@ public class Utility {
 
             return translatorArray[floor - 1].getValue();
         }
+		public boolean getAllOff(){
+			for (int floor = 0; floor < numFloors; ++floor) {
+                if ( translatorArray[floor].getValue() ) {
+					return false;
+				}
+            }
+            return true;
+			
+		}
     }
 
     
@@ -215,6 +226,7 @@ public class Utility {
             }
 			return false;
 		}
+		/* NOTE: As of now, do not call getOff for hallway == BOTH, and a specified direction */
 		public boolean getOff(Hallway hallway, Direction dir){
 			if (hallway == Hallway.FRONT && dir == Direction.UP) {
 				return (front.up.getValue());
@@ -224,7 +236,9 @@ public class Utility {
 				return (back.up.getValue());
 			}else if (hallway == Hallway.BACK && dir == Direction.DOWN) {
 				return (back.down.getValue());
+			}else if (hallway == Hallway.BOTH && dir == Direction.UP) {
 			}
+			return false; 
 		}
 		
 	}
@@ -243,14 +257,14 @@ public class Utility {
 					MessageDictionary.HALL_CALL_BASE_CAN_ID + 
 					ReplicationComputer.computeReplicationId(floor, hallway, 
 					Direction.UP));
-			up = new HallCallCanPayloadTranslator(m_u, hallway, Direction.UP);
+			up = new HallCallCanPayloadTranslator(m_u, floor, hallway, Direction.UP);
 			conn.registerTimeTriggered(m_u);
 			
 			ReadableCanMailbox m_d = CanMailbox.getReadableCanMailbox(
 					MessageDictionary.HALL_CALL_BASE_CAN_ID +
 					ReplicationComputer.computeReplicationId(floor, hallway, 
 					Direction.DOWN));
-            down = new HallCallCanPayloadTranslator(m_d, hallway, Direction.DOWN);
+            down = new HallCallCanPayloadTranslator(m_d, floor, hallway, Direction.DOWN);
             conn.registerTimeTriggered(m_d);
 			
 		}

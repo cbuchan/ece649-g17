@@ -18,6 +18,7 @@ import simulator.elevatormodules.CarWeightCanPayloadTranslator;
 import simulator.framework.Controller;
 import simulator.framework.Hallway;
 import simulator.framework.ReplicationComputer;
+import simulator.framework.Direction;
 import simulator.payloads.CanMailbox;
 import simulator.payloads.CanMailbox.ReadableCanMailbox;
 import simulator.payloads.CanMailbox.WriteableCanMailbox;
@@ -172,10 +173,10 @@ public class Dispatcher extends Controller {
 				
                 //state actions for DRIVE_STOPPED
 				targetFloor = 1;
-				targetHallway = NONE;
+				targetHallway = Hallway.NONE;
 				mDesiredFloor.setFloor(targetFloor);
 				mDesiredFloor.setHallway(targetHallway);
-				mDesiredFloor.setDirection(STOP);
+				mDesiredFloor.setDirection(Direction.STOP);
 				mDesiredDwellBack.set(CONST_DWELL);
 				mDesiredDwellFront.set(CONST_DWELL);
 				
@@ -184,6 +185,12 @@ public class Dispatcher extends Controller {
 				// (mAtFloor[1,front] == True || mAtFloor[1,back] == True) && 
 				//	((any mHallCall[f,b,d] == True) || 
 				//	(any mCarCall[f,b] == True))
+				if ( (networkAtFloorArray.isAtFloor(1,Hallway.FRONT)||
+					  networkAtFloorArray.isAtFloor(1,Hallway.BACK)   )  &&
+					 ( (!networkHallCallArray.getAllOff()) || networkCarCallArrayBack.       )) {
+					<#statements#>
+				}
+				networkHallCallArray.getAllOff()
 				
                 newState = state;
 

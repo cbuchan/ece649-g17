@@ -15,6 +15,7 @@ import simulator.elevatorcontrol.MessageDictionary;
 import simulator.framework.Hallway;
 import simulator.framework.ReplicationComputer;
 import simulator.framework.Side;
+import simulator.framework.Direction;
 import simulator.payloads.CanMailbox.ReadableCanMailbox;
 import simulator.payloads.CanMailbox.WriteableCanMailbox;
 
@@ -33,8 +34,8 @@ public class HallCallCanPayloadTranslator extends BooleanCanTranslator{
      */
     public HallCallCanPayloadTranslator(WriteableCanMailbox p, int floor, Hallway hallway, Direction dir) {
         super(p,
-                MessageDictionary.HALL_CALL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(hallway, dir),
-                "DoorClosedSensor" + ReplicationComputer.makeReplicationString(hallway, side));
+                MessageDictionary.HALL_CALL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(floor, hallway, dir),
+                "HallCallSensor" + ReplicationComputer.makeReplicationString(floor, hallway, dir));
                 this.setValue(true);
     }
 
@@ -44,9 +45,9 @@ public class HallCallCanPayloadTranslator extends BooleanCanTranslator{
      * @param hallway  replication index
      * @param side  replication index
      */
-    public DoorClosedCanPayloadTranslator(ReadableCanMailbox p, Hallway hallway, Side side) {
+    public HallCallCanPayloadTranslator(ReadableCanMailbox p, int floor, Hallway hallway, Direction dir) {
         super(p,
-                MessageDictionary.HALL_CALL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(hallway, side),
-                "DoorClosedSensor" + ReplicationComputer.makeReplicationString(hallway, side));
+                MessageDictionary.HALL_CALL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(floor, hallway, dir),
+                "HallCallSensor" + ReplicationComputer.makeReplicationString(floor, hallway, dir));
     }
 }
