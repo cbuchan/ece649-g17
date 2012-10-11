@@ -12,15 +12,18 @@ package simulator.elevatorcontrol;
 import jSimPack.SimTime;
 import simulator.elevatorcontrol.Utility.AtFloorArray;
 import simulator.elevatorcontrol.Utility.CarCallArray;
-import simulator.elevatorcontrol.Utility.DoorClosedHallwayArray;
+import simulator.elevatorcontrol.Utility.DoorClosedArray;
 import simulator.elevatorcontrol.Utility.HallCallArray;
 import simulator.elevatormodules.CarWeightCanPayloadTranslator;
 import simulator.framework.Controller;
 import simulator.framework.Hallway;
 import simulator.framework.ReplicationComputer;
+import simulator.framework.Direction;
+import simulator.framework.Elevator;
 import simulator.payloads.CanMailbox;
 import simulator.payloads.CanMailbox.ReadableCanMailbox;
 import simulator.payloads.CanMailbox.WriteableCanMailbox;
+
 
 /**
  * There is one DriveControl, which controls the elevator Drive
@@ -31,6 +34,9 @@ import simulator.payloads.CanMailbox.WriteableCanMailbox;
  * @author Collin Buchan, Jesse Salazar
  */
 public class Dispatcher extends Controller {
+	
+	public static final byte FRONT_LAND =0;
+	public static final byte BACK_LAND =1;
 
     /**
      * ************************************************************************
@@ -53,8 +59,7 @@ public class Dispatcher extends Controller {
 
     //input network messages
     private AtFloorArray networkAtFloorArray;
-    private DoorClosedHallwayArray networkDoorClosedFront;
-    private DoorClosedHallwayArray networkDoorClosedBack;
+    private DoorClosedArray networkDoorClosed;
     private HallCallArray networkHallCallArray;
     private CarCallArray networkCarCallArrayFront;
     private CarCallArray networkCarCallArrayBack;
@@ -69,7 +74,7 @@ public class Dispatcher extends Controller {
     //enumerate states
     private enum State {
         STATE_INIT,
-        STATE_IDLE,
+        STATE_SERVICE_CALL,
         STATE_COMPUTE_NEXT,
     }
 
@@ -135,8 +140,7 @@ public class Dispatcher extends Controller {
          * of message.
          */
         networkAtFloorArray = new AtFloorArray(canInterface);
-        networkDoorClosedFront = new DoorClosedHallwayArray(Hallway.FRONT, canInterface);
-        networkDoorClosedBack = new DoorClosedHallwayArray(Hallway.BACK, canInterface);
+        networkDoorClosed = new DoorClosedArray(canInterface);
         networkHallCallArray = new HallCallArray(canInterface);
         networkCarCallArrayFront = new CarCallArray(Hallway.FRONT, canInterface);
         networkCarCallArrayBack = new CarCallArray(Hallway.BACK, canInterface);
@@ -169,28 +173,98 @@ public class Dispatcher extends Controller {
         switch (state) {
 
             case STATE_INIT:
-
+				
                 //state actions for DRIVE_STOPPED
-
-                //transitions
-                newState = state;
-
+				targetFloor = 1;
+				targetHallway = Hallway.NONE;
+				mDesiredFloor.setFloor(targetFloor);
+				mDesiredFloor.setHallway(targetHallway);
+				mDesiredFloor.setDirection(Direction.STOP);
+				mDesiredDwellBack.set(CONST_DWELL);
+				mDesiredDwellFront.set(CONST_DWELL);
+				
+				//#transition 'T11.1'
+				// (mAtFloor[1,front] == True || mAtFloor[1,back] == True) && 
+				//	((any mHallCall[f,b,d] == True) || 
+				//	(any mCarCall[f,b] == True))
+				if ( (networkAtFloorArray.isAtFloor(1,Hallway.FRONT)||
+					  networkAtFloorArray.isAtFloor(1,Hallway.BACK)   )  &&
+					 ( (!networkHallCallArray.getAllOff()) || 
+					   (!networkCarCallArrayBack.getAllOff()) ||
+					  (!networkCarCallArrayFront.getAllOff())        )){
+						 newState = State.STATE_COMPUTE_NEXT;
+				}else {
+					newState = state;
+				}
                 break;
-            case STATE_IDLE:
-
-                //state actions for STATE_IDLE
-
-                //transitions
-                newState = state;
-
-                break;
+					
             case STATE_COMPUTE_NEXT:
+
+				//state actions for STATE_IDLE
+				targetFloor = 
+					(networkAtFloorArray.getCurrentFloor() % Elevator.numFloors) + 1;
+				
+				//sret the targetHallway to be as many floors as possible
+				if (Elevator.hasLanding(targetFloor,Hallway.BACK) &&
+					Elevator.hasLanding(targetFloor,Hallway.FRONT)){
+					targetHallway = Hallway.BOTH;
+				}else if (Elevator.hasLanding(targetFloor,Hallway.BACK)) {
+					targetHallway = Hallway.BACK;
+				}else if (Elevator.hasLanding(targetFloor,Hallway.FRONT)) {
+					targetHallway = Hallway.FRONT;
+				}else {
+					targetHallway = Hallway.NONE;
+				}
+
+				mDesiredFloor.setFloor(targetFloor);
+				mDesiredFloor.setHallway(targetHallway);
+				mDesiredFloor.setDirection(Direction.STOP);
+				mDesiredDwellBack.set(CONST_DWELL);
+				mDesiredDwellFront.set(CONST_DWELL);
+				
+				
+				
+				//#transition 'T11.2'
+                if (true){
+					newState = State.STATE_SERVICE_CALL;
+				}
+                break;
+				
+				
+            case STATE_SERVICE_CALL:
 
 
                 //state actions for STATE_COMPUTE_NEXT
+				targetFloor = targetFloor;
+				targetHallway = targetHallway;
+				mDesiredFloor.setFloor(targetFloor);
+				mDesiredFloor.setHallway(targetHallway);
+				mDesiredFloor.setDirection(Direction.STOP);
+				mDesiredDwellBack.set(CONST_DWELL);
+				mDesiredDwellFront.set(CONST_DWELL);
+				
+                //#transition 'T11.3
+				//(any mDoorClosed[b, r] == False) && ((any mHallCall[f,b,d] == True) || (any mCarCall[f,b] == True))'
+                if ( (!networkDoorClosed.getAllClosed()) && 
+					   (!networkHallCallArray.getAllOff()     || 
+					   (!networkCarCallArrayBack.getAllOff()) ||
+					   (!networkCarCallArrayFront.getAllOff())  )    ){
+						   newState = State.STATE_COMPUTE_NEXT;
+				}
+				//#transition 'T11.4
+				//doors aren't close, and either there are no hall/car calls, 
+				//or we are between floors w/doors open!
+				else if ( (!networkDoorClosed.getAllClosed()) && 
+						   (  ( networkHallCallArray.getAllOff()    &&
+							    networkCarCallArrayBack.getAllOff() &&
+							    networkCarCallArrayFront.getAllOff()  )  ||
+							 networkAtFloorArray.getCurrentFloor() == MessageDictionary.NONE) ){
+					newState = State.STATE_INIT;
+				}
+				else {
+					newState = state;
+				}
 
-                //transitions
-                newState = state;
 
                 break;
             default:

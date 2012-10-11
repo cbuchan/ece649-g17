@@ -1,0 +1,157 @@
+; 18649 Fall 2012 - Group 17
+; Jesse Salazar (jessesal)
+; Jessica Tiu (jtiu)
+; Collin Buchan (cbuchan)
+; Rajeev Sharma (rdsharma) *
+; * Author
+
+; Unit test for DoorControl
+; Stress test for T5.6, T5.7, T5.8
+
+#INCLUDE defines.mf ;include CAN id and period definitions
+
+;initialize
+0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
+0s     I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = false
+0s     I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
+0s     I DOOR_CONTROL_PERIOD N CAR_CALL_[1][FRONT]_CAN_ID Boolean = false
+0s     I DOOR_REVERSAL_NETWORK_PERIOD N DOOR_REVERSAL_SENSOR_[FRONT][LEFT]_CAN_ID DoorReversal FRONT LEFT = false
+0s     I WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 100
+0s     I DRIVE_PERIOD N DRIVE_SPEED_CAN_ID DriveSpeed = SLOW UP
+0s     I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT = 1
+
+;check initial state
++0.21s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_CLOSING
++0s    A F DoorMotor FRONT LEFT : command == NUDGE
++0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == NUDGE
+
+;set conditions for T5.5 using DOOR_REVERSAL
++0.09s I DOOR_REVERSAL_NETWORK_PERIOD N DOOR_REVERSAL_SENSOR_[FRONT][LEFT]_CAN_ID DoorReversal FRONT LEFT = true
+
+;#transition T5.5
+;check state
++0.61s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPENING
++0s    A F DoorMotor FRONT LEFT : command == OPEN
++0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == OPEN
+
+;set conditions for T5.6
++0s    I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
++0.09s I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
+
+;#transition T5.6
+;check state
++0.61s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPEN_E
++0s    A F DoorMotor FRONT LEFT : command == STOP
++0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == STOP
+
+;swap emergency state (should be no transition)
++0.09s I DOOR_REVERSAL_NETWORK_PERIOD N DOOR_REVERSAL_SENSOR_[FRONT][LEFT]_CAN_ID DoorReversal FRONT LEFT = false
++0s    I WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 14100
+
+;ensure transition does not occur after DesiredDwell
++1.61s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPEN_E
++0s    A F DoorMotor FRONT LEFT : command == STOP
++0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == STOP
+
+;set conditions for T5.7
++0.09s I WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 100
+
+;#transition T5.7
+;check state
++0.61s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPEN
++0s    A F DoorMotor FRONT LEFT : command == STOP
++0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == STOP
+
+;set conditions for T5.8 using DOOR_REVERSAL
++0.09s I DOOR_REVERSAL_NETWORK_PERIOD N DOOR_REVERSAL_SENSOR_[FRONT][LEFT]_CAN_ID DoorReversal FRONT LEFT = true
+
+;#transition T5.8
+;check state
++0.61s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPEN_E
++0s    A F DoorMotor FRONT LEFT : command == STOP
++0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == STOP
+
+;set conditions for T5.7
++0.09s I DOOR_REVERSAL_NETWORK_PERIOD N DOOR_REVERSAL_SENSOR_[FRONT][LEFT]_CAN_ID DoorReversal FRONT LEFT = false
+
+;#transition T5.7
+;check state
++0.61s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPEN
++0s    A F DoorMotor FRONT LEFT : command == STOP
++0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == STOP
+
+;set conditions for T5.4
++0.09s  I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 2 FRONT STOP
+
+;#transition T5.4
+;check state
+;should have transitioned due to countdown timer
++1.21s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_CLOSING
++0s    A F DoorMotor FRONT LEFT : command == NUDGE
++0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == NUDGE
+
+;set conditions for T5.5 using CarWeight
++0s    I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = false
++0.09s I WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 14100
+
+;#transition T5.5
+;check state
++0.61s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPENING
++0s    A F DoorMotor FRONT LEFT : command == OPEN
++0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == OPEN
+
+;set conditions for T5.6
++0s    I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
++0.09s I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
+
+;#transition T5.6
+;check state
++0.61s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPEN_E
++0s    A F DoorMotor FRONT LEFT : command == STOP
++0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == STOP
+
+;swap emergency state (should be no transition)
++0.09s I WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 100
++0s    I DOOR_REVERSAL_NETWORK_PERIOD N DOOR_REVERSAL_SENSOR_[FRONT][LEFT]_CAN_ID DoorReversal FRONT LEFT = true
+
+;ensure transition does not occur after DesiredDwell
++1.61s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPEN_E
++0s    A F DoorMotor FRONT LEFT : command == STOP
++0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == STOP
+
+;set conditions for T5.7
++0.09s I DOOR_REVERSAL_NETWORK_PERIOD N DOOR_REVERSAL_SENSOR_[FRONT][LEFT]_CAN_ID DoorReversal FRONT LEFT = false
+
+;#transition T5.7
+;check state
++0.61s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPEN
++0s    A F DoorMotor FRONT LEFT : command == STOP
++0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == STOP
+
+;set conditions for T5.8 using CarWeight
++0.09s I WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 14100
+
+;#transition T5.8
+;check state
++0.61s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPEN_E
++0s    A F DoorMotor FRONT LEFT : command == STOP
++0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == STOP
+
+;set conditions for T5.7
++0.09s I WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 100
+
+;#transition T5.7
+;check state
++0.61s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPEN
++0s    A F DoorMotor FRONT LEFT : command == STOP
++0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == STOP
+
+;set conditions for T5.4
++0.09s  I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 2 FRONT STOP
+
+;#transition T5.4
+;check state
+;should have transitioned due to countdown timer
++1.21s  A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_CLOSING
++0s    A F DoorMotor FRONT LEFT : command == NUDGE
++0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == NUDGE
