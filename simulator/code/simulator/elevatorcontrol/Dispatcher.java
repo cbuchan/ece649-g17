@@ -261,6 +261,10 @@ public class Dispatcher extends Controller {
 							 networkAtFloorArray.getCurrentFloor() == MessageDictionary.NONE) ){
 					newState = State.STATE_INIT;
 				}
+				else {
+					newState = state;
+				}
+
 
                 break;
             default:
