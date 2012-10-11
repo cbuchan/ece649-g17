@@ -8,7 +8,7 @@
 ;Jesse Salazar (jessesal)
 ;Jessica Tiu   (jtiu)
 ;
-;Last modified 2012-10-09 (cbuchan)
+;Last modified 2012-10-11 (rdsharma)
 ;========================================================================
 
 #INCLUDE defines.mf ;include CAN id and period definitions
@@ -20,52 +20,65 @@
 ;HallCall[4,UP] has been pressed
 ;Elevator is going in direction UP
 ;Passenger is outside car, doors are closed
-0s  I  HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[4][FRONT][UP]_CAN_ID Boolean = true
-0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
-;0s  I  DRIVE_PERIOD N DRIVE_SPEED_CAN_ID DriveSpeed = SLOW UP
+0s     I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
++0s    I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
++0s    I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
++0s    I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
++0s    I  WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 100
+;Need to set DesiredDwell or DoorControl will oscillate once open
++0s    I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT = 10
++0s    I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[BACK]_CAN_ID DesiredDwell BACK = 10
+;Need to set a starting AtFloor so that DriveControl can compute DesiredDir and transition to DRIVE_SLOW
++0s    I  AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
+
++0.10s  I  HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[4][FRONT][UP]_CAN_ID Boolean = true
++0.10s  I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 4 FRONT STOP
+
+; wait for Dispatcher to set direction
+
++0.10s I  AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = false
+
 
 ;========================================================================
 ;Scenario Step 1
 ;========================================================================
-;Arcs 1a and 1b
-1.0s  I  AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
-
-;Arc 1c
-0.21s  A  F Drive : speed == LEVEL
-0.21s  A  F Drive : direction == UP
+;Arcs 1a-c
++1.00s I  AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
++0s    I  LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
 
 ;Arc 1d
-; Note: it is unlikely that leveling sensors will both fire at once.
-; TODO: Fix this behavior in the DriveController (First seen in SD3A)
-2.0s  I  LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
-2.0s  I  LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
++0.41s A  F Drive : speed == LEVEL
++0s    A  F Drive : direction == UP
 
 ;Arc 1e
-2.21s  A  F Drive : speed == STOP
++0.79s I  LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
+
+;Arc 1f
++0.30s A  F Drive : speed == STOP
 
 ;========================================================================
 ;Scenario Step 2
 ;========================================================================
 ;Arc 2a
-2.41s  A  F DoorMotor FRONT LEFT : command == OPEN
++0.21s A  F DoorMotor FRONT LEFT : command == OPEN
 
 ;Arc 2b
-3.00s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
++0.59s I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
 
 ;========================================================================
 ;Scenario Step 3
 ;========================================================================
 ;Arc 3
-3.21s  A F HallLight 4 FRONT UP : lighted == false
++0.21s A F HallLight 4 FRONT UP : lighted == false
 
 ;========================================================================
 ;Scenario Step 4
 ;========================================================================
 ;Arc 4a
-4.0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
++0.79s I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
 
 ;Arc 4b
-4.21s  A  F DoorMotor FRONT LEFT : command == STOP
++0.41s A  F DoorMotor FRONT LEFT : command == STOP
 
 ;========================================================================
 ;Scenario Step 5
