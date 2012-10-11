@@ -7,4 +7,4 @@
 
 LanternControl 100ms UP TRUE
 DoorControl 100ms FRONT LEFT TRUE
-Dispatcher 100ms TRUE
+Dispatcher 50ms TRUE
