@@ -45,14 +45,51 @@
         <li><a href="#usecase7">7. Determine Car Direction</a> </li>
         <ul>
           <li><a href="#scenario7a">Scenario 7A</a> </li>
-          <li><a href="#scenario7b">Scenario 7B</a> </li>
+          <li><a href="#scenario7b">Scenario 7B</a>&nbsp;</li>
+          <li><a href="#scenario7c">Scenario 7C</a></li>
         </ul>
-        <li>
-          <div style="margin-left: 40px;"><a href="#scenario7c">Scenario
-              7C</a></div>
-        </li>
         <li><a href="#usecase8">8. Move Car to Next Floor</a> </li>
         <li><a href="#usecase9">9. Cycle Doors</a></li>
+        <ul>
+          <li><a
+href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario9a">Scenario
+
+
+
+
+              9A</a> </li>
+          <li><a
+href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario9b">Scenario
+
+
+
+
+              9B</a>&nbsp;</li>
+          <li><a
+href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario9c">Scenario
+
+
+
+
+              9C</a></li>
+        </ul>
+        <li><a
+href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#usecase10">10.
+
+
+
+
+            Overweight Sensor</a></li>
+        <ul>
+          <li><a
+href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario10a">Scenario
+
+
+
+
+              10A<br>
+            </a></li>
+        </ul>
       </ul>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
@@ -211,11 +248,16 @@
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li> The passenger presses the car call button for floor <b>f</b>
           and hallway <b>b</b>, where [<b>f</b>,<b>b</b>] are the same
-          desired hallway as in the pre-conditions.</li>
-        <li> The car call button for [<b>f</b>,<b>b</b>] lights up.</li>
+          desired hallway as in the pre-conditions and the car call
+          button for [<b>f</b>,<b>b</b>] lights up.</li>
+        <li>Dispatcher calculates that the desired floor is the current
+          floor, and that the desired hallway is the current hallway.<br>
+        </li>
         <li>The door starts opening.</li>
+        <li>The car light turns off and the car call button for [<b>f</b>,<b>b</b>]
+          stops reporting a call.<br>
+        </li>
         <li>The door finishes opening.</li>
-        <li>The car call button for [<b>f</b>,<b>b</b>] stops being lit.</li>
       </ol>
       <h3> Post-Conditions: </h3>
       <ul type="disc">
@@ -318,6 +360,11 @@
 
 
 
+
+
+
+
+
         Case 5: Passenger Triggers Door Reversal </h2>
       <h3> <a name="scenario5a" id="scenario5a"></a>Scenario 5A:
         Passenger attempts to enter the car as the doors begin to close.
@@ -334,6 +381,11 @@
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to enter and is nudged by Door[<b>b</b>,<b>r</b>],
+
+
+
+
+
 
 
 
@@ -378,6 +430,11 @@
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to exit and is nudged by Door[<b>b</b>,<b>r</b>],
+
+
+
+
+
 
 
 
@@ -479,7 +536,7 @@
       </ul>
       <h3> Sequence Diagram: </h3>
       <a href="proj2_scenario7a.gif"><img alt="sd7a" src="sd7a.png"
-          height="337" border="0" width="1226"></a>
+          border="0" height="337" width="1226"></a>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <h3> <a name="scenario7b" id="scenario7b"></a>Scenario 7B:
@@ -516,7 +573,7 @@
       </ul>
       <h3> Sequence Diagram: </h3>
       <a href="proj2_scenario7b.gif"><img alt="sd7b" src="sd7b.png"
-          height="337" border="0" width="1226"></a>
+          border="0" height="337" width="1226"></a>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <h3> <a name="scenario7c" id="scenario7c"></a>Scenario 7C:
@@ -540,7 +597,7 @@
       </ul>
       <h3> Sequence Diagram: </h3>
       <a href="proj2_scenario7c.gif"><img alt="sd7c" src="sd7c.png"
-          height="327" border="0" width="442"></a>
+          border="0" height="327" width="442"></a>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <p> &nbsp; </p>
@@ -580,9 +637,10 @@
       <p> &nbsp; </p>
       <h2> <a name="usecase9" id="usecase9"></a>Use Case 9: Cycle Doors
       </h2>
-      <h3> Scenario 9A: Elevator stops at hallway and doors open.
-        Dispatcher computes next desired floor just as doors open. Doors
-        close. </h3>
+      <h3> </h3>
+      <h3><a name="scenario9a" id="scenario7c"></a>Scenario 9A: Elevator
+        stops at hallway and doors open. Dispatcher computes next
+        desired floor just as doors open. Doors close. </h3>
       <h3> Author name: Jesse Salazar (jessesal)<br>
       </h3>
       <p> Note: This dispatcher is really dumb and stops at every floor,
@@ -648,9 +706,8 @@
       </h3>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
-      <h3> <a name="scenario9b" id="scenario9b"></a>Scenario 9C: <br>
-      </h3>
-      <h3>Elevator arrives at a floor with doors on both sides</h3>
+      <h3> <a name="scenario9c" id="scenario9b"></a>Scenario 9C:
+        Elevator arrives at a floor with doors on both sides</h3>
       <h3> Author name: Rajeev Sharma (rdsharma)<br>
       </h3>
       <h3> Pre-Conditions: </h3>
@@ -677,11 +734,13 @@
         <hr align="center" size="2" width="100%"> </div>
       <ul>
       </ul>
-      <h2> <a name="usecase8" id="usecase8"></a>Use Case 10: Passenger
+      <h2> <a name="usecase10" id="usecase8"></a>Use Case 10: Passenger
         Triggers Overweight Sensor<br>
       </h2>
-      <h3> Scenario 10A: Elevator moves from {floor f, hallway b} to
-        {floor g, hallway c} in direction d. </h3>
+      <h3> </h3>
+      <h3><a name="scenario10a" id="scenario7c"></a>Scenario 10A:
+        Elevator moves from {floor f, hallway b} to {floor g, hallway c}
+        in direction d. </h3>
       <h3> Author name: Collin Buchan (cbuchan)<br>
       </h3>
       <h3> Pre-Conditions: </h3>

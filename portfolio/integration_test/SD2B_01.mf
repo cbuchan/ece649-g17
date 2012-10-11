@@ -24,32 +24,35 @@
 0s	I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][RIGHT]_CAN_ID DoorOpened FRONT RIGHT = true
 
 ;passenger in car, elevator at the desired floor
-;0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 4 FRONT STOP
+;0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 4 NONE STOP
 0s  I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT = 1
-
 
 ;========================================================================
 ;1. Door[b,r] starts to close.
 ;========================================================================
-;arc 1a
+;arc 1.
 +0.21s  A  S DoorControl[FRONT][RIGHT] : STATE == STATE_DOOR_CLOSING
 +0s     A  F DoorMotor FRONT RIGHT : command == NUDGE
 
 +0s	    I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][RIGHT]_CAN_ID DoorOpened FRONT RIGHT = false
 
-
 ;========================================================================
 ;2. The passenger presses the car call button for floor f and hallway b,
 ;   where [f,b] are the same desired hallway as in the pre-conditions.
 ;========================================================================
+;arc 2a, 2b
 +0.21s  I  CAR_BUTTON_CONTROL_PERIOD F CarCall 4 FRONT = true
 +0.21s  I  CAR_BUTTON_CONTROL_PERIOD F CarCall 4 FRONT = false
 
-;========================================================================
-;3. The car call button for [f,b] lights up.
-;========================================================================
+;arc 2c, 2d
 +0.21s  A   N CAR_CALL_[4][FRONT]_CAN_ID Boolean : getValue == true
 +0s     A   N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean : getValue == true
++0s     A   F CarLight 4 FRONT : lighted == true
+;========================================================================
+;3. Dispatcher calculates that the desired floor is the current floor,
+;    and that the desired hallway is the current hallway.
+;========================================================================
++0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 4 BOTH STOP
 
 ;========================================================================
 ;4. The door starts opening.
@@ -58,18 +61,18 @@
 +0s     A  F DoorMotor FRONT RIGHT : command == OPEN
 
 ;========================================================================
-;5. The door finishes opening.
+;5. The car call button for [f,b] stops being lit.
+;========================================================================
++0.21s  A   N CAR_CALL_[4][FRONT]_CAN_ID Boolean : getValue == false
++0s     A   N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean : getValue == false
+
+;========================================================================
+;6. The door finishes opening.
 ;========================================================================
 +0s	    I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][RIGHT]_CAN_ID DoorOpened FRONT RIGHT = true
 
 ;check 5. DoorMotor=Stop results (DoorControl)
-+0.41s	A F	DoorMotor FRONT RIGHT : command == STOP
-
-;========================================================================
-;6. The car call button for [f,b] stops being lit.
-;========================================================================
-+0.21s  A   N CAR_CALL_[4][FRONT]_CAN_ID Boolean : getValue == false
-+0s     A   N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean : getValue == false
++0.61s	A F	DoorMotor FRONT RIGHT : command == STOP
 
 ;========================================================================
 ;Post Conditions

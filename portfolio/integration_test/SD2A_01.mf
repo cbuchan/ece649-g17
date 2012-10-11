@@ -17,52 +17,61 @@
 ;initialize
 ;========================================================================
 ;car at floor f with at least one door[b,r] open
-+0s	I AT_FLOOR_PERIOD N AT_FLOOR_[7][FRONT]_CAN_ID AtFloor 7 FRONT = true
-+0s	I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[BACK][RIGHT]_CAN_ID DoorOpened BACK RIGHT = true
++0s	I AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
++0s	I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
 
 ;passenger in car, elevator not at the desired floor
-+0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 2 BACK STOP
++0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 4 NONE STOP
++0s I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT = 1
+
 ;car call for destination is false, car light not lit
-+0s	I CAR_BUTTON_CONTROL_PERIOD N CAR_CALL_[2][BACK]_CAN_ID Boolean = false
-+0s	I CAR_BUTTON_CONTROL_PERIOD N CAR_LIGHT_[2][BACK]_CAN_ID Boolean = false
++0s	I CAR_BUTTON_CONTROL_PERIOD F CarCall 5 FRONT = false
 
 ;========================================================================
 ;1. Passenger presses the car call button for floor g and hallway c.
 ;========================================================================
-;1a. send CarCall = true
-+0s	I CAR_BUTTON_CONTROL_PERIOD F CarCall 2 BACK = true
+;arcs 1a, 1b
++0.21s	I CAR_BUTTON_CONTROL_PERIOD F CarCall 5 FRONT = true
++0.41s	I CAR_BUTTON_CONTROL_PERIOD F CarCall 5 FRONT = false
 
-;check that 1c. and 2. result (CarButtonControl)
+;check that 1c. CarCall is asserted true (CarButtonControl)
 ;1c. mCarCall true
-+1.0s	A N CAR_CALL_[2][BACK]_CAN_ID Boolean : getValue == true
++0.21s	A N CAR_CALL_[5][FRONT]_CAN_ID Boolean : getValue == true
 
 ;========================================================================
 ;2. The car call button for [g,c] lights up.
 ;========================================================================
 ;2. car light turns on
-+0s	A F CarLight 2 BACK : isLighted == true 
++0.21s	A F CarLight 5 FRONT : isLighted == true
+
++0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 5 BOTH STOP
 
 ;========================================================================
 ;3. Door[b,r] starts closing.
 ;========================================================================
-;check 3. DoorMotor[b,r]=Closed (DoorControl)
-+0s	A F DoorMotor FRONT RIGHT : command == CLOSE
-+0s	A F DoorMotor FRONT LEFT : command == CLOSE
+;check 3. DoorMotor[b,r]=Closed (DoorControl) after timeout
++2.0s	A F DoorMotor FRONT LEFT : command == NUDGE
++0s	    A F DoorMotor FRONT LEFT : command == NUDGE
+
++0.21s	I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = false
++0s	    I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = false
 
 ;insert mDoorClosed = true
-+1.0s	I	DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
-+0s	I	DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
++1.0s	I	DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
++0s	    I	DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
+
++0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 5 FRONT STOP
 
 ;========================================================================
 ;4. Doors complete closing.
 ;========================================================================
 ;check 4a. mDoorClosed received
-+1.0s	A N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT : getValue == true
-+0s	A N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT : getValue == true
++1.0s	A N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT : getValue == true
++0s	    A N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT : getValue == true
 
 ;check 4b. DoorMotor=Stop results (DoorControl)
-+0s	A F	DoorMotor FRONT RIGHT : command == STOP
-+0s	A F DoorMotor FRONT LEFT : command == STOP
++0.21s	A F	DoorMotor FRONT LEFT : command == STOP
++0s	    A F DoorMotor FRONT LEFT : command == STOP
 
 ;========================================================================
 ;Post Conditions

@@ -7,14 +7,14 @@
 	<key>ApplicationVersion</key>
 	<array>
 		<string>com.omnigroup.OmniGrafflePro</string>
-		<string>138.33.0.157554</string>
+		<string>139.16.0.171715</string>
 	</array>
 	<key>AutoAdjust</key>
 	<true/>
 	<key>BackgroundGraphic</key>
 	<dict>
 		<key>Bounds</key>
-		<string>{{0, 0}, {756, 553}}</string>
+		<string>{{0, 0}, {756, 553.00002479553223}}</string>
 		<key>Class</key>
 		<string>SolidGraphic</string>
 		<key>ID</key>
@@ -33,6 +33,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>BaseZoom</key>
+	<integer>0</integer>
 	<key>CanvasOrigin</key>
 	<string>{0, 0}</string>
 	<key>ColumnAlign</key>
@@ -65,8 +67,8 @@
 			<integer>24</integer>
 			<key>Points</key>
 			<array>
-				<string>{315, 108}</string>
-				<string>{353.56482, 151}</string>
+				<string>{21, 15}</string>
+				<string>{45.999956559989563, 42}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -74,6 +76,8 @@
 				<dict>
 					<key>HeadArrow</key>
 					<string>FilledArrow</string>
+					<key>Legacy</key>
+					<true/>
 					<key>TailArrow</key>
 					<string>0</string>
 					<key>TailScale</key>
@@ -83,7 +87,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{341.79388, 279}, {35, 24}}</string>
+			<string>{{182.8239995408353, 168}, {35, 24}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -109,7 +113,7 @@
 				<key>ID</key>
 				<integer>6</integer>
 				<key>Position</key>
-				<real>0.62595421075820923</real>
+				<real>0.414786696434021</real>
 				<key>RotationType</key>
 				<integer>0</integer>
 			</dict>
@@ -131,7 +135,7 @@
 			<key>Text</key>
 			<dict>
 				<key>Text</key>
-				<string>{\rtf1\ansi\ansicpg1252\cocoartf1138\cocoasubrtf470
+				<string>{\rtf1\ansi\ansicpg1252\cocoartf1138\cocoasubrtf510
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
@@ -143,7 +147,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{223.479, 183}, {35, 24}}</string>
+			<string>{{303.78052053309284, 74}, {35, 24}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -191,7 +195,7 @@
 			<key>Text</key>
 			<dict>
 				<key>Text</key>
-				<string>{\rtf1\ansi\ansicpg1252\cocoartf1138\cocoasubrtf470
+				<string>{\rtf1\ansi\ansicpg1252\cocoartf1138\cocoasubrtf510
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
@@ -207,9 +211,9 @@
 			<key>Head</key>
 			<dict>
 				<key>ID</key>
-				<integer>12</integer>
-				<key>Info</key>
 				<integer>4</integer>
+				<key>Info</key>
+				<integer>2</integer>
 			</dict>
 			<key>ID</key>
 			<integer>6</integer>
@@ -221,8 +225,8 @@
 			<real>-1</real>
 			<key>Points</key>
 			<array>
-				<string>{444.06488, 239}</string>
-				<string>{277.56488, 291}</string>
+				<string>{281, 180}</string>
+				<string>{136.5, 130}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -230,49 +234,8 @@
 				<dict>
 					<key>HeadArrow</key>
 					<string>FilledArrow</string>
-					<key>LineType</key>
-					<integer>2</integer>
-					<key>TailArrow</key>
-					<string>0</string>
-				</dict>
-			</dict>
-			<key>Tail</key>
-			<dict>
-				<key>ID</key>
-				<integer>4</integer>
-				<key>Info</key>
-				<integer>2</integer>
-			</dict>
-		</dict>
-		<dict>
-			<key>Class</key>
-			<string>LineGraphic</string>
-			<key>Head</key>
-			<dict>
-				<key>ID</key>
-				<integer>4</integer>
-				<key>Info</key>
-				<integer>3</integer>
-			</dict>
-			<key>ID</key>
-			<integer>5</integer>
-			<key>OrthogonalBarAutomatic</key>
-			<true/>
-			<key>OrthogonalBarPoint</key>
-			<string>{0, 0}</string>
-			<key>OrthogonalBarPosition</key>
-			<real>-1</real>
-			<key>Points</key>
-			<array>
-				<string>{187.06488, 247.00002}</string>
-				<string>{353.56488, 195}</string>
-			</array>
-			<key>Style</key>
-			<dict>
-				<key>stroke</key>
-				<dict>
-					<key>HeadArrow</key>
-					<string>FilledArrow</string>
+					<key>Legacy</key>
+					<true/>
 					<key>LineType</key>
 					<integer>2</integer>
 					<key>TailArrow</key>
@@ -284,52 +247,95 @@
 				<key>ID</key>
 				<integer>12</integer>
 				<key>Info</key>
+				<integer>3</integer>
+			</dict>
+		</dict>
+		<dict>
+			<key>Class</key>
+			<string>LineGraphic</string>
+			<key>Head</key>
+			<dict>
+				<key>ID</key>
+				<integer>12</integer>
+				<key>Info</key>
 				<integer>1</integer>
+			</dict>
+			<key>ID</key>
+			<integer>5</integer>
+			<key>OrthogonalBarAutomatic</key>
+			<true/>
+			<key>OrthogonalBarPoint</key>
+			<string>{0, 0}</string>
+			<key>OrthogonalBarPosition</key>
+			<real>-1</real>
+			<key>Points</key>
+			<array>
+				<string>{227, 86}</string>
+				<string>{371.5, 136.00001055999999}</string>
+			</array>
+			<key>Style</key>
+			<dict>
+				<key>stroke</key>
+				<dict>
+					<key>HeadArrow</key>
+					<string>FilledArrow</string>
+					<key>Legacy</key>
+					<true/>
+					<key>LineType</key>
+					<integer>2</integer>
+					<key>TailArrow</key>
+					<string>0</string>
+				</dict>
+			</dict>
+			<key>Tail</key>
+			<dict>
+				<key>ID</key>
+				<integer>4</integer>
 			</dict>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{353.56488, 151}, {181, 88}}</string>
+			<string>{{46, 42}, {181, 88}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
 			<integer>4</integer>
 			<key>Magnets</key>
 			<array>
-				<string>{0, -0.49999988}</string>
+				<string>{0, -0.49999988000000001}</string>
 				<string>{0, 0.5}</string>
 				<string>{-0.5, 0}</string>
 				<string>{0.5, 0}</string>
 				<string>{0.5, -0.5}</string>
-				<string>{-0.50000012, -0.49999988}</string>
+				<string>{-0.50000012000000005, -0.49999988000000001}</string>
 			</array>
 			<key>Shape</key>
 			<string>Rectangle</string>
 			<key>Text</key>
 			<dict>
 				<key>Text</key>
-				<string>{\rtf1\ansi\ansicpg1252\cocoartf1138\cocoasubrtf470
+				<string>{\rtf1\ansi\ansicpg1252\cocoartf1138\cocoasubrtf510
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
 \f0\fs24 \cf0 State LIGHT_OFF\
 \
-mCarCall[f,b]=CarCall[f,b]\
 CarLight[f,b]=Off\
-mCarLight[f,b]=CarLight[f,b]}</string>
+mCarLight[f,b]=CarLight[f,b]\
+mCarCall[f,b]=CarCall[f,b]}</string>
 			</dict>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{96.56488, 247}, {181, 88}}</string>
+			<string>{{281, 136}, {181, 88}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
 			<integer>12</integer>
 			<key>Magnets</key>
 			<array>
-				<string>{0, -0.49999988}</string>
+				<string>{0, -0.49999988000000001}</string>
 				<string>{0, 0.5}</string>
 				<string>{-0.5, 0}</string>
 				<string>{0.5, 0}</string>
@@ -339,16 +345,16 @@ mCarLight[f,b]=CarLight[f,b]}</string>
 			<key>Text</key>
 			<dict>
 				<key>Text</key>
-				<string>{\rtf1\ansi\ansicpg1252\cocoartf1138\cocoasubrtf470
+				<string>{\rtf1\ansi\ansicpg1252\cocoartf1138\cocoasubrtf510
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
 \f0\fs24 \cf0 State LIGHT_ON\
 \
-mCarCall[f,b]=CarCall[f,b]\
 CarLight[f,b]=On\
-mCarLight[f,b]=CarLight[f,b]}</string>
+mCarLight[f,b]=CarLight[f,b]\
+mCarCall[f,b]=CarCall[f,b]}</string>
 			</dict>
 		</dict>
 	</array>
@@ -399,9 +405,9 @@ mCarLight[f,b]=CarLight[f,b]}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2012-09-27 16:11:55 +0000</string>
+	<string>2012-10-11 21:07:28 +0000</string>
 	<key>Modifier</key>
-	<string>Jessica Tiu</string>
+	<string>Collin Buchan</string>
 	<key>NotesVisible</key>
 	<string>NO</string>
 	<key>Orientation</key>
@@ -429,13 +435,13 @@ mCarLight[f,b]=CarLight[f,b]}</string>
 		</array>
 		<key>NSOrientation</key>
 		<array>
-			<string>int</string>
-			<string>1</string>
+			<string>coded</string>
+			<string>BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU051bWJlcgCEhAdOU1ZhbHVlAISECE5TT2JqZWN0AIWEASqEhAFxlwGG</string>
 		</array>
 		<key>NSPaperSize</key>
 		<array>
-			<string>coded</string>
-			<string>BAtzdHJlYW10eXBlZIHoA4QBQISEhAdOU1ZhbHVlAISECE5TT2JqZWN0AIWEASqEhAx7X05TU2l6ZT1mZn2WgRgDgWQChg==</string>
+			<string>size</string>
+			<string>{792, 612.00002479553223}</string>
 		</array>
 		<key>NSPrintReverseOrientation</key>
 		<array>
@@ -499,7 +505,7 @@ mCarLight[f,b]=CarLight[f,b]}</string>
 		<key>SidebarWidth</key>
 		<integer>120</integer>
 		<key>VisibleRegion</key>
-		<string>{{-43, -33}, {841, 619}}</string>
+		<string>{{-43, -40}, {841, 635}}</string>
 		<key>Zoom</key>
 		<real>1</real>
 		<key>ZoomValues</key>
@@ -511,7 +517,5 @@ mCarLight[f,b]=CarLight[f,b]}</string>
 			</array>
 		</array>
 	</dict>
-	<key>saveQuickLookFiles</key>
-	<string>YES</string>
 </dict>
 </plist>
