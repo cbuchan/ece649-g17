@@ -1,9 +1,9 @@
 /* 18649 Fall 2012
  * (Group  17)
- * Jesse Salazar (jessesal)
+ * Jesse Salazar (jessesal) - Editor
  * Rajeev Sharma (rdsharma) - Editor
- * Collin Buchan (cbuchan)
- * Jessica Tiu   (jtiu)
+ * Collin Buchan (cbuchan)  - Editor
+ * Jessica Tiu   (jtiu)     
  *
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -161,11 +161,6 @@ public class Utility {
 	
 	
 	
-	
-	
-	
-	
-	
 	public static class HallCallArray {
 		public final int numFloors = Elevator.numFloors;
 		public HallCallFloorArray[] translatorArray;
@@ -275,17 +270,6 @@ public class Utility {
 		
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
