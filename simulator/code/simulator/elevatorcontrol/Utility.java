@@ -169,7 +169,7 @@ public class Utility {
             translatorArray = new HallCallFloorArray[numFloors];
 			
             for (int floor = 0; floor < numFloors; ++floor) {
-                HallCallFloorArray hcfa = new HallCallFloorArray(floor, conn);
+                HallCallFloorArray hcfa = new HallCallFloorArray(floor + 1, conn);
                 translatorArray[floor] = hcfa;
             }
         }

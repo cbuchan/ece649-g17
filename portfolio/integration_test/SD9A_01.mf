@@ -30,8 +30,8 @@
 ; 1. Door[b,*] starts to open.
 ;========================================================================
 ;arc 1. framework message from DoorControl to DoorMotor
-+0s	I	DOOR_CONTROL_PERIOD F DoorMotor FRONT LEFT = OPEN 
-+0s	I	DOOR_CONTROL_PERIOD F DoorMotor FRONT RIGHT = OPEN
+;TODO:+0s	I	DOOR_CONTROL_PERIOD F DoorMotor FRONT LEFT = OPEN
+;TODO:+0s	I	DOOR_CONTROL_PERIOD F DoorMotor FRONT RIGHT = OPEN
 
 ;arc 2. network message door closed = false
 +1.0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
@@ -50,7 +50,7 @@
 ; 3. Dispatcher computes desired dwell.
 ;========================================================================
 ;arc 4. check network message desired dwell is sent by dispatcher
-+1.0s	A	N	DOOR_CONTROL_PERIOD DesiredDwell : getValue > 0 
+;TODO: +1.0s	A	N	DOOR_CONTROL_PERIOD DesiredDwell : getValue > 0
 
 ;========================================================================
 ; 4. CarLantern[d] turns on after new direction is computed.
@@ -63,8 +63,8 @@
 ; 5. Door[b,*] finishes opening.
 ;========================================================================
 ;arc 6. network message door opened true
-+1.0s  I  DOOR_OPENED_SENSOR_PERIOD N DOOR_OPENED_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
-+0s  I  DOOR_OPENED_SENSOR_PERIOD N DOOR_OPENED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorOpened FRONT RIGHT = true
+;TODO: +1.0s  I  DOOR_OPENED_SENSOR_PERIOD N DOOR_OPENED_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
+;TODO: +0s  I  DOOR_OPENED_SENSOR_PERIOD N DOOR_OPENED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorOpened FRONT RIGHT = true
 
 ;========================================================================
 ; 6. Passenger arrives and enters car.
@@ -79,7 +79,7 @@
 ;========================================================================
 ; 8. Doors[b,*] close after countdown expires.
 ;========================================================================
-+1.0s  I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT = 0
+;TODO: +1.0s  I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT = 0
 
 ;arc 8. check framework message door motor stop from DoorControl
 +1.0s  A  F DoorMotor FRONT LEFT : command == STOP
