@@ -169,10 +169,22 @@ public class Dispatcher extends Controller {
         switch (state) {
 
             case STATE_INIT:
-
+				
                 //state actions for DRIVE_STOPPED
-
+				targetFloor = 1;
+				targetHallway = NONE;
+				mDesiredFloor.setFloor(targetFloor);
+				mDesiredFloor.setHallway(targetHallway);
+				mDesiredFloor.setDirection(STOP);
+				mDesiredDwellBack.set(CONST_DWELL);
+				mDesiredDwellFront.set(CONST_DWELL);
+				
                 //transitions
+				//#transition 'T11.1'
+				// (mAtFloor[1,front] == True || mAtFloor[1,back] == True) && 
+				//	((any mHallCall[f,b,d] == True) || 
+				//	(any mCarCall[f,b] == True))
+				
                 newState = state;
 
                 break;

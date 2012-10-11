@@ -18,7 +18,7 @@ import simulator.framework.Elevator;
 import simulator.framework.Hallway;
 import simulator.framework.Harness;
 import simulator.framework.ReplicationComputer;
-import simulator.framework.Side;
+import simulator.framework.Direction;
 import simulator.payloads.CANNetwork.CanConnection;
 import simulator.payloads.CanMailbox;
 import simulator.payloads.CanMailbox.ReadableCanMailbox;
@@ -143,14 +143,144 @@ public class Utility {
         }
     }
 
-    // TODO: Write HallCallArray class
-    public static class HallCallArray {
+    
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public static class HallCallArray {
+		public final int numFloors = Elevator.numFloors;
+		public HallCallFloorArray[] translatorArray;
+		
         public HallCallArray(CanConnection conn) {
-
+            translatorArray = new HallCallFloorArray[numFloors];
+			
+            for (int floor = 0; floor < numFloors; ++floor) {
+                HallCallFloorArray hcfa = new HallCallFloorArray(floor, conn);
+                translatorArray[floor] = hcfa;
+            }
         }
+		
+		public boolean getAllOff() {
+			for (int floor = 0; floor < numFloors; ++floor) {
+                if ( !translatorArray[floor].getAllOff() ) {
+					return false;
+				}
+            }
+            return true;
+        }
+		
+        public boolean getAllFloorOff(int floor) {
+            return translatorArray[floor].getAllOff();
+        }
+		
+        public boolean getAllFloorHallwayOff(int floor, Hallway hallway) {
+			return translatorArray[floor].getAllHallwayOff(hallway);
+        }
+		public boolean getOff(int floor, Hallway hallway, Direction dir){
+			return translatorArray[floor].getOff(hallway,dir);
+		}
+	}
 
-    }
+	public static class HallCallFloorArray {
+		private final int floor;
+		private HallCallFloorHallwayArray front;
+		private HallCallFloorHallwayArray back;
+		
+		
+		public HallCallFloorArray(int floor, CanConnection conn){
+			this.floor = floor;
+			front = new HallCallFloorHallwayArray(floor, Hallway.FRONT, conn);
+			back = new HallCallFloorHallwayArray(floor, Hallway.BACK, conn);
+			
+		}
+		
+		public boolean getAllOff() {
+			return (front.getAllOff() && back.getAllOff());
+		}
+		public boolean getAllHallwayOff(Hallway hallway){
+			if (hallway == Hallway.BOTH) {
+                return getAllOff();
+            } else if (hallway == Hallway.FRONT) {
+                return front.getAllOff();
+            } else if (hallway == Hallway.BACK) {
+                return back.getAllOff();
+            }
+			return false;
+		}
+		public boolean getOff(Hallway hallway, Direction dir){
+			if (hallway == Hallway.FRONT && dir == Direction.UP) {
+				return (front.up.getValue());
+			}else if (hallway == Hallway.FRONT && dir == Direction.DOWN) {
+				return (front.down.getValue());
+			}else if (hallway == Hallway.BACK && dir == Direction.UP) {
+				return (back.up.getValue());
+			}else if (hallway == Hallway.BACK && dir == Direction.DOWN) {
+				return (back.down.getValue());
+			}
+		}
+		
+	}
+	
+	public static class HallCallFloorHallwayArray {
+		private HallCallCanPayloadTranslator up;
+		private HallCallCanPayloadTranslator down;
+		public final Hallway hallway;
+		public final int floor;
+		
+		public HallCallFloorHallwayArray(int floor, Hallway hallway, CanConnection conn){
+			this.hallway = hallway;
+			this.floor = floor;
+			
+			ReadableCanMailbox m_u = CanMailbox.getReadableCanMailbox(
+					MessageDictionary.HALL_CALL_BASE_CAN_ID + 
+					ReplicationComputer.computeReplicationId(floor, hallway, 
+					Direction.UP));
+			up = new HallCallCanPayloadTranslator(m_u, hallway, Direction.UP);
+			conn.registerTimeTriggered(m_u);
+			
+			ReadableCanMailbox m_d = CanMailbox.getReadableCanMailbox(
+					MessageDictionary.HALL_CALL_BASE_CAN_ID +
+					ReplicationComputer.computeReplicationId(floor, hallway, 
+					Direction.DOWN));
+            down = new HallCallCanPayloadTranslator(m_d, hallway, Direction.DOWN);
+            conn.registerTimeTriggered(m_d);
+			
+		}
+		public boolean getAllOff(){
+			return (up.getValue() && down.getValue());
+		}
+		
+		
+	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
     public static class AtFloorArray {
 
         public HashMap<Integer, AtFloorCanPayloadTranslator> networkAtFloorsTranslators = new HashMap<Integer, AtFloorCanPayloadTranslator>();
