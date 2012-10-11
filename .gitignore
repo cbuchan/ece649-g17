@@ -7,3 +7,5 @@
 *.class
 
 
+
+/simulator/out/production/Simulator/simulator/elevatorcontrol/Utility$DoorClosedArray.class

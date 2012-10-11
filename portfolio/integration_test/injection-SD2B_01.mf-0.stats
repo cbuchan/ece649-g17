@@ -1,7 +1,7 @@
 
 Simulator Parameters:
 Command line = -cf SD2B.cf -mf SD2B_01.mf
-RandomSeed = 1349905480145
+RandomSeed = 1349995297313
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -11,18 +11,18 @@ Controller File = SD2B.cf
 
 Assertion Results:
 @0.21s:  PASSED DoorControl[FRONT][RIGHT]::checkState(STATE) ?== STATE_DOOR_CLOSING PASSED
-@0.21s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@485329c5 :: command ?== NUDGE PASSED
-@0.84s:  FAILED simulator.payloads.CanMailbox$ReadableCanMailbox@31f26605 :: getValue ?== true FAILED
-@0.84s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@f0f11b8 :: getValue ?== true PASSED
+@0.21s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@6b4da8f4 :: command ?== NUDGE PASSED
+@0.84s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2678a212 :: getValue ?== true PASSED
+@0.84s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2c641e9a :: getValue ?== true PASSED
 @1.05s:  PASSED DoorControl[FRONT][RIGHT]::checkState(STATE) ?== STATE_DOOR_OPENING PASSED
-@1.05s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@6b4da8f4 :: command ?== OPEN PASSED
-@1.46s:  FAILED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@2678a212 :: command ?== STOP FAILED
-@1.67s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2c641e9a :: getValue ?== false PASSED
-@1.67s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@33c282a1 :: getValue ?== false PASSED
+@1.05s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@270e3293 :: command ?== OPEN PASSED
+@1.26s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@77d80e6d :: getValue ?== false PASSED
+@1.26s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@348bdcd2 :: getValue ?== false PASSED
+@1.87s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@5210f6d3 :: command ?== STOP PASSED
 
 
 ******************Summary******************
-Passed:  7
-Failed:  2
+Passed:  9
+Failed:  0
 Total :  9
 

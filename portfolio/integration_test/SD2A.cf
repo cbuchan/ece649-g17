@@ -10,4 +10,4 @@
 ;========================================================================
 
 DoorControl 100ms FRONT LEFT TRUE
-CarButtonControl 4 FRONT 100ms TRUE
+CarButtonControl 5 FRONT 100ms TRUE

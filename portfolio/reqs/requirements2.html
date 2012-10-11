@@ -2853,11 +2853,14 @@
         </tr>
         <tr>
           <td style="vertical-align: top;">T9.1</td>
-          <td style="vertical-align: top;">mCarCall[f,b]=False</td>
+          <td style="vertical-align: top;">CarCall[f,b]==true</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">T9.2</td>
-          <td style="vertical-align: top;">mCarCall[f,b]=True</td>
+          <td style="vertical-align: top;">mAtFloor[f,b]==true
+            &amp;&amp; mDesiredFloor.f == f &amp;&amp; (mDesiredFloor.b
+            == b || mDesiredFloor.b = BOTH)<br>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -2872,7 +2875,7 @@
         white-space: normal; widows: 2; word-spacing: 0px;
         -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;
         display: inline !important; float: none; ">Completed by: Jessica
-        Tiu (jtiu)<br>
+        Tiu (jtiu), revised by Collin Buchan (cbuchan)<br>
       </span></p>
     <br>
     <table style="text-align: left;" border="1" cellpadding="2"
@@ -2907,23 +2910,6 @@
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);">State LIGHT_ON<br>
-          </td>
-          <td style="vertical-align: top;">X<br>
-          </td>
-          <td style="vertical-align: top;">X<br>
-          </td>
-          <td valign="top">X<br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; background-color: rgb(204,
             204, 204);">State LIGHT_OFF<br>
           </td>
           <td style="vertical-align: top;"><br>
@@ -2937,6 +2923,23 @@
           <td valign="top">X<br>
           </td>
           <td valign="top">X<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);">State LIGHT_ON<br>
+          </td>
+          <td style="vertical-align: top;">X<br>
+          </td>
+          <td style="vertical-align: top;">X<br>
+          </td>
+          <td valign="top">X<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
           </td>
         </tr>
         <tr>
@@ -2962,9 +2965,9 @@
           </td>
           <td style="vertical-align: top;">X<br>
           </td>
-          <td style="vertical-align: top;"><br>
+          <td style="vertical-align: top;">X<br>
           </td>
-          <td valign="top"><br>
+          <td valign="top">X<br>
           </td>
           <td valign="top"><br>
           </td>
@@ -2985,9 +2988,9 @@
           </td>
           <td valign="top">X<br>
           </td>
-          <td valign="top"><br>
+          <td valign="top">X<br>
           </td>
-          <td valign="top"><br>
+          <td valign="top">X<br>
           </td>
         </tr>
       </tbody>
