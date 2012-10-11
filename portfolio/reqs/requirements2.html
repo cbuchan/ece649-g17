@@ -349,8 +349,8 @@
           src="passenger_state_diagram.png" style="border: 0px solid ;
           width: 613px; height: 523px;"></a><br>
     </div>
-    <table style="text-align: left; width: 800px;" border="1"
-      cellpadding="2" cellspacing="2">
+    <table style="text-align: left; width: 800px;" cellpadding="2"
+      cellspacing="2" border="1">
       <tbody>
         <tr>
           <td style="vertical-align: top;">Trigger #<br>
@@ -488,8 +488,8 @@
       </tbody>
     </table>
     <br>
-    <table style="text-align: left; width: 800px;" border="1"
-      cellpadding="2" cellspacing="2">
+    <table style="text-align: left; width: 800px;" cellpadding="2"
+      cellspacing="2" border="1">
       <tbody>
         <tr>
           <td style="vertical-align: top;">State<br>
@@ -640,7 +640,7 @@
     'X' means that that Drive command is considered adjacent to the
     corresponding value of {DriveSpeed}:<br>
     <table style="text-align: left; width: 100%; height: 376px;"
-      border="1" cellpadding="2" cellspacing="2">
+      cellpadding="2" cellspacing="2" border="1">
       <tbody>
         <tr>
           <td style="vertical-align: top;"><br>
@@ -1013,27 +1013,30 @@
     5.6 &nbsp;&nbsp; If any mAtFloor[f, b] is True and f equals
     mDesiredFloor.f, and mDriveSpeed = (0, d) or mDriveSpeed = (s, Stop)
     then: <br>
-    &nbsp;&nbsp;&nbsp; 5.6.1&nbsp; DoorMotor[b, r] shall be commanded to
-    Open; <br>
-    &nbsp;&nbsp;&nbsp; 5.6.2&nbsp; CountDown shall be set to Dwell.<br>
-    5.7 &nbsp;&nbsp; If mDoorOpened[b, r] is True, then<br>
-    &nbsp;&nbsp;&nbsp; 5.7.1&nbsp; DoorMotor[b,r] shall be commanded to
-    Stop.<br>
-    &nbsp;&nbsp;&nbsp; 5.7.2&nbsp; CountDown shall be decremented.<br>
-    5.8&nbsp; If mDoorClosed[b, r] is True, then DoorMotor[b,r] should
-    be commanded to Stop.<br>
-    5.9&nbsp; When CountDown &lt;= 0, DoorMotor[b,r] should be commanded
-    to Close.<br>
-    5.10 If mCarWeight(g) &gt;= MaxCarCapacity, and mDoorOpened[b, r] is
-    False, DoorMotor[b, r] shall be commanded to Open.<br>
-    5.11 Dwell shall be set to an appropriate value based on
+    &nbsp;&nbsp;&nbsp; 5.6.1&nbsp;&nbsp;&nbsp; DoorMotor[b, r] shall be
+    commanded to Open; <br>
+    &nbsp;&nbsp;&nbsp; 5.6.2&nbsp;&nbsp;&nbsp; CountDown shall be set to
+    Dwell.<br>
+    5.7 &nbsp;&nbsp; If mDoorOpened[b, r] is True, then DoorMotor[b,r]
+    shall be commanded to Stop.<br>
+    5.8&nbsp;&nbsp;&nbsp; If mDoorOpened[b, r] is True, mCarWeight(g)
+    &lt; MaxCarCapacity, and mDoorReversal=false, then CountDown shall
+    be decremented.<br>
+    5.9 &nbsp;&nbsp; If mDoorClosed[b, r] is True, then DoorMotor[b,r]
+    should be commanded to Stop.<br>
+    5.10&nbsp; When CountDown &lt;= 0 and , DoorMotor[b,r] should be
+    commanded to Close.<br>
+    5.11&nbsp; If mCarWeight(g) &gt;= MaxCarCapacity, and mDoorOpened[b,
+    r] is False, DoorMotor[b, r] shall be commanded to Open.<br>
+    5.12&nbsp; Dwell shall be set to an appropriate value based on
     mDesiredDwell[b].<br>
-    5.12 mDoorMotor[b,r] shall be set to the current value of
+    5.13&nbsp; mDoorMotor[b,r] shall be set to the current value of
     DoorMotor[b,r]<br>
-    5.13 If mDoorReversal=true, and mDoorOpened[b,r] is False,
+    5.14&nbsp; If mDoorReversal=true, and mDoorOpened[b,r] is False,
     DoorMotor[b,r] shall be commanded to Open.<br>
-    5.14 If mCarCall[g,c] is received and any mAtFloor[f,b] is True such
-    that f equals g, then DoorMotor[b,r] shall be commanded to Open.<br>
+    5.15&nbsp; If mCarCall[g,c] is received and any mAtFloor[f,b] is
+    True such that f equals g, then DoorMotor[b,r] shall be commanded to
+    Open.<br>
     <br>
     <h3>STATECHART: </h3>
     <img alt="SC_DoorControl" src="SC_DoorControl.png"><br>
@@ -1041,8 +1044,8 @@
     <meta charset="utf-8">
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
-      word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
-      cellspacing="2">
+      word-spacing: 0px; text-align: left;" cellpadding="2"
+      cellspacing="2" border="1">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -1101,8 +1104,9 @@
         <tr>
           <td style="vertical-align: top; ">T5.6<br>
           </td>
-          <td style="vertical-align: top; ">mDoorOpened[b,r] == True &amp;&amp;
-            ( mCarWeight(g) &gt;= MaxCarCapacity || mDoorReversal==True )<br>
+          <td style="vertical-align: top; ">mDoorOpened[b,r] == True
+            &amp;&amp; ( mCarWeight(g) &gt;= MaxCarCapacity ||
+            mDoorReversal==True )<br>
           </td>
         </tr>
         <tr>
@@ -1125,14 +1129,14 @@
     <h3>REQUIREMENTS TO STATECHART TRACEABILITY:</h3>
     <p>Completed by: Rajeev Sharma (rdsharma)<br>
     </p>
-    <table style="text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="342" width="790">
+    <table style=" text-align: left; width: 790px; height: 342px;"
+      cellpadding="2" cellspacing="2" border="1">
       <tbody>
         <tr style="font-weight: bold;">
-          <td style="vertical-align: top; background-color: rgb(204,
+          <td style=" vertical-align: top; background-color: rgb(204,
             204, 204);"><br>
           </td>
-          <td colspan="13" rowspan="1" style="vertical-align: top;
+          <td colspan="12" rowspan="1" style="vertical-align: top;
             background-color: rgb(204, 204, 204);">Requirements<br>
           </td>
         </tr>
@@ -1149,24 +1153,21 @@
           <td bgcolor="#cccccc" valign="top">BR5.6.2<br>
           </td>
           <td bgcolor="#cccccc" valign="top">BR5.7</td>
-          <td bgcolor="#cccccc" valign="top">BR5.7.1<br>
-          </td>
-          <td bgcolor="#cccccc" valign="top">BR5.7.2</td>
           <td bgcolor="#cccccc" valign="top">BR5.8<br>
           </td>
-          <td bgcolor="#cccccc" valign="top">BR5.9<br>
+          <td bgcolor="#cccccc" valign="top">BR5.9</td>
+          <td bgcolor="#cccccc" valign="top">BR5.10<br>
           </td>
-          <td bgcolor="#cccccc" valign="top">BR5.10</td>
-          <td bgcolor="#cccccc" valign="top">BR5.11</td>
+          <td bgcolor="#cccccc" valign="top">BR5.11<br>
+          </td>
           <td bgcolor="#cccccc" valign="top">BR5.12</td>
           <td bgcolor="#cccccc" valign="top">BR5.13</td>
           <td bgcolor="#cccccc" valign="top">BR5.14</td>
+          <td bgcolor="#cccccc" valign="top">BR5.15</td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);">State DOOR_CLOSING<br>
-          </td>
-          <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
@@ -1196,8 +1197,6 @@
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);">State DOOR_CLOSED<br>
-          </td>
-          <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
@@ -1244,8 +1243,6 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
-          </td>
           <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle">X<br>
@@ -1265,11 +1262,38 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
           <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);">State DOOR_OPEN_E<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
@@ -1317,8 +1341,6 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
-          </td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
@@ -1334,11 +1356,10 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle"><br>
-            X</td>
-          <td align="center" valign="middle"><br>
+            <br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
@@ -1355,9 +1376,7 @@
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);">T5.2<br>
           </td>
-          <td align="center" valign="middle"><br>
-            X</td>
-          <td align="center" valign="middle"><br>
+          <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
@@ -1371,24 +1390,29 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
+          <td align="center" valign="middle">X<br>
+          </td>
           <td align="center" valign="middle"><br>
-            X</td>
-          <td align="center" valign="middle"><br>
+            <br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
-            X</td>
-          <td align="center" valign="middle"><br>
-            X</td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);">T5.3<br>
           </td>
           <td align="center" valign="middle"><br>
-            X</td>
+          </td>
           <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
@@ -1399,19 +1423,14 @@
           <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
+            <br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
-            X</td>
-          <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
-            X</td>
-          <td align="center" valign="middle"><br>
-            X</td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
@@ -1422,16 +1441,15 @@
           <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-            X</td>
-          <td align="center" valign="middle"><br>
+            <br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
@@ -1448,7 +1466,7 @@
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);">T5.5<br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
@@ -1462,9 +1480,98 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
+          <td align="center" valign="middle">X<br>
+          </td>
           <td align="center" valign="middle"><br>
-            X</td>
+            <br>
+          </td>
           <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);">T5.6<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+            <br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);">T5.7<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+            <br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);">T5.8<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+            <br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
@@ -1542,7 +1649,7 @@
     'X' means that that Drive command is considered adjacent to the
     corresponding value of {DriveSpeed}:<br>
     <table style="text-align: left; width: 100%; height: 376px;"
-      border="1" cellpadding="2" cellspacing="2">
+      cellpadding="2" cellspacing="2" border="1">
       <tbody>
         <tr>
           <td style="vertical-align: top;"><br>
@@ -1759,8 +1866,8 @@
     <br>
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
-      word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="113" width="525">
+      word-spacing: 0px; text-align: left;" cellpadding="2"
+      cellspacing="2" height="113" border="1" width="525">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -1860,8 +1967,8 @@
     </span>
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
-      word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="399" width="656">
+      word-spacing: 0px; text-align: left;" cellpadding="2"
+      cellspacing="2" height="399" border="1" width="656">
       <tbody>
         <tr style="font-weight: bold; ">
           <td style="vertical-align: top; background-color: rgb(204,
@@ -2259,8 +2366,8 @@
     <meta charset="utf-8">
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
-      word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="97" width="525">
+      word-spacing: 0px; text-align: left;" cellpadding="2"
+      cellspacing="2" height="97" border="1" width="525">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -2308,7 +2415,7 @@
       2; text-indent: 0px; text-transform: none; widows: 2;
       word-spacing: 0px; -webkit-text-size-adjust: auto;
       -webkit-text-stroke-width: 0px; text-align: left; width: 409px;
-      height: 312px; " border="1" cellpadding="2" cellspacing="2">
+      height: 312px; " cellpadding="2" cellspacing="2" border="1">
       <tbody>
         <tr style="font-weight: bold; ">
           <td style="vertical-align: top; background-color: rgb(204,
@@ -2475,8 +2582,8 @@
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
       word-spacing: 0px; -webkit-text-size-adjust: auto;
-      -webkit-text-stroke-width: 0px; text-align: left; " border="1"
-      cellpadding="2" cellspacing="2" height="97" width="525">
+      -webkit-text-stroke-width: 0px; text-align: left; "
+      cellpadding="2" cellspacing="2" height="97" border="1" width="525">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -2515,8 +2622,9 @@
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
       word-spacing: 0px; -webkit-text-size-adjust: auto;
-      -webkit-text-stroke-width: 0px; text-align: left; " border="1"
-      cellpadding="2" cellspacing="2" height="342" width="790">
+      -webkit-text-stroke-width: 0px; text-align: left; "
+      cellpadding="2" cellspacing="2" height="342" border="1"
+      width="790">
       <tbody>
         <tr style="font-weight: bold; ">
           <td style="vertical-align: top; background-color: rgb(204,
@@ -2724,8 +2832,8 @@
     <h3>STATECHART: </h3>
     <img alt="SC_CarButtonControl" src="SC_CarButtonControl.png"
       height="385" width="670">
-    <table style="text-align: left; width: 800px;" border="1"
-      cellpadding="2" cellspacing="2">
+    <table style="text-align: left; width: 800px;" cellpadding="2"
+      cellspacing="2" border="1">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -2758,8 +2866,8 @@
         display: inline !important; float: none; ">Completed by: Jessica
         Tiu (jtiu)<br>
       </span></p>
-    <table style="text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="233" width="552">
+    <table style="text-align: left;" cellpadding="2" cellspacing="2"
+      height="233" border="1" width="552">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
@@ -2930,8 +3038,8 @@
     <img alt="SC_CarPositionControl" src="SC_CarPositionControl.png"
       height="337" width="466"><br>
     <br>
-    <table style="text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="58" width="324">
+    <table style="text-align: left;" cellpadding="2" cellspacing="2"
+      height="58" border="1" width="324">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -2958,8 +3066,8 @@
         display: inline !important; float: none; ">Completed by: Jesse
         Salazar (jessesal)<br>
       </span></p>
-    <table style="text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="86" width="304">
+    <table style="text-align: left;" cellpadding="2" cellspacing="2"
+      height="86" border="1" width="304">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
@@ -3057,8 +3165,8 @@
     <h3>STATECHART:</h3>
     <img alt="SC_Dispatcher" src="SC_Dispatcher.png" height="550"
       width="766">&nbsp; <br>
-    <table style="text-align: left; width: 800px;" border="1"
-      cellpadding="2" cellspacing="2">
+    <table style="text-align: left; width: 800px;" cellpadding="2"
+      cellspacing="2" border="1">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -3106,8 +3214,8 @@
         -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;
         display: inline !important; float: none; ">Completed by: Jesse
         Salazar (jessesal)</span></p>
-    <table style="text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="342" width="790">
+    <table style="text-align: left;" cellpadding="2" cellspacing="2"
+      height="342" border="1" width="790">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,

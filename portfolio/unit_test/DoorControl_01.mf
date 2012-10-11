@@ -31,47 +31,47 @@
 +0s    A F DoorMotor FRONT LEFT : command == STOP
 +0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == STOP
 
-;set conditions for T5.3
+;set conditions for T5.2
 +0.09s I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
 +0s    I DOOR_CONTROL_PERIOD N CAR_CALL_[1][FRONT]_CAN_ID Boolean = true
 +0s    I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 1 FRONT STOP
 
 
-;#transition T5.3
+;#transition T5.2
 ;check state
 +0.41s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPENING
 +0s    A F DoorMotor FRONT LEFT : command == OPEN
 +0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == OPEN
 
 
-;set conditions for T5.4
+;set conditions for T5.3
 +0s    I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
 +0s    I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
 +0.9s  I DOOR_CONTROL_PERIOD N CAR_CALL_[1][FRONT]_CAN_ID Boolean = false
 +0s    I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT = 1
 
-;#transition T5.4
+;#transition T5.3
 ;check state
 +0.61s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPEN
 +0s    A F DoorMotor FRONT LEFT : command == STOP
 +0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == STOP
 
-;set conditions for T5.5
+;set conditions for T5.4
 +0.09s I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 2 FRONT STOP
 
-;#transition T5.5
+;#transition T5.4
 ;check state
 ;should have transitioned due to countdown timer
 +1.21s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_CLOSING
 +0s    A F DoorMotor FRONT LEFT : command == NUDGE
 +0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == NUDGE
 
-;set conditions for T5.2
+;set conditions for T5.5
 +0s    I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = false
 +0.09s I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
 +0s    I DOOR_CONTROL_PERIOD N CAR_CALL_[1][FRONT]_CAN_ID Boolean = true
 
-;#transition T5.2
+;#transition T5.5
 ;check state
 +0.41s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPENING
 +0s    A F DoorMotor FRONT LEFT : command == OPEN
