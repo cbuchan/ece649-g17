@@ -18,6 +18,7 @@ import simulator.elevatormodules.CarWeightCanPayloadTranslator;
 import simulator.framework.Controller;
 import simulator.framework.Hallway;
 import simulator.framework.ReplicationComputer;
+import simulator.framework.Direction;
 import simulator.payloads.CanMailbox;
 import simulator.payloads.CanMailbox.ReadableCanMailbox;
 import simulator.payloads.CanMailbox.WriteableCanMailbox;
@@ -172,10 +173,10 @@ public class Dispatcher extends Controller {
 				
                 //state actions for DRIVE_STOPPED
 				targetFloor = 1;
-				targetHallway = NONE;
+				targetHallway = Hallway.NONE;
 				mDesiredFloor.setFloor(targetFloor);
 				mDesiredFloor.setHallway(targetHallway);
-				mDesiredFloor.setDirection(STOP);
+				mDesiredFloor.setDirection(Direction.STOP);
 				mDesiredDwellBack.set(CONST_DWELL);
 				mDesiredDwellFront.set(CONST_DWELL);
 				
