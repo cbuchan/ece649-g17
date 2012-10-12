@@ -1,0 +1,36 @@
+/* 18649 Fall 2012
+ * (Group  17)
+ * Jesse Salazar (jessesal)
+ * Rajeev Sharma (rdsharma) 
+ * Collin Buchan (cbuchan)
+ * Jessica Tiu   (jtiu)
+ */
+
+Simulator Parameters:
+Command line = -cf Dispatcher.cf -mf Dispatcher_01.mf
+RandomSeed = 1350005933715
+CanNetworkBitTime = 0 ns
+Effective Can Bitrate = Infinity
+Run Time = null
+Real time rate = null
+Message File = Dispatcher_01.mf
+Controller File = Dispatcher.cf
+
+Assertion Results:
+@0.25s:  PASSED Dispatcher::checkState(STATE) ?== STATE_INIT PASSED
+@0.25s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@56406199 :: getFloor ?== 1 PASSED
+@0.25s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@79f6f296 :: getHallway ?== NONE PASSED
+@0.25s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@7ddf5a8f :: getDirection ?== STOP PASSED
+@0.25s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@4de13d52 :: getDwell ?== 100 PASSED
+@0.25s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@45b9ce4b :: getDwell ?== 100 PASSED
+@0.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@68861f24 :: getFloor ?== 1 PASSED
+@0.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@1f292d26 :: getDirection ?== STOP PASSED
+@0.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@4bdb699b :: getDwell ?== 100 PASSED
+@0.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2107ebe1 :: getDwell ?== 100 PASSED
+
+
+******************Summary******************
+Passed:  10
+Failed:  0
+Total :  10
+

@@ -1,18 +1,48 @@
-; 18649 Fall 2012 - Group 17
-; Jesse Salazar (jessesal)*
-; Jessica Tiu (jtiu)
-; Collin Buchan (cbuchan)
-; Rajeev Sharma (rdsharma)
-; * Author
+;========================================================================
+; Unit Test for Dispatcher (1)
+;========================================================================
+;18649 Fall 2012
+;Group17
+;Collin Buchan (cbuchan) - Author
+;Rajeev Sharma (rdsharma)
+;Jesse Salazar (jessesal)
+;Jessica Tiu   (jtiu)
+;
+;Last modified 2012-10-11 (cbuchan)
+;========================================================================
 
 ; Unit test for Dispatcher
 ; General test, completes all transitions and states
 
 #INCLUDE defines.mf ;include CAN id and period definitions
 
+#DEFINE CONST_DWELL 100
+
+;========================================================================
 ;initialize
-0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
+;========================================================================
+0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
 0s     I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
-0s     I DOOR_CONTROL_PERIOD N CAR_CALL_[1][FRONT]_CAN_ID Boolean = false
 0s     I DOOR_CONTROL_PERIOD N HALL_CALL_[1][FRONT][UP]_CAN_ID Boolean = false
 
+;#state 'INIT'
++0.25s  A S Dispatcher : STATE == STATE_INIT
++0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 1
++0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == NONE
++0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
+
++0s     A N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT : getDwell == CONST_DWELL
++0s     A N DESIRED_DWELL_[BACK]_CAN_ID DesiredDwell BACK : getDwell == CONST_DWELL
+
+;#transition 'T11.1'
++0.25s  I DOOR_CONTROL_PERIOD N HALL_CALL_[1][FRONT][UP]_CAN_ID Boolean = true
+
+
+;#state 'COMPUTE_NEXT'
+;+0.25s  A S Dispatcher : STATE == STATE_COMPUTE_NEXT
++0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 1
+;+0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == BOTH
++0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
+
++0s     A N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT : getDwell == CONST_DWELL
++0s     A N DESIRED_DWELL_[BACK]_CAN_ID DesiredDwell BACK : getDwell == CONST_DWELL
