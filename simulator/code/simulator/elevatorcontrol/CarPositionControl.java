@@ -1,7 +1,7 @@
 /* 18649 Fall 2012
  * (Group  17)
- * Jesse Salazar (jessesal) - Author
- * Rajeev Sharma (rdsharma) 
+ * Jesse Salazar (jessesal) - Editor
+ * Rajeev Sharma (rdsharma) - Author 
  * Collin Buchan (cbuchan)
  * Jessica Tiu   (jtiu)
  */

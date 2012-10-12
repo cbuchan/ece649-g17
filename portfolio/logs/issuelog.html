@@ -447,7 +447,7 @@
           </td>
           <td valign="top">10/11/2012<br>
           </td>
-          <td valign="top"><b>Open Issue</b><br>
+          <td valign="top">10/11/2012<br>
           </td>
           <td valign="top">rdsharma<br>
           </td>
@@ -457,11 +457,11 @@
             always return STOP when car is between floors, stopping the
             car as a result.<br>
           </td>
-          <td valign="top"><b>TODO</b>: <br>
-            Fix getDesiredDir() -- possibly save previous AtFloor and
-            compare to DesiredFloor to determine direction desired<br>
+          <td valign="top">Fix getDesiredDir() -- possibly save previous
+            AtFloor and compare to DesiredFloor to determine direction
+            desired<br>
           </td>
-          <td valign="top"><br>
+          <td valign="top">DriveControl.java<br>
           </td>
         </tr>
         <tr>
@@ -475,15 +475,15 @@
           </td>
           <td valign="top">SD3A<br>
           </td>
-          <td valign="top">Previously both Level sensors were set to true 
-            simultaneously, which will not transition DriveControl out of 
-            DRIVE_SLOW.<br>
+          <td valign="top">Previously both Level sensors were set to
+            true simultaneously, which will not transition DriveControl
+            out of DRIVE_SLOW.<br>
           </td>
-          <td valign="top">Added arc 1c (mLevel[Down]=True) and shifted down 
-            other 1x arcs.  Since this sets the direction explicitly, arc 1d 
-            (previously 1c) was changed to check for (Level, Up) and arc 1e 
-            (previously 1d) was changed to set mLevel[Up] = true.
-          </td>
+          <td valign="top">Added arc 1c (mLevel[Down]=True) and shifted
+            down other 1x arcs. Since this sets the direction
+            explicitly, arc 1d (previously 1c) was changed to check for
+            (Level, Up) and arc 1e (previously 1d) was changed to set
+            mLevel[Up] = true. </td>
           <td valign="top">SD3A, sd_req_tracability.xls<br>
           </td>
         </tr>
