@@ -43,10 +43,10 @@ public class Utility {
          * looping through them as we do in the other array classes.  This hurts
          * modularity but results in much cleaner and more efficient code.
          */
-        
+
         private DoorClosedHallwayArray front;
         private DoorClosedHallwayArray back;
-        
+
         public DoorClosedArray(CanConnection conn) {
             front = new DoorClosedHallwayArray(Hallway.FRONT, conn);
             back = new DoorClosedHallwayArray(Hallway.BACK, conn);
@@ -80,7 +80,7 @@ public class Utility {
     }
 
     public static class DoorClosedHallwayArray {
-        
+
         private DoorClosedCanPayloadTranslator left;
         private DoorClosedCanPayloadTranslator right;
         public final Hallway hallway;
@@ -90,15 +90,15 @@ public class Utility {
 
             ReadableCanMailbox m_l = CanMailbox.getReadableCanMailbox(
                     MessageDictionary.DOOR_CLOSED_SENSOR_BASE_CAN_ID +
-                    ReplicationComputer.computeReplicationId(hallway, 
-                    Side.LEFT));
+                            ReplicationComputer.computeReplicationId(hallway,
+                                    Side.LEFT));
             left = new DoorClosedCanPayloadTranslator(m_l, hallway, Side.LEFT);
             conn.registerTimeTriggered(m_l);
 
             ReadableCanMailbox m_r = CanMailbox.getReadableCanMailbox(
                     MessageDictionary.DOOR_CLOSED_SENSOR_BASE_CAN_ID +
-                    ReplicationComputer.computeReplicationId(hallway, 
-                    Side.RIGHT));
+                            ReplicationComputer.computeReplicationId(hallway,
+                                    Side.RIGHT));
             right = new DoorClosedCanPayloadTranslator(m_r, hallway, Side.RIGHT);
             conn.registerTimeTriggered(m_r);
         }
@@ -143,142 +143,132 @@ public class Utility {
 
             return translatorArray[floor - 1].getValue();
         }
-		public boolean getAllOff(){
-			for (int floor = 0; floor < numFloors; ++floor) {
-                if ( translatorArray[floor].getValue() ) {
-					return false;
-				}
+
+        public boolean getAllOff() {
+            for (int floor = 0; floor < numFloors; ++floor) {
+                if (translatorArray[floor].getValue()) {
+                    return false;
+                }
             }
             return true;
-			
-		}
+
+        }
     }
 
-    
-    
-	
-	
-	
-	
-	
-	public static class HallCallArray {
-		public final int numFloors = Elevator.numFloors;
-		public HallCallFloorArray[] translatorArray;
-		
+
+    public static class HallCallArray {
+        public final int numFloors = Elevator.numFloors;
+        public HallCallFloorArray[] translatorArray;
+
         public HallCallArray(CanConnection conn) {
             translatorArray = new HallCallFloorArray[numFloors];
-			
+
             for (int floor = 0; floor < numFloors; ++floor) {
                 HallCallFloorArray hcfa = new HallCallFloorArray(floor + 1, conn);
                 translatorArray[floor] = hcfa;
             }
         }
-		
-		public boolean getAllOff() {
-			for (int floor = 0; floor < numFloors; ++floor) {
-                if ( !translatorArray[floor].getAllOff() ) {
-					return false;
-				}
+
+        public boolean getAllOff() {
+            for (int floor = 0; floor < numFloors; ++floor) {
+                if (!translatorArray[floor].getAllOff()) {
+                    return false;
+                }
             }
             return true;
         }
-		
+
         public boolean getAllFloorOff(int floor) {
             return translatorArray[floor].getAllOff();
         }
-		
-        public boolean getAllFloorHallwayOff(int floor, Hallway hallway) {
-			return translatorArray[floor].getAllHallwayOff(hallway);
-        }
-		public boolean getOff(int floor, Hallway hallway, Direction dir){
-			return translatorArray[floor].getOff(hallway,dir);
-		}
-	}
 
-	public static class HallCallFloorArray {
-		private final int floor;
-		private HallCallFloorHallwayArray front;
-		private HallCallFloorHallwayArray back;
-		
-		
-		public HallCallFloorArray(int floor, CanConnection conn){
-			this.floor = floor;
-			front = new HallCallFloorHallwayArray(floor, Hallway.FRONT, conn);
-			back = new HallCallFloorHallwayArray(floor, Hallway.BACK, conn);
-			
-		}
-		
-		public boolean getAllOff() {
-			return (front.getAllOff() && back.getAllOff());
-		}
-		public boolean getAllHallwayOff(Hallway hallway){
-			if (hallway == Hallway.BOTH) {
+        public boolean getAllFloorHallwayOff(int floor, Hallway hallway) {
+            return translatorArray[floor].getAllHallwayOff(hallway);
+        }
+
+        public boolean getOff(int floor, Hallway hallway, Direction dir) {
+            return translatorArray[floor].getOff(hallway, dir);
+        }
+    }
+
+    public static class HallCallFloorArray {
+        private final int floor;
+        private HallCallFloorHallwayArray front;
+        private HallCallFloorHallwayArray back;
+
+
+        public HallCallFloorArray(int floor, CanConnection conn) {
+            this.floor = floor;
+            front = new HallCallFloorHallwayArray(floor, Hallway.FRONT, conn);
+            back = new HallCallFloorHallwayArray(floor, Hallway.BACK, conn);
+        }
+
+        public boolean getAllOff() {
+            return (front.getAllOff() && back.getAllOff());
+        }
+
+        public boolean getAllHallwayOff(Hallway hallway) {
+            if (hallway == Hallway.BOTH) {
                 return getAllOff();
             } else if (hallway == Hallway.FRONT) {
                 return front.getAllOff();
             } else if (hallway == Hallway.BACK) {
                 return back.getAllOff();
             }
-			return false;
-		}
-		/* NOTE: As of now, do not call getOff for hallway == BOTH, and a specified direction */
-		public boolean getOff(Hallway hallway, Direction dir){
-			if (hallway == Hallway.FRONT && dir == Direction.UP) {
-				return (front.up.getValue());
-			}else if (hallway == Hallway.FRONT && dir == Direction.DOWN) {
-				return (front.down.getValue());
-			}else if (hallway == Hallway.BACK && dir == Direction.UP) {
-				return (back.up.getValue());
-			}else if (hallway == Hallway.BACK && dir == Direction.DOWN) {
-				return (back.down.getValue());
-			}else if (hallway == Hallway.BOTH && dir == Direction.UP) {
-			}
-			return false; 
-		}
-		
-	}
-	
-	public static class HallCallFloorHallwayArray {
-		private HallCallCanPayloadTranslator up;
-		private HallCallCanPayloadTranslator down;
-		public final Hallway hallway;
-		public final int floor;
-		
-		public HallCallFloorHallwayArray(int floor, Hallway hallway, CanConnection conn){
-			this.hallway = hallway;
-			this.floor = floor;
-			
-			ReadableCanMailbox m_u = CanMailbox.getReadableCanMailbox(
-					MessageDictionary.HALL_CALL_BASE_CAN_ID + 
-					ReplicationComputer.computeReplicationId(floor, hallway, 
-					Direction.UP));
-			up = new HallCallCanPayloadTranslator(m_u, floor, hallway, Direction.UP);
-			conn.registerTimeTriggered(m_u);
-			
-			ReadableCanMailbox m_d = CanMailbox.getReadableCanMailbox(
-					MessageDictionary.HALL_CALL_BASE_CAN_ID +
-					ReplicationComputer.computeReplicationId(floor, hallway, 
-					Direction.DOWN));
+            throw new RuntimeException("Illegal hallway in HallCallFloorArray.getAllHallwayOff");
+        }
+
+        /* NOTE: As of now, do not call getOff for hallway == BOTH, and a specified direction */
+        public boolean getOff(Hallway hallway, Direction dir) {
+            if (hallway == Hallway.FRONT && dir == Direction.UP) {
+                return (front.up.getValue());
+            } else if (hallway == Hallway.FRONT && dir == Direction.DOWN) {
+                return (front.down.getValue());
+            } else if (hallway == Hallway.BACK && dir == Direction.UP) {
+                return (back.up.getValue());
+            } else if (hallway == Hallway.BACK && dir == Direction.DOWN) {
+                return (back.down.getValue());
+            } else if (hallway == Hallway.BOTH && dir == Direction.UP) {
+            }
+            throw new RuntimeException("Illegal hallway in HallCallFloorArray.getAllHallwayOff");
+        }
+
+    }
+
+    public static class HallCallFloorHallwayArray {
+        private HallCallCanPayloadTranslator up;
+        private HallCallCanPayloadTranslator down;
+        public final Hallway hallway;
+        public final int floor;
+
+        public HallCallFloorHallwayArray(int floor, Hallway hallway, CanConnection conn) {
+            this.hallway = hallway;
+            this.floor = floor;
+
+            ReadableCanMailbox m_u = CanMailbox.getReadableCanMailbox(
+                    MessageDictionary.HALL_CALL_BASE_CAN_ID +
+                            ReplicationComputer.computeReplicationId(floor, hallway,
+                                    Direction.UP));
+            up = new HallCallCanPayloadTranslator(m_u, floor, hallway, Direction.UP);
+            conn.registerTimeTriggered(m_u);
+
+            ReadableCanMailbox m_d = CanMailbox.getReadableCanMailbox(
+                    MessageDictionary.HALL_CALL_BASE_CAN_ID +
+                            ReplicationComputer.computeReplicationId(floor, hallway,
+                                    Direction.DOWN));
             down = new HallCallCanPayloadTranslator(m_d, floor, hallway, Direction.DOWN);
             conn.registerTimeTriggered(m_d);
-			
-		}
-		public boolean getAllOff(){
-			return (up.getValue() && down.getValue());
-		}
-		
-		
-	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
+        }
+
+        public boolean getAllOff() {
+            return (!up.getValue() && !down.getValue());
+        }
+
+
+    }
+
+
     public static class AtFloorArray {
 
         public HashMap<Integer, AtFloorCanPayloadTranslator> networkAtFloorsTranslators = new HashMap<Integer, AtFloorCanPayloadTranslator>();
