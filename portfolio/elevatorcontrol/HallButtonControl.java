@@ -9,7 +9,7 @@
 package simulator.elevatorcontrol;
 
 import jSimPack.SimTime;
-import simulator.elevatorcontrol.Utility.DoorClosedArray;
+import simulator.elevatorcontrol.Utility.DoorClosedHallwayArray;
 import simulator.elevatormodules.AtFloorCanPayloadTranslator;
 import simulator.elevatormodules.DoorClosedCanPayloadTranslator;
 import simulator.framework.*;
@@ -44,7 +44,7 @@ public class HallButtonControl extends Controller {
     //input network messages
     private ReadableCanMailbox networkDesiredFloor;
     private ReadableCanMailbox networkAtFloor;
-    private DoorClosedArray networkDoorClosed;
+    private DoorClosedHallwayArray networkDoorClosed;
 
     //translators for input network messages
     private BooleanCanPayloadTranslator mHallCall;
@@ -135,7 +135,7 @@ public class HallButtonControl extends Controller {
          * elevatormodules package.  These translators are specific to one type
          * of message.
          */
-        networkDoorClosed = new Utility.DoorClosedArray(hallway, canInterface);
+        networkDoorClosed = new Utility.DoorClosedHallwayArray(hallway, canInterface);
         networkDesiredFloor = CanMailbox.getReadableCanMailbox(MessageDictionary.DESIRED_FLOOR_CAN_ID);
         networkAtFloor = CanMailbox.getReadableCanMailbox(
                 MessageDictionary.AT_FLOOR_BASE_CAN_ID + ReplicationComputer.computeReplicationId(floor, hallway));
@@ -188,7 +188,7 @@ public class HallButtonControl extends Controller {
 
                 //transitions -- note that transition conditions are mutually exclusive
                 //#transition 'T8.2'
-                if (networkDoorClosed.getBothClosed() == false && mAtFloor.getValue() == true && mDesiredFloor.getFloor() == floor &&
+                if (networkDoorClosed.getAllClosed() == false && mAtFloor.getValue() == true && mDesiredFloor.getFloor() == floor &&
                         (mDesiredFloor.getDirection() == Direction.STOP || mDesiredFloor.getDirection() == direction)) {
                     newState = State.STATE_HALL_CALL_OFF;
                 } else {

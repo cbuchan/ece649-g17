@@ -34,9 +34,9 @@ import simulator.payloads.CanMailbox.WriteableCanMailbox;
  * @author Collin Buchan, Jesse Salazar
  */
 public class Dispatcher extends Controller {
-	
-	public static final byte FRONT_LAND =0;
-	public static final byte BACK_LAND =1;
+
+    public static final byte FRONT_LAND = 0;
+    public static final byte BACK_LAND = 1;
 
     /**
      * ************************************************************************
@@ -147,8 +147,7 @@ public class Dispatcher extends Controller {
         networkCarWeight =
                 CanMailbox.getReadableCanMailbox(MessageDictionary.CAR_WEIGHT_CAN_ID);
 
-        mCarWeight =
-                new CarWeightCanPayloadTranslator(networkCarWeight);
+        mCarWeight = new CarWeightCanPayloadTranslator(networkCarWeight);
 
         //register to receive periodic updates to the mailbox via the CAN network
         //the period of updates will be determined by the sender of the message
@@ -162,6 +161,24 @@ public class Dispatcher extends Controller {
         timer.start(period);
     }
 
+    private boolean allCallsOff() {
+        return networkHallCallArray.getAllOff() && networkCarCallArrayBack.getAllOff() && networkCarCallArrayFront.getAllOff();
+    }
+
+    private Hallway getAllHallways(int floor) {
+        Hallway desiredHallway;
+        if (Elevator.hasLanding(targetFloor, Hallway.BACK) && Elevator.hasLanding(targetFloor, Hallway.FRONT)) {
+            desiredHallway = Hallway.BOTH;
+        } else if (Elevator.hasLanding(targetFloor, Hallway.BACK)) {
+            desiredHallway = Hallway.BACK;
+        } else if (Elevator.hasLanding(targetFloor, Hallway.FRONT)) {
+            desiredHallway = Hallway.FRONT;
+        } else {
+            desiredHallway = Hallway.NONE;
+        }
+        return desiredHallway;
+    }
+
     /*
      * The timer callback is where the main controller code is executed.  For time
      * triggered design, this consists mainly of a switch block with a case blcok for
@@ -170,103 +187,80 @@ public class Dispatcher extends Controller {
      */
     public void timerExpired(Object callbackData) {
         State newState = state;
+
         switch (state) {
 
             case STATE_INIT:
-				
+
                 //state actions for DRIVE_STOPPED
-				targetFloor = 1;
-				targetHallway = Hallway.NONE;
-				mDesiredFloor.setFloor(targetFloor);
-				mDesiredFloor.setHallway(targetHallway);
-				mDesiredFloor.setDirection(Direction.STOP);
-				mDesiredDwellBack.set(CONST_DWELL);
-				mDesiredDwellFront.set(CONST_DWELL);
-				
-				//#transition 'T11.1'
-				// (mAtFloor[1,front] == True || mAtFloor[1,back] == True) && 
-				//	((any mHallCall[f,b,d] == True) || 
-				//	(any mCarCall[f,b] == True))
-				if ( (networkAtFloorArray.isAtFloor(1,Hallway.FRONT)||
-					  networkAtFloorArray.isAtFloor(1,Hallway.BACK)   )  &&
-					 ( (!networkHallCallArray.getAllOff()) || 
-					   (!networkCarCallArrayBack.getAllOff()) ||
-					  (!networkCarCallArrayFront.getAllOff())        )){
-						 newState = State.STATE_COMPUTE_NEXT;
-				}else {
-					newState = state;
-				}
+                targetFloor = 1;
+                targetHallway = Hallway.NONE;
+                mDesiredFloor.setFloor(targetFloor);
+                mDesiredFloor.setHallway(targetHallway);
+                mDesiredFloor.setDirection(Direction.STOP);
+                mDesiredDwellBack.set(CONST_DWELL);
+                mDesiredDwellFront.set(CONST_DWELL);
+
+                //#transition 'T11.1'
+                //  (mAtFloor[1,front] == True || mAtFloor[1,back] == True) &&
+                //	((any mHallCall[f,b,d] == True) || (any mCarCall[f,b] == True))
+                if (networkAtFloorArray.getCurrentFloor() == 1 && !allCallsOff()) {
+                    newState = State.STATE_COMPUTE_NEXT;
+                } else {
+                    newState = state;
+                }
                 break;
-					
+
             case STATE_COMPUTE_NEXT:
 
-				//state actions for STATE_IDLE
-				targetFloor = 
-					(networkAtFloorArray.getCurrentFloor() % Elevator.numFloors) + 1;
-				
-				//sret the targetHallway to be as many floors as possible
-				if (Elevator.hasLanding(targetFloor,Hallway.BACK) &&
-					Elevator.hasLanding(targetFloor,Hallway.FRONT)){
-					targetHallway = Hallway.BOTH;
-				}else if (Elevator.hasLanding(targetFloor,Hallway.BACK)) {
-					targetHallway = Hallway.BACK;
-				}else if (Elevator.hasLanding(targetFloor,Hallway.FRONT)) {
-					targetHallway = Hallway.FRONT;
-				}else {
-					targetHallway = Hallway.NONE;
-				}
+                //state actions for STATE_IDLE
+                targetFloor = (networkAtFloorArray.getCurrentFloor() % Elevator.numFloors) + 1;
 
-				mDesiredFloor.setFloor(targetFloor);
-				mDesiredFloor.setHallway(targetHallway);
-				mDesiredFloor.setDirection(Direction.STOP);
-				mDesiredDwellBack.set(CONST_DWELL);
-				mDesiredDwellFront.set(CONST_DWELL);
-				
-				
-				
-				//#transition 'T11.2'
-                if (true){
-					newState = State.STATE_SERVICE_CALL;
-				}
+                //set the target Hallway to be as many floors as possible
+                targetHallway = getAllHallways(targetFloor);
+
+                mDesiredFloor.setFloor(targetFloor);
+                mDesiredFloor.setHallway(targetHallway);
+                mDesiredFloor.setDirection(Direction.STOP);
+                mDesiredDwellBack.set(CONST_DWELL);
+                mDesiredDwellFront.set(CONST_DWELL);
+
+
+                //#transition 'T11.2'
+                if (true) {
+                    newState = State.STATE_SERVICE_CALL;
+                }
+
                 break;
-				
-				
+
             case STATE_SERVICE_CALL:
 
-
                 //state actions for STATE_COMPUTE_NEXT
-				targetFloor = targetFloor;
-				targetHallway = targetHallway;
-				mDesiredFloor.setFloor(targetFloor);
-				mDesiredFloor.setHallway(targetHallway);
-				mDesiredFloor.setDirection(Direction.STOP);
-				mDesiredDwellBack.set(CONST_DWELL);
-				mDesiredDwellFront.set(CONST_DWELL);
-				
-                //#transition 'T11.3
-				//(any mDoorClosed[b, r] == False) && ((any mHallCall[f,b,d] == True) || (any mCarCall[f,b] == True))'
-                if ( (!networkDoorClosed.getAllClosed()) && 
-					   (!networkHallCallArray.getAllOff()     || 
-					   (!networkCarCallArrayBack.getAllOff()) ||
-					   (!networkCarCallArrayFront.getAllOff())  )    ){
-						   newState = State.STATE_COMPUTE_NEXT;
-				}
-				//#transition 'T11.4
-				//doors aren't close, and either there are no hall/car calls, 
-				//or we are between floors w/doors open!
-				else if ( (!networkDoorClosed.getAllClosed()) && 
-						   (  ( networkHallCallArray.getAllOff()    &&
-							    networkCarCallArrayBack.getAllOff() &&
-							    networkCarCallArrayFront.getAllOff()  )  ||
-							 networkAtFloorArray.getCurrentFloor() == MessageDictionary.NONE) ){
-					newState = State.STATE_INIT;
-				}
-				else {
-					newState = state;
-				}
+                targetFloor = targetFloor;
+                targetHallway = targetHallway;
+                mDesiredFloor.setFloor(targetFloor);
+                mDesiredFloor.setHallway(targetHallway);
+                mDesiredFloor.setDirection(Direction.STOP);
+                mDesiredDwellBack.set(CONST_DWELL);
+                mDesiredDwellFront.set(CONST_DWELL);
 
+                //#transition 'T11.3
+                //(any mDoorClosed[b, r] == False) && ((any mHallCall[f,b,d] == True) || (any mCarCall[f,b] == True))'
+                if (!networkDoorClosed.getAllClosed() && !allCallsOff()) {
+                    newState = State.STATE_COMPUTE_NEXT;
+                }
+
+                //#transition 'T11.4
+                //doors aren't closed, and either there are no hall/car calls,
+                //or we are between floors w/doors open!
+                else if (!networkDoorClosed.getAllClosed() && allCallsOff()) {
+                    newState = State.STATE_INIT;
+                } else {
+                    newState = state;
+                }
 
                 break;
+
             default:
                 throw new RuntimeException("State " + state + " was not recognized.");
         }
