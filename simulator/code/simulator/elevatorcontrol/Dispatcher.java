@@ -15,11 +15,7 @@ import simulator.elevatorcontrol.Utility.CarCallArray;
 import simulator.elevatorcontrol.Utility.DoorClosedArray;
 import simulator.elevatorcontrol.Utility.HallCallArray;
 import simulator.elevatormodules.CarWeightCanPayloadTranslator;
-import simulator.framework.Controller;
-import simulator.framework.Hallway;
-import simulator.framework.ReplicationComputer;
-import simulator.framework.Direction;
-import simulator.framework.Elevator;
+import simulator.framework.*;
 import simulator.payloads.CanMailbox;
 import simulator.payloads.CanMailbox.ReadableCanMailbox;
 import simulator.payloads.CanMailbox.WriteableCanMailbox;
@@ -167,15 +163,16 @@ public class Dispatcher extends Controller {
 
     private Hallway getAllHallways(int floor) {
         Hallway desiredHallway;
-        if (Elevator.hasLanding(targetFloor, Hallway.BACK) && Elevator.hasLanding(targetFloor, Hallway.FRONT)) {
+        if (Elevator.hasLanding(floor, Hallway.BACK) && Elevator.hasLanding(floor, Hallway.FRONT)) {
             desiredHallway = Hallway.BOTH;
-        } else if (Elevator.hasLanding(targetFloor, Hallway.BACK)) {
+        } else if (Elevator.hasLanding(floor, Hallway.BACK)) {
             desiredHallway = Hallway.BACK;
-        } else if (Elevator.hasLanding(targetFloor, Hallway.FRONT)) {
+        } else if (Elevator.hasLanding(floor, Hallway.FRONT)) {
             desiredHallway = Hallway.FRONT;
         } else {
             desiredHallway = Hallway.NONE;
         }
+        log(floor, " ", desiredHallway);
         return desiredHallway;
     }
 

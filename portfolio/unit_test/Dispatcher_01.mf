@@ -37,11 +37,10 @@
 ;#transition 'T11.1'
 +0.25s  I DOOR_CONTROL_PERIOD N HALL_CALL_[1][FRONT][UP]_CAN_ID Boolean = true
 
-
 ;#state 'COMPUTE_NEXT'
-;+0.25s  A S Dispatcher : STATE == STATE_COMPUTE_NEXT
++0.15s  A S Dispatcher : STATE == STATE_COMPUTE_NEXT
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 1
-;+0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == BOTH
++0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == BOTH
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
 
 +0s     A N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT : getDwell == CONST_DWELL

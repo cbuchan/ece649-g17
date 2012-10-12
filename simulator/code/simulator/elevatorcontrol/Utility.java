@@ -10,21 +10,15 @@
  */
 package simulator.elevatorcontrol;
 
-import java.util.HashMap;
-
 import simulator.elevatormodules.AtFloorCanPayloadTranslator;
 import simulator.elevatormodules.DoorClosedCanPayloadTranslator;
-import simulator.elevatormodules.HallCallCanPayloadTranslator;
-import simulator.framework.Elevator;
-import simulator.framework.Hallway;
-import simulator.framework.Harness;
-import simulator.framework.ReplicationComputer;
-import simulator.framework.Direction;
-import simulator.framework.Side;
+import simulator.framework.*;
 import simulator.payloads.CANNetwork.CanConnection;
 import simulator.payloads.CanMailbox;
 import simulator.payloads.CanMailbox.ReadableCanMailbox;
 import simulator.payloads.translators.BooleanCanPayloadTranslator;
+
+import java.util.HashMap;
 
 /**
  * This class provides some example utility classes that might be useful in more
@@ -204,7 +198,9 @@ public class Utility {
         }
 
         public boolean getAllOff() {
-            return (front.getAllOff() && back.getAllOff());
+            boolean f = front.getAllOff();
+            boolean b = back.getAllOff();
+            return f && b;
         }
 
         public boolean getAllHallwayOff(Hallway hallway) {
@@ -236,8 +232,8 @@ public class Utility {
     }
 
     public static class HallCallFloorHallwayArray {
-        private HallCallCanPayloadTranslator up;
-        private HallCallCanPayloadTranslator down;
+        private BooleanCanPayloadTranslator up;
+        private BooleanCanPayloadTranslator down;
         public final Hallway hallway;
         public final int floor;
 
@@ -245,18 +241,14 @@ public class Utility {
             this.hallway = hallway;
             this.floor = floor;
 
-            ReadableCanMailbox m_u = CanMailbox.getReadableCanMailbox(
-                    MessageDictionary.HALL_CALL_BASE_CAN_ID +
-                            ReplicationComputer.computeReplicationId(floor, hallway,
-                                    Direction.UP));
-            up = new HallCallCanPayloadTranslator(m_u, floor, hallway, Direction.UP);
+            ReadableCanMailbox m_u = CanMailbox.getReadableCanMailbox(MessageDictionary.HALL_CALL_BASE_CAN_ID +
+                    ReplicationComputer.computeReplicationId(floor, hallway, Direction.UP));
+            up = new BooleanCanPayloadTranslator(m_u);
             conn.registerTimeTriggered(m_u);
 
-            ReadableCanMailbox m_d = CanMailbox.getReadableCanMailbox(
-                    MessageDictionary.HALL_CALL_BASE_CAN_ID +
-                            ReplicationComputer.computeReplicationId(floor, hallway,
-                                    Direction.DOWN));
-            down = new HallCallCanPayloadTranslator(m_d, floor, hallway, Direction.DOWN);
+            ReadableCanMailbox m_d = CanMailbox.getReadableCanMailbox(MessageDictionary.HALL_CALL_BASE_CAN_ID +
+                    ReplicationComputer.computeReplicationId(floor, hallway, Direction.DOWN));
+            down = new BooleanCanPayloadTranslator(m_d);
             conn.registerTimeTriggered(m_d);
 
         }
