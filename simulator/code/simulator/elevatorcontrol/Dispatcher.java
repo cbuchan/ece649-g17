@@ -34,9 +34,9 @@ import simulator.payloads.CanMailbox.WriteableCanMailbox;
  * @author Collin Buchan, Jesse Salazar
  */
 public class Dispatcher extends Controller {
-	
-    public static final byte FRONT_LAND =0;
-	  public static final byte BACK_LAND =1;
+
+    public static final byte FRONT_LAND = 0;
+    public static final byte BACK_LAND = 1;
 
     /**
      * ************************************************************************
@@ -114,9 +114,9 @@ public class Dispatcher extends Controller {
         //create CAN mailbox for output network messages
         networkDesiredFloor = CanMailbox.getWriteableCanMailbox(MessageDictionary.DESIRED_FLOOR_CAN_ID);
         networkDesiredDwellFront = CanMailbox.getWriteableCanMailbox(
-            MessageDictionary.DESIRED_DWELL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(Hallway.FRONT));
+                MessageDictionary.DESIRED_DWELL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(Hallway.FRONT));
         networkDesiredDwellBack = CanMailbox.getWriteableCanMailbox(
-            MessageDictionary.DESIRED_DWELL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(Hallway.BACK));
+                MessageDictionary.DESIRED_DWELL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(Hallway.BACK));
 
         /*
         * Create a translator with a reference to the CanMailbox.  Use the
@@ -172,105 +172,101 @@ public class Dispatcher extends Controller {
 
         switch (state) {
 
-        case STATE_INIT:
-				
-        //state actions for DRIVE_STOPPED
-				targetFloor = 1;
-				targetHallway = Hallway.NONE;
-				mDesiredFloor.setFloor(targetFloor);
-				mDesiredFloor.setHallway(targetHallway);
-				mDesiredFloor.setDirection(Direction.STOP);
-				mDesiredDwellBack.set(CONST_DWELL);
-				mDesiredDwellFront.set(CONST_DWELL);
-				
-				//#transition 'T11.1'
-				//  (mAtFloor[1,front] == True || mAtFloor[1,back] == True) && 
-				//	((any mHallCall[f,b,d] == True) || (any mCarCall[f,b] == True))
-				if ((networkAtFloorArray.isAtFloor(1,Hallway.FRONT) ||
-					  networkAtFloorArray.isAtFloor(1,Hallway.BACK)) &&
-					  (!networkHallCallArray.getAllOff() || 
-					  (!networkCarCallArrayBack.getAllOff() ||
-					   !networkCarCallArrayFront.getAllOff()) ){
-						 newState = State.STATE_COMPUTE_NEXT;
-				} else {
-				    newState = state;
-				}
-        break;
-					
-        case STATE_COMPUTE_NEXT:
+            case STATE_INIT:
 
-				//state actions for STATE_IDLE
-				targetFloor = 
-					(networkAtFloorArray.getCurrentFloor() % Elevator.numFloors) + 1;
-				
-        // should be in a getHalls(targetFloor) function call
-				//set the target Hallway to be as many floors as possible
-				if (Elevator.hasLanding(targetFloor,Hallway.BACK) &&
-				    Elevator.hasLanding(targetFloor,Hallway.FRONT)){
-				    targetHallway = Hallway.BOTH;
-				} else if (Elevator.hasLanding(targetFloor,Hallway.BACK)) {
-				    targetHallway = Hallway.BACK;
-				} else if (Elevator.hasLanding(targetFloor,Hallway.FRONT)) {
-				    targetHallway = Hallway.FRONT;
-				} else {
-				    targetHallway = Hallway.NONE;
-				}
+                //state actions for DRIVE_STOPPED
+                targetFloor = 1;
+                targetHallway = Hallway.NONE;
+                mDesiredFloor.setFloor(targetFloor);
+                mDesiredFloor.setHallway(targetHallway);
+                mDesiredFloor.setDirection(Direction.STOP);
+                mDesiredDwellBack.set(CONST_DWELL);
+                mDesiredDwellFront.set(CONST_DWELL);
 
-				mDesiredFloor.setFloor(targetFloor);
-				mDesiredFloor.setHallway(targetHallway);
-				mDesiredFloor.setDirection(Direction.STOP);
-				mDesiredDwellBack.set(CONST_DWELL);
-				mDesiredDwellFront.set(CONST_DWELL);
-						
-				
-				//#transition 'T11.2'
-        if (true){
-				    newState = State.STATE_SERVICE_CALL;
-				}
+                //#transition 'T11.1'
+                //  (mAtFloor[1,front] == True || mAtFloor[1,back] == True) &&
+                //	((any mHallCall[f,b,d] == True) || (any mCarCall[f,b] == True))
+                if ((networkAtFloorArray.isAtFloor(1, Hallway.FRONT) || networkAtFloorArray.isAtFloor(1, Hallway.BACK)) &&
+                        (!networkHallCallArray.getAllOff() ||
+                                (!networkCarCallArrayBack.getAllOff() || !networkCarCallArrayFront.getAllOff()))) {
+                    newState = State.STATE_COMPUTE_NEXT;
+                } else {
+                    newState = state;
+                }
+                break;
+
+            case STATE_COMPUTE_NEXT:
+
+                //state actions for STATE_IDLE
+                targetFloor =
+                        (networkAtFloorArray.getCurrentFloor() % Elevator.numFloors) + 1;
+
+                // should be in a getHalls(targetFloor) function call
+                //set the target Hallway to be as many floors as possible
+                if (Elevator.hasLanding(targetFloor, Hallway.BACK) &&
+                        Elevator.hasLanding(targetFloor, Hallway.FRONT)) {
+                    targetHallway = Hallway.BOTH;
+                } else if (Elevator.hasLanding(targetFloor, Hallway.BACK)) {
+                    targetHallway = Hallway.BACK;
+                } else if (Elevator.hasLanding(targetFloor, Hallway.FRONT)) {
+                    targetHallway = Hallway.FRONT;
+                } else {
+                    targetHallway = Hallway.NONE;
+                }
+
+                mDesiredFloor.setFloor(targetFloor);
+                mDesiredFloor.setHallway(targetHallway);
+                mDesiredFloor.setDirection(Direction.STOP);
+                mDesiredDwellBack.set(CONST_DWELL);
+                mDesiredDwellFront.set(CONST_DWELL);
 
 
-        break;
+                //#transition 'T11.2'
+                if (true) {
+                    newState = State.STATE_SERVICE_CALL;
+                }
 
-				
-				case STATE_SERVICE_CALL:
 
-        //state actions for STATE_COMPUTE_NEXT
-				targetFloor = targetFloor;
-				targetHallway = targetHallway;
-				mDesiredFloor.setFloor(targetFloor);
-				mDesiredFloor.setHallway(targetHallway);
-				mDesiredFloor.setDirection(Direction.STOP);
-				mDesiredDwellBack.set(CONST_DWELL);
-				mDesiredDwellFront.set(CONST_DWELL);
-				
-        //#transition 'T11.3
-				//(any mDoorClosed[b, r] == False) && ((any mHallCall[f,b,d] == True) || (any mCarCall[f,b] == True))'
-        if ( (!networkDoorClosed.getAllClosed()) && 
-					   (!networkHallCallArray.getAllOff()     || 
-					   (!networkCarCallArrayBack.getAllOff() ||
-					    !networkCarCallArrayFront.getAllOff()) )){
-						   newState = State.STATE_COMPUTE_NEXT;
-				}
+                break;
 
-				//#transition 'T11.4
-				//doors aren't closed, and either there are no hall/car calls, 
-				//or we are between floors w/doors open!
-				else if ( (!networkDoorClosed.getAllClosed()) && 
-				          (  ( networkHallCallArray.getAllOff() &&
-							    networkCarCallArrayBack.getAllOff() &&
-							    networkCarCallArrayFront.getAllOff()  )  ||
-				          networkAtFloorArray.getCurrentFloor() == MessageDictionary.NONE) ){
-				    newState = State.STATE_INIT;
-				}
 
-				else {
-					newState = state;
-				}
+            case STATE_SERVICE_CALL:
 
-        break;
-            
-        default:
-            throw new RuntimeException("State " + state + " was not recognized.");
+                //state actions for STATE_COMPUTE_NEXT
+                targetFloor = targetFloor;
+                targetHallway = targetHallway;
+                mDesiredFloor.setFloor(targetFloor);
+                mDesiredFloor.setHallway(targetHallway);
+                mDesiredFloor.setDirection(Direction.STOP);
+                mDesiredDwellBack.set(CONST_DWELL);
+                mDesiredDwellFront.set(CONST_DWELL);
+
+                //#transition 'T11.3
+                //(any mDoorClosed[b, r] == False) && ((any mHallCall[f,b,d] == True) || (any mCarCall[f,b] == True))'
+                if ((!networkDoorClosed.getAllClosed()) &&
+                        (!networkHallCallArray.getAllOff() ||
+                                (!networkCarCallArrayBack.getAllOff() ||
+                                        !networkCarCallArrayFront.getAllOff()))) {
+                    newState = State.STATE_COMPUTE_NEXT;
+                }
+
+                //#transition 'T11.4
+                //doors aren't closed, and either there are no hall/car calls,
+                //or we are between floors w/doors open!
+                else if ((!networkDoorClosed.getAllClosed()) &&
+                        ((networkHallCallArray.getAllOff() &&
+                                networkCarCallArrayBack.getAllOff() &&
+                                networkCarCallArrayFront.getAllOff()) ||
+                                networkAtFloorArray.getCurrentFloor() == MessageDictionary.NONE)) {
+                    newState = State.STATE_INIT;
+                } else {
+                    newState = state;
+                }
+
+                break;
+
+            default:
+                throw new RuntimeException("State " + state + " was not recognized.");
         }
 
         //log the results of this iteration
