@@ -1,3 +1,10 @@
+/* 18649 Fall 2012
+ * (Group  17)
+ * Jesse Salazar (jessesal)
+ * Rajeev Sharma (rdsharma) 
+ * Collin Buchan (cbuchan)
+ * Jessica Tiu   (jtiu)
+ */
 
 Simulator Parameters:
 Command line = -cf LanternControl.cf -mf LanternControl_01.mf

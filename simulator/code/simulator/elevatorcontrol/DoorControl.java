@@ -62,9 +62,7 @@ public class DoorControl extends Controller {
 
     private Utility.CarCallArray networkCarCallArray;
 
-    // TODO:  add back in, not currently used
-    //private ReadableCanMailbox networkHallCall;
-    //private HallCallCanPayloadTranslator mHallCall;
+    private Utility.HallCallArray networkHallCallArray;
 
     private ReadableCanMailbox networkCarWeight;
     private CarWeightCanPayloadTranslator mCarWeight;
@@ -168,6 +166,8 @@ public class DoorControl extends Controller {
 
         networkCarCallArray = new Utility.CarCallArray(hallway, canInterface);
 
+        networkHallCallArray = new Utility.HallCallArray(canInterface);
+
         networkCarWeight = CanMailbox.getReadableCanMailbox(
                 MessageDictionary.CAR_WEIGHT_CAN_ID);
         mCarWeight = new CarWeightCanPayloadTranslator(networkCarWeight);
@@ -198,15 +198,13 @@ public class DoorControl extends Controller {
                 //#transition 'T5.5'
                 //if ( mAtFloor[f,b]==True && mDesiredFloor.f==f && ( mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) )
                 //      || ( mCarWeight(g) >= MaxCarCapacity && mDoorOpened[b,r]==False )
-                //      || ( mDoorReversal==True && mDoorOpened[b,r]==False )
-                //      || ( mCarCall[f,b]==True && mAtFloor[f,b]==True ) {
+                //      || ( mDoorReversal==True && mDoorOpened[b,r]==False ) {
                 if (    ((networkAtFloorArray.getCurrentFloor() == mDesiredFloor.getFloor())
                                 && (Speed.isStopOrLevel(mDriveSpeed.getSpeed()) || (mDriveSpeed.getDirection() == Direction.STOP)))
                         || ((mCarWeight.getWeight() >= Elevator.MaxCarCapacity)
                                 && (mDoorOpened.getValue() == false))
                         || ((mDoorReversal.getValue() == true)
                                 && (mDoorOpened.getValue() == false))
-                        || (networkCarCallArray.getValueForFloor(networkAtFloorArray.getCurrentFloor()) == true)
                         ) {
                     newState = State.STATE_DOOR_OPENING;
                 //#transition 'T5.1'
@@ -229,15 +227,13 @@ public class DoorControl extends Controller {
                 //#transition 'T5.2'
                 //if ( mAtFloor[f,b]==True && mDesiredFloor.f==f && ( mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) )
                 //      || ( mCarWeight(g) >= MaxCarCapacity && mDoorOpened[b,r]==False )
-                //      || ( mDoorReversal==True && mDoorOpened[b,r]==False )
-                //      || ( mCarCall[f,b]==True && mAtFloor[f,b]==True ) {
+                //      || ( mDoorReversal==True && mDoorOpened[b,r]==False ) {
                 if (    ((networkAtFloorArray.getCurrentFloor() == mDesiredFloor.getFloor())
                                 && (Speed.isStopOrLevel(mDriveSpeed.getSpeed()) || (mDriveSpeed.getDirection() == Direction.STOP)))
                         || ((mCarWeight.getWeight() >= Elevator.MaxCarCapacity)
                                 && (mDoorOpened.getValue() == false))
                         || ((mDoorReversal.getValue() == true)
                                 && (mDoorOpened.getValue() == false))
-                        || (networkCarCallArray.getValueForFloor(networkAtFloorArray.getCurrentFloor()) == true)
                         ) {
                     newState = State.STATE_DOOR_OPENING;
                 } else {
