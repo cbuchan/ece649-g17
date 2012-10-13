@@ -64,6 +64,9 @@ public class Dispatcher extends Controller {
     //translators for input network messages
     private CarWeightCanPayloadTranslator mCarWeight;
 
+    //these variables keep track of which instance this is.
+    private final int numFloors;
+
     //store the period for the controller
     private SimTime period;
 
@@ -90,10 +93,11 @@ public class Dispatcher extends Controller {
      * controllers.add(createControllerObject("DriveControl",
      * MessageDictionary.DRIVE_CONTROL_PERIOD, verbose));
      */
-    public Dispatcher(SimTime period, boolean verbose) {
+    public Dispatcher(int numFloors, SimTime period, boolean verbose) {
         //call to the Controller superclass constructor is required
         super("Dispatcher", verbose);
         this.period = period;
+        this.numFloors = numFloors;
 
         /*
         * The log() method is inherited from the Controller class.  It takes an
@@ -209,7 +213,7 @@ public class Dispatcher extends Controller {
             case STATE_COMPUTE_NEXT:
 
                 //state actions for STATE_COMPUTE_NEXT
-                targetFloor = (networkAtFloorArray.getCurrentFloor() % Elevator.numFloors) + 1;
+                targetFloor = (networkAtFloorArray.getCurrentFloor() % numFloors) + 1;
 
                 //set the target Hallway to be as many floors as possible
                 targetHallway = getAllHallways(targetFloor);

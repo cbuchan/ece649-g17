@@ -6,4 +6,4 @@
 ; * Author
 
 DriveControl 100ms TRUE
-DoorControl 100ms FRONT LEFT TRUE
+DoorControl FRONT LEFT 100ms TRUE

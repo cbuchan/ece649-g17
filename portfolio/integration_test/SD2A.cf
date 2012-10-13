@@ -9,5 +9,5 @@
 ;Jessica Tiu   (jtiu) - Author
 ;========================================================================
 
-DoorControl 100ms FRONT LEFT TRUE
+DoorControl FRONT LEFT 100ms TRUE
 CarButtonControl 5 FRONT 100ms TRUE

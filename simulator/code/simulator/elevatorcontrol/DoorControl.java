@@ -99,7 +99,7 @@ public class DoorControl extends Controller {
      * For your elevator controllers, you should make sure that the constructor matches
      * the method signatures in ControllerBuilder.makeAll().
      */
-    public DoorControl(SimTime period, Hallway hallway, Side side, boolean verbose) {
+    public DoorControl(Hallway hallway, Side side, SimTime period, boolean verbose) {
         //call to the Controller superclass constructor is required
         super("DoorControl" + ReplicationComputer.makeReplicationString(hallway, side), verbose);
 
@@ -199,16 +199,16 @@ public class DoorControl extends Controller {
                 //if ( mAtFloor[f,b]==True && mDesiredFloor.f==f && ( mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) )
                 //      || ( mCarWeight(g) >= MaxCarCapacity && mDoorOpened[b,r]==False )
                 //      || ( mDoorReversal==True && mDoorOpened[b,r]==False ) {
-                if (    ((networkAtFloorArray.getCurrentFloor() == mDesiredFloor.getFloor())
-                                && (Speed.isStopOrLevel(mDriveSpeed.getSpeed()) || (mDriveSpeed.getDirection() == Direction.STOP)))
+                if (((networkAtFloorArray.getCurrentFloor() == mDesiredFloor.getFloor())
+                        && (Speed.isStopOrLevel(mDriveSpeed.getSpeed()) || (mDriveSpeed.getDirection() == Direction.STOP)))
                         || ((mCarWeight.getWeight() >= Elevator.MaxCarCapacity)
-                                && (mDoorOpened.getValue() == false))
+                        && (mDoorOpened.getValue() == false))
                         || ((mDoorReversal.getValue() == true)
-                                && (mDoorOpened.getValue() == false))
+                        && (mDoorOpened.getValue() == false))
                         ) {
                     newState = State.STATE_DOOR_OPENING;
-                //#transition 'T5.1'
-                //if (mDoorClosed[b,r]==True)
+                    //#transition 'T5.1'
+                    //if (mDoorClosed[b,r]==True)
                 } else if (mDoorClosed.getValue() == true) {
                     newState = State.STATE_DOOR_CLOSED;
                 } else {
@@ -228,12 +228,12 @@ public class DoorControl extends Controller {
                 //if ( mAtFloor[f,b]==True && mDesiredFloor.f==f && ( mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) )
                 //      || ( mCarWeight(g) >= MaxCarCapacity && mDoorOpened[b,r]==False )
                 //      || ( mDoorReversal==True && mDoorOpened[b,r]==False ) {
-                if (    ((networkAtFloorArray.getCurrentFloor() == mDesiredFloor.getFloor())
-                                && (Speed.isStopOrLevel(mDriveSpeed.getSpeed()) || (mDriveSpeed.getDirection() == Direction.STOP)))
+                if (((networkAtFloorArray.getCurrentFloor() == mDesiredFloor.getFloor())
+                        && (Speed.isStopOrLevel(mDriveSpeed.getSpeed()) || (mDriveSpeed.getDirection() == Direction.STOP)))
                         || ((mCarWeight.getWeight() >= Elevator.MaxCarCapacity)
-                                && (mDoorOpened.getValue() == false))
+                        && (mDoorOpened.getValue() == false))
                         || ((mDoorReversal.getValue() == true)
-                                && (mDoorOpened.getValue() == false))
+                        && (mDoorOpened.getValue() == false))
                         ) {
                     newState = State.STATE_DOOR_OPENING;
                 } else {
@@ -251,16 +251,16 @@ public class DoorControl extends Controller {
                 //transitions
                 //#transition 'T5.3'
                 //if (mDoorOpened[b,r]==True) && (mCarWeight(g) < MaxCarCapacity) && (mDoorReversal==False)
-                if (    (mDoorOpened.getValue() == true)
+                if ((mDoorOpened.getValue() == true)
                         && (mCarWeight.getWeight() < Elevator.MaxCarCapacity)
                         && (mDoorReversal.getValue() == false)
                         ) {
                     newState = State.STATE_DOOR_OPEN;
-                //#transition 'T5.6'
-                //if (mDoorOpened[b,r]==True) && ( (mCarWeight(g) >= MaxCarCapacity) || (mDoorReversal==True) )
-                } else if ( (mDoorOpened.getValue() == true)
-                        && ( (mCarWeight.getWeight() >= Elevator.MaxCarCapacity) 
-                                || (mDoorReversal.getValue() == true) )
+                    //#transition 'T5.6'
+                    //if (mDoorOpened[b,r]==True) && ( (mCarWeight(g) >= MaxCarCapacity) || (mDoorReversal==True) )
+                } else if ((mDoorOpened.getValue() == true)
+                        && ((mCarWeight.getWeight() >= Elevator.MaxCarCapacity)
+                        || (mDoorReversal.getValue() == true))
                         ) {
                     newState = State.STATE_DOOR_OPEN_E;
                 } else {
@@ -280,9 +280,9 @@ public class DoorControl extends Controller {
                 //if (countDown <= 0)
                 if (countDown.isLessThanOrEqual(SimTime.ZERO)) {
                     newState = State.STATE_DOOR_CLOSING;
-                //#transition 'T5.7'
-                //if (mCarWeight(g) >= MaxCarCapacity) || (mDoorReversal==True)
-                } else if ( (mCarWeight.getWeight() >= Elevator.MaxCarCapacity)
+                    //#transition 'T5.7'
+                    //if (mCarWeight(g) >= MaxCarCapacity) || (mDoorReversal==True)
+                } else if ((mCarWeight.getWeight() >= Elevator.MaxCarCapacity)
                         || (mDoorReversal.getValue() == true)
                         ) {
                     newState = State.STATE_DOOR_OPEN_E;
@@ -301,7 +301,7 @@ public class DoorControl extends Controller {
                 //transitions
                 //#transition 'T5.8'
                 //if (mCarWeight(g) < MaxCarCapacity) && (mDoorReversal==False)
-                if (    (mCarWeight.getWeight() < Elevator.MaxCarCapacity)
+                if ((mCarWeight.getWeight() < Elevator.MaxCarCapacity)
                         && (mDoorReversal.getValue() == false)
                         ) {
                     newState = State.STATE_DOOR_OPEN;

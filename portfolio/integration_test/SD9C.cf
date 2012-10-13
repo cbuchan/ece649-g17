@@ -5,5 +5,5 @@
 ; Rajeev Sharma (rdsharma)
 ; * Author
 
-DoorControl 100ms FRONT LEFT TRUE
-Dispatcher 100ms TRUE
+DoorControl FRONT LEFT 100ms TRUE
+Dispatcher 8 100ms TRUE

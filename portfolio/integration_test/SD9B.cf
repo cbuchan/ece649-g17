@@ -5,6 +5,6 @@
 ; Rajeev Sharma (rdsharma)
 ; * Author
 
-LanternControl 100ms UP TRUE
+LanternControl UP 100ms TRUE
 DriveControl 100ms TRUE
 Dispatcher 100ms TRUE

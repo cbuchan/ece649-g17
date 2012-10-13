@@ -5,4 +5,4 @@
 ; Rajeev Sharma (rdsharma)
 ; * Author
 
-DoorControl 100ms FRONT LEFT TRUE
+DoorControl FRONT LEFT 100ms TRUE

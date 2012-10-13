@@ -18,7 +18,7 @@ import simulator.payloads.CarLanternPayload.WriteableCarLanternPayload;
 import simulator.payloads.translators.BooleanCanPayloadTranslator;
 
 /**
- * LanternControl controls the light within the car which shows passengers 
+ * LanternControl controls the light within the car which shows passengers
  * which direction the car is about to travel in.
  *
  * @author Rajeev Sharma
@@ -39,13 +39,13 @@ public class LanternControl extends Controller {
     private BooleanCanPayloadTranslator mCarLantern;
 
     private Utility.DoorClosedArray networkDoorClosedArray;
-    
+
     private ReadableCanMailbox networkDesiredFloor;
     private DesiredFloorCanPayloadTranslator mDesiredFloor;
 
     //Readd when used
     //private Utility.AtFloorArray networkAtFloorArray;
-    
+
     //these variables keep track of which instance this is.
     private final Direction direction;
 
@@ -70,7 +70,7 @@ public class LanternControl extends Controller {
      * For your elevator controllers, you should make sure that the constructor matches
      * the method signatures in ControllerBuilder.makeAll().
      */
-    public LanternControl(SimTime period, Direction direction, boolean verbose) {
+    public LanternControl(Direction direction, SimTime period, boolean verbose) {
         //call to the Controller superclass constructor is required
         super("LanternControl" + ReplicationComputer.makeReplicationString(direction), verbose);
 
@@ -124,8 +124,8 @@ public class LanternControl extends Controller {
                 //transitions -- note that transition conditions are mutually exclusive
                 //#transition 'T7.1'
                 //if any mDoorClosed[b,r] == false && mDesiredFloor.d == d
-                if ( (!networkDoorClosedArray.getAllClosed()) 
-                        && (mDesiredFloor.getDirection() == direction) ) {
+                if ((!networkDoorClosedArray.getAllClosed())
+                        && (mDesiredFloor.getDirection() == direction)) {
                     newState = State.STATE_CAR_LANTERN_ON;
                 } else {
                     newState = state;
@@ -139,8 +139,8 @@ public class LanternControl extends Controller {
                 //transitions
                 //#transition 'T7.2'
                 //if all mDoorClosed[b,r] == true || mDesiredFloor.d != d
-                if ( (networkDoorClosedArray.getAllClosed())
-                        || (mDesiredFloor.getDirection() != direction) ) {
+                if ((networkDoorClosedArray.getAllClosed())
+                        || (mDesiredFloor.getDirection() != direction)) {
                     newState = State.STATE_CAR_LANTERN_OFF;
                 } else {
                     newState = state;

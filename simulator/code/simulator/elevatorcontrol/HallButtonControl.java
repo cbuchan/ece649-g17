@@ -81,7 +81,7 @@ public class HallButtonControl extends Controller {
      * For your elevator controllers, you should make sure that the constructor matches the method signatures in
      * ControllerBuilder.makeAll().
      */
-    public HallButtonControl(SimTime period, int floor, Hallway hallway, Direction direction, boolean verbose) {
+    public HallButtonControl(int floor, Hallway hallway, Direction direction, SimTime period, boolean verbose) {
         //call to the Controller superclass constructor is required
         super("HallButtonControl" + ReplicationComputer.makeReplicationString(floor, hallway, direction), verbose);
 

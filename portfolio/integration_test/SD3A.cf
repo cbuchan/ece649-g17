@@ -10,5 +10,5 @@
 ;========================================================================
 
 DriveControl 100ms TRUE
-DoorControl 100ms FRONT LEFT TRUE
-HallButtonControl 100ms 4 FRONT DOWN TRUE
+DoorControl FRONT LEFT 100ms TRUE
+HallButtonControl 4 FRONT DOWN 100ms TRUE

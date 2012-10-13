@@ -9,4 +9,4 @@
 ;Jessica Tiu   (jtiu)
 ;========================================================================
 
-HallButtonControl 100ms 4 FRONT DOWN TRUE
+HallButtonControl 4 FRONT DOWN 100ms TRUE

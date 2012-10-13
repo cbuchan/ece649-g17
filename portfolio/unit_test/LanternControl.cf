@@ -5,5 +5,5 @@
 ; Rajeev Sharma (rdsharma) *
 ; * Author
 
-LanternControl 200ms UP TRUE
+LanternControl UP 200ms TRUE
 
