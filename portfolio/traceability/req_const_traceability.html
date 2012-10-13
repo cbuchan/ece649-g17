@@ -68,7 +68,8 @@
         </tr>
         <tr>
           <td style="vertical-align: top;"><span style="font-weight:
-              bold;">DoorControl - Completed by (Jessica Tiu, jtiu), last updated 10/11/2012</span><br>
+              bold;">DoorControl - Completed by (Jessica Tiu, jtiu),
+              last updated 10/11/2012</span><br>
           </td>
           <td style="vertical-align: top;"><br>
           </td>
@@ -125,8 +126,8 @@
           </td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">5.8 door open, no emergency --&gt;
-            decrement Counter<br>
+          <td style="vertical-align: top;">5.8 door open, no emergency
+            --&gt; decrement Counter<br>
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
@@ -569,35 +570,7 @@
         </tr>
         <tr>
           <td style="vertical-align: top;">11.4 set DesiredFloor.f to
-            target</td>
-          <td style="vertical-align: top;">X<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;"><br>
-          </td>
-          <td style="vertical-align: top;"><br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top;">11.5 set DesiredFloor.d <br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">X<br>
-          </td>
-          <td style="vertical-align: top;">X<br>
-          </td>
-          <td style="vertical-align: top;"><br>
-          </td>
-          <td style="vertical-align: top;"><br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top;">11.6.1 door not closed -&gt;
-            set target<br>
+            TargetFloor<br>
           </td>
           <td style="vertical-align: top;">X<br>
           </td>
@@ -611,8 +584,8 @@
           </td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">11.6.2 door not closed -&gt;
-            set DesiredFloor.b<br>
+          <td style="vertical-align: top;">11.5 set DesiredFloor.d to
+            STOP<br>
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
@@ -626,29 +599,70 @@
           </td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">11.7.1 not at floor, door not
-            closed -&gt; set target<br>
+          <td style="vertical-align: top;">11.6 set DesiredFloor.b to
+            TargetHallway<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;"><br>
+          </td>
+          <td style="vertical-align: top;"><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">11.7 set TargetHall to FRONT<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;"><br>
+          </td>
+          <td style="vertical-align: top;"><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">11.8 set TargetHall to BACK </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;"><br>
+          </td>
+          <td style="vertical-align: top;"><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">11.9 set TargetHall to BOTH </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;"><br>
+          </td>
+          <td style="vertical-align: top;"><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">11.10 mDoorClosed false,
+            HallCall or CarCall true, CurrentFloor = TargetFloor -&gt;
+            set TargetFloor to (CurrentFloor % MaxFloors) + 1<br>
           </td>
           <td style="vertical-align: top;">X<br>
           </td>
-          <td style="vertical-align: top;">~<br>
+          <td style="vertical-align: top;">X<br>
           </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;"><br>
-          </td>
-          <td style="vertical-align: top;"><br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top;">11.7.2 not at floor, door not
-            closed -&gt; set DesiredFloor.b<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
+          <td style="vertical-align: top;">X<br>
           </td>
           <td style="vertical-align: top;"><br>
           </td>
@@ -656,15 +670,28 @@
           </td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">11.8 at front and back
-            hallways of same floor -&gt; DesiredFloor.b set to both
-            hallways<br>
+          <td valign="top">11.11 CurrentFloor = 1, HallCall or CarCall
+            true -&gt; set TargetFloor to (CurrentFloor % MaxFloors) + 1</td>
+          <td valign="top">X<br>
           </td>
-          <td style="vertical-align: top;">~<br>
+          <td valign="top">X<br>
           </td>
-          <td style="vertical-align: top;">~<br>
+          <td valign="top">X<br>
           </td>
-          <td style="vertical-align: top;">~<br>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">11.12.1 all mAtFloor false,
+            any mDoorClosed false -&gt; set TargetFloor to 1<br>
+          </td>
+          <td style="vertical-align: top;">X<br>
+          </td>
+          <td style="vertical-align: top;">X<br>
+          </td>
+          <td style="vertical-align: top;">X<br>
           </td>
           <td style="vertical-align: top;"><br>
           </td>
@@ -672,17 +699,36 @@
           </td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">11.9 set desired dwell<br>
+          <td valign="top">11.12.2 all mAtFloor false, any mDoorClosed
+            false -&gt; set TargetHall to NONE<br>
           </td>
-          <td style="vertical-align: top;">~<br>
+          <td valign="top">~<br>
           </td>
-          <td style="vertical-align: top;">~<br>
+          <td valign="top">~<br>
           </td>
-          <td style="vertical-align: top;">~<br>
+          <td valign="top">~<br>
           </td>
-          <td style="vertical-align: top;"><br>
+          <td valign="top"><br>
           </td>
-          <td style="vertical-align: top;"><br>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">11.13 set mDesiredDwell<br>
+          </td>
+          <td valign="top">~<br>
+          </td>
+          <td valign="top">~<br>
+          </td>
+          <td valign="top">~<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
           </td>
         </tr>
       </tbody>

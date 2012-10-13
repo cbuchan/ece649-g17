@@ -57,6 +57,8 @@ href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#s
 
 
 
+
+
               9A</a> </li>
           <li><a
 href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario9b">Scenario
@@ -64,9 +66,13 @@ href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#s
 
 
 
+
+
               9B</a>&nbsp;</li>
           <li><a
 href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario9c">Scenario
+
+
 
 
 
@@ -79,10 +85,14 @@ href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#u
 
 
 
+
+
             Overweight Sensor</a></li>
         <ul>
           <li><a
 href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario10a">Scenario
+
+
 
 
 
@@ -365,6 +375,8 @@ href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#s
 
 
 
+
+
         Case 5: Passenger Triggers Door Reversal </h2>
       <h3> <a name="scenario5a" id="scenario5a"></a>Scenario 5A:
         Passenger attempts to enter the car as the doors begin to close.
@@ -381,6 +393,8 @@ href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#s
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to enter and is nudged by Door[<b>b</b>,<b>r</b>],
+
+
 
 
 
@@ -430,6 +444,8 @@ href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#s
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to exit and is nudged by Door[<b>b</b>,<b>r</b>],
+
+
 
 
 
@@ -688,12 +704,16 @@ href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#s
       <h3> Pre-Conditions: </h3>
       <ul type="disc">
         <li>Elevator is between floors (all mAtFloor[f, b] are False)</li>
-        <li>Any mDoorClosed [b, r] is False</li>
       </ul>
       <h3> Scenario: </h3>
       <ol>
-        <li>Desired floor updated to [1, None, d]</li>
+        <li>Any mDoorClosed [b, r] is False</li>
+        <li>mDesiredFloor updated to [1, None, d]</li>
+        <li>Drive is set to Stop<br>
+        </li>
         <li>Emergency brake is activated</li>
+        <li>Drive is set to Stop <br>
+        </li>
       </ol>
       <h3> Post-Conditions: </h3>
       <ul type="disc">
@@ -760,6 +780,8 @@ href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#s
         <li>Doors are commanded to open.<br>
         </li>
         <li>CarWeightAlarm sounds.</li>
+        <li>Drive is commanded to Stop<br>
+        </li>
       </ol>
       <h3> Post-Conditions: </h3>
       <ul>

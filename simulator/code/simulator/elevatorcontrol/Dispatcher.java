@@ -2,7 +2,7 @@
  * (Group  17)
  * Jesse Salazar (jessesal) - Author
  * Rajeev Sharma (rdsharma) 
- * Collin Buchan (cbuchan) - Secondary Author
+ * Collin Buchan (cbuchan) - Editor
  * Jessica Tiu   (jtiu)
  */
 
@@ -172,7 +172,6 @@ public class Dispatcher extends Controller {
         } else {
             desiredHallway = Hallway.NONE;
         }
-        log(floor, " ", desiredHallway);
         return desiredHallway;
     }
 
@@ -189,7 +188,7 @@ public class Dispatcher extends Controller {
 
             case STATE_INIT:
 
-                //state actions for DRIVE_STOPPED
+                //state actions for STATE_INIT
                 targetFloor = 1;
                 targetHallway = Hallway.NONE;
                 mDesiredFloor.setFloor(targetFloor);
@@ -199,8 +198,7 @@ public class Dispatcher extends Controller {
                 mDesiredDwellFront.set(CONST_DWELL);
 
                 //#transition 'T11.1'
-                //  (mAtFloor[1,front] == True || mAtFloor[1,back] == True) &&
-                //	((any mHallCall[f,b,d] == True) || (any mCarCall[f,b] == True))
+                //  CurrentFloor == 1 && (any mHallCall[f,b,d] == true || any mCarCall[f,b] == true)
                 if (networkAtFloorArray.getCurrentFloor() == 1 && !allCallsOff()) {
                     newState = State.STATE_COMPUTE_NEXT;
                 } else {
@@ -210,7 +208,7 @@ public class Dispatcher extends Controller {
 
             case STATE_COMPUTE_NEXT:
 
-                //state actions for STATE_IDLE
+                //state actions for STATE_COMPUTE_NEXT
                 targetFloor = (networkAtFloorArray.getCurrentFloor() % Elevator.numFloors) + 1;
 
                 //set the target Hallway to be as many floors as possible
@@ -232,9 +230,7 @@ public class Dispatcher extends Controller {
 
             case STATE_SERVICE_CALL:
 
-                //state actions for STATE_COMPUTE_NEXT
-                targetFloor = targetFloor;
-                targetHallway = targetHallway;
+                //state actions for STATE_SERVICE_CALL
                 mDesiredFloor.setFloor(targetFloor);
                 mDesiredFloor.setHallway(targetHallway);
                 mDesiredFloor.setDirection(Direction.STOP);
@@ -242,15 +238,15 @@ public class Dispatcher extends Controller {
                 mDesiredDwellFront.set(CONST_DWELL);
 
                 //#transition 'T11.3
-                //(any mDoorClosed[b, r] == False) && ((any mHallCall[f,b,d] == True) || (any mCarCall[f,b] == True))'
-                if (!networkDoorClosed.getAllClosed() && !allCallsOff()) {
+                //any mDoorClosed[b, r] == false && (any mHallCall[f,b,d] == true || any mCarCall[f,b] == true)
+                // && CurrentFloor == TargetFloor
+                if (!networkDoorClosed.getAllClosed() && !allCallsOff() && networkAtFloorArray.getCurrentFloor() == targetFloor) {
                     newState = State.STATE_COMPUTE_NEXT;
                 }
 
                 //#transition 'T11.4
-                //doors aren't closed, and either there are no hall/car calls,
-                //or we are between floors w/doors open!
-                else if (!networkDoorClosed.getAllClosed() && allCallsOff()) {
+                //CurrentFloor == NONE && any mDoorClosed[b, r] == false
+                else if (networkAtFloorArray.getCurrentFloor() == MessageDictionary.NONE && !networkDoorClosed.getAllClosed()) {
                     newState = State.STATE_INIT;
                 } else {
                     newState = state;

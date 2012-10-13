@@ -1833,7 +1833,7 @@
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
       &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD word-spacing: 0px; text-align:
-      left;" height="113" border="1" cellpadding="2" cellspacing="2"
+      left;" border="1" cellpadding="2" cellspacing="2" height="113"
       width="525">
       <tbody>
         <tr>
@@ -1935,7 +1935,7 @@
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
       &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD word-spacing: 0px; text-align:
-      left;" height="399" border="1" cellpadding="2" cellspacing="2"
+      left;" border="1" cellpadding="2" cellspacing="2" height="399"
       width="656">
       <tbody>
         <tr style="font-weight: bold; ">
@@ -2336,7 +2336,7 @@
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
       &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD word-spacing: 0px; text-align:
-      left;" height="97" border="1" cellpadding="2" cellspacing="2"
+      left;" border="1" cellpadding="2" cellspacing="2" height="97"
       width="525">
       <tbody>
         <tr>
@@ -2553,8 +2553,8 @@
       2; text-indent: 0px; text-transform: none; widows: 2;
       word-spacing: 0px; -webkit-text-size-adjust: auto;
       &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD -webkit-text-stroke-width: 0px;
-      text-align: left; " height="97" border="1" cellpadding="2"
-      cellspacing="2" width="525">
+      text-align: left; " border="1" cellpadding="2" cellspacing="2"
+      height="97" width="525">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -2595,8 +2595,8 @@
       2; text-indent: 0px; text-transform: none; widows: 2;
       word-spacing: 0px; -webkit-text-size-adjust: auto;
       &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD -webkit-text-stroke-width: 0px;
-      text-align: left; " height="342" border="1" cellpadding="2"
-      cellspacing="2" width="790">
+      text-align: left; " border="1" cellpadding="2" cellspacing="2"
+      height="342" width="790">
       <tbody>
         <tr style="font-weight: bold; ">
           <td style="vertical-align: top; background-color: rgb(204,
@@ -2844,8 +2844,8 @@
         Tiu (jtiu), revised by Collin Buchan (cbuchan)<br>
       </span></p>
     <br>
-    <table style="text-align: left;" height="233" border="1"
-      cellpadding="2" cellspacing="2" width="552">
+    <table style="text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="233" width="552">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
@@ -3017,8 +3017,8 @@
       height="337" width="466"><br>
     <br>
     <br>
-    <table style="text-align: left;" height="58" border="1"
-      cellpadding="2" cellspacing="2" width="324">
+    <table style="text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="58" width="324">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -3045,8 +3045,8 @@
         display: inline !important; float: none; ">Completed by: Jesse
         Salazar (jessesal)<br>
       </span></p>
-    <table style="text-align: left;" height="86" border="1"
-      cellpadding="2" cellspacing="2" width="304">
+    <table style="text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="86" width="304">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
@@ -3132,8 +3132,9 @@
     11.9 &nbsp;&nbsp; If mAtFloor[f, front] is True and mAtFloor[f,
     back] is True, then TargetHall shall be set to Both.<br>
     11.10&nbsp; If any mDoorClosed [b, r] is False and any
-    mHallCall[f,b,d] or mCarCall[f,b] is True, then TargetFloor shall be
-    set equal to ((f mod MaxFloors) + 1) <br>
+    mHallCall[f,b,d] or mCarCall[f,b] is True, and CurrentFloor equals
+    TargetFloor, then TargetFloor shall be set equal to ((f mod
+    MaxFloors) + 1) <br>
     11.11&nbsp; If any mAtFloor[1,b] is True, and any mHallCall[f,b,d]
     or mCarCall[f,b] is True, then TargetFloor shall be set equal to ((f
     mod MaxFloors) + 1)<br>
@@ -3141,7 +3142,7 @@
     r] is False (which means doors are not closed between floors!), then<br>
     &nbsp;&nbsp;&nbsp; 11.12.1 &nbsp; TargetFloor shall be set to 1<br>
     &nbsp;&nbsp;&nbsp; 11.12.2&nbsp;&nbsp; TargetHall shall be set to
-    None .<br>
+    None.<br>
     11.13&nbsp; mDesiredDwell shall always be set to a constant
     appropriate value for door open dwell. &nbsp;&nbsp; &nbsp; <br>
     <h3>STATECHART:</h3>
@@ -3160,9 +3161,9 @@
         </tr>
         <tr>
           <td style="vertical-align: top;">T11.1</td>
-          <td style="vertical-align: top;">(mAtFloor[1,front] == True ||
-            mAtFloor[1,back] == True) &amp;&amp; ((any mHallCall[f,b,d]
-            == True) || (any mCarCall[f,b] == True)) </td>
+          <td style="vertical-align: top;">CurrentFloor == 1 &amp;&amp;
+            (any mHallCall[f,b,d] == true || any mCarCall[f,b] == true)
+          </td>
         </tr>
         <tr>
           <td valign="top">T11.2<br>
@@ -3172,17 +3173,15 @@
         <tr>
           <td valign="top">T11.3<br>
           </td>
-          <td valign="top">(any mDoorClosed[b, r] == False) &amp;&amp;
-            ((any mHallCall[f,b,d] == True) || (any mCarCall[f,b] ==
-            True))</td>
+          <td valign="top">any mDoorClosed[b, r] == false &amp;&amp;
+            (any mHallCall[f,b,d] == true || any mCarCall[f,b] == true)
+            &amp;&amp; CurrentFloor == TargetFloor<br>
+          </td>
         </tr>
         <tr>
           <td style="vertical-align: top;">T11.4</td>
-          <td style="vertical-align: top;">(any mDoorClosed[b, r] ==
-            False) &amp;&amp; <br>
-            (&nbsp; ((mHallCall[*,*,*] == False) &amp;&amp;
-            (mCarCall[*,*] == False)) || (mAtFloor[*,*] == False)&nbsp;
-            )<br>
+          <td style="vertical-align: top;">CurrentFloor == NONE
+            &amp;&amp; any mDoorClosed[b, r] == false<br>
           </td>
         </tr>
       </tbody>
@@ -3197,8 +3196,8 @@
         display: inline !important; float: none; ">Completed by: Jesse
         Salazar (jessesal)<br>
       </span></p>
-    <table style="text-align: left;" height="342" border="1"
-      cellpadding="2" cellspacing="2" width="790">
+    <table style="text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="342" width="790">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
