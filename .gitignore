@@ -4,9 +4,9 @@
 /out
 /simulator/out
 /simulator/doc
-/simulator/Simulator.iml
 /simulator/.idea/
 *.class
+*.iml
 
 
 
