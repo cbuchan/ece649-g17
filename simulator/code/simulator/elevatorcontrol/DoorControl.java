@@ -189,7 +189,7 @@ public class DoorControl extends Controller {
             case STATE_DOOR_CLOSING:
                 //state actions
                 localDoorMotor.set(DoorCommand.NUDGE);
-                mDoorMotorCommand.setCommand(DoorCommand.NUDGE);
+                mDoorMotorCommand.set(DoorCommand.NUDGE);
 
                 dwell = mDesiredDwell.getDwell();
                 countDown = SimTime.ZERO;
@@ -218,7 +218,7 @@ public class DoorControl extends Controller {
             case STATE_DOOR_CLOSED:
                 //state actions
                 localDoorMotor.set(DoorCommand.STOP);
-                mDoorMotorCommand.setCommand(DoorCommand.STOP);
+                mDoorMotorCommand.set(DoorCommand.STOP);
 
                 dwell = mDesiredDwell.getDwell();
                 countDown = SimTime.ZERO;
@@ -243,7 +243,7 @@ public class DoorControl extends Controller {
             case STATE_DOOR_OPENING:
                 //state actions
                 localDoorMotor.set(DoorCommand.OPEN);
-                mDoorMotorCommand.setCommand(DoorCommand.OPEN);
+                mDoorMotorCommand.set(DoorCommand.OPEN);
 
                 dwell = mDesiredDwell.getDwell();
                 countDown = new SimTime(dwell, SimTime.SimTimeUnit.SECOND);
@@ -270,7 +270,7 @@ public class DoorControl extends Controller {
             case STATE_DOOR_OPEN:
                 //state actions
                 localDoorMotor.set(DoorCommand.STOP);
-                mDoorMotorCommand.setCommand(DoorCommand.STOP);
+                mDoorMotorCommand.set(DoorCommand.STOP);
 
                 dwell = mDesiredDwell.getDwell();
                 countDown = SimTime.subtract(countDown, period);
@@ -293,7 +293,7 @@ public class DoorControl extends Controller {
             case STATE_DOOR_OPEN_E:
                 //state actions
                 localDoorMotor.set(DoorCommand.STOP);
-                mDoorMotorCommand.setCommand(DoorCommand.STOP);
+                mDoorMotorCommand.set(DoorCommand.STOP);
 
                 dwell = mDesiredDwell.getDwell();
                 countDown = new SimTime(dwell, SimTime.SimTimeUnit.SECOND);
