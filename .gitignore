@@ -15,3 +15,5 @@ HallButtonControl$1.class
 /simulator/out/production/Simulator/simulator/elevatorcontrol/HallButtonControl$1.class
 /simulator/out/production/Simulator/simulator/elevatorcontrol/HallButtonControl$State.class
 /simulator/out/production/Simulator/simulator/elevatorcontrol/HallButtonControl.class
+
+*.swp

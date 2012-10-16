@@ -10,7 +10,6 @@
  */
 package simulator.elevatorcontrol;
 
-import java.util.BitSet;
 import simulator.framework.DoorCommand;
 import simulator.framework.Hallway;
 import simulator.framework.ReplicationComputer;
@@ -18,6 +17,8 @@ import simulator.framework.Side;
 import simulator.payloads.CanMailbox.ReadableCanMailbox;
 import simulator.payloads.CanMailbox.WriteableCanMailbox;
 import simulator.payloads.translators.CanPayloadTranslator;
+
+import java.util.BitSet;
 
 /**
  *
@@ -71,7 +72,7 @@ public class DoorMotorCommandCanPayloadTranslator extends CanPayloadTranslator {
      * Set the command in the CAM payload.
      * @param command DoorCommand to set
      */
-    public void setCommand(DoorCommand command) {
+    public void set(DoorCommand command) {
         BitSet b = getMessagePayload();
         addIntToBitset(b, command.ordinal(), 0, 16);
         setMessagePayload(b, getByteSize());
