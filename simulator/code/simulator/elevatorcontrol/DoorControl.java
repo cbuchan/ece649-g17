@@ -196,11 +196,13 @@ public class DoorControl extends Controller {
 
                 //transitions -- note that transition conditions are mutually exclusive
                 //#transition 'T5.5'
-                //if ( mAtFloor[f,b]==True && mDesiredFloor.f==f && ( mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) )
-                //      || ( mCarWeight(g) >= MaxCarCapacity && mDoorOpened[b,r]==False )
-                //      || ( mDoorReversal==True && mDoorOpened[b,r]==False ) {
+                //if ( mAtFloor[f,b]==True && mDesiredFloor.f==f && ( mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) &&
+                //      ( mDesiredFloor.h==b || mDesiredFloor.h==BOTH ) )
+                //   || ( mCarWeight(g) >= MaxCarCapacity && mDoorOpened[b,r]==False )
+                //   || ( mDoorReversal==True && mDoorOpened[b,r]==False )
                 if (((networkAtFloorArray.getCurrentFloor() == mDesiredFloor.getFloor())
-                        && (Speed.isStopOrLevel(mDriveSpeed.getSpeed()) || (mDriveSpeed.getDirection() == Direction.STOP)))
+                        && (Speed.isStopOrLevel(mDriveSpeed.getSpeed()) || (mDriveSpeed.getDirection() == Direction.STOP))
+                        && (mDesiredFloor.getHallway() == hallway || mDesiredFloor.getHallway() == Hallway.BOTH))
                         || ((mCarWeight.getWeight() >= Elevator.MaxCarCapacity)
                         && (mDoorOpened.getValue() == false))
                         || ((mDoorReversal.getValue() == true)
@@ -225,11 +227,13 @@ public class DoorControl extends Controller {
 
                 //transitions
                 //#transition 'T5.2'
-                //if ( mAtFloor[f,b]==True && mDesiredFloor.f==f && ( mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) )
-                //      || ( mCarWeight(g) >= MaxCarCapacity && mDoorOpened[b,r]==False )
-                //      || ( mDoorReversal==True && mDoorOpened[b,r]==False ) {
+                //if ( mAtFloor[f,b]==True && mDesiredFloor.f==f && ( mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) &&
+                //      ( mDesiredFloor.h==b || mDesiredFloor.h==BOTH ) )
+                //   || ( mCarWeight(g) >= MaxCarCapacity && mDoorOpened[b,r]==False )
+                //   || ( mDoorReversal==True && mDoorOpened[b,r]==False )
                 if (((networkAtFloorArray.getCurrentFloor() == mDesiredFloor.getFloor())
-                        && (Speed.isStopOrLevel(mDriveSpeed.getSpeed()) || (mDriveSpeed.getDirection() == Direction.STOP)))
+                        && (Speed.isStopOrLevel(mDriveSpeed.getSpeed()) || (mDriveSpeed.getDirection() == Direction.STOP))
+                        && (mDesiredFloor.getHallway() == hallway || mDesiredFloor.getHallway() == Hallway.BOTH))
                         || ((mCarWeight.getWeight() >= Elevator.MaxCarCapacity)
                         && (mDoorOpened.getValue() == false))
                         || ((mDoorReversal.getValue() == true)

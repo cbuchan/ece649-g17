@@ -1063,7 +1063,8 @@
           </td>
           <td style="vertical-align: top; "> ( mAtFloor[f,b]==True
             &amp;&amp; mDesiredFloor.f==f &amp;&amp; (
-            mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) )<br>
+            mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) &amp;&amp; (
+            mDesiredFloor.h==b || mDesiredFloor.h==BOTH ) )<br>
             || ( mCarWeight(g) &gt;= MaxCarCapacity &amp;&amp;
             mDoorOpened[b,r]==False )<br>
             || ( mDoorReversal==True &amp;&amp; mDoorOpened[b,r]==False
@@ -1089,7 +1090,8 @@
           </td>
           <td style="vertical-align: top; "> ( mAtFloor[f,b]==True
             &amp;&amp; mDesiredFloor.f==f &amp;&amp; (
-            mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) )<br>
+            mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) &amp;&amp; (
+              mDesiredFloor.h==b || mDesiredFloor.h==BOTH ) )<br>
             || ( mCarWeight(g) &gt;= MaxCarCapacity &amp;&amp;
             mDoorOpened[b,r]==False )<br>
             || ( mDoorReversal==True &amp;&amp; mDoorOpened[b,r]==False
