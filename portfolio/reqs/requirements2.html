@@ -1910,7 +1910,8 @@
           </td>
           <td valign="top">mDoorClosed[*,*] == true &amp;&amp;<br>
             DesiredDirection ~= Stop &amp;&amp;<br>
-            mCarWeight[x] &lt; MaxCarCapacity<br>
+            mCarWeight[x] &lt; MaxCarCapacity &amp;&amp;<br>
+            mEmergencyBrake[b] == false<br>
           </td>
         </tr>
         <tr>

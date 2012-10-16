@@ -236,13 +236,15 @@ public class DriveControl extends Controller {
 
                 //#transition 'T6.1' 
 				if (desiredDir.equals(Direction.STOP) &&
-						mLevelUp.getValue() && !mLevelDown.getValue()){
+						mLevelUp.getValue() && !mLevelDown.getValue() &&
+            !mEmergencyBrake.getValue()){
 				    newState = State.STATE_DRIVE_LEVEL_UP;				
 				}
 				
                 //#transition 'T6.3' 
 				else if (desiredDir.equals(Direction.STOP) &&
-						mLevelDown.getValue() && !mLevelUp.getValue()){
+						mLevelDown.getValue() && !mLevelUp.getValue() &&
+            !mEmergencyBrake.getValue()){
 				    newState = State.STATE_DRIVE_LEVEL_DOWN;
 				}
 				

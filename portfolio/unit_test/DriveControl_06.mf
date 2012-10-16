@@ -1,0 +1,64 @@
+; 18649 Fall 2012 - Group 17
+; Jesse Salazar (jessesal)
+; Jessica Tiu (jtiu) *
+; Colin Buchan (cbuchan)
+; Rajeev Sharma (rdsharma)
+; * Author
+; Unit test for DriveControl
+; Last modified 2012-10-09
+
+;Note:  Assertions must be inserted more than two periods after a message or physical
+;value has been inserted to be sure that the change propagates through the system
+
+#INCLUDE defines.mf ;include CAN id and period definitions
+
+
+;test path
+; check to see that drive stays in stop when emergency brake on
+;==================================1.0=======================================
+
+;#state 'STATE_DRIVE_STOPPED'
+;check that state is DRIVE_STOPPED initially
++0.5s	A S DriveControl : STATE == STATE_DRIVE_STOPPED
++0s	A F Drive : speed == STOP
++0s	A F Drive : direction == STOP
++0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == STOP
++0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == STOP
++0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed == STOP
++0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == UP
+;==================================2.0=======================================
+
+;initial conditions
+
++0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 1 NONE STOP
++0s	I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
+
++0s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = false
++0s	I WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 0
+
+;desired direction is UP
+;car is level
++0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
++0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
+
+;all doors closed
++0.25s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
++0s    I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
++0s    I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
++0s    I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
+
+;all doors commanded to open
++0s I DOOR_CONTROL_PERIOD N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT = OPEN
++0s I DOOR_CONTROL_PERIOD N DOOR_MOTOR_COMMAND_[FRONT][RIGHT]_CAN_ID DoorMotorCommand FRONT RIGHT = OPEN
++0s I DOOR_CONTROL_PERIOD N DOOR_MOTOR_COMMAND_[BACK][LEFT]_CAN_ID DoorMotorCommand BACK LEFT = OPEN
++0s I DOOR_CONTROL_PERIOD N DOOR_MOTOR_COMMAND_[BACK][RIGHT]_CAN_ID DoorMotorCommand BACK RIGHT = OPEN
+
+;+0.5s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = true
+
++0.5s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 2 BACK STOP
+
+;=================================3.0========================================
+
++1.0s	A S DriveControl : STATE == STATE_DRIVE_STOPPED
+;=================================8.0========================================
+
