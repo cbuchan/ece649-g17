@@ -133,7 +133,7 @@ public class Proj7RuntimeMonitor extends RuntimeMonitor {
 
     /**
      * Called when the car weight changes
-     * @param hallway which door the event pertains to
+     * @param newWeight an incoming weight sensor value
      */
     private void weightChanged(int newWeight) {
         //System.out.println("Elevator weight changed to " + newWeight);
