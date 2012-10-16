@@ -16,9 +16,18 @@
 ;========================================================================
 ;initialize
 ;========================================================================
-;Car is moving in hallway from floor 3 to floor 4.
-0s	  I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = false
-+0s	  I AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = false
+
+0s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = false
++0s	I WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 0
+
++0s	  I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
+
++0s  I DOOR_CONTROL_PERIOD N HALL_CALL_[2][BACK][UP]_CAN_ID Boolean = true
+
+;Dispatcher calculates new desired floor (@0.5)
++0.5s	A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 2
++0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == BACK
++0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
 
 ;All doors start off closed
 +0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
@@ -26,54 +35,49 @@
 +0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
 +0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
 
-;========================================================================
-; 1. Any mDoorClosed [b, r] is False
-;========================================================================
+;Car begins moving up (@1.0)
++0.5s   A F Drive : speed == SLOW
++0s	    A F Drive : direction == UP
++0s	    A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == SLOW
++0s	    A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == UP
 
-+1.0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
-
-+0.5s A S Dispatcher : STATE == STATE_INIT
-+0s   I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[3][FRONT][UP]_CAN_ID Boolean = true
-
-;arc 1. check door motor open <-- DoorControl
-+0s A F DoorMotor FRONT LEFT : command == OPEN
-
-;arc 2. network message door closed = false
-+0.5s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
-+0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = false
+;Car is moving in hallway from floor 1 to floor 2.
++0s	  I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = false
++0s	  I AT_FLOOR_PERIOD N AT_FLOOR_[2][BACK]_CAN_ID AtFloor 2 BACK = false
 
 ;========================================================================
-; 2. mDesiredFloor updated to [1, None, d]
+; 1. Any mDoorClosed [b, r] is False (@1.5)
 ;========================================================================
-;Target set to 2, the next floor after 1: dumb elevator
 
-;arc 3. check network message desired floor is sent by dispatcher
-
-+0.5s	A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 2
-+0s	  A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
-+0s	  A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == BACK
++0.5s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
 
 ;========================================================================
-; 3. Drive is set to Stop
+; 2. mDesiredFloor updated to [1, None, d] (@2.0)
 ;========================================================================
-;arc 4. check network message desired dwell is sent by dispatcher
-
-+0.5s	A	N	DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT : getDwell > 0
-
-;========================================================================
-; 4. Emergency brake is activated
-;========================================================================
-;arc 5. check framework message car lantern on sent by lantern control
-;both should be off, since this is the sabbath elevator
-+0.5s	A	F	CarLantern UP : lighted == false	
-+0s	  A	F	CarLantern DOWN : lighted == false	
++0.5s	A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 1
++0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == NONE
++0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
 
 ;========================================================================
-; 5. Drive is set to Stop
+; 3. Drive is set to Stop (@2.5)
 ;========================================================================
-;arc 6. network message door opened true
-+0.5s I  DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
-+0s   I  DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][RIGHT]_CAN_ID DoorOpened FRONT RIGHT = true
++0.5s   A F Drive : speed == STOP
++0s	    A F Drive : direction == STOP
++0s	    A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == STOP
++0s	    A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == STOP
+
+;========================================================================
+; 4. Emergency brake is activated (@3.0)
+;========================================================================
++0.5s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = true
+
+;========================================================================
+; 5. Drive is set to Stop (@3.5)
+;========================================================================
++0.5s   A F Drive : speed == STOP
++0s	    A F Drive : direction == STOP
++0s	    A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == STOP
++0s	    A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == STOP
 
 ;========================================================================
 ;Post Conditions

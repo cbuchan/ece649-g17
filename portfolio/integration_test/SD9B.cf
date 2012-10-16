@@ -7,4 +7,4 @@
 
 LanternControl UP 100ms TRUE
 DriveControl 100ms TRUE
-Dispatcher 100ms TRUE
+Dispatcher 8 100ms TRUE
