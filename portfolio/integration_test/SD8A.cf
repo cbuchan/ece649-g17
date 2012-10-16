@@ -1,9 +1,9 @@
 ; 18649 Fall 2012 - Group 17
 ; Jesse Salazar (jessesal)
-; Jessica Tiu (jtiu)
+; Jessica Tiu (jtiu) *
 ; Collin Buchan (cbuchan) *
 ; Rajeev Sharma (rdsharma)
 ; * Author
 
-DriveControl 100ms TRUE
-DoorControl FRONT LEFT 100ms TRUE
+DriveControl 10ms TRUE
+DoorControl BACK LEFT 10ms TRUE

@@ -1,0 +1,57 @@
+;========================================================================
+; Integration Test for SD7C
+;========================================================================
+;18649 Fall 2012
+;Group17
+;Collin Buchan (cbuchan)
+;Rajeev Sharma (rdsharma)
+;Jesse Salazar (jessesal)
+;Jessica Tiu   (jtiu) - Author
+;
+;Last modified 2012-10-16 (jtiu)
+;========================================================================
+
+#INCLUDE defines.mf ;include CAN id and period definitions
+
+;========================================================================
+;initialize
+;========================================================================
+;At least one Door[b,r] is open.
+
+; drive in STOP
++0s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID   Leveling UP = true
++0s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
++0s	I DISPATCHER_PERIOD   N DESIRED_FLOOR_CAN_ID       DesiredFloor = 3 BACK UP
+
+; f=2, b=BACK
++0s I AT_FLOOR_PERIOD N AT_FLOOR_[2][BACK]_CAN_ID AtFloor 2 BACK = true
+
+; back left door open
++0s I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[BACK][LEFT]_CAN_ID DoorOpened BACK LEFT = true
++0s I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[BACK]_CAN_ID DesiredDwell BACK = 0
+
+;========================================================================
+;1. Door[b,r] starts to close.
+;========================================================================
+; arc 1. check door motor closing <-- DoorControl
++0.5s A S DoorControl[BACK][LEFT] : STATE == STATE_DOOR_CLOSING
+
+;TODO: need to change CLOSE -> NUDGE in SC for DoorControl, also SD7C
++0s   A F DoorMotor BACK LEFT : command == NUDGE
+
+;========================================================================
+;2. Doors finish closing.
+;========================================================================
+; arc 2a. door closed sensor true
++0.5s I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
++0s   I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
+
+; arc 2b. check door motor stop <-- DoorControl
++0.5s A S DoorControl[BACK][LEFT] : STATE == STATE_DOOR_CLOSED
++0s   A F DoorMotor BACK LEFT : command == STOP
+
+;========================================================================
+;Post Conditions
+;========================================================================
+;Doors are closed.
+

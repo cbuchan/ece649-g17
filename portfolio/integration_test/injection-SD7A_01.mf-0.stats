@@ -1,0 +1,33 @@
+18649 Fall 2012 - Group 17
+Jesse Salazar (jessesal)
+Jessica Tiu (jtiu)
+Collin Buchan (cbuchan)
+Rajeev Sharma (rdsharma)
+
+
+Simulator Parameters:
+Command line = -head headerfile -cf SD7A.cf -mf SD7A_01.mf
+RandomSeed = 1350372532462
+CanNetworkBitTime = 0 ns
+Effective Can Bitrate = Infinity
+Run Time = null
+Real time rate = null
+Message File = SD7A_01.mf
+Controller File = SD7A.cf
+
+Assertion Results:
+@0.6s:  PASSED DoorControl[BACK][LEFT]::checkState(STATE) ?== STATE_DOOR_OPENING PASSED
+@0.6s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@1999f91c :: command ?== OPEN PASSED
+@0.6s:  PASSED simulator.payloads.HallCallPayload$ReadableHallCallPayload@7d29f3b5 :: pressed ?== true PASSED
+@1.6s:  PASSED simulator.payloads.CarLanternPayload$ReadableCarLanternPayload@1ff4689e :: lighted ?== true PASSED
+@1.6s:  PASSED simulator.payloads.CarLanternPayload$ReadableCarLanternPayload@4d125127 :: lighted ?== false PASSED
+@2.1s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@55e83f9 :: lighted ?== false PASSED
+@3.1s:  PASSED DoorControl[BACK][LEFT]::checkState(STATE) ?== STATE_DOOR_OPEN PASSED
+@3.1s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@33c1b02 :: command ?== STOP PASSED
+
+
+******************Summary******************
+Passed:  8
+Failed:  0
+Total :  8
+

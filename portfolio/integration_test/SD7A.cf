@@ -1,10 +1,10 @@
 ; 18649 Fall 2012 - Group 17
 ; Jesse Salazar (jessesal)
-; Jessica Tiu (jtiu)
+; Jessica Tiu (jtiu) *
 ; Collin Buchan (cbuchan) *
 ; Rajeev Sharma (rdsharma)
 ; * Author
 
-LanternControl UP 100ms TRUE
-DoorControl FRONT LEFT 100ms TRUE
+LanternControl UP 200ms TRUE
+DoorControl BACK LEFT 10ms TRUE
 HallButtonControl 4 FRONT DOWN 100ms TRUE
