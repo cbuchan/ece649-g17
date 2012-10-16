@@ -1,5 +1,7 @@
 /.DS_Store
 .DS_Store
+.idea/
+/out
 /simulator/out
 /simulator/doc
 /simulator/Simulator.iml
