@@ -79,7 +79,7 @@ public class DriveControl extends Controller {
     private enum State {
         STATE_DRIVE_STOPPED,
         STATE_DRIVE_LEVEL_UP,
-		    STATE_DRIVE_LEVEL_DOWN,
+		STATE_DRIVE_LEVEL_DOWN,
         STATE_DRIVE_SLOW,
     }
 
@@ -88,7 +88,10 @@ public class DriveControl extends Controller {
     private Direction desiredDir;
 
     //returns the desired direction based on current floor and desired floor by dispatcher
-    private Direction getDesiredDir() {
+    private Direction getDesiredDir(Direction curDirection) {
+
+        Direction desiredDirection = curDirection;
+
         int currentFloor = networkAtFloorArray.getCurrentFloor();
         int desiredFloor = mDesiredFloor.getFloor();
 
@@ -97,19 +100,19 @@ public class DriveControl extends Controller {
 						
             //current floor below desired floor
             if (currentFloor < desiredFloor) {
-                return Direction.UP;
+                desiredDirection = Direction.UP;
             }
             //current floor above desired floor
             else if (currentFloor > desiredFloor) {
-                return Direction.DOWN;
+                desiredDirection = Direction.DOWN;
             }
             //current floor is desired floor
             else {
-                return Direction.STOP;
+                desiredDirection = Direction.STOP;
             }
 
         }
-        return desiredDir;
+        return desiredDirection;
     }
 
     /**
@@ -225,7 +228,7 @@ public class DriveControl extends Controller {
 
             case STATE_DRIVE_STOPPED:
 
-                desiredDir = getDesiredDir();
+                desiredDir = getDesiredDir(desiredDir);
                 
                 //state actions for DRIVE_STOPPED
                 localDrive.set(Speed.STOP, Direction.STOP);
@@ -236,15 +239,17 @@ public class DriveControl extends Controller {
 
                 //#transition 'T6.1' 
 				if (desiredDir.equals(Direction.STOP) &&
-						mLevelUp.getValue() && !mLevelDown.getValue() &&
-            !mEmergencyBrake.getValue()){
+						!mLevelUp.getValue() && mLevelDown.getValue()){
+
+                    log("T6.1");
 				    newState = State.STATE_DRIVE_LEVEL_UP;				
 				}
 				
                 //#transition 'T6.3' 
 				else if (desiredDir.equals(Direction.STOP) &&
-						mLevelDown.getValue() && !mLevelUp.getValue() &&
-            !mEmergencyBrake.getValue()){
+						!mLevelDown.getValue() && mLevelUp.getValue()){
+
+                    log("T6.3");
 				    newState = State.STATE_DRIVE_LEVEL_DOWN;
 				}
 				
@@ -253,6 +258,8 @@ public class DriveControl extends Controller {
 						!desiredDir.equals(Direction.STOP) &&
 						mCarWeight.getWeight() < Elevator.MaxCarCapacity &&
 						!mEmergencyBrake.getValue()){
+
+                    log("T6.9");
 					newState = State.STATE_DRIVE_SLOW;
                 } else {
                     newState = state;
@@ -262,7 +269,7 @@ public class DriveControl extends Controller {
                 
             case STATE_DRIVE_LEVEL_UP:
     	
-                desiredDir = getDesiredDir();
+                desiredDir = getDesiredDir(desiredDir);
 
                 //state actions for DRIVE_LEVEL_UP
                 localDrive.set(Speed.LEVEL, Direction.UP);
@@ -282,7 +289,7 @@ public class DriveControl extends Controller {
               
                 //#transition 'T6.5'
                 else if (desiredDir.equals(Direction.STOP) &&
-                		mLevelDown.getValue() && !mLevelUp.getValue()){
+                		!mLevelDown.getValue() && mLevelUp.getValue()){
                     newState = State.STATE_DRIVE_LEVEL_DOWN;
                 	
                 } else {
@@ -293,7 +300,7 @@ public class DriveControl extends Controller {
 
             case STATE_DRIVE_LEVEL_DOWN:
 
-            	desiredDir = getDesiredDir();
+            	desiredDir = getDesiredDir(desiredDir);
             	
                 //state actions for DRIVE_LEVEL_DOWN
                 localDrive.set(Speed.LEVEL, Direction.DOWN);
@@ -313,7 +320,7 @@ public class DriveControl extends Controller {
                 
                 //#transition 'T6.6'
                 else if (desiredDir.equals(Direction.STOP) &&
-                		mLevelUp.getValue() && !mLevelDown.getValue()){
+                		!mLevelUp.getValue() && mLevelDown.getValue()){
                     newState = State.STATE_DRIVE_LEVEL_UP;
 
                 } else {
@@ -324,7 +331,7 @@ public class DriveControl extends Controller {
 
             case STATE_DRIVE_SLOW:
 
-                desiredDir = getDesiredDir();
+                desiredDir = getDesiredDir(desiredDir);
 
                 //state actions for DRIVE_SLOW
                 localDrive.set(Speed.SLOW, desiredDir);
@@ -335,13 +342,13 @@ public class DriveControl extends Controller {
 
                 //#transition 'T6.7'
                 if (desiredDir.equals(Direction.STOP) &&
-                		mLevelUp.getValue() && !mLevelDown.getValue()){
+                		!mLevelUp.getValue() && mLevelDown.getValue()){
                     newState = State.STATE_DRIVE_LEVEL_UP;
                 }
                 
                 //#transition 'T6.8'
                 else if (desiredDir.equals(Direction.STOP) &&
-                    mLevelDown.getValue() && !mLevelUp.getValue()){
+                    !mLevelDown.getValue() && mLevelUp.getValue()){
                    	newState = State.STATE_DRIVE_LEVEL_DOWN;
                	}
                 
