@@ -67,14 +67,14 @@ for line in f :
             stderr=subprocess.STDOUT).communicate()[0]
 
     # get passed count
-    passed_m = re.search('Passed:\s*(\d+?)', output)
+    passed_m = re.search('Passed:\s*(\d+)', output)
     if (passed_m == None):
         print tokens[0] + ': Error running test'
         continue
     passed = passed_m.group(1)
 
     # get failed count
-    failed_m = re.search('Failed:\s*(\d+?)', output)
+    failed_m = re.search('Failed:\s*(\d+)', output)
     if (failed_m == None):
         print tokens[0] + ': Error running test'
         continue
