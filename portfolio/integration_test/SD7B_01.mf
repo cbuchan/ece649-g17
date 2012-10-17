@@ -34,10 +34,11 @@
 +0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
 +0s I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[BACK]_CAN_ID DesiredDwell BACK = 1
 
-
-; car lanterns off
-+0s I LANTERN_CONTROL_PERIOD N CAR_LANTERN_[UP]_CAN_ID Boolean = false 
-+0s I LANTERN_CONTROL_PERIOD N CAR_LANTERN_[DOWN]_CAN_ID Boolean = false 
+; LanternControl in state light_off
+; (all mDoorClosed[b,r] == true)
++0.5s A S LanternControl[UP] : STATE == STATE_CAR_LANTERN_OFF
++0s   A F CarLantern UP : lighted == false
++0s   A F CarLantern DOWN : lighted == false
 
 ;========================================================================
 ;1. Door[b,*] starts opening.
