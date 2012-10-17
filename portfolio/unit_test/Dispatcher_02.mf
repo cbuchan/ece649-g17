@@ -16,7 +16,7 @@
 
 #INCLUDE defines.mf ;include CAN id and period definitions
 
-#DEFINE CONST_DWELL 100
+#DEFINE CONST_DWELL 20
 
 ;========================================================================
 ;initialize
