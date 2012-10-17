@@ -85,7 +85,7 @@ public class DriveControl extends Controller {
 
     //state variable initialized to the initial state DRIVE_STOPPED
     private State state = State.STATE_DRIVE_STOPPED;
-    private Direction desiredDir;
+    private Direction desiredDir = Direction.UP;
 
     //returns the desired direction based on current floor and desired floor by dispatcher
     private Direction getDesiredDir(Direction curDirection) {
@@ -222,7 +222,6 @@ public class DriveControl extends Controller {
      */
     public void timerExpired(Object callbackData) {
         State newState = state;
-        desiredDir = Direction.UP;
 
         switch (state) {
 
