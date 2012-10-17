@@ -243,7 +243,7 @@ public class DoorControl extends Controller {
                     newState = State.STATE_DOOR_OPEN;
                 }
                 //#transition 'T5.6'
-                else if (!doorOpened() && (isOverweight() || isDoorReversal())) {
+                else if (doorOpened() && (isOverweight() || isDoorReversal())) {
                     newState = State.STATE_DOOR_OPEN_E;
                 } else {
                     newState = state;
