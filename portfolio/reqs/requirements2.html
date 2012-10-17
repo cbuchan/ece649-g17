@@ -1011,8 +1011,7 @@
     doors shall open completely until the car is no longer overloaded.
     <h3> TIME-TRIGGERED BEHAVIORS: </h3>
     5.6 &nbsp;&nbsp; If any mAtFloor[f, b] is True and f equals
-    mDesiredFloor.f, and mDriveSpeed = (0, d) or mDriveSpeed = (s, Stop)
-    then: <br>
+    mDesiredFloor.f, and mDriveSpeed.s equals Stop, then: <br>
     &nbsp;&nbsp;&nbsp; 5.6.1&nbsp;&nbsp;&nbsp; DoorMotor[b, r] shall be
     commanded to Open; <br>
     &nbsp;&nbsp;&nbsp; 5.6.2&nbsp;&nbsp;&nbsp; CountDown shall be set to
@@ -1031,7 +1030,7 @@
     5.12&nbsp; Dwell shall be set to an appropriate value based on
     mDesiredDwell[b].<br>
     5.13&nbsp; mDoorMotor[b,r] shall be set to the current value of
-    DoorMotor[b,r]<br>
+    DoorMotor[b,r].<br>
     5.14&nbsp; If mDoorReversal=true, and mDoorOpened[b,r] is False,
     DoorMotor[b,r] shall be commanded to Open.<br>
     <br>
@@ -1062,9 +1061,9 @@
           <td style="vertical-align: top; ">T5.2<br>
           </td>
           <td style="vertical-align: top; "> ( mAtFloor[f,b]==True
-            &amp;&amp; mDesiredFloor.f==f &amp;&amp; (
-            mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) &amp;&amp; (
-            mDesiredFloor.h==b || mDesiredFloor.h==BOTH ) )<br>
+            &amp;&amp; mDesiredFloor.f==f &amp;&amp; mDriveSpeed.s ==
+            Stop ) &amp;&amp; ( mDesiredFloor.h==b ||
+            mDesiredFloor.h==BOTH ) )<br>
             || ( mCarWeight(g) &gt;= MaxCarCapacity &amp;&amp;
             mDoorOpened[b,r]==False )<br>
             || ( mDoorReversal==True &amp;&amp; mDoorOpened[b,r]==False
@@ -1089,9 +1088,9 @@
           <td style="vertical-align: top; ">T5.5<br>
           </td>
           <td style="vertical-align: top; "> ( mAtFloor[f,b]==True
-            &amp;&amp; mDesiredFloor.f==f &amp;&amp; (
-            mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) &amp;&amp; (
-              mDesiredFloor.h==b || mDesiredFloor.h==BOTH ) )<br>
+            &amp;&amp; mDesiredFloor.f==f &amp;&amp; mDriveSpeed.s ==
+            Stop ) &amp;&amp; ( mDesiredFloor.h==b ||
+            mDesiredFloor.h==BOTH ) )<br>
             || ( mCarWeight(g) &gt;= MaxCarCapacity &amp;&amp;
             mDoorOpened[b,r]==False )<br>
             || ( mDoorReversal==True &amp;&amp; mDoorOpened[b,r]==False
@@ -1814,9 +1813,9 @@
       &nbsp;&nbsp;&nbsp; 6.7.1&nbsp;&nbsp;&nbsp; If mLevel[<b>*</b>] is
       true, then Drive[s, d] shall be commanded to (Stop, Stop).<br>
       &nbsp;&nbsp;&nbsp; 6.7.2&nbsp;&nbsp;&nbsp; If mLevel[<b>Up</b>] is
-      true, then Drive[s, d] shall be commanded to (Level, Up).<br>
+      true, then Drive[s, d] shall be commanded to (Level, Down).<br>
       &nbsp;&nbsp;&nbsp; 6.7.3&nbsp;&nbsp;&nbsp; If mLevel[<b>Down</b>]
-      is true, then Drive[s,d] shall be commanded to (Level, Down).<br>
+      is true, then Drive[s, d] shall be commanded to (Level, Up).<br>
       6.8 &nbsp;&nbsp; If mDoorClosed[*, *] is true, DesiredDirection is
       not Stop, mEmergencyBrake[b] is off, and mCarWeight(x) &lt;
       MaxCarCapacity, then Drive[s, d] shall be commanded to (Slow,
@@ -1851,7 +1850,7 @@
           </td>
           <td style="vertical-align: top; ">DesiredDirection == Stop
             &amp;&amp; <br>
-            mLevel[Up] == true &amp;&amp; mLevel[Down] == false<br>
+            mLevel[Up] == false &amp;&amp; mLevel[Down] == true<br>
           </td>
         </tr>
         <tr>
@@ -1868,7 +1867,7 @@
           <td valign="top">T6.3<br>
           </td>
           <td valign="top">DesiredDirection == Stop &amp;&amp; <br>
-            mLevel[Down] == true &amp;&amp; mLevel[Up] == false<br>
+            mLevel[Down] == false &amp;&amp; mLevel[Up] == true<br>
           </td>
         </tr>
         <tr>
@@ -1883,28 +1882,28 @@
           <td valign="top">T6.5<br>
           </td>
           <td valign="top">DesiredDirection == Stop &amp;&amp; <br>
-            mLevel[Down] == true &amp;&amp; mLevel[Up] == false<br>
+            mLevel[Down] == false &amp;&amp; mLevel[Up] == true<br>
           </td>
         </tr>
         <tr>
           <td valign="top">T6.6<br>
           </td>
           <td valign="top">DesiredDirection == Stop &amp;&amp; <br>
-            mLevel[Up] == true &amp;&amp; mLevel[Down] == false<br>
+            mLevel[Up] == false &amp;&amp; mLevel[Down] == true<br>
           </td>
         </tr>
         <tr>
           <td valign="top">T6.7<br>
           </td>
           <td valign="top">DesiredDirection == Stop &amp;&amp; <br>
-            mLevel[Up] == true &amp;&amp; mLevel[Down] == false<br>
+            mLevel[Up] == false &amp;&amp; mLevel[Down] == true<br>
           </td>
         </tr>
         <tr>
           <td valign="top">T6.8<br>
           </td>
           <td valign="top">DesiredDirection == Stop &amp;&amp; <br>
-            mLevel[Down] == true &amp;&amp; mLevel[Up] == false<br>
+            mLevel[Down] == false &amp;&amp; mLevel[Up] == true<br>
           </td>
         </tr>
         <tr>
@@ -1920,7 +1919,8 @@
           <td valign="top">T6.10<br>
           </td>
           <td valign="top">mCarWeight[x] &gt;= MaxCarCapacity ||<br>
-            mEmergencyBrake[b] == true<br>
+            mEmergencyBrake[b] == true ||<br>
+            !(mDoorClosed[*,*] == true)<br>
           </td>
         </tr>
       </tbody>
@@ -2000,11 +2000,11 @@
           </td>
           <td style="vertical-align: top; "><br>
           </td>
-          <td style="vertical-align: top; ">X<br>
+          <td style="vertical-align: top; "><br>
           </td>
           <td valign="top"><br>
           </td>
-          <td valign="top"><br>
+          <td valign="top">X<br>
           </td>
           <td valign="top"><br>
           </td>
@@ -2040,11 +2040,11 @@
           </td>
           <td valign="top"><br>
           </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top"><br>
-          </td>
           <td valign="top">X<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
           </td>
           <td valign="top"><br>
           </td>
@@ -2081,9 +2081,9 @@
           </td>
           <td style="vertical-align: top; "><br>
           </td>
-          <td style="vertical-align: top; ">X<br>
+          <td style="vertical-align: top; "><br>
           </td>
-          <td valign="top"><br>
+          <td valign="top">X<br>
           </td>
           <td valign="top"><br>
           </td>
@@ -2120,9 +2120,9 @@
           </td>
           <td valign="top"><br>
           </td>
-          <td valign="top"><br>
-          </td>
           <td valign="top">X<br>
+          </td>
+          <td valign="top"><br>
           </td>
           <td valign="top"><br>
           </td>
@@ -2160,9 +2160,9 @@
           </td>
           <td valign="top"><br>
           </td>
-          <td valign="top"><br>
-          </td>
           <td valign="top">X<br>
+          </td>
+          <td valign="top"><br>
           </td>
           <td valign="top"><br>
           </td>
@@ -2180,9 +2180,9 @@
           </td>
           <td valign="top"><br>
           </td>
-          <td valign="top">X<br>
-          </td>
           <td valign="top"><br>
+          </td>
+          <td valign="top">X<br>
           </td>
           <td valign="top"><br>
           </td>
@@ -2200,9 +2200,9 @@
           </td>
           <td valign="top"><br>
           </td>
-          <td valign="top">X<br>
-          </td>
           <td valign="top"><br>
+          </td>
+          <td valign="top">X<br>
           </td>
           <td valign="top"><br>
           </td>
@@ -2220,9 +2220,9 @@
           </td>
           <td valign="top"><br>
           </td>
-          <td valign="top"><br>
-          </td>
           <td valign="top">X<br>
+          </td>
+          <td valign="top"><br>
           </td>
           <td valign="top"><br>
           </td>
@@ -2266,7 +2266,7 @@
           </td>
           <td valign="top"><br>
           </td>
-          <td valign="top"><br>
+          <td valign="top">X<br>
           </td>
           <td valign="top">X<br>
           </td>

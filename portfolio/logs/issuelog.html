@@ -592,11 +592,85 @@
           <td valign="top">Transitioning from a door closed to a door
             opening state should also take into account the desired
             hallway before opening the doors.</td>
-          <td valign="top">Edited transition to check the current DoorControl's
-            hallway against mDesiredFloor.h.<br>
+          <td valign="top">Edited transition to check the current
+            DoorControl's hallway against mDesiredFloor.h.<br>
           </td>
-          <td valign="top">requirements2.html, DoorControl.java, 
+          <td valign="top">requirements2.html, DoorControl.java,
             sc_code.html<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">29<br>
+          </td>
+          <td valign="top">10/16/2012<br>
+          </td>
+          <td valign="top">10/16/2012<br>
+          </td>
+          <td valign="top">jtiu<br>
+          </td>
+          <td valign="top">BR_DriveControl, SC_DriveControl,
+            DriveControl.java<br>
+          </td>
+          <td valign="top">Misconception about location of the leveling
+            sensors - mLevelUp is bottom, mLevelDown is top<br>
+          </td>
+          <td valign="top">Flipped leveling sensor logic in BR and SC<br>
+          </td>
+          <td valign="top">BR_DriveControl, SC_DriveControl,
+            DriveControl.java, sc_code.html<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">30<br>
+          </td>
+          <td valign="top">10/16/2012<br>
+          </td>
+          <td valign="top">10/16/2012<br>
+          </td>
+          <td valign="top">jtiu<br>
+          </td>
+          <td valign="top">SD9B<br>
+          </td>
+          <td valign="top">Incorrect transitions in SD9B, should not
+            include LanternControl<br>
+          </td>
+          <td valign="top">removed LanternControl, fixed transitions,
+            re-number steps and arcs<br>
+          </td>
+          <td valign="top">SD9B<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">31<br>
+          </td>
+          <td valign="top">10/16/2012<br>
+          </td>
+          <td valign="top">10/16/2012<br>
+          </td>
+          <td valign="top">jtiu<br>
+          </td>
+          <td valign="top">BR_DoorControl, SC_DoorControl<br>
+          </td>
+          <td valign="top">Doors should not transition to opening based
+            on drive's intended direction, only on drive speed.<br>
+          </td>
+          <td valign="top">
+            <meta charset="utf-8">
+            <span style="color: rgb(0, 0, 0); font-family: Times;
+              font-size: medium; font-style: normal; font-variant:
+              normal; font-weight: normal; letter-spacing: normal;
+              line-height: normal; orphans: 2; text-align: left;
+              text-indent: 0px; text-transform: none; white-space:
+              normal; widows: 2; word-spacing: 0px;
+              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
+              0px; display: inline !important; float: none; ">Change the
+              condition <br>
+              ( mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) <br>
+              to<br>
+              (mDriveSpeed.s==Stop)<br>
+            </span></td>
+          <td valign="top">BR5.6.1, BR5.6.2, SC_DoorControl (T5.2, T5.5),
+            DoorControl.java<br>
           </td>
         </tr>
       </tbody>
