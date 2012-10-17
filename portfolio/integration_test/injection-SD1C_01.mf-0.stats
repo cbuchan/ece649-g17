@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf SD1C.cf -mf SD1C_01.mf
-RandomSeed = 1350507791280
+RandomSeed = 1350512421144
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -15,12 +15,12 @@ Message File = SD1C_01.mf
 Controller File = SD1C.cf
 
 Assertion Results:
-@0.0s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@6686fe26 :: lighted ?== false PASSED
+@0.0s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@122e7820 :: lighted ?== false PASSED
 @0.21s:  PASSED DoorControl[FRONT][LEFT]::checkState(STATE) ?== STATE_DOOR_CLOSING PASSED
-@0.21s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@1cc7b00c :: command ?== NUDGE PASSED
-@0.84s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@4de13d52 :: lighted ?== true PASSED
-@0.84s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@45b9ce4b :: getValue ?== true PASSED
-@1.46s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@f0f11b8 :: command ?== STOP PASSED
+@0.21s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@56406199 :: command ?== NUDGE PASSED
+@0.84s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@52b2a2d8 :: lighted ?== true PASSED
+@0.84s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@7e80fa6f :: getValue ?== true PASSED
+@1.46s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@2107ebe1 :: command ?== STOP PASSED
 
 
 ******************Summary******************

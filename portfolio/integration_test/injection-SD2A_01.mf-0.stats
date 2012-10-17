@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf SD2A.cf -mf SD2A_01.mf
-RandomSeed = 1350507792070
+RandomSeed = 1350512421916
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -15,14 +15,14 @@ Message File = SD2A_01.mf
 Controller File = SD2A.cf
 
 Assertion Results:
-@0.83s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@68861f24 :: getValue ?== true PASSED
-@1.04s:  PASSED simulator.payloads.CarLightPayload$ReadableCarLightPayload@1f292d26 :: isLighted ?== true PASSED
-@3.04s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@39d85f79 :: command ?== NUDGE PASSED
-@3.04s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@6115273a :: command ?== NUDGE PASSED
-@5.25s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@53ad085 :: getValue ?== true PASSED
-@5.25s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@5f7a8a02 :: getValue ?== true PASSED
-@5.46s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@2fdb7df8 :: command ?== STOP PASSED
-@5.46s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@1bc74f37 :: command ?== STOP PASSED
+@0.83s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2996c1b0 :: getValue ?== true PASSED
+@1.04s:  PASSED simulator.payloads.CarLightPayload$ReadableCarLightPayload@3d66aa18 :: isLighted ?== true PASSED
+@3.04s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@2678a212 :: command ?== NUDGE PASSED
+@3.04s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@2c641e9a :: command ?== NUDGE PASSED
+@5.25s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@73d6776d :: getValue ?== true PASSED
+@5.25s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@584fce71 :: getValue ?== true PASSED
+@5.46s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@65faba46 :: command ?== STOP PASSED
+@5.46s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@732b3d53 :: command ?== STOP PASSED
 
 
 ******************Summary******************

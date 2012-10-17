@@ -44,14 +44,14 @@
 ;========================================================================
 ;Arcs 1a-c
 +1.00s I  AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
-+0s    I  LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
++0s    I  LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
 
 ;Arc 1d
 +0.41s A  F Drive : speed == LEVEL
 +0s    A  F Drive : direction == UP
 
 ;Arc 1e
-+0.79s I  LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
++0.79s I  LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
 
 ;Arc 1f
 +0.30s A  F Drive : speed == STOP

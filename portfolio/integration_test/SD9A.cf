@@ -6,5 +6,5 @@
 ; * Author
 
 LanternControl UP 200ms FALSE
-DoorControl FRONT LEFT 10ms TRUE
+DoorControl BACK RIGHT 10ms FALSE
 Dispatcher 8 50ms FALSE

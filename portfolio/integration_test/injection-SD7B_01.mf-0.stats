@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf SD7B.cf -mf SD7B_01.mf
-RandomSeed = 1350507799731
+RandomSeed = 1350512429159
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -16,8 +16,8 @@ Controller File = SD7B.cf
 
 Assertion Results:
 @0.5s:  PASSED LanternControl[UP]::checkState(STATE) ?== STATE_CAR_LANTERN_OFF PASSED
-@0.5s:  PASSED simulator.payloads.CarLanternPayload$ReadableCarLanternPayload@68fe748f :: lighted ?== false PASSED
-@0.5s:  PASSED simulator.payloads.CarLanternPayload$ReadableCarLanternPayload@6b4da8f4 :: lighted ?== false PASSED
+@0.5s:  PASSED simulator.payloads.CarLanternPayload$ReadableCarLanternPayload@26544ec1 :: lighted ?== false PASSED
+@0.5s:  PASSED simulator.payloads.CarLanternPayload$ReadableCarLanternPayload@19968e23 :: lighted ?== false PASSED
 @1.1s:  PASSED DoorControl[BACK][LEFT]::checkState(STATE) ?== STATE_DOOR_OPENING PASSED
 @1.1s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@33c282a1 :: command ?== OPEN PASSED
 @1.1s:  PASSED simulator.payloads.HallCallPayload$ReadableHallCallPayload@151a64ed :: pressed ?== true PASSED

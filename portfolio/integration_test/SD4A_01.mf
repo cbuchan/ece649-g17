@@ -20,57 +20,60 @@
 ;Car is traveling in direction d (UP)
 ;All doors are closed.
 
-0s	I  AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = false
-0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
++0s	I AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = false
++0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
++0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
++0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
++0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
 
 ;passenger in car, elevator is approaching desired floor
-0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 4 FRONT STOP
-0s  I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT = 1
-
++0s I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 4 FRONT STOP
++0s I DISPATCHER_PERIOD N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT = 1
 
 ;========================================================================
-;1. The car arrives at floor f.
+;1. The car arrives at floor f=4.
 ;========================================================================
 ;arc 1a
 
-+0.21s	I  AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
-+0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
-+0s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = false
++0.21s I AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
+
++0.21s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
++0s    I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = false
 
 ;========================================================================
 ;2. DriveControl sets drive speed to Level and Car reaches a level state.
 ;========================================================================
 ;check state level
-+0.41s  A  F Drive : speed == LEVEL
-+0s     A  F Drive : direction == UP
++0.21s A F Drive : speed == LEVEL
++0s    A F Drive : direction == DOWN
 
 +0.21s  I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
 
 ;========================================================================
 ;3. DriveControl sets drive speed to Stop.
 ;========================================================================
-+0.21s     A  F Drive : speed == STOP
-+0s     A  F Drive : direction == STOP
++0.21s A F Drive : speed == STOP
++0s    A F Drive : direction == STOP
 
 ;========================================================================
 ;4. Door[b,r] starts to open.
 ;========================================================================
-+0.21s  A  S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPENING
-+0s     A  F DoorMotor FRONT LEFT : command == OPEN
++0.21s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPENING
++0s    A F DoorMotor FRONT LEFT : command == OPEN
 
 ;========================================================================
 ;5. Door[b,r] finishes opening.
 ;========================================================================
-+0s	    I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
++0s I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
 
 ;check 5. DoorMotor=Stop results (DoorControl)
-+0.41s	A F	DoorMotor FRONT LEFT : command == STOP
++0.41s A F DoorMotor FRONT LEFT : command == STOP
 
 ;========================================================================
 ;6. The passenger exits the car.
 ;========================================================================
-+0.21s  A   N CAR_CALL_[4][FRONT]_CAN_ID Boolean : getValue == false
-+0s     A   N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean : getValue == false
++0.21s A N CAR_CALL_[4][FRONT]_CAN_ID Boolean : getValue == false
++0s    A N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean : getValue == false
 
 ;========================================================================
 ;Post Conditions

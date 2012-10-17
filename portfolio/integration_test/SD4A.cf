@@ -10,4 +10,4 @@
 ;========================================================================
 
 DriveControl 10ms TRUE
-DoorControl FRONT LEFT 10ms TRUE
+DoorControl FRONT LEFT 10ms FALSE

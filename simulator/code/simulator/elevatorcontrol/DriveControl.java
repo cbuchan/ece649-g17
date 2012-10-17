@@ -238,13 +238,11 @@ public class DriveControl extends Controller {
 
                 //#transition 'T6.1'
                 if (!mLevelUp.getValue() && mLevelDown.getValue()) {
-                    log("T6.1");
                     newState = State.STATE_DRIVE_LEVEL_UP;
                 }
 
                 //#transition 'T6.3'
                 else if (!mLevelDown.getValue() && mLevelUp.getValue()) {
-                    log("T6.3");
                     newState = State.STATE_DRIVE_LEVEL_DOWN;
                 }
 
@@ -254,7 +252,6 @@ public class DriveControl extends Controller {
                         mCarWeight.getWeight() < Elevator.MaxCarCapacity &&
                         !mEmergencyBrake.getValue()) {
 
-                    log("T6.9");
                     newState = State.STATE_DRIVE_SLOW;
                 } else {
                     newState = state;
