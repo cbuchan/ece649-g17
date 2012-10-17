@@ -76,13 +76,11 @@
 ; arc 5b. at floor g c is true
 +0.5s I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
 
-; TODO: change 5a-b. floors to f,b and g,c to correspond to scenario.
-
 ;========================================================================
 ;5. Car stops at hallway[g,c].
 ;========================================================================
-+0.5s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = false
-+0s   I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
++0.5s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
++0s   I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = false
 
 ; arc 6. check drive in level state <-- DriveControl
 +0.5s A S DriveControl : STATE == STATE_DRIVE_LEVEL_UP
@@ -90,7 +88,7 @@
 +0s   A F Drive : direction == UP
 
 ; arc 7. receive level sensors both true
-+0.5s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
++0.5s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
 +0s   I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
 
 ; arc 8. check drive in stop state <-- DriveControl
