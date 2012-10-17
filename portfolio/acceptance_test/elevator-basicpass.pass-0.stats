@@ -5,20 +5,21 @@ Collin Buchan (cbuchan)
 Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
-Command line = -gui -head headerfile -pf basicpass.pass
-RandomSeed = 1350438217261
+Command line = -monitor Proj7RuntimeMonitor -gui -head headerfile -pf basicpass.pass
+RandomSeed = 1350446114447
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
 Real time rate = null
 Acceptance Test File = basicpass.pass
+Monitors: Proj7RuntimeMonitor  
 
 STATISTICS FOR ELEVATOR SIMULATION PASSENGER DELIVERY
 -----------------------------------------------------
 
 
 These passengers were delivered:
-Passenger 0: INJECTED AT 1.0s and DELIVERED in 583.722s
+Passenger 0: INJECTED AT 1.0s and DELIVERED in 583.683s
   Satisfaction score: 81.0
     @581.660000000: 0.90 Repeated car call press
     @582.160000000: 0.90 Repeated car call press
@@ -29,9 +30,9 @@ Stranded: 0
 Total: 1
 
 Deliver Stats (lower is better):
-Average_delivery_time: 583.722
-Maximum_delivery_time:  583.722
-Delivery_performance_score:  2918.610
+Average_delivery_time: 583.683
+Maximum_delivery_time:  583.683
+Delivery_performance_score:  2918.415
 
 Satisfaction Stats (higher is better):
 Average_satisfaction_score: 81.000
@@ -40,4 +41,12 @@ Satisfaction_performance_score:  405.000
 
 
 
+
+Monitors Warning Results: 
+RuntimeMonitor generated 0 warnings.
+
+Monitors Summmary Results: 
+Overweight count = 0
+Wasted openings count = 9
+Time dealing with door reversals = 0.0s
 
