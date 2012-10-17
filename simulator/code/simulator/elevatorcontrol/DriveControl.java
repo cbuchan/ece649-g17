@@ -353,7 +353,8 @@ public class DriveControl extends Controller {
                 
                 //#transition 'T6.10'
                 else if (mCarWeight.getWeight() >= Elevator.MaxCarCapacity ||
-                		mEmergencyBrake.getValue()){
+                		mEmergencyBrake.getValue() ||
+                        !networkDoorClosedFront.getAllClosed() || !networkDoorClosedBack.getAllClosed()){
                     newState = State.STATE_DRIVE_STOPPED;
                 	
                 } else {

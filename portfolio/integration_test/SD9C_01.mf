@@ -37,7 +37,7 @@
 +0s   I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[3][FRONT][UP]_CAN_ID Boolean = true
 
 ;arc 1. check door motor open <-- DoorControl
-+0s A F DoorMotor FRONT LEFT : command == OPEN
++0.5s A F DoorMotor FRONT LEFT : command == OPEN
 
 ;arc 2. network message door closed = false
 +0.5s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
@@ -50,7 +50,7 @@
 
 ;arc 3. check network message desired floor is sent by dispatcher
 
-+0.5s	A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 2
++0.5s A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 2
 +0s	  A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
 +0s	  A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == BACK
 
@@ -66,7 +66,7 @@
 ;========================================================================
 ;arc 5. check framework message car lantern on sent by lantern control
 ;both should be off, since this is the sabbath elevator
-+0.5s	A	F	CarLantern UP : lighted == false	
++0.5s A	F	CarLantern UP : lighted == false
 +0s	  A	F	CarLantern DOWN : lighted == false	
 
 ;========================================================================
@@ -97,7 +97,7 @@
 ;+0s I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT = 0
 
 ;arc 9. check framework message door motor close from DoorControl
-+100s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_CLOSING
++0.5s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_CLOSING
 +0s   A F DoorMotor FRONT LEFT : command == NUDGE
 +0s   A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == NUDGE
 

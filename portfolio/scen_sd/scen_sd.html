@@ -338,6 +338,7 @@
 
 
 
+
         Case 5: Passenger Triggers Door Reversal </h2>
       <h3> <a name="scenario5a" id="scenario5a"></a>Scenario 5A:
         Passenger attempts to enter the car as the doors begin to close.
@@ -354,6 +355,7 @@
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to enter and is nudged by Door[<b>b</b>,<b>r</b>],
+
 
 
 
@@ -406,6 +408,7 @@
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to exit and is nudged by Door[<b>b</b>,<b>r</b>],
+
 
 
 
@@ -660,7 +663,7 @@
       </ul>
       <h3> </h3>
       <h3><a name="scenario9b" id="scenario9b"></a>Scenario 9B: Elevator
-        is between floors with the doors open.</h3>
+        is between floors and the doors attempt to open.</h3>
       <h3> </h3>
       <h3> Author name: Rajeev Sharma (rdsharma)<br>
       </h3>
@@ -672,10 +675,12 @@
       <ol>
         <li>Any mDoorClosed [b, r] is False</li>
         <li>mDesiredFloor updated to [1, None, d]</li>
-        <li>Drive is set to Stop<br>
+        <li>Doors are commanded to open.<br>
         </li>
-        <li>Emergency brake is activated</li>
-        <li>Drive is set to Stop <br>
+        <li>Drive is set to Stop.<br>
+        </li>
+        <li>Emergency brake is activated.</li>
+        <li>Drive is set to Stop.<br>
         </li>
       </ol>
       <h3> Post-Conditions: </h3>

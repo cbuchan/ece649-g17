@@ -8,7 +8,7 @@
 ;Jesse Salazar (jessesal)
 ;Jessica Tiu   (jtiu) - Author
 ;
-;Last modified 2012-10-11 (jtiu)
+;Last modified 2012-10-16 (jtiu)
 ;========================================================================
 
 #INCLUDE defines.mf ;include CAN id and period definitions
@@ -24,10 +24,10 @@
 ;Dispatcher in INIT state
 +0s	  I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
 
-+0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
-+0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
-+0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
-+0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
++0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
++0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
++0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
++0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
 
 ;========================================================================
 ; 1. Door[b,r] starts to open.
@@ -50,9 +50,9 @@
 
 ;arc 3. check network message desired floor is sent by dispatcher
 
-+0.5s	A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 2
-+0s	  A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
-+0s	  A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == BACK
++0.5s A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 2
++0s	  A	N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
++0s	  A	N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == BACK
 
 ;========================================================================
 ; 3. Dispatcher computes desired dwell.
@@ -66,8 +66,8 @@
 ;========================================================================
 ;arc 5. check framework message car lantern on sent by lantern control
 ;both should be off, since this is the sabbath elevator
-+0.5s	A	F	CarLantern UP : lighted == false	
-+0s	  A	F	CarLantern DOWN : lighted == false	
++0.5s A F CarLantern UP : lighted == false
++0s	  A F CarLantern DOWN : lighted == false
 
 ;========================================================================
 ; 5. Door[b,r] finishes opening.

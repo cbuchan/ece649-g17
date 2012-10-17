@@ -9,5 +9,5 @@
 ;Jessica Tiu   (jtiu)
 ;========================================================================
 
-DriveControl 100ms TRUE
-DoorControl FRONT LEFT 100ms TRUE
+DriveControl 10ms TRUE
+DoorControl FRONT LEFT 10ms TRUE

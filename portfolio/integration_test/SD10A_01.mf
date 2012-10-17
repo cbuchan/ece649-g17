@@ -1,0 +1,78 @@
+;========================================================================
+; Integration Test for SD9A
+;========================================================================
+;18649 Fall 2012
+;Group17
+;Collin Buchan (cbuchan)
+;Rajeev Sharma (rdsharma)
+;Jesse Salazar (jessesal)
+;Jessica Tiu   (jtiu) - Author
+;
+;Last modified 2012-10-16 (jtiu)
+;========================================================================
+
+#INCLUDE defines.mf ;include CAN id and period definitions
+#DEFINE MAX_CAPACITY 14000
+
+;========================================================================
+;initialize
+;========================================================================
+;Elevator is at floor f, with at least one Door[b,r] open.
+;mCarWeight(g) is less than MaxCarCapacity, but mCarWeight(g) plus 150 (weight of one passenger) >= MaxCarCapacity
+
++0s	I AT_FLOOR_PERIOD N AT_FLOOR_[2][BACK]_CAN_ID AtFloor 2 BACK = true
++0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 2 BACK STOP
+
++0s I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[BACK][RIGHT]_CAN_ID DoorOpened BACK RIGHT = true
++0s I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[BACK][LEFT]_CAN_ID DoorOpened BACK LEFT = true
+
++0s I WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 13850
+
+;========================================================================
+;1. Passenger enters car.
+;========================================================================
+; arc 2a-c.
++0.5s I WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 14000
+
+;door has started closing
++0s I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[BACK][RIGHT]_CAN_ID DoorOpened BACK RIGHT = false
+
+;========================================================================
+;2. mCarWeight exceeds or is equal to MaxCarCapacity.
+;========================================================================
+
+
+;========================================================================
+;3. Doors are commanded to open.
+;========================================================================
+; arc 3. check door motor b r = open <-- DoorControl
++0.5s A S DoorControl[BACK][RIGHT] : STATE == STATE_DOOR_OPENING
++0s A F DoorMotor BACK RIGHT : command == OPEN
+
+;========================================================================
+;4. CarWeightAlarm sounds.
+;========================================================================
+; arc 4. car weight alarm true
+
+
+;========================================================================
+;5. Drive is commanded to Stop
+;========================================================================
+;door finishes opening
++0s I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[BACK][RIGHT]_CAN_ID DoorOpened BACK RIGHT = true
+
+; arc 5. check drive set to STOP STOP
++0.5s	A S DriveControl : STATE == STATE_DRIVE_STOPPED
++0s	A F Drive : speed == STOP
++0s	A F Drive : direction == STOP
++0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == STOP
++0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == STOP
++0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed == STOP
+
+;========================================================================
+;Post Conditions
+;========================================================================
+;Doors are open.
+;Passenger is in car.
+;Elevator is at floor f.
+;CarWeightAlarm=true.

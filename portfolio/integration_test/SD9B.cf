@@ -5,6 +5,6 @@
 ; Rajeev Sharma (rdsharma)
 ; * Author
 
-LanternControl UP 100ms TRUE
-DriveControl 100ms TRUE
-Dispatcher 8 100ms TRUE
+DoorControl FRONT LEFT 10ms FALSE
+DriveControl 10ms TRUE
+Dispatcher 8 50ms FALSE

@@ -9,5 +9,5 @@
 ;Jessica Tiu   (jtiu)
 ;========================================================================
 
-DoorControl FRONT LEFT 100ms TRUE
+DoorControl FRONT LEFT 10ms TRUE
 HallButtonControl 4 FRONT DOWN 100ms TRUE

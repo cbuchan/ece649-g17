@@ -59,20 +59,29 @@
 +0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
 
 ;========================================================================
-; 3. Drive is set to Stop (@2.5)
+; 3. Doors are commanded to open (@2.5)
 ;========================================================================
-+0.5s   A F Drive : speed == STOP
-+0s	    A F Drive : direction == STOP
-+0s	    A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == STOP
-+0s	    A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == STOP
++0.5s I DOOR_CONTROL_PERIOD N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT = OPEN
++0s   I DOOR_CONTROL_PERIOD N DOOR_MOTOR_COMMAND_[FRONT][RIGHT]_CAN_ID DoorMotorCommand FRONT RIGHT = OPEN
++0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
++0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
 
 ;========================================================================
-; 4. Emergency brake is activated (@3.0)
+; 4. Drive is set to Stop (@3.0)
+;========================================================================
++0.5s A S DriveControl : STATE == STATE_DRIVE_STOPPED
++0s   A F Drive : speed == STOP
++0s	  A F Drive : direction == STOP
++0s	  A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == STOP
++0s	  A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == STOP
+
+;========================================================================
+; 5. Emergency brake is activated (@3.5)
 ;========================================================================
 +0.5s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = true
 
 ;========================================================================
-; 5. Drive is set to Stop (@3.5)
+; 6. Drive is set to Stop (@4.0)
 ;========================================================================
 +0.5s   A F Drive : speed == STOP
 +0s	    A F Drive : direction == STOP
