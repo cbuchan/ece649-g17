@@ -59,7 +59,8 @@
           <td style="vertical-align: top;">5.2 Door reversal -&gt; doors
             open<br>
           </td>
-          <td style="vertical-align: top;">5.3 Doors keep moving<br>
+          <td style="vertical-align: top;">5.3 Doors keep moving, unless
+            constraints say otherwise<br>
           </td>
           <td style="vertical-align: top;">5.4 Identical door commands<br>
           </td>
@@ -83,7 +84,21 @@
           </td>
         </tr>
         <tr>
-          <td>5.6.1 At a new floor --&gt; open door<br>
+          <td valign="top">5.6 valid landing and stopped -&gt; open door<br>
+          </td>
+          <td valign="top">X<br>
+          </td>
+          <td valign="top">~<br>
+          </td>
+          <td valign="top">~<br>
+          </td>
+          <td valign="top">~<br>
+          </td>
+          <td valign="top">~<br>
+          </td>
+        </tr>
+        <tr>
+          <td>5.7 At a desired floor --&gt; open door<br>
           </td>
           <td style="vertical-align: top;">X<br>
           </td>
@@ -97,80 +112,8 @@
           </td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">5.6.2 At a new floor --&gt;
-            set countdown<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-        </tr>
-        <tr>
-          <td>5.7 door open --&gt; stop door<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">X<br>
-          </td>
-          <td style="vertical-align: top;">X<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top;">5.8 door open, no emergency
-            --&gt; decrement Counter<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-        </tr>
-        <tr>
-          <td>5.9 door close --&gt; stop door<br>
-          </td>
-          <td style="vertical-align: top;">X<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">X<br>
-          </td>
-          <td style="vertical-align: top;">X<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-        </tr>
-        <tr>
-          <td>5.10 countdown expired --&gt; nudge door<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">X<br>
-          </td>
-          <td style="vertical-align: top;">X<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-        </tr>
-        <tr>
-          <td>5.11 overweight --&gt; reopen<br>
-          </td>
+          <td style="vertical-align: top;">5.8 overweight --&gt; open
+            door </td>
           <td style="vertical-align: top;">~<br>
           </td>
           <td style="vertical-align: top;">~<br>
@@ -183,46 +126,116 @@
           </td>
         </tr>
         <tr>
-          <td> 5.12 Set dwell<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-        </tr>
-        <tr>
-          <td> 5.13 Set mDoorMotor<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top">5.14 mDoorReversal =&gt; open doors (if not
-            already open)<br>
-          </td>
+          <td valign="top">5.9 mDoorReversal =&gt; open door</td>
           <td valign="top">~<br>
+          </td>
+          <td valign="top">X<br>
+          </td>
+          <td valign="top">X<br>
           </td>
           <td valign="top">X<br>
           </td>
           <td valign="top">~<br>
           </td>
-          <td valign="top">~<br>
+        </tr>
+        <tr>
+          <td>5.10 set dwell when door opens<br>
           </td>
-          <td valign="top"><br>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">5.11 Dwell based on
+            mDesiredDwell[b]<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">X<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+        </tr>
+        <tr>
+          <td>5.12 door opened -&gt; stop door<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+        </tr>
+        <tr>
+          <td>5.13 door open and not violating constraint -&gt;
+            decrement CountDown<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">X<br>
+          </td>
+          <td style="vertical-align: top;">X<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+        </tr>
+        <tr>
+          <td>5.14 CountDown expire -&gt; close door<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">X<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+        </tr>
+        <tr>
+          <td> 5.15 door closed -&gt; stop door<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+        </tr>
+        <tr>
+          <td> 5.16 Set mDoorMotor<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">X<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
           </td>
         </tr>
         <tr>

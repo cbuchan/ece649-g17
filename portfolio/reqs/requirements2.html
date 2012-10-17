@@ -1005,35 +1005,37 @@
     5.3&nbsp;&nbsp;&nbsp; Doors should keep moving in desired direction
     unless commanded otherwise, subject to the constraints of the door
     object.<br>
-    5.4&nbsp;&nbsp;&nbsp; All doors should be commanded to identical
-    positions at all times.<br>
+    5.4&nbsp;&nbsp;&nbsp; All doors of the same hallway should be
+    commanded to identical positions at all times.<br>
     5.5&nbsp;&nbsp;&nbsp; If CarWeight(x) &gt;= MaxCarCapacity, the
     doors shall open completely until the car is no longer overloaded.
     <h3> TIME-TRIGGERED BEHAVIORS: </h3>
-    5.6 &nbsp;&nbsp; If any mAtFloor[f, b] is True and f equals
-    mDesiredFloor.f, and mDriveSpeed.s equals Stop, then: <br>
-    &nbsp;&nbsp;&nbsp; 5.6.1&nbsp;&nbsp;&nbsp; DoorMotor[b, r] shall be
-    commanded to Open; <br>
-    &nbsp;&nbsp;&nbsp; 5.6.2&nbsp;&nbsp;&nbsp; CountDown shall be set to
-    Dwell.<br>
-    5.7 &nbsp;&nbsp; If mDoorOpened[b, r] is True, then DoorMotor[b,r]
-    shall be commanded to Stop.<br>
-    5.8&nbsp;&nbsp;&nbsp; If mDoorOpened[b, r] is True, mCarWeight(g)
-    &lt; MaxCarCapacity, and mDoorReversal=false, then CountDown shall
-    be decremented.<br>
-    5.9 &nbsp;&nbsp; If mDoorClosed[b, r] is True, then DoorMotor[b,r]
-    should be commanded to Stop.<br>
-    5.10&nbsp; When CountDown &lt;= 0 and , DoorMotor[b,r] should be
-    commanded to Close.<br>
-    5.11&nbsp; If mCarWeight(g) &gt;= MaxCarCapacity, and mDoorOpened[b,
-    r] is False, DoorMotor[b, r] shall be commanded to Open.<br>
-    5.12&nbsp; Dwell shall be set to an appropriate value based on
+    5.6 &nbsp;&nbsp; Door shall not be commanded to open unless
+    Elevator.hasLanding(f, b) is true and mDriveSpeed.s is equal to Stop<br>
+    5.7 &nbsp;&nbsp; If any mAtFloor[f, b] is True and f equals
+    mDesiredFloor.f and either b equals mDesiredFloor.h or
+    mDesiredFloor.h is Both, then DoorMotor[b, r] shall be commanded to
+    Open. <br>
+    5.8 &nbsp;&nbsp; If mCarWeight(g) &gt;= MaxCarCapacity, and
+    mDoorOpened[b, r] is False, DoorMotor[b, r] shall be commanded to
+    Open.<br>
+    5.9 &nbsp;&nbsp; If mDoorReversal=true, and mDoorOpened[b,r] is
+    False, DoorMotor[b,r] shall be commanded to Open.<br>
+    5.10&nbsp; When DoorMotor[b,r] is commanded to Open, CountDown shall
+    be set to Dwell.<br>
+    5.11&nbsp; Dwell shall be set to an appropriate value based on
     mDesiredDwell[b].<br>
-    5.13&nbsp; mDoorMotor[b,r] shall be set to the current value of
+    5.12&nbsp; If mDoorOpened[b, r] is True, then DoorMotor[b,r] shall
+    be commanded to Stop.<br>
+    5.13&nbsp; If mDoorOpened[b, r] is True, and mCarWeight(g) &lt;
+    MaxCarCapacity and mDoorReversal is false, then CountDown shall be
+    decremented.<br>
+    5.14&nbsp; When CountDown &lt;= 0, then DoorMotor[b,r] should be
+    commanded to Close.<br>
+    5.15&nbsp; If mDoorClosed[b, r] is True, then DoorMotor[b,r] should
+    be commanded to Stop.<br>
+    5.16&nbsp; mDoorMotor[b,r] shall be set to the current value of
     DoorMotor[b,r].<br>
-    5.14&nbsp; If mDoorReversal=true, and mDoorOpened[b,r] is False,
-    DoorMotor[b,r] shall be commanded to Open.<br>
-    <br>
     <h3>STATECHART: </h3>
     <img alt="SC_DoorControl" src="SC_DoorControl.png"><br>
     <br>
@@ -1060,14 +1062,13 @@
         <tr>
           <td style="vertical-align: top; ">T5.2<br>
           </td>
-          <td style="vertical-align: top; "> ( mAtFloor[f,b]==True
-            &amp;&amp; mDesiredFloor.f==f &amp;&amp; mDriveSpeed.s ==
-            Stop ) &amp;&amp; ( mDesiredFloor.h==b ||
-            mDesiredFloor.h==BOTH ) )<br>
-            || ( mCarWeight(g) &gt;= MaxCarCapacity &amp;&amp;
-            mDoorOpened[b,r]==False )<br>
-            || ( mDoorReversal==True &amp;&amp; mDoorOpened[b,r]==False
-            )<br>
+          <td style="vertical-align: top; "> Elevator.hasLanding(f, b)
+            &amp;&amp; mDriveSpeed.s == Stop &amp;&amp; [
+            ((mAtFloor[f,b]==True &amp;&amp; mDesiredFloor.f==f)
+            &amp;&amp; (mDesiredFloor.h==b || mDesiredFloor.h==BOTH)) ||
+            (mCarWeight(g) &gt;= MaxCarCapacity &amp;&amp;
+            mDoorOpened[b,r]==False) || (mDoorReversal==True &amp;&amp;
+            mDoorOpened[b,r]==False) ]<br>
           </td>
         </tr>
         <tr>
@@ -1087,15 +1088,13 @@
         <tr>
           <td style="vertical-align: top; ">T5.5<br>
           </td>
-          <td style="vertical-align: top; "> ( mAtFloor[f,b]==True
-            &amp;&amp; mDesiredFloor.f==f &amp;&amp; mDriveSpeed.s ==
-            Stop ) &amp;&amp; ( mDesiredFloor.h==b ||
-            mDesiredFloor.h==BOTH ) )<br>
-            || ( mCarWeight(g) &gt;= MaxCarCapacity &amp;&amp;
-            mDoorOpened[b,r]==False )<br>
-            || ( mDoorReversal==True &amp;&amp; mDoorOpened[b,r]==False
-            )<br>
-          </td>
+          <td style="vertical-align: top; "> Elevator.hasLanding(f, b)
+            &amp;&amp; mDriveSpeed.s == Stop &amp;&amp; [
+            ((mAtFloor[f,b]==True &amp;&amp; mDesiredFloor.f==f)
+            &amp;&amp; (mDesiredFloor.h==b || mDesiredFloor.h==BOTH)) ||
+            (mCarWeight(g) &gt;= MaxCarCapacity &amp;&amp;
+            mDoorOpened[b,r]==False) || (mDoorReversal==True &amp;&amp;
+            mDoorOpened[b,r]==False) ] </td>
         </tr>
         <tr>
           <td style="vertical-align: top; ">T5.6<br>
@@ -1132,7 +1131,7 @@
           <td style=" vertical-align: top; background-color: rgb(204,
             204, 204);"><br>
           </td>
-          <td colspan="12" rowspan="1" style="vertical-align: top;
+          <td colspan="15" rowspan="1" style="vertical-align: top;
             background-color: rgb(204, 204, 204);">Requirements<br>
           </td>
         </tr>
@@ -1144,21 +1143,21 @@
             204, 204);">BR5.6<br>
           </td>
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);">BR5.6.1<br>
+            204, 204);">BR5.7<br>
           </td>
-          <td bgcolor="#cccccc" valign="top">BR5.6.2<br>
-          </td>
-          <td bgcolor="#cccccc" valign="top">BR5.7</td>
           <td bgcolor="#cccccc" valign="top">BR5.8<br>
           </td>
           <td bgcolor="#cccccc" valign="top">BR5.9</td>
           <td bgcolor="#cccccc" valign="top">BR5.10<br>
           </td>
-          <td bgcolor="#cccccc" valign="top">BR5.11<br>
+          <td bgcolor="#cccccc" valign="top">BR5.11</td>
+          <td bgcolor="#cccccc" valign="top">BR5.12<br>
           </td>
-          <td bgcolor="#cccccc" valign="top">BR5.12</td>
-          <td bgcolor="#cccccc" valign="top">BR5.13</td>
+          <td bgcolor="#cccccc" valign="top">BR5.13<br>
+          </td>
           <td bgcolor="#cccccc" valign="top">BR5.14</td>
+          <td bgcolor="#cccccc" valign="top">BR5.15</td>
+          <td bgcolor="#cccccc" valign="top">BR5.16</td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
@@ -1174,6 +1173,10 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
           <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle">X<br>
@@ -1181,10 +1184,6 @@
           <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
           </td>
         </tr>
         <tr>
@@ -1207,11 +1206,11 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
           <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle">X<br>
           </td>
         </tr>
         <tr>
@@ -1224,7 +1223,11 @@
           </td>
           <td align="center" valign="middle">X<br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
@@ -1235,10 +1238,6 @@
           <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
           </td>
         </tr>
         <tr>
@@ -1251,12 +1250,6 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
           <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
@@ -1265,7 +1258,13 @@
           </td>
           <td align="center" valign="middle">X<br>
           </td>
+          <td align="center" valign="middle">X<br>
+          </td>
           <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
           </td>
         </tr>
         <tr>
@@ -1278,12 +1277,6 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
           <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
@@ -1293,6 +1286,12 @@
           <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X<br>
           </td>
         </tr>
         <tr>
@@ -1301,28 +1300,28 @@
               bold;">Transitions</span><br>
           </td>
           <td style="vertical-align: top;" align="center"
-            valign="middle"><br>
+            bgcolor="#cccccc" valign="middle"><br>
           </td>
           <td style="vertical-align: top;" align="center"
-            valign="middle"><br>
+            bgcolor="#cccccc" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" bgcolor="#cccccc" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" bgcolor="#cccccc" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" bgcolor="#cccccc" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" bgcolor="#cccccc" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" bgcolor="#cccccc" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" bgcolor="#cccccc" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" bgcolor="#cccccc" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" bgcolor="#cccccc" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" bgcolor="#cccccc" valign="middle"><br>
           </td>
         </tr>
         <tr>
@@ -1339,7 +1338,7 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
-          <td align="center" valign="middle">X<br>
+          <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
             <br>
@@ -1348,7 +1347,7 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
@@ -1359,26 +1358,26 @@
           </td>
           <td align="center" valign="middle">X<br>
           </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
             <br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
-          <td align="center" valign="middle">X<br>
+          <td align="center" valign="middle"><br>
           </td>
         </tr>
         <tr>
@@ -1391,13 +1390,13 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
           <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
@@ -1426,11 +1425,11 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
           <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
@@ -1443,26 +1442,26 @@
           </td>
           <td align="center" valign="middle">X<br>
           </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
+          <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
             <br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
-          <td align="center" valign="middle">X<br>
+          <td align="center" valign="middle"><br>
           </td>
         </tr>
         <tr>
@@ -1475,13 +1474,13 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
           <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
             <br>
@@ -1503,15 +1502,15 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
           <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
             <br>
           </td>
           <td align="center" valign="middle"><br>
@@ -1531,15 +1530,15 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
           <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
             <br>
           </td>
           <td align="center" valign="middle"><br>
@@ -1832,10 +1831,9 @@
       height="493" width="657"><br>
     <br>
     <table style="font-family: Times; letter-spacing: normal; orphans:
-      2; text-indent: 0px; text-transform: none; widows: 2;
-      &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD word-spacing: 0px; text-align:
-      left;" border="1" cellpadding="2" cellspacing="2" height="113"
-      width="525">
+      2; text-indent: 0px; text-transform: none; widows: 2; text-align:
+      left;" border="1" cellpadding="2" cellspacing="2" height="630"
+      width="786">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
