@@ -4,10 +4,9 @@ Jessica Tiu (jtiu)
 Collin Buchan (cbuchan)
 Rajeev Sharma (rdsharma)
 
-
 Simulator Parameters:
 Command line = -head headerfile -cf SD8A.cf -mf SD8A_01.mf
-RandomSeed = 1350372556173
+RandomSeed = 1350507801514
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -17,18 +16,18 @@ Controller File = SD8A.cf
 
 Assertion Results:
 @0.5s:  PASSED DoorControl[BACK][LEFT]::checkState(STATE) ?== STATE_DOOR_CLOSING PASSED
-@0.5s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@4d61f10f :: command ?== NUDGE PASSED
+@0.5s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@68fe748f :: command ?== NUDGE PASSED
 @1.5s:  PASSED DoorControl[BACK][LEFT]::checkState(STATE) ?== STATE_DOOR_CLOSED PASSED
-@1.5s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@1827391d :: command ?== STOP PASSED
+@1.5s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@77d80e6d :: command ?== STOP PASSED
 @2.0s:  PASSED DriveControl::checkState(STATE) ?== STATE_DRIVE_SLOW PASSED
-@2.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@7d29f3b5 :: speed ?== SLOW PASSED
-@2.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@6f7a29a1 :: direction ?== UP PASSED
+@2.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@6627e353 :: speed ?== SLOW PASSED
+@2.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@79dfc547 :: direction ?== UP PASSED
 @4.0s:  PASSED DriveControl::checkState(STATE) ?== STATE_DRIVE_LEVEL_UP PASSED
-@4.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@5c74c3aa :: speed ?== LEVEL PASSED
-@4.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@3a860d49 :: direction ?== UP PASSED
+@4.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@54cbf30e :: speed ?== LEVEL PASSED
+@4.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@21ec6696 :: direction ?== UP PASSED
 @5.0s:  PASSED DriveControl::checkState(STATE) ?== STATE_DRIVE_STOPPED PASSED
-@5.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@39617189 :: speed ?== STOP PASSED
-@5.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@18872380 :: direction ?== STOP PASSED
+@5.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@19d009b4 :: speed ?== STOP PASSED
+@5.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@4ee91f5d :: direction ?== STOP PASSED
 
 
 ******************Summary******************

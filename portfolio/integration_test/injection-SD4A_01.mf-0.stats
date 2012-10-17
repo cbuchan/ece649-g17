@@ -1,15 +1,12 @@
-/* 18649 Fall 2012
- * (Group  17)
- * Jesse Salazar (jessesal)
- * Rajeev Sharma (rdsharma) 
- * Collin Buchan (cbuchan)
- * Jessica Tiu   (jtiu)
- */
-
+18649 Fall 2012 - Group 17
+Jesse Salazar (jessesal)
+Jessica Tiu (jtiu)
+Collin Buchan (cbuchan)
+Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
-Command line = -cf SD4A.cf -mf SD4A_01.mf
-RandomSeed = 1349905540559
+Command line = -head headerfile -cf SD4A.cf -mf SD4A_01.mf
+RandomSeed = 1350507795231
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -18,19 +15,19 @@ Message File = SD4A_01.mf
 Controller File = SD4A.cf
 
 Assertion Results:
-@0.62s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@2678a212 :: speed ?== LEVEL PASSED
-@0.62s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@2c641e9a :: direction ?== UP PASSED
-@1.04s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@270e3293 :: speed ?== STOP PASSED
-@1.04s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@77d80e6d :: direction ?== STOP PASSED
+@0.62s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@3d66aa18 :: speed ?== LEVEL PASSED
+@0.62s:  FAILED simulator.payloads.DrivePayload$ReadableDrivePayload@485329c5 :: direction ?== UP FAILED
+@1.04s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@31f26605 :: speed ?== STOP PASSED
+@1.04s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@f0f11b8 :: direction ?== STOP PASSED
 @1.25s:  PASSED DoorControl[FRONT][LEFT]::checkState(STATE) ?== STATE_DOOR_OPENING PASSED
-@1.25s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@44bd928a :: command ?== OPEN PASSED
-@1.66s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@5210f6d3 :: command ?== STOP PASSED
-@1.87s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2911a3a4 :: getValue ?== false PASSED
-@1.87s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@392d263f :: getValue ?== false PASSED
+@1.25s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@6b4da8f4 :: command ?== OPEN PASSED
+@1.66s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@39d85f79 :: command ?== STOP PASSED
+@1.87s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@6115273a :: getValue ?== false PASSED
+@1.87s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@270e3293 :: getValue ?== false PASSED
 
 
 ******************Summary******************
-Passed:  9
-Failed:  0
+Passed:  8
+Failed:  1
 Total :  9
 

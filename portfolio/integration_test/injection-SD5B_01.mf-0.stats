@@ -1,15 +1,12 @@
-/* 18649 Fall 2012
- * (Group  17)
- * Jesse Salazar (jessesal)
- * Rajeev Sharma (rdsharma) 
- * Collin Buchan (cbuchan)
- * Jessica Tiu   (jtiu)
- */
-
+18649 Fall 2012 - Group 17
+Jesse Salazar (jessesal)
+Jessica Tiu (jtiu)
+Collin Buchan (cbuchan)
+Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
-Command line = -cf SD5B.cf -mf SD5B_01.mf
-RandomSeed = 1349905559700
+Command line = -head headerfile -cf SD5B.cf -mf SD5B_01.mf
+RandomSeed = 1350507797021
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -19,11 +16,11 @@ Controller File = SD5B.cf
 
 Assertion Results:
 @1.21s:  PASSED DoorControl[FRONT][LEFT]::checkState(STATE) ?== STATE_DOOR_CLOSING PASSED
-@1.21s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@375212bc :: command ?== NUDGE PASSED
-@1.21s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@17592174 :: getCommand ?== NUDGE PASSED
+@1.21s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@6037fb1e :: command ?== NUDGE PASSED
+@1.21s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@1b543c88 :: getCommand ?== NUDGE PASSED
 @1.91s:  PASSED DoorControl[FRONT][LEFT]::checkState(STATE) ?== STATE_DOOR_OPENING PASSED
-@1.91s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@4a0c68c3 :: command ?== OPEN PASSED
-@1.91s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@522a4983 :: getCommand ?== OPEN PASSED
+@1.91s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@41fc2fb :: command ?== OPEN PASSED
+@1.91s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@42704baa :: getCommand ?== OPEN PASSED
 
 
 ******************Summary******************

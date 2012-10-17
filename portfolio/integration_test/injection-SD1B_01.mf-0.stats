@@ -1,15 +1,12 @@
-/* 18649 Fall 2012
- * (Group  17)
- * Jesse Salazar (jessesal)
- * Rajeev Sharma (rdsharma) 
- * Collin Buchan (cbuchan)
- * Jessica Tiu   (jtiu)
- */
-
+18649 Fall 2012 - Group 17
+Jesse Salazar (jessesal)
+Jessica Tiu (jtiu)
+Collin Buchan (cbuchan)
+Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
-Command line = -cf SD1B.cf -mf SD1B_01.mf
-RandomSeed = 1349905427930
+Command line = -head headerfile -cf SD1B.cf -mf SD1B_01.mf
+RandomSeed = 1350507790491
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -18,12 +15,12 @@ Message File = SD1B_01.mf
 Controller File = SD1B.cf
 
 Assertion Results:
-@0.0s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@45b9ce4b :: lighted ?== false PASSED
+@0.0s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@1b543c88 :: lighted ?== false PASSED
 @0.21s:  PASSED DoorControl[FRONT][LEFT]::checkState(STATE) ?== STATE_DOOR_CLOSING PASSED
-@0.21s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@2107ebe1 :: command ?== NUDGE PASSED
-@0.84s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@26544ec1 :: lighted ?== true PASSED
-@0.84s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@19968e23 :: getValue ?== true PASSED
-@1.46s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@378f6235 :: command ?== STOP PASSED
+@0.21s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@1cc7b00c :: command ?== NUDGE PASSED
+@0.84s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@4de13d52 :: lighted ?== true PASSED
+@0.84s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@45b9ce4b :: getValue ?== true PASSED
+@1.46s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@f0f11b8 :: command ?== STOP PASSED
 
 
 ******************Summary******************
