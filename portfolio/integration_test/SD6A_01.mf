@@ -25,6 +25,9 @@
 0s	I  AT_FLOOR_PERIOD N AT_FLOOR_[1][BACK]_CAN_ID AtFloor 1 BACK = false
 
 0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
+0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
+0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
+0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
 
 ;elevator is approaching desired floor
 0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 1 BOTH STOP
@@ -53,8 +56,8 @@
 ;========================================================================
 ;4. Car levels to prepare for stop
 ;========================================================================
-+0.21s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
-+0s     I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = false
++0.21s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = false
++0s     I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
 
 ;check state level
 +0.41s  A  F Drive : speed == LEVEL
