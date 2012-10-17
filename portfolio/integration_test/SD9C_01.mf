@@ -3,10 +3,10 @@
 ;========================================================================
 ;18649 Fall 2012
 ;Group17
-;Collin Buchan (cbuchan) - Author
+;Collin Buchan (cbuchan)
 ;Rajeev Sharma (rdsharma)
 ;Jesse Salazar (jessesal)
-;Jessica Tiu   (jtiu)
+;Jessica Tiu   (jtiu) - Author
 ;
 ;Last modified 2012-10-11 (cbuchan)
 ;========================================================================
@@ -16,95 +16,56 @@
 ;========================================================================
 ;initialize
 ;========================================================================
-;Car is stopped.
-;AtFloor[f,b] was last received as True.
-;All doors are closed.
-
-;DoorControl in opening state
-;Dispatcher in INIT state
-+0s	  I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
-
-+0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
-+0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
-+0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
-+0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
+;Elevator approaching floor f, with doors closed.
+; DoorControl in closed state
++0s I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
++0s I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
++0s I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
++0s I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
 
 ;========================================================================
-; 1. Door[b,r] starts to open.
+;1. Elevator arrives at floor f.
 ;========================================================================
 
-+0.5s A S Dispatcher : STATE == STATE_INIT
-+0s   I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[3][FRONT][UP]_CAN_ID Boolean = true
+; arc1. mAtFloor[f,*]=true
++0.5s I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
++0s   I AT_FLOOR_PERIOD N AT_FLOOR_[1][BACK]_CAN_ID AtFloor 1 BACK = true
 
-;arc 1. check door motor open <-- DoorControl
-+0.5s A F DoorMotor FRONT LEFT : command == OPEN
-
-;arc 2. network message door closed = false
-+0.5s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
-+0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = false
++0s  I HALL_BUTTON_CONTROL_PERIOD F HallCall 7 FRONT DOWN  = true
++0s  I HALL_BUTTON_CONTROL_PERIOD F HallCall 7 BACK DOWN  = true
 
 ;========================================================================
-; 2. Dispatcher computes next desired floor.
+;2. Dispatcher notifies DoorControl that Both doors should be opened.
 ;========================================================================
-;Target set to 2, the next floor after 1: dumb elevator
-
-;arc 3. check network message desired floor is sent by dispatcher
-
-+0.5s A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 2
-+0s	  A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
-+0s	  A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == BACK
+; arc2. assert desired floor.b=both <-- Dispatcher
++0.5s A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 1
++0s   A N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == BOTH
++0s   A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == UP
 
 ;========================================================================
-; 3. Dispatcher computes desired dwell.
+;3. Both doors open.
 ;========================================================================
-;arc 4. check network message desired dwell is sent by dispatcher
+; arc3. assert DoorMotor[b,*]=open <-- DoorControl
++0.5s A F DoorMotor FRONT RIGHT : command == OPEN
++0s   A F DoorMotor FRONT LEFT : command == OPEN
++0s   A F DoorMotor BACK RIGHT : command == OPEN
++0s   A F DoorMotor BACK LEFT : command == OPEN
 
-+0.5s	A	N	DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT : getDwell > 0
+; arc4. mDoorOpened[*,r]=true
++0.5s I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][RIGHT]_CAN_ID DoorOpened FRONT RIGHT = true
++0s   I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
++0s   I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[BACK][RIGHT]_CAN_ID DoorOpened BACK RIGHT = true
++0s   I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[BACK][LEFT]_CAN_ID DoorOpened BACK LEFT = true
 
-;========================================================================
-; 4. CarLantern[d] turns on after new direction is computed.
-;========================================================================
-;arc 5. check framework message car lantern on sent by lantern control
-;both should be off, since this is the sabbath elevator
-+0.5s A	F	CarLantern UP : lighted == false
-+0s	  A	F	CarLantern DOWN : lighted == false	
-
-;========================================================================
-; 5. Door[b,r] finishes opening.
-;========================================================================
-;arc 6. network message door opened true
-+0.5s I  DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
-+0s   I  DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][RIGHT]_CAN_ID DoorOpened FRONT RIGHT = true
-
-;========================================================================
-; 6. Passenger arrives and enters car.
-;========================================================================
-;arc 7. passenger enter
-
-;========================================================================
-; 7. Passenger realizes that his/her desired floor is already selected.
-;========================================================================
-
-
-;========================================================================
-; 8. Doors[b,r] close after countdown expires.
-;========================================================================
-;arc 8. check framework message door motor stop from DoorControl
-+0.5s A F DoorMotor FRONT LEFT : command == STOP
-+0s   A F DoorMotor FRONT RIGHT : command == STOP
-
-;desired dwell expires
-;+0s I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT = 0
-
-;arc 9. check framework message door motor close from DoorControl
-+0.5s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_CLOSING
-+0s   A F DoorMotor FRONT LEFT : command == NUDGE
-+0s   A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == NUDGE
+; arc5. assert DoorMotor[b,*]=stop <-- DoorControl
++0.5s A F DoorMotor FRONT RIGHT : command == STOP
++0s   A F DoorMotor FRONT LEFT : command == STOP
++0s   A F DoorMotor BACK RIGHT : command == STOP
++0s   A F DoorMotor BACK LEFT : command == STOP
 
 ;========================================================================
 ;Post Conditions
 ;========================================================================
-;Doors are closed
-;Passenger is in car.
-;DoorControl has been notified of desired floor
+;Both doors are open.
+;Elevator is at floor f.
 

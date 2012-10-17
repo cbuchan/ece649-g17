@@ -6,5 +6,6 @@
 ; * Author
 
 DoorControl BACK RIGHT 10ms TRUE
+DoorControl BACK LEFT 10ms TRUE
 DriveControl 10ms TRUE
 
