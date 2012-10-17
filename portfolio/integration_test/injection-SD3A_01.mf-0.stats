@@ -1,15 +1,12 @@
-/* 18649 Fall 2012
- * (Group  17)
- * Jesse Salazar (jessesal)
- * Rajeev Sharma (rdsharma) 
- * Collin Buchan (cbuchan)
- * Jessica Tiu   (jtiu)
- */
-
+18649 Fall 2012 - Group 17
+Jesse Salazar (jessesal)
+Jessica Tiu (jtiu)
+Collin Buchan (cbuchan)
+Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
-Command line = -cf SD3A.cf -mf SD3A_01.mf
-RandomSeed = 1349996889854
+Command line = -head headerfile -cf SD3A.cf -mf SD3A_01.mf
+RandomSeed = 1350507253769
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -18,16 +15,16 @@ Message File = SD3A_01.mf
 Controller File = SD3A.cf
 
 Assertion Results:
-@1.71s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@7e5a9de6 :: speed ?== LEVEL PASSED
-@1.71s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@69f78ef1 :: direction ?== UP PASSED
-@2.8s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@53ad085 :: speed ?== STOP PASSED
-@3.01s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@5f7a8a02 :: command ?== OPEN PASSED
-@3.81s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@2fdb7df8 :: lighted ?== false PASSED
-@5.01s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@3a21b220 :: command ?== STOP PASSED
+@1.71s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@44bd928a :: speed ?== LEVEL PASSED
+@1.71s:  FAILED simulator.payloads.DrivePayload$ReadableDrivePayload@5210f6d3 :: direction ?== UP FAILED
+@2.8s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@4a79717e :: speed ?== STOP PASSED
+@3.01s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@557ce4e7 :: command ?== OPEN PASSED
+@3.81s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@21ec6696 :: lighted ?== false PASSED
+@5.01s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@442a15cd :: command ?== STOP PASSED
 
 
 ******************Summary******************
-Passed:  6
-Failed:  0
+Passed:  5
+Failed:  1
 Total :  6
 
