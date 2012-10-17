@@ -5,8 +5,8 @@ Collin Buchan (cbuchan)
 Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
-Command line = -monitor Proj7RuntimeMonitor -gui -head headerfile -pf proj7acceptance1.pass
-RandomSeed = 1350445822488
+Command line = -monitor Proj7RuntimeMonitor -head headerfile -pf proj7acceptance1.pass
+RandomSeed = 1350450571758
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -19,79 +19,78 @@ STATISTICS FOR ELEVATOR SIMULATION PASSENGER DELIVERY
 
 
 These passengers were delivered:
-Passenger 0: INJECTED AT 600.0s and DELIVERED in 646.69s
+Passenger 0: INJECTED AT 600.0s and DELIVERED in 566.796s
   Satisfaction score: 40.5
-    @1180.500000000: 0.50 Car passed passenger's destination floor without servicing it
-    @1243.180000000: 0.90 Repeated car call press
-    @1243.680000000: 0.90 Repeated car call press
-Passenger 3: INJECTED AT 1531.4s and DELIVERED in 403.106s
+    @1110.600000000: 0.50 Car passed passenger's destination floor without servicing it
+    @1163.860000000: 0.90 Repeated car call press
+    @1164.360000000: 0.90 Repeated car call press
+Passenger 3: INJECTED AT 1531.4s and DELIVERED in 234.048s
   Satisfaction score: 100.0
-Passenger 1: INJECTED AT 905.7s and DELIVERED in 1090.388s
-  Satisfaction score: 40.5
-    @1764.000000000: 0.50 Car passed passenger's destination floor without servicing it
-    @1992.940000000: 0.90 Repeated car call press
-    @1993.440000000: 0.90 Repeated car call press
-Passenger 2: INJECTED AT 974.6s and DELIVERED in 1022.938s
+Passenger 2: INJECTED AT 974.6s and DELIVERED in 841.451s
   Satisfaction score: 45.0
-    @1764.000000000: 0.50 Car passed passenger's destination floor without servicing it
-    @1993.440000000: 0.90 Repeated car call press
-Passenger 5: INJECTED AT 2217.5s and DELIVERED in 611.22s
-  Satisfaction score: 81.0
-    @2825.340000000: 0.90 Repeated car call press
-    @2825.840000000: 0.90 Repeated car call press
-Passenger 4: INJECTED AT 2082.0s and DELIVERED in 992.214s
-  Satisfaction score: 81.0
-    @3071.460000000: 0.90 Repeated car call press
-    @3071.960000000: 0.90 Repeated car call press
-Passenger 6: INJECTED AT 2805.4s and DELIVERED in 582.894s
+    @1614.600000000: 0.50 Car passed passenger's destination floor without servicing it
+    @1813.640000000: 0.90 Repeated car call press
+Passenger 1: INJECTED AT 905.7s and DELIVERED in 912.383s
   Satisfaction score: 40.5
-    @2991.200000000: 0.50 Car passed passenger's destination floor without servicing it
-    @3385.740000000: 0.90 Repeated car call press
-    @3386.240000000: 0.90 Repeated car call press
-Passenger 7: INJECTED AT 3269.2s and DELIVERED in 428.711s
+    @1614.600000000: 0.50 Car passed passenger's destination floor without servicing it
+    @1813.140000000: 0.90 Repeated car call press
+    @1813.640000000: 0.90 Repeated car call press
+Passenger 5: INJECTED AT 2217.5s and DELIVERED in 301.113s
   Satisfaction score: 81.0
-    @3694.660000000: 0.90 Repeated car call press
-    @3695.160000000: 0.90 Repeated car call press
-Passenger 8: INJECTED AT 3705.3s and DELIVERED in 741.418s
+    @2515.060000000: 0.90 Repeated car call press
+    @2515.560000000: 0.90 Repeated car call press
+Passenger 4: INJECTED AT 2082.0s and DELIVERED in 662.565s
+  Satisfaction score: 81.0
+    @2741.020000000: 0.90 Repeated car call press
+    @2741.520000000: 0.90 Repeated car call press
+Passenger 6: INJECTED AT 2805.4s and DELIVERED in 746.87s
   Satisfaction score: 40.5
-    @4297.300000000: 0.50 Car passed passenger's destination floor without servicing it
-    @4443.340000000: 0.90 Repeated car call press
-    @4443.840000000: 0.90 Repeated car call press
-Passenger 9: INJECTED AT 4204.2s and DELIVERED in 495.304s
+    @3204.800000000: 0.50 Car passed passenger's destination floor without servicing it
+    @3549.340000000: 0.90 Repeated car call press
+    @3549.840000000: 0.90 Repeated car call press
+Passenger 7: INJECTED AT 3269.2s and DELIVERED in 562.294s
+  Satisfaction score: 81.0
+    @3828.260000000: 0.90 Repeated car call press
+    @3828.760000000: 0.90 Repeated car call press
+Passenger 8: INJECTED AT 3705.3s and DELIVERED in 775.392s
+  Satisfaction score: 40.5
+    @4351.700000000: 0.50 Car passed passenger's destination floor without servicing it
+    @4477.740000000: 0.90 Repeated car call press
+    @4478.240000000: 0.90 Repeated car call press
+Passenger 9: INJECTED AT 4204.2s and DELIVERED in 489.126s
   Satisfaction score: 100.0
-Passenger 10: INJECTED AT 4487.2s and DELIVERED in 582.864s
+Passenger 10: INJECTED AT 4487.2s and DELIVERED in 536.855s
   Satisfaction score: 45.0
-    @4921.200000000: 0.50 Car passed passenger's destination floor without servicing it
-    @5067.360000000: 0.90 Repeated car call press
-Passenger 13: INJECTED AT 5553.4s and DELIVERED in 77.428s
-  Satisfaction score: 81.0
-    @5627.148000000: 0.90 Repeated car call press
-    @5627.648000000: 0.90 Repeated car call press
-Passenger 11: INJECTED AT 4917.5s and DELIVERED in 901.37s
+    @4895.600000000: 0.50 Car passed passenger's destination floor without servicing it
+    @5021.760000000: 0.90 Repeated car call press
+Passenger 12: INJECTED AT 5104.0s and DELIVERED in 569.874s
   Satisfaction score: 40.5
-    @5504.500000000: 0.50 Car passed passenger's destination floor without servicing it
-    @5816.140000000: 0.90 Repeated car call press
-    @5816.640000000: 0.90 Repeated car call press
-Passenger 12: INJECTED AT 5104.0s and DELIVERED in 716.776s
+    @5398.900000000: 0.50 Car passed passenger's destination floor without servicing it
+    @5670.740000000: 0.90 Repeated car call press
+    @5671.240000000: 0.90 Repeated car call press
+Passenger 11: INJECTED AT 4917.5s and DELIVERED in 758.161s
   Satisfaction score: 40.5
-    @5504.500000000: 0.50 Car passed passenger's destination floor without servicing it
-    @5816.140000000: 0.90 Repeated car call press
-    @5816.640000000: 0.90 Repeated car call press
-Passenger 14: INJECTED AT 5713.7s and DELIVERED in 232.5s
+    @5398.900000000: 0.50 Car passed passenger's destination floor without servicing it
+    @5670.740000000: 0.90 Repeated car call press
+    @5671.240000000: 0.90 Repeated car call press
+Passenger 14: INJECTED AT 5713.7s and DELIVERED in 67.164s
   Satisfaction score: 100.0
-Passenger 15: INJECTED AT 6184.5s and DELIVERED in 133.132s
+Passenger 13: INJECTED AT 5553.4s and DELIVERED in 504.735s
   Satisfaction score: 81.0
-    @6314.032000000: 0.90 Repeated car call press
-    @6314.532000000: 0.90 Repeated car call press
-Passenger 16: INJECTED AT 6407.5s and DELIVERED in 849.057s
+    @6055.615000000: 0.90 Repeated car call press
+    @6056.115000000: 0.90 Repeated car call press
+Passenger 15: INJECTED AT 6184.5s and DELIVERED in 471.102s
   Satisfaction score: 81.0
-    @7253.060000000: 0.90 Repeated car call press
-    @7253.560000000: 0.90 Repeated car call press
-Passenger 17: INJECTED AT 6866.1s and DELIVERED in 698.175s
-  Satisfaction score: 40.5
-    @7415.700000000: 0.50 Car passed passenger's destination floor without servicing it
-    @7560.780000000: 0.90 Repeated car call press
-    @7561.280000000: 0.90 Repeated car call press
+    @6652.022000000: 0.90 Repeated car call press
+    @6652.522000000: 0.90 Repeated car call press
+Passenger 16: INJECTED AT 6407.5s and DELIVERED in 512.759s
+  Satisfaction score: 81.0
+    @6917.060000000: 0.90 Repeated car call press
+    @6917.560000000: 0.90 Repeated car call press
+Passenger 17: INJECTED AT 6866.1s and DELIVERED in 333.059s
+  Satisfaction score: 45.0
+    @7069.700000000: 0.50 Car passed passenger's destination floor without servicing it
+    @7196.040000000: 0.90 Repeated car call press
 
 Passenger Delivery Summary
 Delivered: 18
@@ -99,14 +98,14 @@ Stranded: 0
 Total: 18
 
 Deliver Stats (lower is better):
-Average_delivery_time: 622.566
-Maximum_delivery_time:  1090.388
-Delivery_performance_score:  3580.651
+Average_delivery_time: 546.986
+Maximum_delivery_time:  912.383
+Delivery_performance_score:  3100.327
 
 Satisfaction Stats (higher is better):
-Average_satisfaction_score: 64.417
+Average_satisfaction_score: 64.667
 Min_satisfaction_score:  40.500
-Satisfaction_performance_score:  298.167
+Satisfaction_performance_score:  299.167
 
 
 
@@ -116,6 +115,6 @@ RuntimeMonitor generated 0 warnings.
 
 Monitors Summmary Results: 
 Overweight count = 0
-Wasted openings count = 100
+Wasted openings count = 109
 Time dealing with door reversals = 0.0s
 

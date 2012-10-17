@@ -1,0 +1,130 @@
+18649 Fall 2012 - Group 17
+Jesse Salazar (jessesal)
+Jessica Tiu (jtiu)
+Collin Buchan (cbuchan)
+Rajeev Sharma (rdsharma)
+
+Simulator Parameters:
+Command line = -monitor Proj7RuntimeMonitor -head headerfile -pf proj7acceptance3.pass
+RandomSeed = 1350450850047
+CanNetworkBitTime = 0 ns
+Effective Can Bitrate = Infinity
+Run Time = null
+Real time rate = null
+Acceptance Test File = proj7acceptance3.pass
+Monitors: Proj7RuntimeMonitor  
+
+STATISTICS FOR ELEVATOR SIMULATION PASSENGER DELIVERY
+-----------------------------------------------------
+
+The following passengers were stranded:
+Passenger 9: NOT_DELIVERED, WAITING_IN_CAR
+Passenger 14: NOT_DELIVERED, WAITING_IN_CAR
+Passenger 15: NOT_DELIVERED, WAITING_IN_CAR
+Passenger 17: NOT_DELIVERED, WAITING_IN_CAR
+Passenger 18: NOT_DELIVERED, WAITING_IN_CAR
+Passenger 19: NOT_DELIVERED, WAITING_IN_HALL
+Passenger 21: NOT_DELIVERED, WAITING_IN_HALL
+Passenger 23: NOT_DELIVERED, WAITING_IN_HALL
+Passenger 24: NOT_DELIVERED, WAITING_IN_HALL
+Passenger 25: NOT_DELIVERED, WAITING_IN_HALL
+Passenger 27: NOT_DELIVERED, WAITING_IN_HALL
+Passenger 28: NOT_DELIVERED, WAITING_IN_CAR
+Passenger 29: NOT_DELIVERED, WAITING_IN_HALL
+Passenger 30: NOT_DELIVERED, WAITING_IN_CAR
+Passenger 31: NOT_DELIVERED, WAITING_IN_HALL
+Passenger 32: NOT_DELIVERED, WAITING_IN_HALL
+Passenger 33: NOT_DELIVERED, WAITING_IN_CAR
+Passenger 34: NOT_DELIVERED, WAITING_IN_HALL
+Passenger 35: NOT_DELIVERED, WAITING_IN_CAR
+Passenger 36: NOT_DELIVERED, WAITING_IN_HALL
+Passenger 37: NOT_DELIVERED, WAITING_IN_HALL
+Passenger 38: NOT_DELIVERED, WAITING_IN_HALL
+Passenger 39: NOT_DELIVERED, WAITING_IN_HALL
+Passenger 40: NOT_DELIVERED, WAITING_IN_HALL
+Passenger 41: NOT_DELIVERED, WAITING_IN_CAR
+Passenger 42: NOT_DELIVERED, WAITING_IN_HALL
+Passenger 43: NOT_DELIVERED, WAITING_IN_HALL
+Passenger 44: NOT_DELIVERED, WAITING_IN_HALL
+Passenger 45: NOT_DELIVERED, OVERWEIGHT_BACKOFF
+Passenger 46: NOT_DELIVERED, WAITING_IN_HALL
+Passenger 47: NOT_DELIVERED, WAITING_IN_HALL
+Passenger 48: NOT_DELIVERED, WAITING_IN_HALL
+Passenger 49: NOT_DELIVERED, WAITING_IN_HALL
+Passenger 50: NOT_DELIVERED, WAITING_IN_HALL
+
+These passengers were delivered:
+Passenger 3: INJECTED AT 91.0s and DELIVERED in 257.057s
+  Satisfaction score: 81.0
+    @344.777000000: 0.90 Repeated car call press
+    @345.277000000: 0.90 Repeated car call press
+Passenger 8: INJECTED AT 174.6s and DELIVERED in 398.755s
+  Satisfaction score: 90.0
+    @571.115000000: 0.90 Repeated car call press
+Passenger 13: INJECTED AT 254.3s and DELIVERED in 319.335s
+  Satisfaction score: 90.0
+    @571.160000000: 0.90 Repeated car call press
+Passenger 2: INJECTED AT 85.3s and DELIVERED in 489.256s
+  Satisfaction score: 90.0
+    @570.740000000: 0.90 Repeated car call press
+Passenger 4: INJECTED AT 108.2s and DELIVERED in 467.473s
+  Satisfaction score: 81.0
+    @570.660000000: 0.90 Repeated car call press
+    @571.160000000: 0.90 Repeated car call press
+Passenger 1: INJECTED AT 66.3s and DELIVERED in 510.333s
+  Satisfaction score: 100.0
+Passenger 16: INJECTED AT 303.6s and DELIVERED in 273.244s
+  Satisfaction score: 90.0
+    @571.160000000: 0.90 Repeated car call press
+Passenger 12: INJECTED AT 224.6s and DELIVERED in 354.161s
+  Satisfaction score: 90.0
+    @571.160000000: 0.90 Repeated car call press
+Passenger 6: INJECTED AT 151.4s and DELIVERED in 428.653s
+  Satisfaction score: 90.0
+    @571.160000000: 0.90 Repeated car call press
+Passenger 22: INJECTED AT 386.3s and DELIVERED in 195.168s
+  Satisfaction score: 100.0
+Passenger 7: INJECTED AT 154.7s and DELIVERED in 427.14s
+  Satisfaction score: 100.0
+Passenger 10: INJECTED AT 194.8s and DELIVERED in 390.716s
+  Satisfaction score: 100.0
+Passenger 5: INJECTED AT 128.5s and DELIVERED in 458.27s
+  Satisfaction score: 100.0
+Passenger 26: INJECTED AT 436.5s and DELIVERED in 152.51s
+  Satisfaction score: 100.0
+Passenger 0: INJECTED AT 60.0s and DELIVERED in 530.668s
+  Satisfaction score: 100.0
+Passenger 20: INJECTED AT 365.5s and DELIVERED in 261.039s
+  Satisfaction score: 81.0
+    @623.639000000: 0.90 Repeated car call press
+    @624.139000000: 0.90 Repeated car call press
+Passenger 11: INJECTED AT 206.5s and DELIVERED in 525.334s
+  Satisfaction score: 81.0
+    @729.140000000: 0.90 Repeated car call press
+    @729.640000000: 0.90 Repeated car call press
+
+Passenger Delivery Summary
+Delivered: 17
+Stranded: 34
+Total: 51
+
+Deliver Stats (lower is better):
+Average_delivery_time: n/a
+Maximum_delivery_time:  n/a
+Delivery_performance_score:  2147483647
+
+Satisfaction Stats (higher is better):
+Average_satisfaction_score: n/a
+Min_satisfaction_score:  n/a
+Satisfaction_performance_score:  0.000
+
+
+
+Monitors Warning Results: 
+RuntimeMonitor generated 0 warnings.
+
+Monitors Summmary Results: 
+Overweight count = 0
+Wasted openings count = 8
+Time dealing with door reversals = 0.0s
+
