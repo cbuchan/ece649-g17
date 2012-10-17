@@ -196,22 +196,16 @@ public class DoorControl extends Controller {
 
                 //transitions -- note that transition conditions are mutually exclusive
                 //#transition 'T5.5'
-                //if ( mAtFloor[f,b]==True && mDesiredFloor.f==f && ( mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) &&
-                //      ( mDesiredFloor.h==b || mDesiredFloor.h==BOTH ) )
-                //   || ( mCarWeight(g) >= MaxCarCapacity && mDoorOpened[b,r]==False )
-                //   || ( mDoorReversal==True && mDoorOpened[b,r]==False )
-                if (((networkAtFloorArray.getCurrentFloor() == mDesiredFloor.getFloor())
-                        && (Speed.isStopOrLevel(mDriveSpeed.getSpeed()) || (mDriveSpeed.getDirection() == Direction.STOP))
+                if ((networkAtFloorArray.getCurrentFloor() == mDesiredFloor.getFloor()
+                        && mDriveSpeed.getSpeed() == Speed.STOP
                         && (mDesiredFloor.getHallway() == hallway || mDesiredFloor.getHallway() == Hallway.BOTH))
-                        || ((mCarWeight.getWeight() >= Elevator.MaxCarCapacity)
-                        && (mDoorOpened.getValue() == false))
-                        || ((mDoorReversal.getValue() == true)
-                        && (mDoorOpened.getValue() == false))
-                        ) {
+                        || ((mCarWeight.getWeight() >= Elevator.MaxCarCapacity) && (mDoorOpened.getValue() == false))
+                        || ((mDoorReversal.getValue() == true) && (mDoorOpened.getValue() == false))) {
                     newState = State.STATE_DOOR_OPENING;
-                    //#transition 'T5.1'
-                    //if (mDoorClosed[b,r]==True)
-                } else if (mDoorClosed.getValue() == true) {
+
+                }
+                //#transition 'T5.1'
+                else if (mDoorClosed.getValue() == true) {
                     newState = State.STATE_DOOR_CLOSED;
                 } else {
                     newState = state;
@@ -227,18 +221,11 @@ public class DoorControl extends Controller {
 
                 //transitions
                 //#transition 'T5.2'
-                //if ( mAtFloor[f,b]==True && mDesiredFloor.f==f && ( mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) &&
-                //      ( mDesiredFloor.h==b || mDesiredFloor.h==BOTH ) )
-                //   || ( mCarWeight(g) >= MaxCarCapacity && mDoorOpened[b,r]==False )
-                //   || ( mDoorReversal==True && mDoorOpened[b,r]==False )
                 if (((networkAtFloorArray.getCurrentFloor() == mDesiredFloor.getFloor())
-                        && (Speed.isStopOrLevel(mDriveSpeed.getSpeed()) || (mDriveSpeed.getDirection() == Direction.STOP))
+                        && mDriveSpeed.getSpeed() == Speed.STOP
                         && (mDesiredFloor.getHallway() == hallway || mDesiredFloor.getHallway() == Hallway.BOTH))
-                        || ((mCarWeight.getWeight() >= Elevator.MaxCarCapacity)
-                        && (mDoorOpened.getValue() == false))
-                        || ((mDoorReversal.getValue() == true)
-                        && (mDoorOpened.getValue() == false))
-                        ) {
+                        || ((mCarWeight.getWeight() >= Elevator.MaxCarCapacity) && (mDoorOpened.getValue() == false))
+                        || ((mDoorReversal.getValue() == true) && (mDoorOpened.getValue() == false))) {
                     newState = State.STATE_DOOR_OPENING;
                 } else {
                     newState = state;
@@ -254,15 +241,15 @@ public class DoorControl extends Controller {
 
                 //transitions
                 //#transition 'T5.3'
-                //if (mDoorOpened[b,r]==True) && (mCarWeight(g) < MaxCarCapacity) && (mDoorReversal==False)
                 if ((mDoorOpened.getValue() == true)
                         && (mCarWeight.getWeight() < Elevator.MaxCarCapacity)
                         && (mDoorReversal.getValue() == false)
                         ) {
                     newState = State.STATE_DOOR_OPEN;
-                    //#transition 'T5.6'
-                    //if (mDoorOpened[b,r]==True) && ( (mCarWeight(g) >= MaxCarCapacity) || (mDoorReversal==True) )
-                } else if ((mDoorOpened.getValue() == true)
+
+                }
+                //#transition 'T5.6'
+                else if ((mDoorOpened.getValue() == true)
                         && ((mCarWeight.getWeight() >= Elevator.MaxCarCapacity)
                         || (mDoorReversal.getValue() == true))
                         ) {
@@ -281,12 +268,12 @@ public class DoorControl extends Controller {
 
                 //transitions
                 //#transition 'T5.4'
-                //if (countDown <= 0)
                 if (countDown.isLessThanOrEqual(SimTime.ZERO)) {
                     newState = State.STATE_DOOR_CLOSING;
-                    //#transition 'T5.7'
-                    //if (mCarWeight(g) >= MaxCarCapacity) || (mDoorReversal==True)
-                } else if ((mCarWeight.getWeight() >= Elevator.MaxCarCapacity)
+
+                }
+                //#transition 'T5.7'
+                else if ((mCarWeight.getWeight() >= Elevator.MaxCarCapacity)
                         || (mDoorReversal.getValue() == true)
                         ) {
                     newState = State.STATE_DOOR_OPEN_E;
@@ -304,7 +291,6 @@ public class DoorControl extends Controller {
 
                 //transitions
                 //#transition 'T5.8'
-                //if (mCarWeight(g) < MaxCarCapacity) && (mDoorReversal==False)
                 if ((mCarWeight.getWeight() < Elevator.MaxCarCapacity)
                         && (mDoorReversal.getValue() == false)
                         ) {
