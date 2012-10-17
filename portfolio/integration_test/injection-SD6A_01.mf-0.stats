@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf SD6A.cf -mf SD6A_01.mf
-RandomSeed = 1350502080408
+RandomSeed = 1350507797792
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -15,13 +15,13 @@ Message File = SD6A_01.mf
 Controller File = SD6A.cf
 
 Assertion Results:
-@0.21s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@1fcf0ce :: getValue ?== false PASSED
-@1.25s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@a9ae05 :: speed ?== LEVEL PASSED
-@1.25s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@1f42b49 :: direction ?== DOWN PASSED
-@1.67s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@86c347 :: speed ?== STOP PASSED
-@1.67s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@87a5cc :: direction ?== STOP PASSED
-@1.88s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@b42cbf :: getValue ?== false PASSED
-@1.88s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@15a8767 :: getValue ?== false PASSED
+@0.21s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@74b2002f :: getValue ?== false PASSED
+@1.25s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@7ddf5a8f :: speed ?== LEVEL PASSED
+@1.25s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@4de13d52 :: direction ?== DOWN PASSED
+@1.67s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@45b9ce4b :: speed ?== STOP PASSED
+@1.67s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@68861f24 :: direction ?== STOP PASSED
+@1.88s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@1f292d26 :: getValue ?== false PASSED
+@1.88s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@4bdb699b :: getValue ?== false PASSED
 
 
 ******************Summary******************
