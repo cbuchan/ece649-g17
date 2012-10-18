@@ -17,6 +17,7 @@
 0s     I DOOR_REVERSAL_NETWORK_PERIOD N DOOR_REVERSAL_SENSOR_[FRONT][LEFT]_CAN_ID DoorReversal FRONT LEFT = false
 
 ;check initial state
+;#state 'STATE_DOOR_CLOSING'
 +0.21s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_CLOSING
 +0s    A F DoorMotor FRONT LEFT : command == NUDGE
 +0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == NUDGE
@@ -26,6 +27,7 @@
 
 ;#transition T5.1
 ;check state
+;#state 'STATE_DOOR_CLOSED'
 +0.40s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_CLOSED
 +0s    A F DoorMotor FRONT LEFT : command == STOP
 +0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == STOP
@@ -36,6 +38,7 @@
 
 ;#transition T5.2
 ;check state
+;#state 'STATE_DOOR_OPENING'
 +0.41s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPENING
 +0s    A F DoorMotor FRONT LEFT : command == OPEN
 +0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == OPEN
@@ -48,6 +51,7 @@
 
 ;#transition T5.3
 ;check state
+;#state 'STATE_DOOR_OPEN'
 +0.61s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPEN
 +0s    A F DoorMotor FRONT LEFT : command == STOP
 +0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == STOP
@@ -57,6 +61,7 @@
 
 ;#transition T5.4
 ;check state
+;#state 'STATE_DOOR_CLOSING'
 ;should have transitioned due to countdown timer
 +1.21s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_CLOSING
 +0s    A F DoorMotor FRONT LEFT : command == NUDGE
@@ -69,6 +74,7 @@
 
 ;#transition T5.5
 ;check state
+;#state 'STATE_DOOR_OPENING'
 +0.1s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPENING
 +0s    A F DoorMotor FRONT LEFT : command == OPEN
 +0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == OPEN

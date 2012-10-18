@@ -61,7 +61,7 @@
 +0.5s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 2 BACK STOP
 
 ;=================================3.0========================================
-
+;#state 'STATE_DRIVE_STOPPED'
 +1.0s	A S DriveControl : STATE == STATE_DRIVE_STOPPED
 ;=================================8.0========================================
 
