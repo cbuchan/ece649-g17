@@ -36,7 +36,6 @@
 ; arc 1. check door motor closing <-- DoorControl
 +0.5s A S DoorControl[BACK][LEFT] : STATE == STATE_DOOR_CLOSING
 
-;TODO: need to change CLOSE -> NUDGE in SC for DoorControl, also SD7C
 +0s   A F DoorMotor BACK LEFT : command == NUDGE
 
 ;========================================================================
