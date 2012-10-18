@@ -348,9 +348,9 @@
           </td>
           <td valign="top">10/04/2012<br>
           </td>
-          <td valign="top"><b>Open Issue</b><br>
+          <td valign="top">10/10/2012<br>
           </td>
-          <td valign="top">jtiu<br>
+          <td valign="top">cbuchan<br>
           </td>
           <td valign="top">SD2B, BR9.1 and BR9.2<br>
           </td>
@@ -358,10 +358,13 @@
             condition and not mCarCall. Furthermore, a button should
             turn off when doors are open at the desired floor.<br>
           </td>
-          <td valign="top"><b>TODO</b>: Use only inputs to determine
-            state transitions.<br>
+          <td valign="top">Used only inputs to determine state
+            transitions. Fixed logic for turning car call off<br>
           </td>
-          <td valign="top"><br>
+          <td valign="top">SD2B, BR9.1, BR9.2, <br>
+            sd_req_traceability.xls<br>
+            SC_CarButtonControl, req_const_traceability.html, <br>
+            CarButtonControl.java, sc_code_traceability.html<br>
           </td>
         </tr>
         <tr>
@@ -369,21 +372,24 @@
           </td>
           <td valign="top">10/05/2012<br>
           </td>
-          <td valign="top"><b>Open Issue</b><br>
+          <td valign="top">10/17/2012<br>
           </td>
-          <td valign="top">jtiu<br>
+          <td valign="top">cbuchan<br>
           </td>
           <td valign="top">SC_DoorControl<br>
           </td>
           <td valign="top">T5.5 and T5.2 should not be identical.<br>
           </td>
-          <td valign="top"><b>TODO</b>: <br>
-            Door Closing=&gt;Opening !=<br>
-            Door Closed=&gt;Opening<br>
-            Fix the transitions.<br>
+          <td valign="top">There were other issues with DoorControl, but
+            this was not one of them. It is permissible for doors to
+            transition out of STATE_CLOSED via overweight or door
+            reversal, although it is unlikely (maybe even impossible).
+            Still, adding a guard condition that checks for stopped
+            drive and valid hallway ensures safe behavior<br>
           </td>
-          <td valign="top"><br>
-          </td>
+          <td valign="top">sd_req_traceability.xls<br>
+            SC_DoorControl, req_const_traceability.html, <br>
+            DoorControl.java, sc_code_traceability.html </td>
         </tr>
         <tr>
           <td valign="top">20<br>
