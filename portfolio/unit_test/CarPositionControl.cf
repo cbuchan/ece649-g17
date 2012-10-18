@@ -5,4 +5,4 @@
 ; Rajeev Sharma (rdsharma)
 ; * Author
 
-CarPositionControl 100ms TRUE
+CarPositionControl 50ms TRUE

@@ -5,4 +5,4 @@
 ; Rajeev Sharma (rdsharma)
 ; * Author
 
-DriveControl 100ms TRUE
+DriveControl 10ms TRUE
