@@ -1,2 +1,8 @@
+; 18649 Fall 2012 - Group 17
+; Jesse Salazar (jessesal)
+; Jessica Tiu (jtiu)
+; Colin Buchan (cbuchan)
+; Rajeev Sharma (rdsharma)
+;
 ; creates a passenger at the 7th floor front hallway wishing to go down to floor 1
 1.0s 7 FRONT 1 FRONT
