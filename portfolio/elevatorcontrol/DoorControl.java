@@ -8,24 +8,12 @@
 
 package simulator.elevatorcontrol;
 
-import jSimPack.SimTime;
-import simulator.elevatormodules.CarWeightCanPayloadTranslator;
-import simulator.elevatormodules.DoorClosedCanPayloadTranslator;
-import simulator.elevatormodules.DoorOpenedCanPayloadTranslator;
-import simulator.elevatormodules.DoorReversalCanPayloadTranslator;
-import simulator.framework.*;
-import simulator.payloads.CanMailbox;
-import simulator.payloads.CanMailbox.ReadableCanMailbox;
-import simulator.payloads.CanMailbox.WriteableCanMailbox;
-import simulator.payloads.DoorMotorPayload;
-import simulator.payloads.DoorMotorPayload.WriteableDoorMotorPayload;
-
 /**
  * DoorControl controls DoorMotor objects based on current call and safety states.
  *
  * @author Rajeev Sharma
  */
-public class DoorControl extends Controller {
+public class DoorControl extends simulator.framework.Controller {
 
     /**
      * ************************************************************************
@@ -35,48 +23,48 @@ public class DoorControl extends Controller {
     //note that inputs are Readable objects, while outputs are Writeable objects
 
     //local physical state
-    private WriteableDoorMotorPayload localDoorMotor;
+    private simulator.payloads.DoorMotorPayload.WriteableDoorMotorPayload localDoorMotor;
 
-    private WriteableCanMailbox networkDoorMotorCommandOut;
+    private simulator.payloads.CanMailbox.WriteableCanMailbox networkDoorMotorCommandOut;
     private DoorMotorCommandCanPayloadTranslator mDoorMotorCommand;
 
     private Utility.AtFloorArray networkAtFloorArray;
 
-    private ReadableCanMailbox networkDriveSpeed;
+    private simulator.payloads.CanMailbox.ReadableCanMailbox networkDriveSpeed;
     private DriveSpeedCanPayloadTranslator mDriveSpeed;
 
-    private ReadableCanMailbox networkDesiredFloor;
+    private simulator.payloads.CanMailbox.ReadableCanMailbox networkDesiredFloor;
     private DesiredFloorCanPayloadTranslator mDesiredFloor;
 
-    private ReadableCanMailbox networkDesiredDwell;
+    private simulator.payloads.CanMailbox.ReadableCanMailbox networkDesiredDwell;
     private DesiredDwellCanPayloadTranslator mDesiredDwell;
 
-    private ReadableCanMailbox networkDoorClosed;
-    private DoorClosedCanPayloadTranslator mDoorClosed;
+    private simulator.payloads.CanMailbox.ReadableCanMailbox networkDoorClosed;
+    private simulator.elevatormodules.DoorClosedCanPayloadTranslator mDoorClosed;
 
-    private ReadableCanMailbox networkDoorOpened;
-    private DoorOpenedCanPayloadTranslator mDoorOpened;
+    private simulator.payloads.CanMailbox.ReadableCanMailbox networkDoorOpened;
+    private simulator.elevatormodules.DoorOpenedCanPayloadTranslator mDoorOpened;
 
-    private ReadableCanMailbox networkDoorReversal;
-    private DoorReversalCanPayloadTranslator mDoorReversal;
+    private simulator.payloads.CanMailbox.ReadableCanMailbox networkDoorReversal;
+    private simulator.elevatormodules.DoorReversalCanPayloadTranslator mDoorReversal;
 
     private Utility.CarCallArray networkCarCallArray;
 
     private Utility.HallCallArray networkHallCallArray;
 
-    private ReadableCanMailbox networkCarWeight;
-    private CarWeightCanPayloadTranslator mCarWeight;
+    private simulator.payloads.CanMailbox.ReadableCanMailbox networkCarWeight;
+    private simulator.elevatormodules.CarWeightCanPayloadTranslator mCarWeight;
 
     //these variables keep track of which instance this is.
-    private final Hallway hallway;
-    private final Side side;
+    private final simulator.framework.Hallway hallway;
+    private final simulator.framework.Side side;
 
     // local state variables
     private int dwell = 0;
-    private SimTime countDown = SimTime.ZERO;
+    private jSimPack.SimTime countDown = jSimPack.SimTime.ZERO;
 
     //store the period for the controller
-    private SimTime period;
+    private jSimPack.SimTime period;
 
     //internal constant declarations
 
@@ -90,7 +78,7 @@ public class DoorControl extends Controller {
     }
 
     //state variable initialized to the initial state DOOR_CLOSING
-    private State state = State.STATE_DOOR_CLOSING;
+    private State state = DoorControl.State.STATE_DOOR_CLOSING;
 
     /**
      * The arguments listed in the .cf configuration file should match the order and
@@ -99,9 +87,9 @@ public class DoorControl extends Controller {
      * For your elevator controllers, you should make sure that the constructor matches
      * the method signatures in ControllerBuilder.makeAll().
      */
-    public DoorControl(SimTime period, Hallway hallway, Side side, boolean verbose) {
+    public DoorControl(simulator.framework.Hallway hallway, simulator.framework.Side side, jSimPack.SimTime period, boolean verbose) {
         //call to the Controller superclass constructor is required
-        super("DoorControl" + ReplicationComputer.makeReplicationString(hallway, side), verbose);
+        super("DoorControl" + simulator.framework.ReplicationComputer.makeReplicationString(hallway, side), verbose);
 
         //stored the constructor arguments in internal state
         this.period = period;
@@ -110,57 +98,57 @@ public class DoorControl extends Controller {
 
         log("Created DoorControl[", this.hallway, "][", this.side, "]");
 
-        localDoorMotor = DoorMotorPayload.getWriteablePayload(hallway, side);
+        localDoorMotor = simulator.payloads.DoorMotorPayload.getWriteablePayload(hallway, side);
         physicalInterface.sendTimeTriggered(localDoorMotor, period);
 
         //initialize network interface
         //create a can mailbox - this object has the binary representation of the message data
         //the CAN message ids are declared in the MessageDictionary class.  The ReplicationComputer
         //class provides utility methods for computing offsets for replicated controllers
-        networkDoorMotorCommandOut = CanMailbox.getWriteableCanMailbox(
+        networkDoorMotorCommandOut = simulator.payloads.CanMailbox.getWriteableCanMailbox(
                 MessageDictionary.DOOR_MOTOR_COMMAND_BASE_CAN_ID +
-                        ReplicationComputer.computeReplicationId(hallway, side));
+                        simulator.framework.ReplicationComputer.computeReplicationId(hallway, side));
         mDoorMotorCommand = new DoorMotorCommandCanPayloadTranslator(
                 networkDoorMotorCommandOut, hallway, side);
         canInterface.sendTimeTriggered(networkDoorMotorCommandOut, period);
 
         networkAtFloorArray = new Utility.AtFloorArray(canInterface);
 
-        networkDriveSpeed = CanMailbox.getReadableCanMailbox(
+        networkDriveSpeed = simulator.payloads.CanMailbox.getReadableCanMailbox(
                 MessageDictionary.DRIVE_SPEED_CAN_ID);
         mDriveSpeed = new DriveSpeedCanPayloadTranslator(networkDriveSpeed);
         canInterface.registerTimeTriggered(networkDriveSpeed);
 
-        networkDesiredFloor = CanMailbox.getReadableCanMailbox(
+        networkDesiredFloor = simulator.payloads.CanMailbox.getReadableCanMailbox(
                 MessageDictionary.DESIRED_FLOOR_CAN_ID);
         mDesiredFloor = new DesiredFloorCanPayloadTranslator(networkDesiredFloor);
         canInterface.registerTimeTriggered(networkDesiredFloor);
 
-        networkDesiredDwell = CanMailbox.getReadableCanMailbox(
+        networkDesiredDwell = simulator.payloads.CanMailbox.getReadableCanMailbox(
                 MessageDictionary.DESIRED_DWELL_BASE_CAN_ID +
-                        ReplicationComputer.computeReplicationId(hallway));
+                        simulator.framework.ReplicationComputer.computeReplicationId(hallway));
         mDesiredDwell = new DesiredDwellCanPayloadTranslator(
                 networkDesiredDwell, hallway);
         canInterface.registerTimeTriggered(networkDesiredDwell);
 
-        networkDoorClosed = CanMailbox.getReadableCanMailbox(
+        networkDoorClosed = simulator.payloads.CanMailbox.getReadableCanMailbox(
                 MessageDictionary.DOOR_CLOSED_SENSOR_BASE_CAN_ID +
-                        ReplicationComputer.computeReplicationId(hallway, side));
-        mDoorClosed = new DoorClosedCanPayloadTranslator(
+                        simulator.framework.ReplicationComputer.computeReplicationId(hallway, side));
+        mDoorClosed = new simulator.elevatormodules.DoorClosedCanPayloadTranslator(
                 networkDoorClosed, hallway, side);
         canInterface.registerTimeTriggered(networkDoorClosed);
 
-        networkDoorOpened = CanMailbox.getReadableCanMailbox(
+        networkDoorOpened = simulator.payloads.CanMailbox.getReadableCanMailbox(
                 MessageDictionary.DOOR_OPEN_SENSOR_BASE_CAN_ID +
-                        ReplicationComputer.computeReplicationId(hallway, side));
-        mDoorOpened = new DoorOpenedCanPayloadTranslator(
+                        simulator.framework.ReplicationComputer.computeReplicationId(hallway, side));
+        mDoorOpened = new simulator.elevatormodules.DoorOpenedCanPayloadTranslator(
                 networkDoorOpened, hallway, side);
         canInterface.registerTimeTriggered(networkDoorOpened);
 
-        networkDoorReversal = CanMailbox.getReadableCanMailbox(
+        networkDoorReversal = simulator.payloads.CanMailbox.getReadableCanMailbox(
                 MessageDictionary.DOOR_REVERSAL_SENSOR_BASE_CAN_ID +
-                        ReplicationComputer.computeReplicationId(hallway, side));
-        mDoorReversal = new DoorReversalCanPayloadTranslator(
+                        simulator.framework.ReplicationComputer.computeReplicationId(hallway, side));
+        mDoorReversal = new simulator.elevatormodules.DoorReversalCanPayloadTranslator(
                 networkDoorReversal, hallway, side);
         canInterface.registerTimeTriggered(networkDoorReversal);
 
@@ -168,9 +156,9 @@ public class DoorControl extends Controller {
 
         networkHallCallArray = new Utility.HallCallArray(canInterface);
 
-        networkCarWeight = CanMailbox.getReadableCanMailbox(
+        networkCarWeight = simulator.payloads.CanMailbox.getReadableCanMailbox(
                 MessageDictionary.CAR_WEIGHT_CAN_ID);
-        mCarWeight = new CarWeightCanPayloadTranslator(networkCarWeight);
+        mCarWeight = new simulator.elevatormodules.CarWeightCanPayloadTranslator(networkCarWeight);
         canInterface.registerTimeTriggered(networkCarWeight);
 
         timer.start(period);
@@ -188,123 +176,100 @@ public class DoorControl extends Controller {
         switch (state) {
             case STATE_DOOR_CLOSING:
                 //state actions
-                localDoorMotor.set(DoorCommand.NUDGE);
-                mDoorMotorCommand.setCommand(DoorCommand.NUDGE);
+                localDoorMotor.set(simulator.framework.DoorCommand.NUDGE);
+                mDoorMotorCommand.set(simulator.framework.DoorCommand.NUDGE);
 
                 dwell = mDesiredDwell.getDwell();
-                countDown = SimTime.ZERO;
+                countDown = jSimPack.SimTime.ZERO;
 
                 //transitions -- note that transition conditions are mutually exclusive
                 //#transition 'T5.5'
-                //if ( mAtFloor[f,b]==True && mDesiredFloor.f==f && ( mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) )
-                //      || ( mCarWeight(g) >= MaxCarCapacity && mDoorOpened[b,r]==False )
-                //      || ( mDoorReversal==True && mDoorOpened[b,r]==False ) {
-                if (    ((networkAtFloorArray.getCurrentFloor() == mDesiredFloor.getFloor())
-                                && (Speed.isStopOrLevel(mDriveSpeed.getSpeed()) || (mDriveSpeed.getDirection() == Direction.STOP)))
-                        || ((mCarWeight.getWeight() >= Elevator.MaxCarCapacity)
-                                && (mDoorOpened.getValue() == false))
-                        || ((mDoorReversal.getValue() == true)
-                                && (mDoorOpened.getValue() == false))
-                        ) {
-                    newState = State.STATE_DOOR_OPENING;
+                if (isValidHallway() && isStopped()
+                        && ((isDesiredFloor() && isDesiredHallway())
+                        || (isOverweight() && !doorOpened())
+                        || (isDoorReversal() && !doorOpened()))) {
+                    newState = DoorControl.State.STATE_DOOR_OPENING;
+
+                }
                 //#transition 'T5.1'
-                //if (mDoorClosed[b,r]==True)
-                } else if (mDoorClosed.getValue() == true) {
-                    newState = State.STATE_DOOR_CLOSED;
+                else if (doorClosed()) {
+                    newState = DoorControl.State.STATE_DOOR_CLOSED;
                 } else {
                     newState = state;
                 }
                 break;
             case STATE_DOOR_CLOSED:
                 //state actions
-                localDoorMotor.set(DoorCommand.STOP);
-                mDoorMotorCommand.setCommand(DoorCommand.STOP);
+                localDoorMotor.set(simulator.framework.DoorCommand.STOP);
+                mDoorMotorCommand.set(simulator.framework.DoorCommand.STOP);
 
                 dwell = mDesiredDwell.getDwell();
-                countDown = SimTime.ZERO;
+                countDown = jSimPack.SimTime.ZERO;
 
                 //transitions
                 //#transition 'T5.2'
-                //if ( mAtFloor[f,b]==True && mDesiredFloor.f==f && ( mDriveSpeed==(0,d) || mDriveSpeed==(s, Stop) ) )
-                //      || ( mCarWeight(g) >= MaxCarCapacity && mDoorOpened[b,r]==False )
-                //      || ( mDoorReversal==True && mDoorOpened[b,r]==False ) {
-                if (    ((networkAtFloorArray.getCurrentFloor() == mDesiredFloor.getFloor())
-                                && (Speed.isStopOrLevel(mDriveSpeed.getSpeed()) || (mDriveSpeed.getDirection() == Direction.STOP)))
-                        || ((mCarWeight.getWeight() >= Elevator.MaxCarCapacity)
-                                && (mDoorOpened.getValue() == false))
-                        || ((mDoorReversal.getValue() == true)
-                                && (mDoorOpened.getValue() == false))
-                        ) {
-                    newState = State.STATE_DOOR_OPENING;
+                if (isValidHallway() && isStopped()
+                        && ((isDesiredFloor() && isDesiredHallway())
+                        || (isOverweight() && !doorOpened())
+                        || (isDoorReversal() && !doorOpened()))) {
+                    newState = DoorControl.State.STATE_DOOR_OPENING;
                 } else {
                     newState = state;
                 }
                 break;
             case STATE_DOOR_OPENING:
                 //state actions
-                localDoorMotor.set(DoorCommand.OPEN);
-                mDoorMotorCommand.setCommand(DoorCommand.OPEN);
+                localDoorMotor.set(simulator.framework.DoorCommand.OPEN);
+                mDoorMotorCommand.set(simulator.framework.DoorCommand.OPEN);
 
                 dwell = mDesiredDwell.getDwell();
-                countDown = new SimTime(dwell, SimTime.SimTimeUnit.SECOND);
+                countDown = new jSimPack.SimTime(dwell, jSimPack.SimTime.SimTimeUnit.SECOND);
 
                 //transitions
                 //#transition 'T5.3'
-                //if (mDoorOpened[b,r]==True) && (mCarWeight(g) < MaxCarCapacity) && (mDoorReversal==False)
-                if (    (mDoorOpened.getValue() == true)
-                        && (mCarWeight.getWeight() < Elevator.MaxCarCapacity)
-                        && (mDoorReversal.getValue() == false)
-                        ) {
-                    newState = State.STATE_DOOR_OPEN;
+                if (doorOpened() && !isOverweight() && !isDoorReversal()) {
+                    newState = DoorControl.State.STATE_DOOR_OPEN;
+                }
                 //#transition 'T5.6'
-                //if (mDoorOpened[b,r]==True) && ( (mCarWeight(g) >= MaxCarCapacity) || (mDoorReversal==True) )
-                } else if ( (mDoorOpened.getValue() == true)
-                        && ( (mCarWeight.getWeight() >= Elevator.MaxCarCapacity) 
-                                || (mDoorReversal.getValue() == true) )
-                        ) {
-                    newState = State.STATE_DOOR_OPEN_E;
+                else if (doorOpened() && (isOverweight() || isDoorReversal())) {
+                    newState = DoorControl.State.STATE_DOOR_OPEN_E;
                 } else {
                     newState = state;
                 }
                 break;
             case STATE_DOOR_OPEN:
                 //state actions
-                localDoorMotor.set(DoorCommand.STOP);
-                mDoorMotorCommand.setCommand(DoorCommand.STOP);
+                localDoorMotor.set(simulator.framework.DoorCommand.STOP);
+                mDoorMotorCommand.set(simulator.framework.DoorCommand.STOP);
 
                 dwell = mDesiredDwell.getDwell();
-                countDown = SimTime.subtract(countDown, period);
+                countDown = jSimPack.SimTime.subtract(countDown, period);
 
                 //transitions
                 //#transition 'T5.4'
-                //if (countDown <= 0)
-                if (countDown.isLessThanOrEqual(SimTime.ZERO)) {
-                    newState = State.STATE_DOOR_CLOSING;
+                if (countDown.isLessThanOrEqual(jSimPack.SimTime.ZERO)) {
+                    newState = DoorControl.State.STATE_DOOR_CLOSING;
+
+                }
                 //#transition 'T5.7'
-                //if (mCarWeight(g) >= MaxCarCapacity) || (mDoorReversal==True)
-                } else if ( (mCarWeight.getWeight() >= Elevator.MaxCarCapacity)
-                        || (mDoorReversal.getValue() == true)
-                        ) {
-                    newState = State.STATE_DOOR_OPEN_E;
+                else if (isOverweight() || isDoorReversal()) {
+                    newState = DoorControl.State.STATE_DOOR_OPEN_E;
                 } else {
                     newState = state;
                 }
                 break;
             case STATE_DOOR_OPEN_E:
                 //state actions
-                localDoorMotor.set(DoorCommand.STOP);
-                mDoorMotorCommand.setCommand(DoorCommand.STOP);
+                localDoorMotor.set(simulator.framework.DoorCommand.STOP);
+                mDoorMotorCommand.set(simulator.framework.DoorCommand.STOP);
 
                 dwell = mDesiredDwell.getDwell();
-                countDown = new SimTime(dwell, SimTime.SimTimeUnit.SECOND);
+                countDown = new jSimPack.SimTime(dwell, jSimPack.SimTime.SimTimeUnit.SECOND);
 
                 //transitions
                 //#transition 'T5.8'
-                //if (mCarWeight(g) < MaxCarCapacity) && (mDoorReversal==False)
-                if (    (mCarWeight.getWeight() < Elevator.MaxCarCapacity)
-                        && (mDoorReversal.getValue() == false)
-                        ) {
-                    newState = State.STATE_DOOR_OPEN;
+                if (!isOverweight() && !isDoorReversal()) {
+                    newState = DoorControl.State.STATE_DOOR_OPEN;
                 } else {
                     newState = state;
                 }
@@ -330,5 +295,41 @@ public class DoorControl extends Controller {
         //you must do this at the end of the timer callback in order to restart
         //the timer
         timer.start(period);
+    }
+
+    private Boolean isValidHallway() {
+        if (networkAtFloorArray.getCurrentFloor() == MessageDictionary.NONE) {
+            return false;
+        } else {
+            return simulator.framework.Elevator.hasLanding(networkAtFloorArray.getCurrentFloor(), hallway);
+        }
+    }
+
+    private Boolean isStopped() {
+        return mDriveSpeed.getSpeed() == simulator.framework.Speed.STOP;
+    }
+
+    private Boolean isOverweight() {
+        return mCarWeight.getWeight() >= simulator.framework.Elevator.MaxCarCapacity;
+    }
+
+    private Boolean doorOpened() {
+        return mDoorOpened.getValue() == true;
+    }
+
+    private Boolean doorClosed() {
+        return mDoorClosed.getValue() == true;
+    }
+
+    private Boolean isDoorReversal() {
+        return mDoorReversal.getValue() == true;
+    }
+
+    private Boolean isDesiredFloor() {
+        return networkAtFloorArray.getCurrentFloor() == mDesiredFloor.getFloor();
+    }
+
+    private Boolean isDesiredHallway() {
+        return (hallway == mDesiredFloor.getHallway() || mDesiredFloor.getHallway() == simulator.framework.Hallway.BOTH);
     }
 }

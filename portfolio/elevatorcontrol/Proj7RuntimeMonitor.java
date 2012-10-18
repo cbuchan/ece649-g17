@@ -4,39 +4,37 @@
  * Rajeev Sharma (rdsharma) 
  * Collin Buchan (cbuchan)
  * Jessica Tiu   (jtiu)
- *
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
  */
 package simulator.elevatorcontrol;
 
 /**
- * This monitoring class gives you a starting point for the performance checks
- * you will do in project 7.
- *
- * This monitor detects the number of stops where the car becomes overweight
- * when the door are open.  Each stop counted at most once, unless the doors
- * close completely and then reopen at the same floor.
- *
- * See the documentation of simulator.framework.RuntimeMonitor for more details.
+ * Runtime monitor for project 7.  Based on SamplePerformanceMonitor.
  * 
- * @author Justin Ray
+ * @author Rajeev Sharma (rdsharma)
  */
-public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor {
+public class Proj7RuntimeMonitor extends simulator.framework.RuntimeMonitor {
 
+    AtFloorStateMachine atFloorState = new AtFloorStateMachine();
+    DoorReversalStateMachine doorReversalState =
+            new DoorReversalStateMachine();
     DoorStateMachine doorState = new DoorStateMachine();
     WeightStateMachine weightState = new WeightStateMachine();
+    Stopwatch doorReversalStopwatch = new Stopwatch();
     boolean hasMoved = false;
     boolean wasOverweight = false;
     int overWeightCount = 0;
+    int wastedOpeningsCount = 0;
 
-    public SamplePerformanceMonitor() {
+    public Proj7RuntimeMonitor() {
     }
 
     @Override
     protected String[] summarize() {
-        String[] arr = new String[0];
-        arr[0] = "Overweight Count = " + overWeightCount;
+        String[] arr = new String[3];
+        arr[0] = "Overweight count = " + overWeightCount;
+        arr[1] = "Wasted openings count = " + wastedOpeningsCount;
+        arr[2] = "Time dealing with door reversals = "
+                + doorReversalStopwatch.getAccumulatedTime().toString();
         return arr;
     }
 
@@ -55,6 +53,26 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
      * @param hallway which door the event pertains to
      */
     private void doorOpening(simulator.framework.Hallway hallway) {
+        //System.out.println(hallway.toString() + " Door Opening");
+
+        // Determine if this is a wasted call
+        int floor = atFloorState.getFloor();
+        // Check for an erroneous door opening and make sure floor is in range
+        if (floor == MessageDictionary.NONE) {
+            ++wastedOpeningsCount;
+            return;
+        }
+        // Check for car call
+        if (carCalls[floor - 1][hallway.ordinal()].pressed())
+            return;
+        // Check if there was a hall call
+        boolean hadCall = false;
+        for (simulator.framework.Direction d : simulator.framework.Direction.replicationValues) {
+            if (hallCalls[floor - 1][hallway.ordinal()][d.ordinal()].pressed())
+                return;
+        }
+        // No call, by definition this is a wasted opening
+        ++wastedOpeningsCount;
     }
 
     /**
@@ -88,6 +106,11 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
                 wasOverweight = false;
             }
         }
+        // See if this is the end of a door reversal
+        if (doorReversalStopwatch.isRunning() == true
+                && doorReversalState.hasReversal() == false) {
+            doorReversalStopwatch.stop();
+        }
     }
 
     /**
@@ -100,12 +123,37 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
 
     /**
      * Called when the car weight changes
-     * @param hallway which door the event pertains to
+     * @param newWeight an incoming weight sensor value
      */
     private void weightChanged(int newWeight) {
+        //System.out.println("Elevator weight changed to " + newWeight);
         if (newWeight > simulator.framework.Elevator.MaxCarCapacity) {
             wasOverweight = true;
         }
+    }
+
+    /**
+     * Called when a new door reversal occurs
+     * @param hallway which door the event pertains to
+     * @param side which door the event pertains to
+     */
+    private void doorReversalStarted(simulator.framework.Hallway hallway, simulator.framework.Side side) {
+        // System.out.println(hallway.toString() + " " + side.toString()
+        //         + " Door Reversal Started");
+
+        // Start timer if this is the first door reversal since last closing
+        if (doorReversalStopwatch.isRunning() == false)
+            doorReversalStopwatch.start();
+    }
+
+    /**
+     * Called when a new door reversal ends
+     * @param hallway which door the event pertains to
+     * @param side which door the event pertains to
+     */
+    private void doorReversalEnded(simulator.framework.Hallway hallway, simulator.framework.Side side) {
+        // System.out.println(hallway.toString() + " " + side.toString()
+        //         + " Door Reversal Ended");
     }
 
     /**************************************************************************
@@ -113,6 +161,16 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
      *
      * These mostly forward messages to the appropriate state machines
      **************************************************************************/
+    @Override
+    public void receive(simulator.payloads.AtFloorPayload.ReadableAtFloorPayload msg) {
+        atFloorState.receive(msg);
+    }
+
+    @Override
+    public void receive(simulator.payloads.DoorReversalPayload.ReadableDoorReversalPayload msg) {
+        doorReversalState.receive(msg);
+    }
+
     @Override
     public void receive(simulator.payloads.DoorClosedPayload.ReadableDoorClosedPayload msg) {
         doorState.receive(msg);
@@ -140,6 +198,66 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
         }
     }
 
+    /**
+     * Utility class for keeping track of the state of AtFloor.  Provides
+     * external methods that can be queried to determine the floor and hallway
+     * the elevator is currently at.
+     *
+     * Currently only updates internal state and does not call any state change
+     * handler functions.
+     */
+    private class AtFloorStateMachine {
+
+        int oldFloor = MessageDictionary.NONE;
+        simulator.framework.Hallway oldHallway = simulator.framework.Hallway.NONE;
+
+        public void receive(simulator.payloads.AtFloorPayload.ReadableAtFloorPayload msg) {
+            // Update for current floor
+            if (msg.getFloor() == oldFloor) {
+                // Additional door opening
+                if (msg.getValue() == true) {
+                    if ( ( oldHallway == simulator.framework.Hallway.FRONT &&
+                            msg.getHallway() == simulator.framework.Hallway.BACK )
+                            || ( oldHallway == simulator.framework.Hallway.BACK &&
+                            msg.getHallway() == simulator.framework.Hallway.FRONT ) ) {
+                        oldHallway = simulator.framework.Hallway.BOTH;
+                    } else {
+                        oldHallway = msg.getHallway();
+                    }
+                // Leaving floor
+                } else {
+                    // Simple case
+                    if (msg.getHallway() == oldHallway) {
+                        oldHallway = simulator.framework.Hallway.NONE;
+                        oldFloor = MessageDictionary.NONE;
+                    // Handle weirder cases
+                    } else if (oldHallway == simulator.framework.Hallway.BOTH) {
+                        if (msg.getHallway() == simulator.framework.Hallway.FRONT) {
+                            oldHallway = simulator.framework.Hallway.BACK;
+                        } else if (msg.getHallway() == simulator.framework.Hallway.BACK) {
+                            oldHallway = simulator.framework.Hallway.FRONT;
+                        } else if (msg.getHallway() == simulator.framework.Hallway.BOTH) {
+                            oldHallway = simulator.framework.Hallway.NONE;
+                            oldFloor = MessageDictionary.NONE;
+                        }
+                    }
+                }
+            // Arriving at new floor
+            } else if (msg.getValue() == true) {
+                oldFloor = msg.getFloor();
+                oldHallway = msg.getHallway();
+            }
+        }
+
+        public int getFloor() {
+            return oldFloor;
+        }
+
+        public simulator.framework.Hallway getHallway() {
+            return oldHallway;
+        }
+    }
+
     private static enum DoorState {
 
         CLOSED,
@@ -164,6 +282,37 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
     }
 
     /**
+     * Utility class to detect door reversal changes
+     */
+    private class DoorReversalStateMachine {
+
+        // Java initializes boolean values to false
+        boolean state[][] = new boolean[2][2];
+
+        public void receive(simulator.payloads.DoorReversalPayload.ReadableDoorReversalPayload msg) {
+            simulator.framework.Hallway hall = msg.getHallway();
+            simulator.framework.Side side = msg.getSide();
+            int h = hall.ordinal();
+            int s = side.ordinal();
+
+            // New reversal
+            if (msg.isReversing() == true && state[h][s] == false) {
+                state[h][s] = true;
+                doorReversalStarted(hall, side);
+            // Reversal ending
+            } else if (msg.isReversing() == false && state[h][s] == true) {
+                state[h][s] = false;
+                doorReversalEnded(hall, side);
+            }
+
+        }
+
+        public boolean hasReversal() {
+            return state[0][0] || state[0][1] || state[1][0] || state[1][1];
+        }
+    }
+
+    /**
      * Utility class for keeping track of the door state.
      *
      * Also provides external methods that can be queried to determine the
@@ -174,8 +323,8 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
         DoorState state[] = new DoorState[2];
 
         public DoorStateMachine() {
-            state[simulator.framework.Hallway.FRONT.ordinal()] = SamplePerformanceMonitor.DoorState.CLOSED;
-            state[simulator.framework.Hallway.BACK.ordinal()] = SamplePerformanceMonitor.DoorState.CLOSED;
+            state[simulator.framework.Hallway.FRONT.ordinal()] = Proj7RuntimeMonitor.DoorState.CLOSED;
+            state[simulator.framework.Hallway.BACK.ordinal()] = Proj7RuntimeMonitor.DoorState.CLOSED;
         }
 
         public void receive(simulator.payloads.DoorClosedPayload.ReadableDoorClosedPayload msg) {
@@ -196,14 +345,14 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
             DoorState newState = previousState;
 
             if (allDoorsClosed(h) && allDoorMotorsStopped(h)) {
-                newState = SamplePerformanceMonitor.DoorState.CLOSED;
+                newState = Proj7RuntimeMonitor.DoorState.CLOSED;
             } else if (allDoorsCompletelyOpen(h) && allDoorMotorsStopped(h)) {
-                newState = SamplePerformanceMonitor.DoorState.OPEN;
+                newState = Proj7RuntimeMonitor.DoorState.OPEN;
                 //} else if (anyDoorMotorClosing(h) && anyDoorOpen(h)) {
             } else if (anyDoorMotorClosing(h)) {
-                newState = SamplePerformanceMonitor.DoorState.CLOSING;
+                newState = Proj7RuntimeMonitor.DoorState.CLOSING;
             } else if (anyDoorMotorOpening(h)) {
-                newState = SamplePerformanceMonitor.DoorState.OPENING;
+                newState = Proj7RuntimeMonitor.DoorState.OPENING;
             }
 
             if (newState != previousState) {
@@ -215,7 +364,7 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
                         doorOpened(h);
                         break;
                     case OPENING:
-                        if (previousState == SamplePerformanceMonitor.DoorState.CLOSING) {
+                        if (previousState == Proj7RuntimeMonitor.DoorState.CLOSING) {
                             doorReopening(h);
                         } else {
                             doorOpening(h);
@@ -254,15 +403,18 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
         }
 
         public boolean allDoorMotorsStopped(simulator.framework.Hallway h) {
-            return doorMotors[h.ordinal()][simulator.framework.Side.LEFT.ordinal()].command() == simulator.framework.DoorCommand.STOP && doorMotors[h.ordinal()][simulator.framework.Side.RIGHT.ordinal()].command() == simulator.framework.DoorCommand.STOP;
+            return doorMotors[h.ordinal()][simulator.framework.Side.LEFT.ordinal()].command() == simulator.framework.DoorCommand.STOP
+                    && doorMotors[h.ordinal()][simulator.framework.Side.RIGHT.ordinal()].command() == simulator.framework.DoorCommand.STOP;
         }
 
         public boolean anyDoorMotorOpening(simulator.framework.Hallway h) {
-            return doorMotors[h.ordinal()][simulator.framework.Side.LEFT.ordinal()].command() == simulator.framework.DoorCommand.OPEN || doorMotors[h.ordinal()][simulator.framework.Side.RIGHT.ordinal()].command() == simulator.framework.DoorCommand.OPEN;
+            return doorMotors[h.ordinal()][simulator.framework.Side.LEFT.ordinal()].command() == simulator.framework.DoorCommand.OPEN
+                    || doorMotors[h.ordinal()][simulator.framework.Side.RIGHT.ordinal()].command() == simulator.framework.DoorCommand.OPEN;
         }
 
         public boolean anyDoorMotorClosing(simulator.framework.Hallway h) {
-            return doorMotors[h.ordinal()][simulator.framework.Side.LEFT.ordinal()].command() == simulator.framework.DoorCommand.CLOSE || doorMotors[h.ordinal()][simulator.framework.Side.RIGHT.ordinal()].command() == simulator.framework.DoorCommand.CLOSE;
+            return doorMotors[h.ordinal()][simulator.framework.Side.LEFT.ordinal()].command() == simulator.framework.DoorCommand.CLOSE
+                    || doorMotors[h.ordinal()][simulator.framework.Side.RIGHT.ordinal()].command() == simulator.framework.DoorCommand.CLOSE;
         }
     }
 

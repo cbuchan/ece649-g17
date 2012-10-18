@@ -1,10 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-<head>
-<title>
-  simulator.elevatorcontrol package
-</title>
-</head>
-<body>
-Contains classes that manipulate the simulated environmental objects.
-</body>
+  <head>
+    <meta content="text/html; charset=ISO-8859-1"
+      http-equiv="Content-Type">
+    <title>18649 Elevatorcontrol Package</title>
+  </head>
+  <body>
+    <h1 style="text-align: center;">18649 - Elevator Control Package<br>
+    </h1>
+    <hr style="width: 100%; height: 2px;"><b>18649 Fall 2012 -- Group 17</b><br>
+    Jesse Salazar (jessesal)<br>
+    Collin Buchan (cbuchan)<br>
+    Jessica Tiu (jtiu)<br>
+    Rajeev Sharma (rdsharma)
+    <hr style="width: 100%; height: 2px;">This page lists and describes
+    the java files in your elevatorcontrol package.&nbsp; Update this
+    document to reflect your implementation and add your java files to
+    the elevatorcontrol folder.<br>
+    <span style="font-weight: bold;"><br>
+      Note:&nbsp; In order for your portfolio to be complete, the code
+      files in the elevatorcontrol folder must compiled and run if
+      copied into the elevatorcontrol package (overwriting any
+      duplicates) of a clean version of the latest required simulator
+      release.</span><br>
+    <h2>Controller files</h2>
+    <table border="1" cellpadding="2" cellspacing="2" width="100%">
+      <tbody>
+        <tr>
+          <td valign="top">Controller<br>
+          </td>
+          <td valign="top">Description<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><a href="HallButtonControl.java">HallButtonControl.java</a></td>
+          <td valign="top">Author: cbuchan, States Implemented:
+            HALL_CALL_OFF, HALL_CALL_ON<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><a href="CarButtonControl.java">CarButtonControl.java</a></td>
+          <td valign="top">Author: jessessal, States Implemented:
+            LIGHT_ON, LIGHT_OFF </td>
+        </tr>
+        <tr>
+          <td valign="top"><a href="DoorControl.java">DoorControl.java</a></td>
+          <td valign="top">Author: rdsharma, States Implemented:&nbsp;
+            DOOR_CLOSING, DOOR_CLOSED, DOOR_OPENING, DOOR_OPEN,
+            DOOR_OPEN_E</td>
+        </tr>
+        <tr>
+          <td valign="top"><a href="DriveControl.java">DriveControl.java</a></td>
+          <td valign="top">Author: jtiu, States Implemented:
+            DRIVE_STOPPED, DRIVE_LEVEL_UP, DRIVE_LEVEL_DOWN, DRIVE_SLOW
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><a href="CarPositionControl.java">CarPositionControl.java</a><br>
+          </td>
+          <td valign="top">Author: cbuchan, States Implemented: INIT,
+            DISPLAY_FLOOR<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><a href="LanternControl.java">LanternControl.java</a><br>
+          </td>
+          <td valign="top">Author: rdsharma, States Implemented:
+            CAR_LANTERN_ON, CAR_LANTERN_OFF<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><a href="Dispatcher.java">Dispatcher.java</a><br>
+          </td>
+          <td valign="top">Author: jessesal, States Implemented: INIT,
+            SERVICE_CALL, COMPUTE_NEXT</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2>Translator files</h2>
+    Links and descriptions to all message translators used by the
+    controllers.<br>
+    <br>
+    <table border="1" cellpadding="2" cellspacing="2" width="100%">
+      <tbody>
+        <tr>
+          <td valign="top">Translator<br>
+          </td>
+          <td valign="top">Description<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><a
+              href="DesiredFloorCanPayloadTranslator.java">DesiredFloorCanPayloadTranslator.java</a></td>
+          <td valign="top">CAN payload translator for mDesiredFloor<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><a
+href="file:///Users/Collin/Workspace/ece649-g17/portfolio/elevatorcontrol/DesiredDwellCanPayloadTranslator.java">DesiredDwellCanPayloadTranslator.java</a></td>
+          <td valign="top">CAN payload translator for mDesiredDwell<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><a
+              href="DoorMotorCommandCanPayloadTranslator.java">DoorMotorCommandCanPayloadTranslator.java</a></td>
+          <td valign="top">CAN payload translator for mDoorMotor<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><a
+              href="DriveCommandCanPayloadTranslator.java">DriveCommandCanPayloadTranslator.java</a></td>
+          <td valign="top">CAN payload translator for mDrive<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><a href="DriveSpeedCanPayloadTranslator.java">DriveSpeedCanPayloadTranslator.java</a><br>
+          </td>
+          <td valign="top">CAN payload translator for mDriveSpeed</td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <h2>Utility files</h2>
+    <table border="1" cellpadding="2" cellspacing="2" width="100%">
+      <tbody>
+        <tr>
+          <td valign="top">Utility File<br>
+          </td>
+          <td valign="top">Description<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><a href="Utility.java">Utility.java</a></td>
+          <td valign="top">This class provides some example utility
+            classes that might be useful in more than one spot.</td>
+        </tr>
+        <tr>
+          <td valign="top"><a href="MessageDictionary.java">MessageDictionary.java</a><br>
+          </td>
+          <td valign="top">This class defines constants for CAN IDs that
+            are used throughout the simulator.<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><a href="SampleDispatcherMonitor.java">SampleDispatcherMonitor.java</a><br>
+          </td>
+          <td valign="top">This example monitor shows how to use the
+            RuntimeMonitor hooks to check for fast speed between floors.<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><a href="SamplePerformanceMonitor.java">SamplePerformanceMonitor.java</a><br>
+          </td>
+          <td valign="top">This monitor detects the number of stops
+            where the car becomes overweight when the door are open. <br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+  </body>
 </html>

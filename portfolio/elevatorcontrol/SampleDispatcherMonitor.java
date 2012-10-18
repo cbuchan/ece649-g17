@@ -10,12 +10,6 @@
  */
 package simulator.elevatorcontrol;
 
-import simulator.elevatormodules.*;
-import simulator.framework.Hallway;
-import simulator.framework.RuntimeMonitor;
-import simulator.payloads.AtFloorPayload.ReadableAtFloorPayload;
-import simulator.payloads.DriveSpeedPayload.ReadableDriveSpeedPayload;
-
 /**
  * This example monitor shows how to use the RuntimeMonitor hooks to check for
  * fast speed between floors.  You will need to implement additional checks
@@ -25,7 +19,7 @@ import simulator.payloads.DriveSpeedPayload.ReadableDriveSpeedPayload;
  *
  * @author Justin Ray
  */
-public class SampleDispatcherMonitor extends RuntimeMonitor {
+public class SampleDispatcherMonitor extends simulator.framework.RuntimeMonitor {
 
     protected int currentFloor = MessageDictionary.NONE;
     protected int lastStoppedFloor = MessageDictionary.NONE;
@@ -40,21 +34,21 @@ public class SampleDispatcherMonitor extends RuntimeMonitor {
     }
 
     @Override
-    public void receive(ReadableAtFloorPayload msg) {
+    public void receive(simulator.payloads.AtFloorPayload.ReadableAtFloorPayload msg) {
         updateCurrentFloor(msg);
     }
 
     @Override
-    public void receive(ReadableDriveSpeedPayload msg) {
+    public void receive(simulator.payloads.DriveSpeedPayload.ReadableDriveSpeedPayload msg) {
         checkFastSpeed(msg);
     }
 
     /**
-     * Warn if the drive was never commanded to fast when fast speed could be 
+     * Warn if the drive was never commanded to fast when fast speed could be
      * used.
      * @param msg
      */
-    private void checkFastSpeed(ReadableDriveSpeedPayload msg) {
+    private void checkFastSpeed(simulator.payloads.DriveSpeedPayload.ReadableDriveSpeedPayload msg) {
         if (msg.speed() == 0 && currentFloor != MessageDictionary.NONE) {
             //stopped at a floor
             if (lastStoppedFloor != currentFloor) {
@@ -71,7 +65,7 @@ public class SampleDispatcherMonitor extends RuntimeMonitor {
                 fastSpeedReached = false;
             }
         }
-        if (msg.speed() > DriveObject.SlowSpeed) {
+        if (msg.speed() > simulator.elevatormodules.DriveObject.SlowSpeed) {
             //if the drive exceeds the Slow Speed, the drive must have been commanded to fast speed.
             fastSpeedReached = true;
         }
@@ -81,9 +75,9 @@ public class SampleDispatcherMonitor extends RuntimeMonitor {
      * Utility and helper functions
      *------------------------------------------------------------------------*/
     /**
-     * Computes whether fast speed is attainable.  In general, it is attainable 
+     * Computes whether fast speed is attainable.  In general, it is attainable
      * between any two floors.
-     * 
+     *
      * @param startFloor
      * @param endFloor
      * @return true if Fast speed can be commanded between the given floors, otherwise false
@@ -100,10 +94,10 @@ public class SampleDispatcherMonitor extends RuntimeMonitor {
     }
 
 
-    private void updateCurrentFloor(ReadableAtFloorPayload lastAtFloor) {
+    private void updateCurrentFloor(simulator.payloads.AtFloorPayload.ReadableAtFloorPayload lastAtFloor) {
         if (lastAtFloor.getFloor() == currentFloor) {
             //the atFloor message is for the currentfloor, so check both sides to see if they a
-            if (!atFloors[lastAtFloor.getFloor()-1][Hallway.BACK.ordinal()].value() && !atFloors[lastAtFloor.getFloor()-1][Hallway.FRONT.ordinal()].value()) {
+            if (!atFloors[lastAtFloor.getFloor()-1][simulator.framework.Hallway.BACK.ordinal()].value() && !atFloors[lastAtFloor.getFloor()-1][simulator.framework.Hallway.FRONT.ordinal()].value()) {
                 //both sides are false, so set to NONE
                 currentFloor = MessageDictionary.NONE;
             }

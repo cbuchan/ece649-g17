@@ -11,9 +11,6 @@
 
 package simulator.elevatorcontrol;
 
-import jSimPack.SimTime;
-import jSimPack.SimTime.SimTimeUnit;
-
 /**
  * This class defines constants for CAN IDs that are used throughout the simulator.
  *
@@ -26,13 +23,13 @@ public class MessageDictionary {
 
     //controller periods
     public final static int NONE = -1;
-    public final static SimTime HALL_BUTTON_CONTROL_PERIOD = new SimTime(100, SimTimeUnit.MILLISECOND);
-    public final static SimTime CAR_BUTTON_CONTROL_PERIOD = new SimTime(100, SimTimeUnit.MILLISECOND);
-    public final static SimTime LANTERN_CONTROL_PERIOD = new SimTime(200, SimTimeUnit.MILLISECOND);
-    public final static SimTime CAR_POSITION_CONTROL_PERIOD = new SimTime(50, SimTimeUnit.MILLISECOND);
-    public final static SimTime DISPATCHER_PERIOD = new SimTime(50, SimTimeUnit.MILLISECOND);
-    public final static SimTime DOOR_CONTROL_PERIOD = new SimTime(10, SimTimeUnit.MILLISECOND);
-    public final static SimTime DRIVE_CONTROL_PERIOD = new SimTime(10, SimTimeUnit.MILLISECOND);
+    public final static jSimPack.SimTime HALL_BUTTON_CONTROL_PERIOD = new jSimPack.SimTime(100, jSimPack.SimTime.SimTimeUnit.MILLISECOND);
+    public final static jSimPack.SimTime CAR_BUTTON_CONTROL_PERIOD = new jSimPack.SimTime(100, jSimPack.SimTime.SimTimeUnit.MILLISECOND);
+    public final static jSimPack.SimTime LANTERN_CONTROL_PERIOD = new jSimPack.SimTime(200, jSimPack.SimTime.SimTimeUnit.MILLISECOND);
+    public final static jSimPack.SimTime CAR_POSITION_CONTROL_PERIOD = new jSimPack.SimTime(50, jSimPack.SimTime.SimTimeUnit.MILLISECOND);
+    public final static jSimPack.SimTime DISPATCHER_PERIOD = new jSimPack.SimTime(50, jSimPack.SimTime.SimTimeUnit.MILLISECOND);
+    public final static jSimPack.SimTime DOOR_CONTROL_PERIOD = new jSimPack.SimTime(10, jSimPack.SimTime.SimTimeUnit.MILLISECOND);
+    public final static jSimPack.SimTime DRIVE_CONTROL_PERIOD = new jSimPack.SimTime(10, jSimPack.SimTime.SimTimeUnit.MILLISECOND);
 
     //controller message IDs
     public final static int DRIVE_SPEED_CAN_ID =                0x0F09B500;

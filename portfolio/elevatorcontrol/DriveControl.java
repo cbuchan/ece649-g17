@@ -9,24 +9,6 @@
 
 package simulator.elevatorcontrol;
 
-import jSimPack.SimTime;
-import simulator.elevatorcontrol.Utility.AtFloorArray;
-import simulator.elevatorcontrol.Utility.DoorClosedHallwayArray;
-import simulator.elevatormodules.CarWeightCanPayloadTranslator;
-import simulator.elevatormodules.LevelingCanPayloadTranslator;
-import simulator.framework.Controller;
-import simulator.framework.Direction;
-import simulator.framework.Elevator;
-import simulator.framework.Hallway;
-import simulator.framework.ReplicationComputer;
-import simulator.framework.Speed;
-import simulator.payloads.CanMailbox;
-import simulator.payloads.CanMailbox.ReadableCanMailbox;
-import simulator.payloads.CanMailbox.WriteableCanMailbox;
-import simulator.payloads.DrivePayload;
-import simulator.payloads.DrivePayload.WriteableDrivePayload;
-import simulator.payloads.translators.BooleanCanPayloadTranslator;
-
 /**
  * There is one DriveControl, which controls the elevator Drive
  * (the main motor moving Car Up and Down). For simplicity we will assume
@@ -35,7 +17,7 @@ import simulator.payloads.translators.BooleanCanPayloadTranslator;
  *
  * @author Jessica Tiu
  */
-public class DriveControl extends Controller {
+public class DriveControl extends simulator.framework.Controller {
 
     /**
      * ************************************************************************
@@ -45,71 +27,74 @@ public class DriveControl extends Controller {
     //note that inputs are Readable objects, while outputs are Writeable objects
 
     //local physical state
-    private WriteableDrivePayload localDrive;
+    private simulator.payloads.DrivePayload.WriteableDrivePayload localDrive;
 
     //output network messages
-    private WriteableCanMailbox networkDriveOut;
-    private WriteableCanMailbox networkDriveSpeedOut;
+    private simulator.payloads.CanMailbox.WriteableCanMailbox networkDriveOut;
+    private simulator.payloads.CanMailbox.WriteableCanMailbox networkDriveSpeedOut;
 
     //translators for output network messages
     private DriveCommandCanPayloadTranslator mDrive;
     private DriveSpeedCanPayloadTranslator mDriveSpeed;
 
     //input network messages
-    private ReadableCanMailbox networkLevelUp;
-    private ReadableCanMailbox networkLevelDown;
-    private ReadableCanMailbox networkEmergencyBrake;
-    private ReadableCanMailbox networkCarWeight;
-    private ReadableCanMailbox networkDesiredFloor;
-    private DoorClosedHallwayArray networkDoorClosedFront;
-    private DoorClosedHallwayArray networkDoorClosedBack;
-    private AtFloorArray networkAtFloorArray;
+    private simulator.payloads.CanMailbox.ReadableCanMailbox networkLevelUp;
+    private simulator.payloads.CanMailbox.ReadableCanMailbox networkLevelDown;
+    private simulator.payloads.CanMailbox.ReadableCanMailbox networkEmergencyBrake;
+    private simulator.payloads.CanMailbox.ReadableCanMailbox networkCarWeight;
+    private simulator.payloads.CanMailbox.ReadableCanMailbox networkDesiredFloor;
+    private Utility.DoorClosedHallwayArray networkDoorClosedFront;
+    private Utility.DoorClosedHallwayArray networkDoorClosedBack;
+    private Utility.AtFloorArray networkAtFloorArray;
 
     //translators for input network messages
-    private LevelingCanPayloadTranslator mLevelUp;
-    private LevelingCanPayloadTranslator mLevelDown;
-    private BooleanCanPayloadTranslator mEmergencyBrake;
-    private CarWeightCanPayloadTranslator mCarWeight;
+    private simulator.elevatormodules.LevelingCanPayloadTranslator mLevelUp;
+    private simulator.elevatormodules.LevelingCanPayloadTranslator mLevelDown;
+    private simulator.payloads.translators.BooleanCanPayloadTranslator mEmergencyBrake;
+    private simulator.elevatormodules.CarWeightCanPayloadTranslator mCarWeight;
     private DesiredFloorCanPayloadTranslator mDesiredFloor;
 
     //store the period for the controller
-    private SimTime period;
+    private jSimPack.SimTime period;
 
     //enumerate states
     private enum State {
         STATE_DRIVE_STOPPED,
         STATE_DRIVE_LEVEL_UP,
-		    STATE_DRIVE_LEVEL_DOWN,
+        STATE_DRIVE_LEVEL_DOWN,
         STATE_DRIVE_SLOW,
     }
 
     //state variable initialized to the initial state DRIVE_STOPPED
-    private State state = State.STATE_DRIVE_STOPPED;
-    private Direction desiredDir;
+    private State state = DriveControl.State.STATE_DRIVE_STOPPED;
+    private simulator.framework.Direction desiredDir = simulator.framework.Direction.UP;
 
     //returns the desired direction based on current floor and desired floor by dispatcher
-    private Direction getDesiredDir() {
+    private simulator.framework.Direction getDesiredDir(simulator.framework.Direction curDirection) {
+
+        simulator.framework.Direction desiredDirection = curDirection;
+
         int currentFloor = networkAtFloorArray.getCurrentFloor();
         int desiredFloor = mDesiredFloor.getFloor();
 
         //check car is not between floors
-        if (currentFloor != MessageDictionary.NONE){
-						
+        if (currentFloor != MessageDictionary.NONE) {
+
             //current floor below desired floor
             if (currentFloor < desiredFloor) {
-                return Direction.UP;
+                desiredDirection = simulator.framework.Direction.UP;
             }
             //current floor above desired floor
             else if (currentFloor > desiredFloor) {
-                return Direction.DOWN;
+                desiredDirection = simulator.framework.Direction.DOWN;
             }
             //current floor is desired floor
             else {
-                return Direction.STOP;
+                desiredDirection = simulator.framework.Direction.STOP;
             }
 
         }
-        return desiredDir;
+        return desiredDirection;
     }
 
     /**
@@ -122,12 +107,12 @@ public class DriveControl extends Controller {
      * controllers.add(createControllerObject("DriveControl",
      * MessageDictionary.DRIVE_CONTROL_PERIOD, verbose));
      */
-    public DriveControl(SimTime period, boolean verbose) {
+    public DriveControl(jSimPack.SimTime period, boolean verbose) {
         //call to the Controller superclass constructor is required
         super("DriveControl", verbose);
         this.period = period;
 
-        /* 
+        /*
         * The log() method is inherited from the Controller class.  It takes an
         * array of objects which will be converted to strings and concatenated
         * only if the log message is actually written.
@@ -140,14 +125,14 @@ public class DriveControl extends Controller {
         log("Created DriveControl with period = ", period);
 
         //create an output payload
-        localDrive = DrivePayload.getWriteablePayload();
+        localDrive = simulator.payloads.DrivePayload.getWriteablePayload();
 
         //register the payload to be sent periodically
         physicalInterface.sendTimeTriggered(localDrive, period);
 
         //create CAN mailbox for output network messages
-        networkDriveOut = CanMailbox.getWriteableCanMailbox(MessageDictionary.DRIVE_COMMAND_CAN_ID);
-        networkDriveSpeedOut = CanMailbox.getWriteableCanMailbox(MessageDictionary.DRIVE_SPEED_CAN_ID);
+        networkDriveOut = simulator.payloads.CanMailbox.getWriteableCanMailbox(MessageDictionary.DRIVE_COMMAND_CAN_ID);
+        networkDriveSpeedOut = simulator.payloads.CanMailbox.getWriteableCanMailbox(MessageDictionary.DRIVE_SPEED_CAN_ID);
 
         /*
         * Create a translator with a reference to the CanMailbox.  Use the
@@ -168,29 +153,29 @@ public class DriveControl extends Controller {
          * of message.
          */
         networkLevelUp =
-                CanMailbox.getReadableCanMailbox(MessageDictionary.LEVELING_BASE_CAN_ID +
-                        ReplicationComputer.computeReplicationId(Direction.UP));
+                simulator.payloads.CanMailbox.getReadableCanMailbox(MessageDictionary.LEVELING_BASE_CAN_ID +
+                        simulator.framework.ReplicationComputer.computeReplicationId(simulator.framework.Direction.UP));
         networkLevelDown =
-                CanMailbox.getReadableCanMailbox(MessageDictionary.LEVELING_BASE_CAN_ID +
-                        ReplicationComputer.computeReplicationId(Direction.DOWN));
+                simulator.payloads.CanMailbox.getReadableCanMailbox(MessageDictionary.LEVELING_BASE_CAN_ID +
+                        simulator.framework.ReplicationComputer.computeReplicationId(simulator.framework.Direction.DOWN));
         networkEmergencyBrake =
-                CanMailbox.getReadableCanMailbox(MessageDictionary.EMERGENCY_BRAKE_CAN_ID);
+                simulator.payloads.CanMailbox.getReadableCanMailbox(MessageDictionary.EMERGENCY_BRAKE_CAN_ID);
         networkCarWeight =
-                CanMailbox.getReadableCanMailbox(MessageDictionary.CAR_WEIGHT_CAN_ID);
+                simulator.payloads.CanMailbox.getReadableCanMailbox(MessageDictionary.CAR_WEIGHT_CAN_ID);
         networkDesiredFloor =
-                CanMailbox.getReadableCanMailbox(MessageDictionary.DESIRED_FLOOR_CAN_ID);
-        networkDoorClosedFront = new Utility.DoorClosedHallwayArray(Hallway.FRONT, canInterface);
-        networkDoorClosedBack = new Utility.DoorClosedHallwayArray(Hallway.BACK, canInterface);
+                simulator.payloads.CanMailbox.getReadableCanMailbox(MessageDictionary.DESIRED_FLOOR_CAN_ID);
+        networkDoorClosedFront = new Utility.DoorClosedHallwayArray(simulator.framework.Hallway.FRONT, canInterface);
+        networkDoorClosedBack = new Utility.DoorClosedHallwayArray(simulator.framework.Hallway.BACK, canInterface);
         networkAtFloorArray = new Utility.AtFloorArray(canInterface);
 
         mLevelUp =
-                new LevelingCanPayloadTranslator(networkLevelUp, Direction.UP);
+                new simulator.elevatormodules.LevelingCanPayloadTranslator(networkLevelUp, simulator.framework.Direction.UP);
         mLevelDown =
-                new LevelingCanPayloadTranslator(networkLevelDown, Direction.DOWN);
+                new simulator.elevatormodules.LevelingCanPayloadTranslator(networkLevelDown, simulator.framework.Direction.DOWN);
         mEmergencyBrake =
-                new BooleanCanPayloadTranslator(networkEmergencyBrake);
+                new simulator.payloads.translators.BooleanCanPayloadTranslator(networkEmergencyBrake);
         mCarWeight =
-                new CarWeightCanPayloadTranslator(networkCarWeight);
+                new simulator.elevatormodules.CarWeightCanPayloadTranslator(networkCarWeight);
         // used to calculate desiredDir
         mDesiredFloor =
                 new DesiredFloorCanPayloadTranslator(networkDesiredFloor);
@@ -203,7 +188,7 @@ public class DriveControl extends Controller {
         canInterface.registerTimeTriggered(networkCarWeight);
         canInterface.registerTimeTriggered(networkDesiredFloor);
 
-        /* issuing the timer start method with no callback data means a NULL value 
+        /* issuing the timer start method with no callback data means a NULL value
         * will be passed to the callback later.  Use the callback data to distinguish
         * callbacks from multiple calls to timer.start() (e.g. if you have multiple
         * timers.
@@ -219,70 +204,68 @@ public class DriveControl extends Controller {
      */
     public void timerExpired(Object callbackData) {
         State newState = state;
-        desiredDir = Direction.UP;
 
         switch (state) {
 
             case STATE_DRIVE_STOPPED:
 
-                desiredDir = getDesiredDir();
-                
+                desiredDir = getDesiredDir(desiredDir);
+
                 //state actions for DRIVE_STOPPED
-                localDrive.set(Speed.STOP, Direction.STOP);
-                mDrive.set(Speed.STOP, Direction.STOP);
-                mDriveSpeed.set(Speed.STOP, desiredDir);
+                localDrive.set(simulator.framework.Speed.STOP, simulator.framework.Direction.STOP);
+                mDrive.set(simulator.framework.Speed.STOP, simulator.framework.Direction.STOP);
+                mDriveSpeed.set(simulator.framework.Speed.STOP, desiredDir);
 
                 //transitions
 
-                //#transition 'T6.1' 
-				if (desiredDir.equals(Direction.STOP) &&
-						mLevelUp.getValue() && !mLevelDown.getValue()){
-				    newState = State.STATE_DRIVE_LEVEL_UP;				
-				}
-				
-                //#transition 'T6.3' 
-				else if (desiredDir.equals(Direction.STOP) &&
-						mLevelDown.getValue() && !mLevelUp.getValue()){
-				    newState = State.STATE_DRIVE_LEVEL_DOWN;
-				}
-				
-                //#transition 'T6.9' 
-				else if (networkDoorClosedFront.getAllClosed() && networkDoorClosedBack.getAllClosed() &&
-						!desiredDir.equals(Direction.STOP) &&
-						mCarWeight.getWeight() < Elevator.MaxCarCapacity &&
-						!mEmergencyBrake.getValue()){
-					newState = State.STATE_DRIVE_SLOW;
+                //#transition 'T6.1'
+                if (!mLevelUp.getValue() && mLevelDown.getValue()) {
+                    newState = DriveControl.State.STATE_DRIVE_LEVEL_UP;
+                }
+
+                //#transition 'T6.3'
+                else if (!mLevelDown.getValue() && mLevelUp.getValue()) {
+                    newState = DriveControl.State.STATE_DRIVE_LEVEL_DOWN;
+                }
+
+                //#transition 'T6.9'
+                else if (networkDoorClosedFront.getAllClosed() && networkDoorClosedBack.getAllClosed() &&
+                        !desiredDir.equals(simulator.framework.Direction.STOP) &&
+                        mCarWeight.getWeight() < simulator.framework.Elevator.MaxCarCapacity &&
+                        !mEmergencyBrake.getValue()) {
+
+                    newState = DriveControl.State.STATE_DRIVE_SLOW;
                 } else {
                     newState = state;
                 }
 
                 break;
-                
+
             case STATE_DRIVE_LEVEL_UP:
-    	
-                desiredDir = getDesiredDir();
+
+                desiredDir = getDesiredDir(desiredDir);
 
                 //state actions for DRIVE_LEVEL_UP
-                localDrive.set(Speed.LEVEL, Direction.UP);
-                mDrive.set(Speed.LEVEL, Direction.UP);
-                mDriveSpeed.set(Speed.LEVEL, Direction.UP);
+                localDrive.set(simulator.framework.Speed.LEVEL, simulator.framework.Direction.UP);
+                mDrive.set(simulator.framework.Speed.LEVEL, simulator.framework.Direction.UP);
+                mDriveSpeed.set(simulator.framework.Speed.LEVEL, simulator.framework.Direction.UP);
 
                 //transitions
 
                 //#transition 'T6.2'
-                if (mCarWeight.getWeight() >= Elevator.MaxCarCapacity ||
-                		mEmergencyBrake.getValue() ||
-                		!networkDoorClosedFront.getAllClosed() || !networkDoorClosedBack.getAllClosed() ||
-                		(mLevelUp.getValue() && mLevelDown.getValue() &&
-                				desiredDir.equals(Direction.STOP))){
-                	newState = State.STATE_DRIVE_STOPPED;
-                } 
-              
+                if (mCarWeight.getWeight() >= simulator.framework.Elevator.MaxCarCapacity ||
+                        mEmergencyBrake.getValue() ||
+                        !networkDoorClosedFront.getAllClosed() || !networkDoorClosedBack.getAllClosed() ||
+                        (mLevelUp.getValue() && mLevelDown.getValue() &&
+                                desiredDir.equals(simulator.framework.Direction.STOP))) {
+                    newState = DriveControl.State.STATE_DRIVE_STOPPED;
+                }
+
                 //#transition 'T6.5'
-                else if (desiredDir.equals(Direction.STOP) &&
-                		mLevelDown.getValue() && !mLevelUp.getValue()){
-                    newState = State.STATE_DRIVE_LEVEL_DOWN;
-                	
+                else if (desiredDir.equals(simulator.framework.Direction.STOP) &&
+                        !mLevelDown.getValue() && mLevelUp.getValue()) {
+                    newState = DriveControl.State.STATE_DRIVE_LEVEL_DOWN;
+
                 } else {
                     newState = state;
                 }
@@ -291,28 +274,28 @@ public class DriveControl extends Controller {
 
             case STATE_DRIVE_LEVEL_DOWN:
 
-            	desiredDir = getDesiredDir();
-            	
+                desiredDir = getDesiredDir(desiredDir);
+
                 //state actions for DRIVE_LEVEL_DOWN
-                localDrive.set(Speed.LEVEL, Direction.DOWN);
-                mDrive.set(Speed.LEVEL, Direction.DOWN);
-                mDriveSpeed.set(Speed.LEVEL, Direction.DOWN);
+                localDrive.set(simulator.framework.Speed.LEVEL, simulator.framework.Direction.DOWN);
+                mDrive.set(simulator.framework.Speed.LEVEL, simulator.framework.Direction.DOWN);
+                mDriveSpeed.set(simulator.framework.Speed.LEVEL, simulator.framework.Direction.DOWN);
 
                 //transitions
 
                 //#transition 'T6.4'
-                if (mCarWeight.getWeight() >= Elevator.MaxCarCapacity ||
-                		mEmergencyBrake.getValue() ||
-                		!networkDoorClosedFront.getAllClosed() || !networkDoorClosedBack.getAllClosed() ||
-                		(mLevelUp.getValue() && mLevelDown.getValue() &&
-                				desiredDir.equals(Direction.STOP))){
-                    newState = State.STATE_DRIVE_STOPPED;
+                if (mCarWeight.getWeight() >= simulator.framework.Elevator.MaxCarCapacity ||
+                        mEmergencyBrake.getValue() ||
+                        !networkDoorClosedFront.getAllClosed() || !networkDoorClosedBack.getAllClosed() ||
+                        (mLevelUp.getValue() && mLevelDown.getValue() &&
+                                desiredDir.equals(simulator.framework.Direction.STOP))) {
+                    newState = DriveControl.State.STATE_DRIVE_STOPPED;
                 }
-                
+
                 //#transition 'T6.6'
-                else if (desiredDir.equals(Direction.STOP) &&
-                		mLevelUp.getValue() && !mLevelDown.getValue()){
-                    newState = State.STATE_DRIVE_LEVEL_UP;
+                else if (desiredDir.equals(simulator.framework.Direction.STOP) &&
+                        !mLevelUp.getValue() && mLevelDown.getValue()) {
+                    newState = DriveControl.State.STATE_DRIVE_LEVEL_UP;
 
                 } else {
                     newState = state;
@@ -322,32 +305,33 @@ public class DriveControl extends Controller {
 
             case STATE_DRIVE_SLOW:
 
-                desiredDir = getDesiredDir();
+                desiredDir = getDesiredDir(desiredDir);
 
                 //state actions for DRIVE_SLOW
-                localDrive.set(Speed.SLOW, desiredDir);
-                mDrive.set(Speed.SLOW, desiredDir);
-                mDriveSpeed.set(Speed.SLOW, desiredDir);
+                localDrive.set(simulator.framework.Speed.SLOW, desiredDir);
+                mDrive.set(simulator.framework.Speed.SLOW, desiredDir);
+                mDriveSpeed.set(simulator.framework.Speed.SLOW, desiredDir);
 
                 //transitions
 
                 //#transition 'T6.7'
-                if (desiredDir.equals(Direction.STOP) &&
-                		mLevelUp.getValue() && !mLevelDown.getValue()){
-                    newState = State.STATE_DRIVE_LEVEL_UP;
+                if (desiredDir.equals(simulator.framework.Direction.STOP) &&
+                        !mLevelUp.getValue() && mLevelDown.getValue()) {
+                    newState = DriveControl.State.STATE_DRIVE_LEVEL_UP;
                 }
-                
+
                 //#transition 'T6.8'
-                else if (desiredDir.equals(Direction.STOP) &&
-                    mLevelDown.getValue() && !mLevelUp.getValue()){
-                   	newState = State.STATE_DRIVE_LEVEL_DOWN;
-               	}
-                
+                else if (desiredDir.equals(simulator.framework.Direction.STOP) &&
+                        !mLevelDown.getValue() && mLevelUp.getValue()) {
+                    newState = DriveControl.State.STATE_DRIVE_LEVEL_DOWN;
+                }
+
                 //#transition 'T6.10'
-                else if (mCarWeight.getWeight() >= Elevator.MaxCarCapacity ||
-                		mEmergencyBrake.getValue()){
-                    newState = State.STATE_DRIVE_STOPPED;
-                	
+                else if (mCarWeight.getWeight() >= simulator.framework.Elevator.MaxCarCapacity ||
+                        mEmergencyBrake.getValue() ||
+                        !networkDoorClosedFront.getAllClosed() || !networkDoorClosedBack.getAllClosed()) {
+                    newState = DriveControl.State.STATE_DRIVE_STOPPED;
+
                 } else {
                     newState = state;
                 }

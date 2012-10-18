@@ -8,31 +8,24 @@
 
 package simulator.elevatorcontrol;
 
-import java.util.BitSet;
-import simulator.framework.Hallway;
-import simulator.framework.ReplicationComputer;
-import simulator.payloads.CanMailbox.ReadableCanMailbox;
-import simulator.payloads.CanMailbox.WriteableCanMailbox;
-import simulator.payloads.translators.CanPayloadTranslator;
-
 /**
  * @author Rajeev Sharma (rdsharma)
  */
-public class DesiredDwellCanPayloadTranslator extends CanPayloadTranslator {
+public class DesiredDwellCanPayloadTranslator extends simulator.payloads.translators.CanPayloadTranslator {
 
     final String name;
-    
+
     /**
      * CAN payload translator for desired dwell network message
      *
      * @param p CAN payload object whose message is interpreted by this translator
      * @param hallway Hallway to this translator is associated with
      */
-    public DesiredDwellCanPayloadTranslator(WriteableCanMailbox p, 
-            Hallway hallway) {
-        super(p, 4, MessageDictionary.DESIRED_DWELL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(hallway));
-        this.name = "DesiredDwell" 
-                + ReplicationComputer.makeReplicationString(hallway);
+    public DesiredDwellCanPayloadTranslator(simulator.payloads.CanMailbox.WriteableCanMailbox p,
+            simulator.framework.Hallway hallway) {
+        super(p, 4, MessageDictionary.DESIRED_DWELL_BASE_CAN_ID + simulator.framework.ReplicationComputer.computeReplicationId(hallway));
+        this.name = "DesiredDwell"
+                + simulator.framework.ReplicationComputer.makeReplicationString(hallway);
     }
 
     /**
@@ -41,11 +34,11 @@ public class DesiredDwellCanPayloadTranslator extends CanPayloadTranslator {
      * @param p CAN payload object whose message is interpreted by this translator
      * @param hallway Hallway to this translator is associated with
      */
-    public DesiredDwellCanPayloadTranslator(ReadableCanMailbox p, 
-            Hallway hallway) {
-        super(p, 4, MessageDictionary.DESIRED_DWELL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(hallway));
-        this.name = "DesiredDwell" 
-                + ReplicationComputer.makeReplicationString(hallway);
+    public DesiredDwellCanPayloadTranslator(simulator.payloads.CanMailbox.ReadableCanMailbox p,
+            simulator.framework.Hallway hallway) {
+        super(p, 4, MessageDictionary.DESIRED_DWELL_BASE_CAN_ID + simulator.framework.ReplicationComputer.computeReplicationId(hallway));
+        this.name = "DesiredDwell"
+                + simulator.framework.ReplicationComputer.makeReplicationString(hallway);
     }
 
     //required for reflection
@@ -59,7 +52,7 @@ public class DesiredDwellCanPayloadTranslator extends CanPayloadTranslator {
     }
 
     public void setValue(int position) {
-        BitSet b = getMessagePayload();
+        java.util.BitSet b = getMessagePayload();
         addIntToBitset(b, position, 0, getByteSize() * 4);
         setMessagePayload(b, getByteSize());
     }

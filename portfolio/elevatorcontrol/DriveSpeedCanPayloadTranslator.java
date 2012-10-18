@@ -8,13 +8,6 @@
 
 package simulator.elevatorcontrol;
 
-import java.util.BitSet;
-import simulator.framework.Direction;
-import simulator.framework.Speed;
-import simulator.payloads.CanMailbox.ReadableCanMailbox;
-import simulator.payloads.CanMailbox.WriteableCanMailbox;
-import simulator.payloads.translators.CanPayloadTranslator;
-
 /**
  * Can payload translator for the DriveSpeed command, which includes a speed value and a direction.
  * Identical to the can payload translator for Drive command.
@@ -24,13 +17,13 @@ import simulator.payloads.translators.CanPayloadTranslator;
  * 
  * @author Justin Ray
  */
-public class DriveSpeedCanPayloadTranslator extends CanPayloadTranslator {
+public class DriveSpeedCanPayloadTranslator extends simulator.payloads.translators.CanPayloadTranslator {
 
-    public DriveSpeedCanPayloadTranslator(WriteableCanMailbox p) {
+    public DriveSpeedCanPayloadTranslator(simulator.payloads.CanMailbox.WriteableCanMailbox p) {
         super(p, 8, MessageDictionary.DRIVE_SPEED_CAN_ID);
     }
-    
-    public DriveSpeedCanPayloadTranslator(ReadableCanMailbox p) {
+
+    public DriveSpeedCanPayloadTranslator(simulator.payloads.CanMailbox.ReadableCanMailbox p) {
         super(p, 8, MessageDictionary.DRIVE_SPEED_CAN_ID);
     }
 
@@ -44,20 +37,20 @@ public class DriveSpeedCanPayloadTranslator extends CanPayloadTranslator {
      * @param speed
      * @param dir
      */
-    public void set(Speed speed, Direction dir) {
+    public void set(simulator.framework.Speed speed, simulator.framework.Direction dir) {
         setSpeed(speed);
         setDirection(dir);
     }
-    
-    public void setSpeed(Speed speed) {
-        BitSet b = getMessagePayload();
+
+    public void setSpeed(simulator.framework.Speed speed) {
+        java.util.BitSet b = getMessagePayload();
         addIntToBitset(b, speed.ordinal(), 0, 32);
         setMessagePayload(b, getByteSize());
     }
 
-    public Speed getSpeed() {
+    public simulator.framework.Speed getSpeed() {
         int val = getIntFromBitset(getMessagePayload(), 0, 32);
-        for (Speed s : Speed.values()) {
+        for (simulator.framework.Speed s : simulator.framework.Speed.values()) {
             if (s.ordinal() == val) {
                 return s;
             }
@@ -65,15 +58,15 @@ public class DriveSpeedCanPayloadTranslator extends CanPayloadTranslator {
         throw new RuntimeException("Unrecognized Speed Value " + val);
     }
 
-    public void setDirection(Direction dir) {
-        BitSet b = getMessagePayload();
+    public void setDirection(simulator.framework.Direction dir) {
+        java.util.BitSet b = getMessagePayload();
         addIntToBitset(b, dir.ordinal(), 32, 32);
         setMessagePayload(b, getByteSize());
     }
 
-    public Direction getDirection() {
+    public simulator.framework.Direction getDirection() {
         int val = getIntFromBitset(getMessagePayload(), 32, 32);
-        for (Direction d : Direction.values()) {
+        for (simulator.framework.Direction d : simulator.framework.Direction.values()) {
             if (d.ordinal() == val) {
                 return d;
             }

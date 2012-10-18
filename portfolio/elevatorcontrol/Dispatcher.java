@@ -2,27 +2,12 @@
  * (Group  17)
  * Jesse Salazar (jessesal) - Author
  * Rajeev Sharma (rdsharma) 
- * Collin Buchan (cbuchan) - Secondary Author
+ * Collin Buchan (cbuchan) - Editor
  * Jessica Tiu   (jtiu)
  */
 
 
 package simulator.elevatorcontrol;
-
-import jSimPack.SimTime;
-import simulator.elevatorcontrol.Utility.AtFloorArray;
-import simulator.elevatorcontrol.Utility.CarCallArray;
-import simulator.elevatorcontrol.Utility.DoorClosedArray;
-import simulator.elevatorcontrol.Utility.HallCallArray;
-import simulator.elevatormodules.CarWeightCanPayloadTranslator;
-import simulator.framework.Controller;
-import simulator.framework.Hallway;
-import simulator.framework.ReplicationComputer;
-import simulator.framework.Direction;
-import simulator.framework.Elevator;
-import simulator.payloads.CanMailbox;
-import simulator.payloads.CanMailbox.ReadableCanMailbox;
-import simulator.payloads.CanMailbox.WriteableCanMailbox;
 
 
 /**
@@ -33,7 +18,7 @@ import simulator.payloads.CanMailbox.WriteableCanMailbox;
  *
  * @author Collin Buchan, Jesse Salazar
  */
-public class Dispatcher extends Controller {
+public class Dispatcher extends simulator.framework.Controller {
 
     public static final byte FRONT_LAND = 0;
     public static final byte BACK_LAND = 1;
@@ -46,9 +31,9 @@ public class Dispatcher extends Controller {
     //note that inputs are Readable objects, while outputs are Writeable objects
 
     //output network messages
-    private WriteableCanMailbox networkDesiredFloor;
-    private WriteableCanMailbox networkDesiredDwellFront;
-    private WriteableCanMailbox networkDesiredDwellBack;
+    private simulator.payloads.CanMailbox.WriteableCanMailbox networkDesiredFloor;
+    private simulator.payloads.CanMailbox.WriteableCanMailbox networkDesiredDwellFront;
+    private simulator.payloads.CanMailbox.WriteableCanMailbox networkDesiredDwellBack;
 
 
     //translators for output network messages
@@ -58,18 +43,21 @@ public class Dispatcher extends Controller {
 
 
     //input network messages
-    private AtFloorArray networkAtFloorArray;
-    private DoorClosedArray networkDoorClosed;
-    private HallCallArray networkHallCallArray;
-    private CarCallArray networkCarCallArrayFront;
-    private CarCallArray networkCarCallArrayBack;
-    private ReadableCanMailbox networkCarWeight;
+    private Utility.AtFloorArray networkAtFloorArray;
+    private Utility.DoorClosedArray networkDoorClosed;
+    private Utility.HallCallArray networkHallCallArray;
+    private Utility.CarCallArray networkCarCallArrayFront;
+    private Utility.CarCallArray networkCarCallArrayBack;
+    private simulator.payloads.CanMailbox.ReadableCanMailbox networkCarWeight;
 
     //translators for input network messages
-    private CarWeightCanPayloadTranslator mCarWeight;
+    private simulator.elevatormodules.CarWeightCanPayloadTranslator mCarWeight;
+
+    //these variables keep track of which instance this is.
+    private final int numFloors;
 
     //store the period for the controller
-    private SimTime period;
+    private jSimPack.SimTime period;
 
     //enumerate states
     private enum State {
@@ -79,10 +67,10 @@ public class Dispatcher extends Controller {
     }
 
     //state variable initialized to the initial state STATE_INIT
-    private int CONST_DWELL = 100;
-    private State state = State.STATE_INIT;
+    private int CONST_DWELL = 10;
+    private State state = Dispatcher.State.STATE_INIT;
     private int targetFloor;
-    private Hallway targetHallway;
+    private simulator.framework.Hallway targetHallway;
 
     /**
      * The arguments listed in the .cf configuration file should match the order and
@@ -94,10 +82,11 @@ public class Dispatcher extends Controller {
      * controllers.add(createControllerObject("DriveControl",
      * MessageDictionary.DRIVE_CONTROL_PERIOD, verbose));
      */
-    public Dispatcher(SimTime period, boolean verbose) {
+    public Dispatcher(int numFloors, jSimPack.SimTime period, boolean verbose) {
         //call to the Controller superclass constructor is required
         super("Dispatcher", verbose);
         this.period = period;
+        this.numFloors = numFloors;
 
         /*
         * The log() method is inherited from the Controller class.  It takes an
@@ -112,19 +101,21 @@ public class Dispatcher extends Controller {
         log("Created Dispatcher with period = ", period);
 
         //create CAN mailbox for output network messages
-        networkDesiredFloor = CanMailbox.getWriteableCanMailbox(MessageDictionary.DESIRED_FLOOR_CAN_ID);
-        networkDesiredDwellFront = CanMailbox.getWriteableCanMailbox(
-                MessageDictionary.DESIRED_DWELL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(Hallway.FRONT));
-        networkDesiredDwellBack = CanMailbox.getWriteableCanMailbox(
-                MessageDictionary.DESIRED_DWELL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(Hallway.BACK));
+        networkDesiredFloor = simulator.payloads.CanMailbox.getWriteableCanMailbox(MessageDictionary.DESIRED_FLOOR_CAN_ID);
+        networkDesiredDwellFront = simulator.payloads.CanMailbox.getWriteableCanMailbox(
+                MessageDictionary.DESIRED_DWELL_BASE_CAN_ID + simulator.framework.ReplicationComputer.computeReplicationId(
+                        simulator.framework.Hallway.FRONT));
+        networkDesiredDwellBack = simulator.payloads.CanMailbox.getWriteableCanMailbox(
+                MessageDictionary.DESIRED_DWELL_BASE_CAN_ID + simulator.framework.ReplicationComputer.computeReplicationId(
+                        simulator.framework.Hallway.BACK));
 
         /*
         * Create a translator with a reference to the CanMailbox.  Use the
         * translator to read and write values to the mailbox
         */
         mDesiredFloor = new DesiredFloorCanPayloadTranslator(networkDesiredFloor);
-        mDesiredDwellFront = new DesiredDwellCanPayloadTranslator(networkDesiredDwellFront, Hallway.FRONT);
-        mDesiredDwellBack = new DesiredDwellCanPayloadTranslator(networkDesiredDwellBack, Hallway.BACK);
+        mDesiredDwellFront = new DesiredDwellCanPayloadTranslator(networkDesiredDwellFront, simulator.framework.Hallway.FRONT);
+        mDesiredDwellBack = new DesiredDwellCanPayloadTranslator(networkDesiredDwellBack, simulator.framework.Hallway.BACK);
 
 
         //register the mailbox to have its value broadcast on the network periodically
@@ -139,21 +130,21 @@ public class Dispatcher extends Controller {
          * elevatormodules package.  These translators are specific to one type
          * of message.
          */
-        networkAtFloorArray = new AtFloorArray(canInterface);
-        networkDoorClosed = new DoorClosedArray(canInterface);
-        networkHallCallArray = new HallCallArray(canInterface);
-        networkCarCallArrayFront = new CarCallArray(Hallway.FRONT, canInterface);
-        networkCarCallArrayBack = new CarCallArray(Hallway.BACK, canInterface);
+        networkAtFloorArray = new Utility.AtFloorArray(canInterface);
+        networkDoorClosed = new Utility.DoorClosedArray(canInterface);
+        networkHallCallArray = new Utility.HallCallArray(canInterface);
+        networkCarCallArrayFront = new Utility.CarCallArray(simulator.framework.Hallway.FRONT, canInterface);
+        networkCarCallArrayBack = new Utility.CarCallArray(simulator.framework.Hallway.BACK, canInterface);
         networkCarWeight =
-                CanMailbox.getReadableCanMailbox(MessageDictionary.CAR_WEIGHT_CAN_ID);
+                simulator.payloads.CanMailbox.getReadableCanMailbox(MessageDictionary.CAR_WEIGHT_CAN_ID);
 
-        mCarWeight = new CarWeightCanPayloadTranslator(networkCarWeight);
+        mCarWeight = new simulator.elevatormodules.CarWeightCanPayloadTranslator(networkCarWeight);
 
         //register to receive periodic updates to the mailbox via the CAN network
         //the period of updates will be determined by the sender of the message
         canInterface.registerTimeTriggered(networkCarWeight);
 
-        /* issuing the timer start method with no callback data means a NULL value 
+        /* issuing the timer start method with no callback data means a NULL value
         * will be passed to the callback later.  Use the callback data to distinguish
         * callbacks from multiple calls to timer.start() (e.g. if you have multiple
         * timers.
@@ -165,16 +156,16 @@ public class Dispatcher extends Controller {
         return networkHallCallArray.getAllOff() && networkCarCallArrayBack.getAllOff() && networkCarCallArrayFront.getAllOff();
     }
 
-    private Hallway getAllHallways(int floor) {
-        Hallway desiredHallway;
-        if (Elevator.hasLanding(targetFloor, Hallway.BACK) && Elevator.hasLanding(targetFloor, Hallway.FRONT)) {
-            desiredHallway = Hallway.BOTH;
-        } else if (Elevator.hasLanding(targetFloor, Hallway.BACK)) {
-            desiredHallway = Hallway.BACK;
-        } else if (Elevator.hasLanding(targetFloor, Hallway.FRONT)) {
-            desiredHallway = Hallway.FRONT;
+    private simulator.framework.Hallway getAllHallways(int floor) {
+        simulator.framework.Hallway desiredHallway;
+        if (simulator.framework.Elevator.hasLanding(floor, simulator.framework.Hallway.BACK) && simulator.framework.Elevator.hasLanding(floor, simulator.framework.Hallway.FRONT)) {
+            desiredHallway = simulator.framework.Hallway.BOTH;
+        } else if (simulator.framework.Elevator.hasLanding(floor, simulator.framework.Hallway.BACK)) {
+            desiredHallway = simulator.framework.Hallway.BACK;
+        } else if (simulator.framework.Elevator.hasLanding(floor, simulator.framework.Hallway.FRONT)) {
+            desiredHallway = simulator.framework.Hallway.FRONT;
         } else {
-            desiredHallway = Hallway.NONE;
+            desiredHallway = simulator.framework.Hallway.NONE;
         }
         return desiredHallway;
     }
@@ -192,20 +183,19 @@ public class Dispatcher extends Controller {
 
             case STATE_INIT:
 
-                //state actions for DRIVE_STOPPED
+                //state actions for STATE_INIT
                 targetFloor = 1;
-                targetHallway = Hallway.NONE;
+                targetHallway = simulator.framework.Hallway.NONE;
                 mDesiredFloor.setFloor(targetFloor);
                 mDesiredFloor.setHallway(targetHallway);
-                mDesiredFloor.setDirection(Direction.STOP);
+                mDesiredFloor.setDirection(simulator.framework.Direction.STOP);
                 mDesiredDwellBack.set(CONST_DWELL);
                 mDesiredDwellFront.set(CONST_DWELL);
 
                 //#transition 'T11.1'
-                //  (mAtFloor[1,front] == True || mAtFloor[1,back] == True) &&
-                //	((any mHallCall[f,b,d] == True) || (any mCarCall[f,b] == True))
+                //  CurrentFloor == 1 && (any mHallCall[f,b,d] == true || any mCarCall[f,b] == true)
                 if (networkAtFloorArray.getCurrentFloor() == 1 && !allCallsOff()) {
-                    newState = State.STATE_COMPUTE_NEXT;
+                    newState = Dispatcher.State.STATE_COMPUTE_NEXT;
                 } else {
                     newState = state;
                 }
@@ -213,48 +203,46 @@ public class Dispatcher extends Controller {
 
             case STATE_COMPUTE_NEXT:
 
-                //state actions for STATE_IDLE
-                targetFloor = (networkAtFloorArray.getCurrentFloor() % Elevator.numFloors) + 1;
+                //state actions for STATE_COMPUTE_NEXT
+                targetFloor = (networkAtFloorArray.getCurrentFloor() % numFloors) + 1;
 
                 //set the target Hallway to be as many floors as possible
                 targetHallway = getAllHallways(targetFloor);
 
                 mDesiredFloor.setFloor(targetFloor);
                 mDesiredFloor.setHallway(targetHallway);
-                mDesiredFloor.setDirection(Direction.STOP);
+                mDesiredFloor.setDirection(simulator.framework.Direction.STOP);
                 mDesiredDwellBack.set(CONST_DWELL);
                 mDesiredDwellFront.set(CONST_DWELL);
 
 
                 //#transition 'T11.2'
                 if (true) {
-                    newState = State.STATE_SERVICE_CALL;
+                    newState = Dispatcher.State.STATE_SERVICE_CALL;
                 }
 
                 break;
 
             case STATE_SERVICE_CALL:
 
-                //state actions for STATE_COMPUTE_NEXT
-                targetFloor = targetFloor;
-                targetHallway = targetHallway;
+                //state actions for STATE_SERVICE_CALL
                 mDesiredFloor.setFloor(targetFloor);
                 mDesiredFloor.setHallway(targetHallway);
-                mDesiredFloor.setDirection(Direction.STOP);
+                mDesiredFloor.setDirection(simulator.framework.Direction.STOP);
                 mDesiredDwellBack.set(CONST_DWELL);
                 mDesiredDwellFront.set(CONST_DWELL);
 
                 //#transition 'T11.3
-                //(any mDoorClosed[b, r] == False) && ((any mHallCall[f,b,d] == True) || (any mCarCall[f,b] == True))'
-                if (!networkDoorClosed.getAllClosed() && !allCallsOff()) {
-                    newState = State.STATE_COMPUTE_NEXT;
+                //any mDoorClosed[b, r] == false && (any mHallCall[f,b,d] == true || any mCarCall[f,b] == true)
+                // && CurrentFloor == TargetFloor
+                if (!networkDoorClosed.getAllClosed() && !allCallsOff() && networkAtFloorArray.getCurrentFloor() == targetFloor) {
+                    newState = Dispatcher.State.STATE_COMPUTE_NEXT;
                 }
 
                 //#transition 'T11.4
-                //doors aren't closed, and either there are no hall/car calls,
-                //or we are between floors w/doors open!
-                else if (!networkDoorClosed.getAllClosed() && allCallsOff()) {
-                    newState = State.STATE_INIT;
+                //CurrentFloor == NONE && any mDoorClosed[b, r] == false
+                else if (networkAtFloorArray.getCurrentFloor() == MessageDictionary.NONE && !networkDoorClosed.getAllClosed()) {
+                    newState = Dispatcher.State.STATE_INIT;
                 } else {
                     newState = state;
                 }
