@@ -8,13 +8,22 @@
 
 package simulator.elevatorcontrol;
 
+import jSimPack.SimTime;
+import simulator.framework.*;
+import simulator.payloads.CanMailbox;
+import simulator.payloads.CanMailbox.ReadableCanMailbox;
+import simulator.payloads.CanMailbox.WriteableCanMailbox;
+import simulator.payloads.CarLanternPayload;
+import simulator.payloads.CarLanternPayload.WriteableCarLanternPayload;
+import simulator.payloads.translators.BooleanCanPayloadTranslator;
+
 /**
  * LanternControl controls the light within the car which shows passengers
  * which direction the car is about to travel in.
  *
  * @author Rajeev Sharma
  */
-public class LanternControl extends simulator.framework.Controller {
+public class LanternControl extends Controller {
 
     /**
      * ************************************************************************
@@ -24,24 +33,24 @@ public class LanternControl extends simulator.framework.Controller {
     //note that inputs are Readable objects, while outputs are Writeable objects
 
     //local physical state
-    private simulator.payloads.CarLanternPayload.WriteableCarLanternPayload localCarLantern;
+    private WriteableCarLanternPayload localCarLantern;
 
-    private simulator.payloads.CanMailbox.WriteableCanMailbox networkCarLanternOut;
-    private simulator.payloads.translators.BooleanCanPayloadTranslator mCarLantern;
+    private WriteableCanMailbox networkCarLanternOut;
+    private BooleanCanPayloadTranslator mCarLantern;
 
     private Utility.DoorClosedArray networkDoorClosedArray;
 
-    private simulator.payloads.CanMailbox.ReadableCanMailbox networkDesiredFloor;
+    private ReadableCanMailbox networkDesiredFloor;
     private DesiredFloorCanPayloadTranslator mDesiredFloor;
 
     //Readd when used
     //private Utility.AtFloorArray networkAtFloorArray;
 
     //these variables keep track of which instance this is.
-    private final simulator.framework.Direction direction;
+    private final Direction direction;
 
     //store the period for the controller
-    private jSimPack.SimTime period;
+    private SimTime period;
 
     //internal constant declarations
 
@@ -52,7 +61,7 @@ public class LanternControl extends simulator.framework.Controller {
     }
 
     //state variable initialized to the initial state DOOR_CLOSING
-    private State state = LanternControl.State.STATE_CAR_LANTERN_OFF;
+    private State state = State.STATE_CAR_LANTERN_OFF;
 
     /**
      * The arguments listed in the .cf configuration file should match the order and
@@ -61,32 +70,32 @@ public class LanternControl extends simulator.framework.Controller {
      * For your elevator controllers, you should make sure that the constructor matches
      * the method signatures in ControllerBuilder.makeAll().
      */
-    public LanternControl(simulator.framework.Direction direction, jSimPack.SimTime period, boolean verbose) {
+    public LanternControl(Direction direction, SimTime period, boolean verbose) {
         //call to the Controller superclass constructor is required
-        super("LanternControl" + simulator.framework.ReplicationComputer.makeReplicationString(direction), verbose);
+        super("LanternControl" + ReplicationComputer.makeReplicationString(direction), verbose);
 
         //stored the constructor arguments in internal state
         this.period = period;
         this.direction = direction;
 
-        log("Created LanternControl", simulator.framework.ReplicationComputer.makeReplicationString(direction));
+        log("Created LanternControl", ReplicationComputer.makeReplicationString(direction));
 
-        localCarLantern = simulator.payloads.CarLanternPayload.getWriteablePayload(direction);
+        localCarLantern = CarLanternPayload.getWriteablePayload(direction);
         physicalInterface.sendTimeTriggered(localCarLantern, period);
 
         //initialize network interface
         //create a can mailbox - this object has the binary representation of the message data
         //the CAN message ids are declared in the MessageDictionary class.  The ReplicationComputer
         //class provides utility methods for computing offsets for replicated controllers
-        networkCarLanternOut = simulator.payloads.CanMailbox.getWriteableCanMailbox(
+        networkCarLanternOut = CanMailbox.getWriteableCanMailbox(
                 MessageDictionary.CAR_LANTERN_BASE_CAN_ID +
-                        simulator.framework.ReplicationComputer.computeReplicationId(direction));
-        mCarLantern = new simulator.payloads.translators.BooleanCanPayloadTranslator(networkCarLanternOut);
+                        ReplicationComputer.computeReplicationId(direction));
+        mCarLantern = new BooleanCanPayloadTranslator(networkCarLanternOut);
         canInterface.sendTimeTriggered(networkCarLanternOut, period);
 
         networkDoorClosedArray = new Utility.DoorClosedArray(canInterface);
 
-        networkDesiredFloor = simulator.payloads.CanMailbox.getReadableCanMailbox(
+        networkDesiredFloor = CanMailbox.getReadableCanMailbox(
                 MessageDictionary.DESIRED_FLOOR_CAN_ID);
         mDesiredFloor = new DesiredFloorCanPayloadTranslator(networkDesiredFloor);
         canInterface.registerTimeTriggered(networkDesiredFloor);
@@ -117,7 +126,7 @@ public class LanternControl extends simulator.framework.Controller {
                 //if any mDoorClosed[b,r] == false && mDesiredFloor.d == d
                 if ((!networkDoorClosedArray.getAllClosed())
                         && (mDesiredFloor.getDirection() == direction)) {
-                    newState = LanternControl.State.STATE_CAR_LANTERN_ON;
+                    newState = State.STATE_CAR_LANTERN_ON;
                 } else {
                     newState = state;
                 }
@@ -132,7 +141,7 @@ public class LanternControl extends simulator.framework.Controller {
                 //if all mDoorClosed[b,r] == true || mDesiredFloor.d != d
                 if ((networkDoorClosedArray.getAllClosed())
                         || (mDesiredFloor.getDirection() != direction)) {
-                    newState = LanternControl.State.STATE_CAR_LANTERN_OFF;
+                    newState = State.STATE_CAR_LANTERN_OFF;
                 } else {
                     newState = state;
                 }

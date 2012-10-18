@@ -10,6 +10,16 @@
  */
 package simulator.elevatorcontrol;
 
+import simulator.elevatormodules.AtFloorCanPayloadTranslator;
+import simulator.elevatormodules.DoorClosedCanPayloadTranslator;
+import simulator.framework.*;
+import simulator.payloads.CANNetwork.CanConnection;
+import simulator.payloads.CanMailbox;
+import simulator.payloads.CanMailbox.ReadableCanMailbox;
+import simulator.payloads.translators.BooleanCanPayloadTranslator;
+
+import java.util.HashMap;
+
 /**
  * This class provides some example utility classes that might be useful in more
  * than one spot.  It is okay to create new classes (or modify the ones given
@@ -31,32 +41,32 @@ public class Utility {
         private DoorClosedHallwayArray front;
         private DoorClosedHallwayArray back;
 
-        public DoorClosedArray(simulator.payloads.CANNetwork.CanConnection conn) {
-            front = new DoorClosedHallwayArray(simulator.framework.Hallway.FRONT, conn);
-            back = new DoorClosedHallwayArray(simulator.framework.Hallway.BACK, conn);
+        public DoorClosedArray(CanConnection conn) {
+            front = new DoorClosedHallwayArray(Hallway.FRONT, conn);
+            back = new DoorClosedHallwayArray(Hallway.BACK, conn);
         }
 
         public boolean getAllClosed() {
             return (front.getAllClosed() && back.getAllClosed());
         }
 
-        public boolean getAllHallwayClosed(simulator.framework.Hallway hallway) {
-            if (hallway == simulator.framework.Hallway.BOTH) {
+        public boolean getAllHallwayClosed(Hallway hallway) {
+            if (hallway == Hallway.BOTH) {
                 return getAllClosed();
-            } else if (hallway == simulator.framework.Hallway.FRONT) {
+            } else if (hallway == Hallway.FRONT) {
                 return front.getAllClosed();
-            } else if (hallway == simulator.framework.Hallway.BACK) {
+            } else if (hallway == Hallway.BACK) {
                 return back.getAllClosed();
             }
             return false;
         }
 
-        public boolean getClosed(simulator.framework.Hallway hallway, simulator.framework.Side side) {
-            if (hallway == simulator.framework.Hallway.BOTH) {
+        public boolean getClosed(Hallway hallway, Side side) {
+            if (hallway == Hallway.BOTH) {
                 return front.getClosed(side) && back.getClosed(side);
-            } else if (hallway == simulator.framework.Hallway.FRONT) {
+            } else if (hallway == Hallway.FRONT) {
                 return front.getClosed(side);
-            } else if (hallway == simulator.framework.Hallway.BACK) {
+            } else if (hallway == Hallway.BACK) {
                 return back.getClosed(side);
             }
             return false;
@@ -65,25 +75,25 @@ public class Utility {
 
     public static class DoorClosedHallwayArray {
 
-        private simulator.elevatormodules.DoorClosedCanPayloadTranslator left;
-        private simulator.elevatormodules.DoorClosedCanPayloadTranslator right;
-        public final simulator.framework.Hallway hallway;
+        private DoorClosedCanPayloadTranslator left;
+        private DoorClosedCanPayloadTranslator right;
+        public final Hallway hallway;
 
-        public DoorClosedHallwayArray(simulator.framework.Hallway hallway, simulator.payloads.CANNetwork.CanConnection conn) {
+        public DoorClosedHallwayArray(Hallway hallway, CanConnection conn) {
             this.hallway = hallway;
 
-            simulator.payloads.CanMailbox.ReadableCanMailbox m_l = simulator.payloads.CanMailbox.getReadableCanMailbox(
+            ReadableCanMailbox m_l = CanMailbox.getReadableCanMailbox(
                     MessageDictionary.DOOR_CLOSED_SENSOR_BASE_CAN_ID +
-                            simulator.framework.ReplicationComputer.computeReplicationId(hallway,
-                                    simulator.framework.Side.LEFT));
-            left = new simulator.elevatormodules.DoorClosedCanPayloadTranslator(m_l, hallway, simulator.framework.Side.LEFT);
+                            ReplicationComputer.computeReplicationId(hallway,
+                                    Side.LEFT));
+            left = new DoorClosedCanPayloadTranslator(m_l, hallway, Side.LEFT);
             conn.registerTimeTriggered(m_l);
 
-            simulator.payloads.CanMailbox.ReadableCanMailbox m_r = simulator.payloads.CanMailbox.getReadableCanMailbox(
+            ReadableCanMailbox m_r = CanMailbox.getReadableCanMailbox(
                     MessageDictionary.DOOR_CLOSED_SENSOR_BASE_CAN_ID +
-                            simulator.framework.ReplicationComputer.computeReplicationId(hallway,
-                                    simulator.framework.Side.RIGHT));
-            right = new simulator.elevatormodules.DoorClosedCanPayloadTranslator(m_r, hallway, simulator.framework.Side.RIGHT);
+                            ReplicationComputer.computeReplicationId(hallway,
+                                    Side.RIGHT));
+            right = new DoorClosedCanPayloadTranslator(m_r, hallway, Side.RIGHT);
             conn.registerTimeTriggered(m_r);
         }
 
@@ -91,10 +101,10 @@ public class Utility {
             return (left.getValue() && right.getValue());
         }
 
-        public boolean getClosed(simulator.framework.Side side) {
-            if (side == simulator.framework.Side.LEFT) {
+        public boolean getClosed(Side side) {
+            if (side == Side.LEFT) {
                 return left.getValue();
-            } else if (side == simulator.framework.Side.RIGHT) {
+            } else if (side == Side.RIGHT) {
                 return right.getValue();
             }
             throw new RuntimeException("Invalid side specified");
@@ -103,18 +113,18 @@ public class Utility {
 
     public static class CarCallArray {
 
-        public final int numFloors = simulator.framework.Elevator.numFloors;
-        public final simulator.framework.Hallway hallway;
-        public simulator.payloads.translators.BooleanCanPayloadTranslator[] translatorArray;
+        public final int numFloors = Elevator.numFloors;
+        public final Hallway hallway;
+        public BooleanCanPayloadTranslator[] translatorArray;
 
-        public CarCallArray(simulator.framework.Hallway hallway, simulator.payloads.CANNetwork.CanConnection conn) {
+        public CarCallArray(Hallway hallway, CanConnection conn) {
             this.hallway = hallway;
-            translatorArray = new simulator.payloads.translators.BooleanCanPayloadTranslator[numFloors];
+            translatorArray = new BooleanCanPayloadTranslator[numFloors];
             for (int i = 0; i < numFloors; ++i) {
-                simulator.payloads.CanMailbox.ReadableCanMailbox m = simulator.payloads.CanMailbox.getReadableCanMailbox(
+                ReadableCanMailbox m = CanMailbox.getReadableCanMailbox(
                         MessageDictionary.CAR_CALL_BASE_CAN_ID +
-                                simulator.framework.ReplicationComputer.computeReplicationId(i + 1, hallway));
-                simulator.payloads.translators.BooleanCanPayloadTranslator t = new simulator.payloads.translators.BooleanCanPayloadTranslator(m);
+                                ReplicationComputer.computeReplicationId(i + 1, hallway));
+                BooleanCanPayloadTranslator t = new BooleanCanPayloadTranslator(m);
                 conn.registerTimeTriggered(m);
                 translatorArray[i] = t;
             }
@@ -141,10 +151,10 @@ public class Utility {
 
 
     public static class HallCallArray {
-        public final int numFloors = simulator.framework.Elevator.numFloors;
+        public final int numFloors = Elevator.numFloors;
         public HallCallFloorArray[] translatorArray;
 
-        public HallCallArray(simulator.payloads.CANNetwork.CanConnection conn) {
+        public HallCallArray(CanConnection conn) {
             translatorArray = new HallCallFloorArray[numFloors];
 
             for (int floor = 0; floor < numFloors; ++floor) {
@@ -166,11 +176,11 @@ public class Utility {
             return translatorArray[floor].getAllOff();
         }
 
-        public boolean getAllFloorHallwayOff(int floor, simulator.framework.Hallway hallway) {
+        public boolean getAllFloorHallwayOff(int floor, Hallway hallway) {
             return translatorArray[floor].getAllHallwayOff(hallway);
         }
 
-        public boolean getOff(int floor, simulator.framework.Hallway hallway, simulator.framework.Direction dir) {
+        public boolean getOff(int floor, Hallway hallway, Direction dir) {
             return translatorArray[floor].getOff(hallway, dir);
         }
     }
@@ -181,10 +191,10 @@ public class Utility {
         private HallCallFloorHallwayArray back;
 
 
-        public HallCallFloorArray(int floor, simulator.payloads.CANNetwork.CanConnection conn) {
+        public HallCallFloorArray(int floor, CanConnection conn) {
             this.floor = floor;
-            front = new HallCallFloorHallwayArray(floor, simulator.framework.Hallway.FRONT, conn);
-            back = new HallCallFloorHallwayArray(floor, simulator.framework.Hallway.BACK, conn);
+            front = new HallCallFloorHallwayArray(floor, Hallway.FRONT, conn);
+            back = new HallCallFloorHallwayArray(floor, Hallway.BACK, conn);
         }
 
         public boolean getAllOff() {
@@ -193,28 +203,28 @@ public class Utility {
             return f && b;
         }
 
-        public boolean getAllHallwayOff(simulator.framework.Hallway hallway) {
-            if (hallway == simulator.framework.Hallway.BOTH) {
+        public boolean getAllHallwayOff(Hallway hallway) {
+            if (hallway == Hallway.BOTH) {
                 return getAllOff();
-            } else if (hallway == simulator.framework.Hallway.FRONT) {
+            } else if (hallway == Hallway.FRONT) {
                 return front.getAllOff();
-            } else if (hallway == simulator.framework.Hallway.BACK) {
+            } else if (hallway == Hallway.BACK) {
                 return back.getAllOff();
             }
             throw new RuntimeException("Illegal hallway in HallCallFloorArray.getAllHallwayOff");
         }
 
         /* NOTE: As of now, do not call getOff for hallway == BOTH, and a specified direction */
-        public boolean getOff(simulator.framework.Hallway hallway, simulator.framework.Direction dir) {
-            if (hallway == simulator.framework.Hallway.FRONT && dir == simulator.framework.Direction.UP) {
+        public boolean getOff(Hallway hallway, Direction dir) {
+            if (hallway == Hallway.FRONT && dir == Direction.UP) {
                 return (front.up.getValue());
-            } else if (hallway == simulator.framework.Hallway.FRONT && dir == simulator.framework.Direction.DOWN) {
+            } else if (hallway == Hallway.FRONT && dir == Direction.DOWN) {
                 return (front.down.getValue());
-            } else if (hallway == simulator.framework.Hallway.BACK && dir == simulator.framework.Direction.UP) {
+            } else if (hallway == Hallway.BACK && dir == Direction.UP) {
                 return (back.up.getValue());
-            } else if (hallway == simulator.framework.Hallway.BACK && dir == simulator.framework.Direction.DOWN) {
+            } else if (hallway == Hallway.BACK && dir == Direction.DOWN) {
                 return (back.down.getValue());
-            } else if (hallway == simulator.framework.Hallway.BOTH && dir == simulator.framework.Direction.UP) {
+            } else if (hallway == Hallway.BOTH && dir == Direction.UP) {
             }
             throw new RuntimeException("Illegal hallway in HallCallFloorArray.getAllHallwayOff");
         }
@@ -222,23 +232,23 @@ public class Utility {
     }
 
     public static class HallCallFloorHallwayArray {
-        private simulator.payloads.translators.BooleanCanPayloadTranslator up;
-        private simulator.payloads.translators.BooleanCanPayloadTranslator down;
-        public final simulator.framework.Hallway hallway;
+        private BooleanCanPayloadTranslator up;
+        private BooleanCanPayloadTranslator down;
+        public final Hallway hallway;
         public final int floor;
 
-        public HallCallFloorHallwayArray(int floor, simulator.framework.Hallway hallway, simulator.payloads.CANNetwork.CanConnection conn) {
+        public HallCallFloorHallwayArray(int floor, Hallway hallway, CanConnection conn) {
             this.hallway = hallway;
             this.floor = floor;
 
-            simulator.payloads.CanMailbox.ReadableCanMailbox m_u = simulator.payloads.CanMailbox.getReadableCanMailbox(MessageDictionary.HALL_CALL_BASE_CAN_ID +
-                    simulator.framework.ReplicationComputer.computeReplicationId(floor, hallway, simulator.framework.Direction.UP));
-            up = new simulator.payloads.translators.BooleanCanPayloadTranslator(m_u);
+            ReadableCanMailbox m_u = CanMailbox.getReadableCanMailbox(MessageDictionary.HALL_CALL_BASE_CAN_ID +
+                    ReplicationComputer.computeReplicationId(floor, hallway, Direction.UP));
+            up = new BooleanCanPayloadTranslator(m_u);
             conn.registerTimeTriggered(m_u);
 
-            simulator.payloads.CanMailbox.ReadableCanMailbox m_d = simulator.payloads.CanMailbox.getReadableCanMailbox(MessageDictionary.HALL_CALL_BASE_CAN_ID +
-                    simulator.framework.ReplicationComputer.computeReplicationId(floor, hallway, simulator.framework.Direction.DOWN));
-            down = new simulator.payloads.translators.BooleanCanPayloadTranslator(m_d);
+            ReadableCanMailbox m_d = CanMailbox.getReadableCanMailbox(MessageDictionary.HALL_CALL_BASE_CAN_ID +
+                    ReplicationComputer.computeReplicationId(floor, hallway, Direction.DOWN));
+            down = new BooleanCanPayloadTranslator(m_d);
             conn.registerTimeTriggered(m_d);
 
         }
@@ -253,41 +263,40 @@ public class Utility {
 
     public static class AtFloorArray {
 
-        public java.util.HashMap<Integer, simulator.elevatormodules.AtFloorCanPayloadTranslator> networkAtFloorsTranslators = new java.util.HashMap<Integer, simulator.elevatormodules.AtFloorCanPayloadTranslator>();
-        public final int numFloors = simulator.framework.Elevator.numFloors;
+        public HashMap<Integer, AtFloorCanPayloadTranslator> networkAtFloorsTranslators = new HashMap<Integer, AtFloorCanPayloadTranslator>();
+        public final int numFloors = Elevator.numFloors;
 
-        public AtFloorArray(simulator.payloads.CANNetwork.CanConnection conn) {
+        public AtFloorArray(CanConnection conn) {
             for (int i = 0; i < numFloors; i++) {
                 int floor = i + 1;
-                for (simulator.framework.Hallway h : simulator.framework.Hallway.replicationValues) {
-                    int index = simulator.framework.ReplicationComputer.computeReplicationId(floor, h);
-                    simulator.payloads.CanMailbox.ReadableCanMailbox m = simulator.payloads.CanMailbox.getReadableCanMailbox(
-                            MessageDictionary.AT_FLOOR_BASE_CAN_ID + index);
-                    simulator.elevatormodules.AtFloorCanPayloadTranslator t = new simulator.elevatormodules.AtFloorCanPayloadTranslator(m, floor, h);
+                for (Hallway h : Hallway.replicationValues) {
+                    int index = ReplicationComputer.computeReplicationId(floor, h);
+                    ReadableCanMailbox m = CanMailbox.getReadableCanMailbox(MessageDictionary.AT_FLOOR_BASE_CAN_ID + index);
+                    AtFloorCanPayloadTranslator t = new AtFloorCanPayloadTranslator(m, floor, h);
                     conn.registerTimeTriggered(m);
                     networkAtFloorsTranslators.put(index, t);
                 }
             }
         }
 
-        public boolean isAtFloor(int floor, simulator.framework.Hallway hallway) {
-            return networkAtFloorsTranslators.get(simulator.framework.ReplicationComputer.computeReplicationId(floor, hallway)).getValue();
+        public boolean isAtFloor(int floor, Hallway hallway) {
+            return networkAtFloorsTranslators.get(ReplicationComputer.computeReplicationId(floor, hallway)).getValue();
         }
 
         public int getCurrentFloor() {
             int retval = MessageDictionary.NONE;
             for (int i = 0; i < numFloors; i++) {
                 int floor = i + 1;
-                for (simulator.framework.Hallway h : simulator.framework.Hallway.replicationValues) {
-                    int index = simulator.framework.ReplicationComputer.computeReplicationId(floor, h);
-                    simulator.elevatormodules.AtFloorCanPayloadTranslator t = networkAtFloorsTranslators.get(index);
+                for (Hallway h : Hallway.replicationValues) {
+                    int index = ReplicationComputer.computeReplicationId(floor, h);
+                    AtFloorCanPayloadTranslator t = networkAtFloorsTranslators.get(index);
                     if (t.getValue()) {
                         if (retval == MessageDictionary.NONE) {
                             //this is the first true atFloor
                             retval = floor;
                         } else if (retval != floor) {
                             //found a second floor that is different from the first one
-                            throw new RuntimeException("AtFloor is true for more than one floor at " + simulator.framework.Harness.getTime());
+                            throw new RuntimeException("AtFloor is true for more than one floor at " + Harness.getTime());
                         }
                     }
                 }

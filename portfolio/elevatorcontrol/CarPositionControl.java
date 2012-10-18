@@ -8,13 +8,30 @@
 
 package simulator.elevatorcontrol;
 
+import jSimPack.SimTime;
+import simulator.elevatormodules.AtFloorCanPayloadTranslator;
+import simulator.elevatormodules.CarLevelPositionCanPayloadTranslator;
+import simulator.elevatormodules.CarPositionIndicator;
+import simulator.elevatormodules.DoorClosedCanPayloadTranslator;
+import simulator.framework.Controller;
+import simulator.framework.Hallway;
+import simulator.framework.ReplicationComputer;
+import simulator.framework.Side;
+import simulator.payloads.*;
+import simulator.payloads.CanMailbox.ReadableCanMailbox;
+import simulator.payloads.CanMailbox.WriteableCanMailbox;
+import simulator.elevatorcontrol.Utility.AtFloorArray;
+import simulator.payloads.CarPositionIndicatorPayload.WriteableCarPositionIndicatorPayload;
+import simulator.payloads.translators.BooleanCanPayloadTranslator;
+import simulator.payloads.translators.IntegerCanPayloadTranslator;
+
 
 /**
  * CarPositionControl displays the current floor of the elevator by actuating CarPositionIndicator
  *
  * @author Collin Buchan
  */
-public class CarPositionControl extends simulator.framework.Controller {
+public class CarPositionControl extends Controller {
 
     /**
      * ************************************************************************
@@ -24,24 +41,24 @@ public class CarPositionControl extends simulator.framework.Controller {
     //note that inputs are Readable objects, while outputs are Writeable objects
 
     //local physical state (local output)
-    private simulator.payloads.CarPositionIndicatorPayload.WriteableCarPositionIndicatorPayload localCarPositionIndicator;
+    private WriteableCarPositionIndicatorPayload localCarPositionIndicator;
 
     //output network messages
-    private simulator.payloads.CanMailbox.WriteableCanMailbox networkCarPositionIndicator;
-    private simulator.payloads.translators.IntegerCanPayloadTranslator mCarPositionIndicator;
+    private WriteableCanMailbox networkCarPositionIndicator;
+    private IntegerCanPayloadTranslator mCarPositionIndicator;
 
     //input network messages
-    private Utility.AtFloorArray networkAtFloorArray;
-    private simulator.payloads.CanMailbox.ReadableCanMailbox networkCarLevelPosition;
-    private simulator.payloads.CanMailbox.ReadableCanMailbox networkDesiredFloor;
-    private simulator.payloads.CanMailbox.ReadableCanMailbox networkDriveSpeed;
+    private AtFloorArray networkAtFloorArray;
+    private ReadableCanMailbox networkCarLevelPosition;
+    private ReadableCanMailbox networkDesiredFloor;
+    private ReadableCanMailbox networkDriveSpeed;
 
-    private simulator.elevatormodules.CarLevelPositionCanPayloadTranslator mCarLevelPosition;
+    private CarLevelPositionCanPayloadTranslator mCarLevelPosition;
     private DesiredFloorCanPayloadTranslator mDesiredFloor;
     private DriveSpeedCanPayloadTranslator mDriveSpeed;
 
     //store the period for the controller
-    private jSimPack.SimTime period;
+    private SimTime period;
 
     //enumerate states
     private enum State {
@@ -50,7 +67,7 @@ public class CarPositionControl extends simulator.framework.Controller {
     }
 
     //state variable initialized to the initial state STATE_DISPLAY_FLOOR
-    private State state = CarPositionControl.State.STATE_DISPLAY_FLOOR;
+    private State state = State.STATE_DISPLAY_FLOOR;
     private int currentFloor; // initialized to first floor (lobby)
     private Boolean[] commitPoint;
 
@@ -65,7 +82,7 @@ public class CarPositionControl extends simulator.framework.Controller {
      * controllers.add(createControllerObject("CarPositionControl",floor, hallway,
      * MessageDictionary.CAR_BUTTON_CONTROL_PERIOD, verbose));
      */
-    public CarPositionControl(jSimPack.SimTime period, boolean verbose) {
+    public CarPositionControl(SimTime period, boolean verbose) {
         //call to the Controller superclass constructor is required
         super("CarPositionControl", verbose);
 
@@ -85,27 +102,27 @@ public class CarPositionControl extends simulator.framework.Controller {
         log("Created CarPositionControl");
 
         //initialize physical state
-        localCarPositionIndicator = simulator.payloads.CarPositionIndicatorPayload.getWriteablePayload();
+        localCarPositionIndicator = CarPositionIndicatorPayload.getWriteablePayload();
         physicalInterface.sendTimeTriggered(localCarPositionIndicator, period);
 
         //initialize input network interface
         networkAtFloorArray = new Utility.AtFloorArray(canInterface);
 
-        networkCarLevelPosition = simulator.payloads.CanMailbox.getReadableCanMailbox(MessageDictionary.CAR_LEVEL_POSITION_CAN_ID);
-        mCarLevelPosition = new simulator.elevatormodules.CarLevelPositionCanPayloadTranslator(networkCarLevelPosition);
+        networkCarLevelPosition = CanMailbox.getReadableCanMailbox(MessageDictionary.CAR_LEVEL_POSITION_CAN_ID);
+        mCarLevelPosition = new CarLevelPositionCanPayloadTranslator(networkCarLevelPosition);
         canInterface.registerTimeTriggered(networkCarLevelPosition);
 
-        networkDesiredFloor = simulator.payloads.CanMailbox.getReadableCanMailbox(MessageDictionary.DESIRED_FLOOR_CAN_ID);
+        networkDesiredFloor = CanMailbox.getReadableCanMailbox(MessageDictionary.DESIRED_FLOOR_CAN_ID);
         mDesiredFloor = new DesiredFloorCanPayloadTranslator(networkDesiredFloor);
         canInterface.registerTimeTriggered(networkDesiredFloor);
 
-        networkDriveSpeed = simulator.payloads.CanMailbox.getReadableCanMailbox(MessageDictionary.DRIVE_SPEED_CAN_ID);
+        networkDriveSpeed = CanMailbox.getReadableCanMailbox(MessageDictionary.DRIVE_SPEED_CAN_ID);
         mDriveSpeed = new DriveSpeedCanPayloadTranslator(networkDriveSpeed);
         canInterface.registerTimeTriggered(networkDriveSpeed);
 
         //initialize output network interface
-        networkCarPositionIndicator = simulator.payloads.CanMailbox.getWriteableCanMailbox(MessageDictionary.CAR_POSITION_CAN_ID);
-        mCarPositionIndicator = new simulator.payloads.translators.IntegerCanPayloadTranslator(networkCarPositionIndicator);
+        networkCarPositionIndicator = CanMailbox.getWriteableCanMailbox(MessageDictionary.CAR_POSITION_CAN_ID);
+        mCarPositionIndicator = new IntegerCanPayloadTranslator(networkCarPositionIndicator);
         canInterface.sendTimeTriggered(networkCarPositionIndicator, period);
 
         /* issuing the timer start method with no callback data means a NULL value

@@ -10,6 +10,19 @@
  */
 package simulator.elevatorcontrol;
 
+import jSimPack.SimTime;
+import simulator.framework.DoorCommand;
+import simulator.framework.Elevator;
+import simulator.framework.Hallway;
+import simulator.framework.Harness;
+import simulator.framework.RuntimeMonitor;
+import simulator.framework.Side;
+import simulator.payloads.CarWeightPayload.ReadableCarWeightPayload;
+import simulator.payloads.DoorClosedPayload.ReadableDoorClosedPayload;
+import simulator.payloads.DoorMotorPayload.ReadableDoorMotorPayload;
+import simulator.payloads.DoorOpenPayload.ReadableDoorOpenPayload;
+import simulator.payloads.DriveSpeedPayload.ReadableDriveSpeedPayload;
+
 /**
  * This monitoring class gives you a starting point for the performance checks
  * you will do in project 7.
@@ -22,7 +35,7 @@ package simulator.elevatorcontrol;
  * 
  * @author Justin Ray
  */
-public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor {
+public class SamplePerformanceMonitor extends RuntimeMonitor {
 
     DoorStateMachine doorState = new DoorStateMachine();
     WeightStateMachine weightState = new WeightStateMachine();
@@ -54,14 +67,14 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
      * Called once when the door starts opening
      * @param hallway which door the event pertains to
      */
-    private void doorOpening(simulator.framework.Hallway hallway) {
+    private void doorOpening(Hallway hallway) {
     }
 
     /**
      * Called once when the door starts closing
      * @param hallway which door the event pertains to
      */
-    private void doorClosing(simulator.framework.Hallway hallway) {
+    private void doorClosing(Hallway hallway) {
         //System.out.println(hallway.toString() + " Door Closing");
     }
 
@@ -70,7 +83,7 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
      * it was fully closed.
      * @param hallway which door the event pertains to
      */
-    private void doorReopening(simulator.framework.Hallway hallway) {
+    private void doorReopening(Hallway hallway) {
         //System.out.println(hallway.toString() + " Door Reopening");
     }
 
@@ -78,7 +91,7 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
      * Called once when the doors close completely
      * @param hallway which door the event pertains to
      */
-    private void doorClosed(simulator.framework.Hallway hallway) {
+    private void doorClosed(Hallway hallway) {
         //System.out.println(hallway.toString() + " Door Closed");
         //once all doors are closed, check to see if the car was overweight
         if (!doorState.anyDoorOpen()) {
@@ -94,7 +107,7 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
      * Called once when the doors are fully open
      * @param hallway which door the event pertains to
      */
-    private void doorOpened(simulator.framework.Hallway hallway) {
+    private void doorOpened(Hallway hallway) {
         //System.out.println(hallway.toString() + " Door Opened");
     }
 
@@ -103,38 +116,38 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
      * @param hallway which door the event pertains to
      */
     private void weightChanged(int newWeight) {
-        if (newWeight > simulator.framework.Elevator.MaxCarCapacity) {
+        if (newWeight > Elevator.MaxCarCapacity) {
             wasOverweight = true;
         }
     }
 
     /**************************************************************************
      * low level message receiving methods
-     *
+     * 
      * These mostly forward messages to the appropriate state machines
      **************************************************************************/
     @Override
-    public void receive(simulator.payloads.DoorClosedPayload.ReadableDoorClosedPayload msg) {
+    public void receive(ReadableDoorClosedPayload msg) {
         doorState.receive(msg);
     }
 
     @Override
-    public void receive(simulator.payloads.DoorOpenPayload.ReadableDoorOpenPayload msg) {
+    public void receive(ReadableDoorOpenPayload msg) {
         doorState.receive(msg);
     }
 
     @Override
-    public void receive(simulator.payloads.DoorMotorPayload.ReadableDoorMotorPayload msg) {
+    public void receive(ReadableDoorMotorPayload msg) {
         doorState.receive(msg);
     }
 
     @Override
-    public void receive(simulator.payloads.CarWeightPayload.ReadableCarWeightPayload msg) {
+    public void receive(ReadableCarWeightPayload msg) {
         weightState.receive(msg);
     }
 
     @Override
-    public void receive(simulator.payloads.DriveSpeedPayload.ReadableDriveSpeedPayload msg) {
+    public void receive(ReadableDriveSpeedPayload msg) {
         if (msg.speed() > 0) {
             hasMoved = true;
         }
@@ -155,7 +168,7 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
 
         int oldWeight = 0;
 
-        public void receive(simulator.payloads.CarWeightPayload.ReadableCarWeightPayload msg) {
+        public void receive(ReadableCarWeightPayload msg) {
             if (oldWeight != msg.weight()) {
                 weightChanged(msg.weight());
             }
@@ -165,7 +178,7 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
 
     /**
      * Utility class for keeping track of the door state.
-     *
+     * 
      * Also provides external methods that can be queried to determine the
      * current door state.
      */
@@ -174,36 +187,36 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
         DoorState state[] = new DoorState[2];
 
         public DoorStateMachine() {
-            state[simulator.framework.Hallway.FRONT.ordinal()] = SamplePerformanceMonitor.DoorState.CLOSED;
-            state[simulator.framework.Hallway.BACK.ordinal()] = SamplePerformanceMonitor.DoorState.CLOSED;
+            state[Hallway.FRONT.ordinal()] = DoorState.CLOSED;
+            state[Hallway.BACK.ordinal()] = DoorState.CLOSED;
         }
 
-        public void receive(simulator.payloads.DoorClosedPayload.ReadableDoorClosedPayload msg) {
+        public void receive(ReadableDoorClosedPayload msg) {
             updateState(msg.getHallway());
         }
 
-        public void receive(simulator.payloads.DoorOpenPayload.ReadableDoorOpenPayload msg) {
+        public void receive(ReadableDoorOpenPayload msg) {
             updateState(msg.getHallway());
         }
 
-        public void receive(simulator.payloads.DoorMotorPayload.ReadableDoorMotorPayload msg) {
+        public void receive(ReadableDoorMotorPayload msg) {
             updateState(msg.getHallway());
         }
 
-        private void updateState(simulator.framework.Hallway h) {
+        private void updateState(Hallway h) {
             DoorState previousState = state[h.ordinal()];
 
             DoorState newState = previousState;
 
             if (allDoorsClosed(h) && allDoorMotorsStopped(h)) {
-                newState = SamplePerformanceMonitor.DoorState.CLOSED;
+                newState = DoorState.CLOSED;
             } else if (allDoorsCompletelyOpen(h) && allDoorMotorsStopped(h)) {
-                newState = SamplePerformanceMonitor.DoorState.OPEN;
+                newState = DoorState.OPEN;
                 //} else if (anyDoorMotorClosing(h) && anyDoorOpen(h)) {
             } else if (anyDoorMotorClosing(h)) {
-                newState = SamplePerformanceMonitor.DoorState.CLOSING;
+                newState = DoorState.CLOSING;
             } else if (anyDoorMotorOpening(h)) {
-                newState = SamplePerformanceMonitor.DoorState.OPENING;
+                newState = DoorState.OPENING;
             }
 
             if (newState != previousState) {
@@ -215,7 +228,7 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
                         doorOpened(h);
                         break;
                     case OPENING:
-                        if (previousState == SamplePerformanceMonitor.DoorState.CLOSING) {
+                        if (previousState == DoorState.CLOSING) {
                             doorReopening(h);
                         } else {
                             doorOpening(h);
@@ -233,36 +246,36 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
         }
 
         //door utility methods
-        public boolean allDoorsCompletelyOpen(simulator.framework.Hallway h) {
-            return doorOpeneds[h.ordinal()][simulator.framework.Side.LEFT.ordinal()].isOpen()
-                    && doorOpeneds[h.ordinal()][simulator.framework.Side.RIGHT.ordinal()].isOpen();
+        public boolean allDoorsCompletelyOpen(Hallway h) {
+            return doorOpeneds[h.ordinal()][Side.LEFT.ordinal()].isOpen()
+                    && doorOpeneds[h.ordinal()][Side.RIGHT.ordinal()].isOpen();
         }
 
         public boolean anyDoorOpen() {
-            return anyDoorOpen(simulator.framework.Hallway.FRONT) || anyDoorOpen(simulator.framework.Hallway.BACK);
+            return anyDoorOpen(Hallway.FRONT) || anyDoorOpen(Hallway.BACK);
 
         }
 
-        public boolean anyDoorOpen(simulator.framework.Hallway h) {
-            return !doorCloseds[h.ordinal()][simulator.framework.Side.LEFT.ordinal()].isClosed()
-                    || !doorCloseds[h.ordinal()][simulator.framework.Side.RIGHT.ordinal()].isClosed();
+        public boolean anyDoorOpen(Hallway h) {
+            return !doorCloseds[h.ordinal()][Side.LEFT.ordinal()].isClosed()
+                    || !doorCloseds[h.ordinal()][Side.RIGHT.ordinal()].isClosed();
         }
 
-        public boolean allDoorsClosed(simulator.framework.Hallway h) {
-            return (doorCloseds[h.ordinal()][simulator.framework.Side.LEFT.ordinal()].isClosed()
-                    && doorCloseds[h.ordinal()][simulator.framework.Side.RIGHT.ordinal()].isClosed());
+        public boolean allDoorsClosed(Hallway h) {
+            return (doorCloseds[h.ordinal()][Side.LEFT.ordinal()].isClosed()
+                    && doorCloseds[h.ordinal()][Side.RIGHT.ordinal()].isClosed());
         }
 
-        public boolean allDoorMotorsStopped(simulator.framework.Hallway h) {
-            return doorMotors[h.ordinal()][simulator.framework.Side.LEFT.ordinal()].command() == simulator.framework.DoorCommand.STOP && doorMotors[h.ordinal()][simulator.framework.Side.RIGHT.ordinal()].command() == simulator.framework.DoorCommand.STOP;
+        public boolean allDoorMotorsStopped(Hallway h) {
+            return doorMotors[h.ordinal()][Side.LEFT.ordinal()].command() == DoorCommand.STOP && doorMotors[h.ordinal()][Side.RIGHT.ordinal()].command() == DoorCommand.STOP;
         }
 
-        public boolean anyDoorMotorOpening(simulator.framework.Hallway h) {
-            return doorMotors[h.ordinal()][simulator.framework.Side.LEFT.ordinal()].command() == simulator.framework.DoorCommand.OPEN || doorMotors[h.ordinal()][simulator.framework.Side.RIGHT.ordinal()].command() == simulator.framework.DoorCommand.OPEN;
+        public boolean anyDoorMotorOpening(Hallway h) {
+            return doorMotors[h.ordinal()][Side.LEFT.ordinal()].command() == DoorCommand.OPEN || doorMotors[h.ordinal()][Side.RIGHT.ordinal()].command() == DoorCommand.OPEN;
         }
 
-        public boolean anyDoorMotorClosing(simulator.framework.Hallway h) {
-            return doorMotors[h.ordinal()][simulator.framework.Side.LEFT.ordinal()].command() == simulator.framework.DoorCommand.CLOSE || doorMotors[h.ordinal()][simulator.framework.Side.RIGHT.ordinal()].command() == simulator.framework.DoorCommand.CLOSE;
+        public boolean anyDoorMotorClosing(Hallway h) {
+            return doorMotors[h.ordinal()][Side.LEFT.ordinal()].command() == DoorCommand.CLOSE || doorMotors[h.ordinal()][Side.RIGHT.ordinal()].command() == DoorCommand.CLOSE;
         }
     }
 
@@ -272,15 +285,15 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
     private class ConditionalStopwatch {
 
         private boolean isRunning = false;
-        private jSimPack.SimTime startTime = null;
-        private jSimPack.SimTime accumulatedTime = jSimPack.SimTime.ZERO;
+        private SimTime startTime = null;
+        private SimTime accumulatedTime = SimTime.ZERO;
 
         /**
          * Call to start the stopwatch
          */
         public void start() {
             if (!isRunning) {
-                startTime = simulator.framework.Harness.getTime();
+                startTime = Harness.getTime();
                 isRunning = true;
             }
         }
@@ -290,8 +303,8 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
          */
         public void commit() {
             if (isRunning) {
-                jSimPack.SimTime offset = jSimPack.SimTime.subtract(simulator.framework.Harness.getTime(), startTime);
-                accumulatedTime = jSimPack.SimTime.add(accumulatedTime, offset);
+                SimTime offset = SimTime.subtract(Harness.getTime(), startTime);
+                accumulatedTime = SimTime.add(accumulatedTime, offset);
                 startTime = null;
                 isRunning = false;
             }
@@ -307,7 +320,7 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
             }
         }
 
-        public jSimPack.SimTime getAccumulatedTime() {
+        public SimTime getAccumulatedTime() {
             return accumulatedTime;
         }
 
@@ -322,15 +335,15 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
     private class Stopwatch {
 
         private boolean isRunning = false;
-        private jSimPack.SimTime startTime = null;
-        private jSimPack.SimTime accumulatedTime = jSimPack.SimTime.ZERO;
+        private SimTime startTime = null;
+        private SimTime accumulatedTime = SimTime.ZERO;
 
         /**
          * Start the stopwatch
          */
         public void start() {
             if (!isRunning) {
-                startTime = simulator.framework.Harness.getTime();
+                startTime = Harness.getTime();
                 isRunning = true;
             }
         }
@@ -340,14 +353,14 @@ public class SamplePerformanceMonitor extends simulator.framework.RuntimeMonitor
          */
         public void stop() {
             if (isRunning) {
-                jSimPack.SimTime offset = jSimPack.SimTime.subtract(simulator.framework.Harness.getTime(), startTime);
-                accumulatedTime = jSimPack.SimTime.add(accumulatedTime, offset);
+                SimTime offset = SimTime.subtract(Harness.getTime(), startTime);
+                accumulatedTime = SimTime.add(accumulatedTime, offset);
                 startTime = null;
                 isRunning = false;
             }
         }
 
-        public jSimPack.SimTime getAccumulatedTime() {
+        public SimTime getAccumulatedTime() {
             return accumulatedTime;
         }
 
