@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf DriveControl.cf -mf DriveControl_06.mf
-RandomSeed = 1350507943849
+RandomSeed = 1350541974231
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -16,12 +16,12 @@ Controller File = DriveControl.cf
 
 Assertion Results:
 @0.5s:  PASSED DriveControl::checkState(STATE) ?== STATE_DRIVE_STOPPED PASSED
-@0.5s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@7e80fa6f :: speed ?== STOP PASSED
-@0.5s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@2996c1b0 :: direction ?== STOP PASSED
-@0.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@3d66aa18 :: getSpeed ?== STOP PASSED
-@0.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@485329c5 :: getDirection ?== STOP PASSED
-@0.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@31f26605 :: getSpeed ?== STOP PASSED
-@0.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@f0f11b8 :: getDirection ?== UP PASSED
+@0.5s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@52b2a2d8 :: speed ?== STOP PASSED
+@0.5s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@7e80fa6f :: direction ?== STOP PASSED
+@0.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2996c1b0 :: getSpeed ?== STOP PASSED
+@0.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@3d66aa18 :: getDirection ?== STOP PASSED
+@0.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@485329c5 :: getSpeed ?== STOP PASSED
+@0.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@31f26605 :: getDirection ?== UP PASSED
 @2.5s:  PASSED DriveControl::checkState(STATE) ?== STATE_DRIVE_STOPPED PASSED
 
 
