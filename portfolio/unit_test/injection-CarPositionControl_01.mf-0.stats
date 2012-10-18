@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf CarPositionControl.cf -mf CarPositionControl_01.mf
-RandomSeed = 1350546733939
+RandomSeed = 1350582697564
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -19,14 +19,14 @@ Assertion Results:
 @0.41s:  PASSED simulator.payloads.CarPositionIndicatorPayload$ReadableCarPositionIndicatorPayload@1f5b0afd :: floor ?== 1 PASSED
 @0.41s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@121a9334 :: getValue ?== 1 PASSED
 @0.83s:  PASSED CarPositionControl::checkState(STATE) ?== STATE_DISPLAY_FLOOR PASSED
-@0.83s:  PASSED simulator.payloads.CarPositionIndicatorPayload$ReadableCarPositionIndicatorPayload@7b479feb :: floor ?== 2 PASSED
-@0.83s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@375212bc :: getValue ?== 2 PASSED
+@0.83s:  PASSED simulator.payloads.CarPositionIndicatorPayload$ReadableCarPositionIndicatorPayload@375212bc :: floor ?== 2 PASSED
+@0.83s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@1cf11404 :: getValue ?== 2 PASSED
 @1.25s:  PASSED CarPositionControl::checkState(STATE) ?== STATE_DISPLAY_FLOOR PASSED
-@1.25s:  PASSED simulator.payloads.CarPositionIndicatorPayload$ReadableCarPositionIndicatorPayload@17592174 :: floor ?== 2 PASSED
-@1.25s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@6686fe26 :: getValue ?== 2 PASSED
+@1.25s:  PASSED simulator.payloads.CarPositionIndicatorPayload$ReadableCarPositionIndicatorPayload@6686fe26 :: floor ?== 2 PASSED
+@1.25s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@7bea5671 :: getValue ?== 2 PASSED
 @1.67s:  PASSED CarPositionControl::checkState(STATE) ?== STATE_DISPLAY_FLOOR PASSED
-@1.67s:  PASSED simulator.payloads.CarPositionIndicatorPayload$ReadableCarPositionIndicatorPayload@55d15445 :: floor ?== 3 PASSED
-@1.67s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@4139eeda :: getValue ?== 3 PASSED
+@1.67s:  PASSED simulator.payloads.CarPositionIndicatorPayload$ReadableCarPositionIndicatorPayload@41fc2fb :: floor ?== 3 PASSED
+@1.67s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@42704baa :: getValue ?== 3 PASSED
 
 
 ******************Summary******************

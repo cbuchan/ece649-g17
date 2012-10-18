@@ -49,7 +49,7 @@
 ;========================================================================
 ;3. AtFloor[y,g] is set to TRUE.
 ;========================================================================
-;arc 3
+;arc 2
 +0.21s	I  AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
 +0s	    I  AT_FLOOR_PERIOD N AT_FLOOR_[1][BACK]_CAN_ID AtFloor 1 BACK = true
 
@@ -60,17 +60,20 @@
 +0s     I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
 
 ;check state level
+;arc 3
 +0.41s  A  F Drive : speed == LEVEL
 +0s     A  F Drive : direction == DOWN
 ;========================================================================
 ;5. Car stops to more quickly service future HallCall
 ;========================================================================
+;arc 4
 +0.21s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
 +0s     I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
 
 +0s	    I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 1 BOTH STOP
 +0s     I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT = 1
 
+;arc 5
 +0.21s  A  F Drive : speed == STOP
 +0s     A  F Drive : direction == STOP
 

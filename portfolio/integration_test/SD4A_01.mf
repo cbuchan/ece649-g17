@@ -33,8 +33,7 @@
 ;========================================================================
 ;1. The car arrives at floor f=4.
 ;========================================================================
-;arc 1a
-
+;arc 1a, 1b
 +0.21s I AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
 
 +0.21s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
@@ -44,29 +43,35 @@
 ;2. DriveControl sets drive speed to Level and Car reaches a level state.
 ;========================================================================
 ;check state level
+;arc 2a
 +0.21s A F Drive : speed == LEVEL
 +0s    A F Drive : direction == DOWN
 
+;arc 2b
 +0.21s  I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
 
 ;========================================================================
 ;3. DriveControl sets drive speed to Stop.
 ;========================================================================
+;arc 3a, 3b
 +0.21s A F Drive : speed == STOP
 +0s    A F Drive : direction == STOP
 
 ;========================================================================
 ;4. Door[b,r] starts to open.
 ;========================================================================
+;arc 4a, 4b
 +0.21s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPENING
 +0s    A F DoorMotor FRONT LEFT : command == OPEN
 
 ;========================================================================
 ;5. Door[b,r] finishes opening.
 ;========================================================================
+;arc 5a
 +0s I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
 
 ;check 5. DoorMotor=Stop results (DoorControl)
+;arc 5b
 +0.41s A F DoorMotor FRONT LEFT : command == STOP
 
 ;========================================================================
@@ -74,6 +79,8 @@
 ;========================================================================
 +0.21s A N CAR_CALL_[4][FRONT]_CAN_ID Boolean : getValue == false
 +0s    A N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean : getValue == false
+
+;arc 6 (passenger exits)
 
 ;========================================================================
 ;Post Conditions

@@ -30,7 +30,7 @@
 ;========================================================================
 ;1. Door[b,r] starts to close.
 ;========================================================================
-;arc 1.
+;arc 1
 +0.21s  A  S DoorControl[FRONT][RIGHT] : STATE == STATE_DOOR_CLOSING
 +0s     A  F DoorMotor FRONT RIGHT : command == NUDGE
 
@@ -44,34 +44,41 @@
 +0.21s  I  CAR_BUTTON_CONTROL_PERIOD F CarCall 4 FRONT = true
 +0.21s  I  CAR_BUTTON_CONTROL_PERIOD F CarCall 4 FRONT = false
 
-;arc 2c, 2d
+;arc 2c
 +0.21s  A   N CAR_CALL_[4][FRONT]_CAN_ID Boolean : getValue == true
+
+;arc 2d
 +0s     A   N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean : getValue == true
 +0s     A   F CarLight 4 FRONT : lighted == true
 ;========================================================================
 ;3. Dispatcher calculates that the desired floor is the current floor,
 ;    and that the desired hallway is the current hallway.
 ;========================================================================
+;arc 3a
 +0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 4 BOTH STOP
 
 ;========================================================================
 ;4. The door starts opening.
 ;========================================================================
+;arc 4
 +0.21s  A  S DoorControl[FRONT][RIGHT] : STATE == STATE_DOOR_OPENING
 +0s     A  F DoorMotor FRONT RIGHT : command == OPEN
 
 ;========================================================================
-;5. The car call button for [f,b] stops being lit.
+;5. The car light turns off and the car call button for [f,b] stops reporting a call.
 ;========================================================================
+;arc 5a, 5b
 +0.21s  A   N CAR_CALL_[4][FRONT]_CAN_ID Boolean : getValue == false
 +0s     A   N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean : getValue == false
 
 ;========================================================================
 ;6. The door finishes opening.
 ;========================================================================
+;arc 6a
 +0s	    I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][RIGHT]_CAN_ID DoorOpened FRONT RIGHT = true
 
 ;check 5. DoorMotor=Stop results (DoorControl)
+;arc 6b
 +0.61s	A F	DoorMotor FRONT RIGHT : command == STOP
 
 ;========================================================================

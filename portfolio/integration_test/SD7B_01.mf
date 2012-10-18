@@ -49,19 +49,19 @@
 ; hall call at f,b,d = 2,BACK,UP
 +0s	I HALL_BUTTON_CONTROL_PERIOD F HallCall 2 BACK UP = true
 
-; arc 1a. check door motor opening <-- DoorControl
+;arc 1a. check door motor opening <-- DoorControl
 +0.5s A S DoorControl[BACK][LEFT] : STATE == STATE_DOOR_OPENING
 +0s   A F DoorMotor BACK LEFT : command == OPEN
 +0s   A F HallCall 2 BACK UP : pressed == true
 
-; arc 1b-c. doorclosed sensor = false
+;arc 1b-c. doorclosed sensor = false
 +0.5s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = false
 +0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = false
 
 ;========================================================================
 ;2. CarLanterns are commanded to be off.
 ;========================================================================
-; arc 2. check car lanterns <-- CarLanternControl
+;arc 2. check car lanterns <-- CarLanternControl
 
 +0.5s A F CarLantern UP : lighted == false
 +0s   A F CarLantern DOWN : lighted == false
@@ -69,22 +69,22 @@
 ;========================================================================
 ;3. Hall button light [f,b,d] turns off.
 ;========================================================================
-; arc 3. check hall light turns off <-- HallButtonControl
+;arc 3. check hall light turns off <-- HallButtonControl
 +0.5s A F HallLight 2 BACK UP : lighted == false
 
 ;========================================================================
 ;4. Passenger arrives at hallway [f,b] and observes that the car has no intended direction.
 ;========================================================================
-; arc 4.
+;arc 4.
 
 ;========================================================================
 ;5. Doors finish opening.
 ;========================================================================
-; arc 5a. door opened sensor true
+;arc 5a. door opened sensor true
 +0.5s I  DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[BACK][LEFT]_CAN_ID DoorOpened BACK LEFT = true
 +0s   I  DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[BACK][RIGHT]_CAN_ID DoorOpened BACK RIGHT = true
 
-; arc 5b. check door motor stop <-- DoorControl
+;arc 5b. check door motor stop <-- DoorControl
 +0.5s A S DoorControl[BACK][LEFT] : STATE == STATE_DOOR_OPEN
 +0s   A F DoorMotor BACK LEFT : command == STOP
 

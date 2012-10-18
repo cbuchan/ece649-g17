@@ -33,7 +33,7 @@
 ;========================================================================
 ;1. Door[b,r] starts to close.
 ;========================================================================
-; arc 1. check door motor closing <-- DoorControl
+;arc 1. check door motor closing <-- DoorControl
 +0.5s A S DoorControl[BACK][LEFT] : STATE == STATE_DOOR_CLOSING
 
 +0s   A F DoorMotor BACK LEFT : command == NUDGE
@@ -41,11 +41,11 @@
 ;========================================================================
 ;2. Doors finish closing.
 ;========================================================================
-; arc 2a. door closed sensor true
+;arc 2a. door closed sensor true
 +0.5s I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
 +0s   I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
 
-; arc 2b. check door motor stop <-- DoorControl
+;arc 2b. check door motor stop <-- DoorControl
 +0.5s A S DoorControl[BACK][LEFT] : STATE == STATE_DOOR_CLOSED
 +0s   A F DoorMotor BACK LEFT : command == STOP
 
