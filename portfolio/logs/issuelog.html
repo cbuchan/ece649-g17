@@ -41,7 +41,8 @@
         "DriveControl statechart", "doorcontrol.java"</li>
     </ul>
     <br>
-    <table border="1" cellpadding="2" cellspacing="2" width="100%">
+    <table height="4493" border="1" cellpadding="2" cellspacing="2"
+      width="1070">
       <tbody>
         <tr>
           <td valign="top">Issue #</td>
@@ -732,6 +733,42 @@
             HallButtonControl.cf;<br>
             LanternControl.cf;<br>
             <br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">34<br>
+          </td>
+          <td valign="top">10/23/2012<br>
+          </td>
+          <td valign="top">[<b>open issue]</b><br>
+          </td>
+          <td valign="top">jessesal<br>
+          </td>
+          <td valign="top">SD2B<br>
+          </td>
+          <td valign="top">The current implementation of Dispatcher does
+            not re-open the doors in SD2B.&nbsp; <br>
+          </td>
+          <td valign="top">Dispatcher must re-calculate mDesiredFloor
+            prior to Drive being commanded to move.</td>
+          <td valign="top">Dispatcher.java<br>
+            scen_sd.html (SD2B)<br>
+            <br>
+            requirements2.html<br>
+            <br>
+            <u><b>=&gt;Traceability</b></u>:<br>
+            sc_code.html<br>
+            sd_req_traceability.xls<br>
+            <br>
+            <u><b>=&gt;</b></u><u><b>Unit testing</b></u>:<br>
+            SD2B_01.mf<br>
+            injection-SD2B_01.mf-0.stats;<br>
+            <br>
+            <u><b>=&gt;Integration testing</b></u>:<br>
+            Dispatcher_01.mf;<br>
+            injection-Dispatcher_01.mf-0.stats;<br>
+            Dispatcher_02.mf;<br>
+            injection-Dispatcher_02.mf-0.stats;<br>
           </td>
         </tr>
       </tbody>
