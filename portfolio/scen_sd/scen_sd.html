@@ -33,7 +33,17 @@
           <li><a href="#scenario2a">Scenario 2A</a> </li>
           <li><a href="#scenario2b">Scenario 2B</a></li>
         </ul>
-        <li><a href="#usecase3">3. Passenger Enters Car</a> </li>
+        <li><a href="#usecase3">3. Passenger Enters Car</a></li>
+        <ul>
+          <li><a
+href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario3a">Scenario
+
+              3A</a> </li>
+          <li><a
+href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario3b">Scenario
+
+              3B</a></li>
+        </ul>
         <li><a href="#usecase4">4. Passenger Exits Car</a> </li>
         <li><a href="#usecase5">5. Passenger Triggers Door Reversal</a>
         </li>
@@ -54,11 +64,6 @@
           <li><a href="#scenario9a">Scenario 9A</a> </li>
           <li><a href="#scenario9b">Scenario 9B</a>&nbsp;</li>
           <li><a href="#scenario9c">Scenario 9C</a></li>
-        </ul>
-        <li><a href="#usecase10">10. Overweight Sensor</a></li>
-        <ul>
-          <li><a href="#scenario10a">Scenario 10A<br>
-            </a></li>
         </ul>
       </ul>
       <div align="center">
@@ -235,8 +240,10 @@
       <p> &nbsp; </p>
       <h2> <a name="usecase3" id="usecase3"></a>Use Case 3: Passenger
         Enters Elevator </h2>
-      <h3> Scenario 3A: Passenger is waiting at a hallway for the
-        elevator and has already pressed the hall call button. </h3>
+      <h3> </h3>
+      <h3><a name="scenario3a" id="scenario7c"></a>Scenario 3A:
+        Passenger is waiting at a hallway for the elevator and has
+        already pressed the hall call button. </h3>
       <h3> Author name: Jessica Tiu </h3>
       <h3> Pre-Conditions: </h3>
       <ul type="disc">
@@ -266,8 +273,48 @@
       <h3> Sequence Diagram: </h3>
       <p> <a href="sd3a.png"><img src="sd3a.png"></a></p>
       <div align="center">
+        <hr align="center" size="2" width="100%">&nbsp; </div>
+      <h3><a name="scenario3b" id="scenario7c"></a>Scenario 3B:
+        Passenger enters elevator and triggers overweight sensor <br>
+      </h3>
+      <h3> Author name: Collin Buchan (cbuchan)<br>
+      </h3>
+      <h3> Pre-Conditions: </h3>
+      <ul type="disc">
+        <li>Elevator is at floor <b>f</b>, with at least one Door[<b>b</b>,<b>r</b>]
+          open. </li>
+        <li>mCarWeight(g) is less than MaxCarCapacity, but mCarWeight(g)
+          plus 150 (weight of one passenger) &gt;= MaxCarCapacity<br>
+        </li>
+      </ul>
+      <h3> Scenario: </h3>
+      <ol>
+        <li>Passenger enters car.<br>
+        </li>
+        <li>mCarWeight exceeds or is equal to MaxCarCapacity.<br>
+        </li>
+        <li>Doors are commanded to open.<br>
+        </li>
+        <li>CarWeightAlarm sounds.</li>
+        <li>Drive is commanded to Stop<br>
+        </li>
+      </ol>
+      <h3> Post-Conditions: </h3>
+      <ul>
+        <li>Doors are open.<br>
+        </li>
+        <li>Passenger is in car.</li>
+        <li>Elevator is at floor <b>f</b>.&nbsp;</li>
+        <li>CarWeightAlarm=true.<br>
+        </li>
+      </ul>
+      <h3> Sequence Diagram: </h3>
+      <img alt="sd10a"
+src="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/sd10a.png"><br>
+      <br>
+      <div align="center">
         <hr align="center" size="2" width="100%"> </div>
-      <p> &nbsp; </p>
+      <br>
       <h2> <a name="usecase4" id="usecase4"></a>Use Case 4: Passenger
         Exits Elevator </h2>
       <h3> Scenario 4A: Passenger is in the elevator as it arrives at
@@ -307,6 +354,8 @@
       </a>
       <h2><a href="sd4a.png"> </a><a name="usecase5" id="usecase5"></a>Use
 
+
+
         Case 5: Passenger Triggers Door Reversal </h2>
       <h3> <a name="scenario5a" id="scenario5a"></a>Scenario 5A:
         Passenger attempts to enter the car as the doors begin to close.
@@ -323,6 +372,8 @@
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to enter and is nudged by Door[<b>b</b>,<b>r</b>],
+
+
 
           triggering the door reversal sensors.</li>
         <li>A door reversal occurs for Door[<b>b</b>,<b>r</b>].</li>
@@ -358,6 +409,8 @@
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to exit and is nudged by Door[<b>b</b>,<b>r</b>],
 
+
+
           triggering the door reversal sensors.</li>
         <li>A door reversal occurs for Door[<b>b</b>,<b>r</b>].</li>
         <li>Door[<b>b</b>,<b>r</b>] finishes opening.</li>
@@ -371,9 +424,10 @@
       <li>At least one door[<b>b</b>,<b>r</b>] is nudging closed.</li>
       <h3> Sequence Diagram: </h3>
       <p> <a href="sd5b.png"><img src="sd5b.png"></a></p>
+      <br>
       <div align="center">
-        <hr align="center" size="2" width="200%"> </div>
-      <p> &nbsp; </p>
+        <hr align="center" size="2" width="100%"> </div>
+      <br>
       <h2> <a name="usecase6" id="usecase6"></a>Use Case 6: Determine
         Car Position </h2>
       <h3> Scenario 6A: Car moves from hallway f on floor x to adjacent
@@ -649,48 +703,6 @@
         <hr align="center" size="2" width="100%"> </div>
       <ul>
       </ul>
-      <h2> <a name="usecase10" id="usecase8"></a>Use Case 10: Passenger
-        Triggers Overweight Sensor<br>
-      </h2>
-      <h3> </h3>
-      <h3><a name="scenario10a" id="scenario7c"></a>Scenario 10A:
-        Elevator moves from {floor f, hallway b} to {floor g, hallway c}
-        in direction d. </h3>
-      <h3> Author name: Collin Buchan (cbuchan)<br>
-      </h3>
-      <h3> Pre-Conditions: </h3>
-      <ul type="disc">
-        <li>Elevator is at floor <b>f</b>, with at least one Door[<b>b</b>,<b>r</b>]
-          open. </li>
-        <li>mCarWeight(g) is less than MaxCarCapacity, but mCarWeight(g)
-          plus 150 (weight of one passenger) &gt;= MaxCarCapacity<br>
-        </li>
-      </ul>
-      <h3> Scenario: </h3>
-      <ol>
-        <li>Passenger enters car.<br>
-        </li>
-        <li>mCarWeight exceeds or is equal to MaxCarCapacity.<br>
-        </li>
-        <li>Doors are commanded to open.<br>
-        </li>
-        <li>CarWeightAlarm sounds.</li>
-        <li>Drive is commanded to Stop<br>
-        </li>
-      </ol>
-      <h3> Post-Conditions: </h3>
-      <ul>
-        <li>Doors are open.<br>
-        </li>
-        <li>Passenger is in car.</li>
-        <li>Elevator is at floor <b>f</b>.&nbsp;</li>
-        <li>CarWeightAlarm=true.<br>
-        </li>
-      </ul>
-      <h3> Sequence Diagram: </h3>
-      <img alt="sd10a" src="sd10a.png"><br>
-      <div align="center">
-        <hr align="center" size="2" width="100%"> </div>
       <ul>
       </ul>
     </div>
