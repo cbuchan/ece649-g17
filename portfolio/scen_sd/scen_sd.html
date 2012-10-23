@@ -123,9 +123,7 @@
         <li>Hall button light for passenger's desired direction is on. </li>
       </ul>
       <h3> Sequence Diagram: </h3>
-      <p> <a href="sd1b.png"><img src="sd1b.png" alt="1B"
-            name="_x0000_i1029" style="border: 0px solid ; width:
-            1042px; height: 338px;"></a> </p>
+      <p> <a href="sd1b.png"><img src="sd1b.png" alt="1B"></a> </p>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <h3> <a name="scenario1c" id="scenario1c"></a>Scenario 1C:
@@ -159,9 +157,7 @@
         <li>Hall button light for passenger's desired direction is on. </li>
       </ul>
       <h3> Sequence Diagram: </h3>
-      <p> <a href="sd1c.png"><img src="sd1c.png" alt="1C"
-            name="_x0000_i1031" style="border: 0px solid ; width:
-            1044px; height: 340px;"></a> </p>
+      <p> <a href="sd1c.png"><img src="sd1c.png" alt="1C"></a> </p>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <h2> <a name="usecase2" id="usecase2"></a>Use Case 2: Passenger
@@ -194,8 +190,7 @@
         <li>All doors are closed.</li>
       </ul>
       <h3> Sequence Diagram: </h3>
-      <p> <a href="sd2a.png"><img src="sd2a.png" alt="2A"
-            style="border: 0px solid ; width: 1017px; height: 334px;"></a>
+      <p> <a href="sd2a.png"><img src="sd2a.png" alt="2A"></a>
       </p>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
@@ -312,35 +307,6 @@
         <p> &nbsp; </p>
       </a>
       <h2><a href="sd4a.png"> </a><a name="usecase5" id="usecase5"></a>Use
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         Case 5: Passenger Triggers Door Reversal </h2>
       <h3> <a name="scenario5a" id="scenario5a"></a>Scenario 5A:
         Passenger attempts to enter the car as the doors begin to close.
@@ -357,45 +323,19 @@
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to enter and is nudged by Door[<b>b</b>,<b>r</b>],
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           triggering the door reversal sensors.</li>
         <li>A door reversal occurs for Door[<b>b</b>,<b>r</b>].</li>
+        <li>Door[<b>b</b>,<b>r</b>] finishes opening.</li>
         <li>The passenger enters the car. </li>
+        <li>The countdown timer in Door[<b>b</b>,<b>r</b>] expires.</li>
+        <li>Door[<b>b</b>,<b>r</b>] begins to nudge closed.</li>
       </ol>
       <h3> Post-Conditions: </h3>
       <ul type="disc">
         <li>Passenger is inside the car. </li>
         <li>Car is stopped at passenger's floor <b>f</b> and hallway <b>b</b>.
         </li>
-        <li>At least one door[<b>b</b>,<b>r</b>] is open. </li>
+        <li>At least one door[<b>b</b>,<b>r</b>] is nudging closed.</li>
       </ul>
       <h3> Sequence Diagram: </h3>
       <p> <a href="sd5a.png"><img src="sd5a.png"></a></p>
@@ -416,43 +356,17 @@
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to exit and is nudged by Door[<b>b</b>,<b>r</b>],
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           triggering the door reversal sensors.</li>
         <li>A door reversal occurs for Door[<b>b</b>,<b>r</b>].</li>
+        <li>Door[<b>b</b>,<b>r</b>] finishes opening.</li>
         <li>The passenger exits the car. </li>
+        <li>The countdown timer in Door[<b>b</b>,<b>r</b>] expires.</li>
+        <li>Door[<b>b</b>,<b>r</b>] begins to nudge closed.</li>
       </ol>
       <h3> Post-Conditions: </h3>
       <li>Passenger is no longer inside the car. </li>
       <li>Car is stopped at floor <b>f</b> and hallway <b>b</b>. </li>
-      <li>At least one door[<b>b</b>,<b>r</b>] is open. </li>
+      <li>At least one door[<b>b</b>,<b>r</b>] is nudging closed.</li>
       <h3> Sequence Diagram: </h3>
       <p> <a href="sd5b.png"><img src="sd5b.png"></a></p>
       <div align="center">
@@ -531,7 +445,7 @@
         </li>
       </ul>
       <h3> Sequence Diagram: </h3>
-      <img alt="sd7a" src="sd7a.png" height="292" width="981"><br>
+      <img alt="sd7a" src="sd7a.png"><br>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <h3> <a name="scenario7b" id="scenario7b"></a>Scenario 7B:
@@ -567,7 +481,7 @@
         </li>
       </ul>
       <h3> Sequence Diagram: </h3>
-      <img alt="sd7b" src="sd7b.png" height="292" width="981"><br>
+      <img alt="sd7b" src="sd7b.png"><br>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <h3> <a name="scenario7c" id="scenario7c"></a>Scenario 7C:
@@ -590,7 +504,7 @@
         </li>
       </ul>
       <h3> Sequence Diagram: </h3>
-      <img alt="sd7c" src="sd7c.png" height="354" width="534"><br>
+      <img alt="sd7c" src="sd7c.png"><br>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <p> &nbsp; </p>
@@ -624,7 +538,7 @@
         <li>Car is stopped at hallway[g,c]</li>
       </ul>
       <h3> Sequence Diagram: </h3>
-      <img alt="sd8a" src="sd8a.png" height="526" width="842"><br>
+      <img alt="sd8a" src="sd8a.png"><br>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <p> &nbsp; </p>
@@ -728,7 +642,7 @@
         <li>Elevator is at floor <b>f</b>.&nbsp;</li>
       </ul>
       <h3> Sequence Diagram: </h3>
-      <img alt="sd9c" src="sd9c.png" height="327" width="708"><br>
+      <img alt="sd9c" src="sd9c.png"><br>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <ul>
@@ -772,7 +686,7 @@
         </li>
       </ul>
       <h3> Sequence Diagram: </h3>
-      <img alt="sd10a" src="sd10a.png" height="280" width="837"><br>
+      <img alt="sd10a" src="sd10a.png"><br>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <ul>
