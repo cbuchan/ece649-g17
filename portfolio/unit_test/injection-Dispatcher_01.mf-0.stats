@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf Dispatcher.cf -mf Dispatcher_01.mf
-RandomSeed = 1350589161185
+RandomSeed = 1351112118649
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -30,7 +30,7 @@ Assertion Results:
 @1.85s:  PASSED Dispatcher::checkState(STATE) ?== STATE_SERVICE_CALL PASSED
 @1.85s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@6f34a7d8 :: getFloor ?== 3 PASSED
 @1.85s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@7bc9a690 :: getHallway ?== FRONT PASSED
-@1.85s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@53ad085 :: getDirection ?== STOP PASSED
+@1.85s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@584fce71 :: getDirection ?== STOP PASSED
 @3.7s:  PASSED Dispatcher::checkState(STATE) ?== STATE_SERVICE_CALL PASSED
 @3.7s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2fdb7df8 :: getFloor ?== 3 PASSED
 @3.7s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@1bc74f37 :: getHallway ?== FRONT PASSED

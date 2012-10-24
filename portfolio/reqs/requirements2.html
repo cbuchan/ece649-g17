@@ -2302,14 +2302,16 @@
     <h3> CONSTRAINTS: </h3>
     7.1&nbsp;&nbsp;&nbsp; Both CarLanterns[d] shall not be On at the
     same time.<br>
-    <h3>TIME-TRIGGERED BEHAVIORS: </h3>
-    <p>7.2 &nbsp;&nbsp; If mDesiredFloor.d = d and any
-      mDoorClosed[b,r]=false, CarLantern[d] and mCarLantern[d] shall be
-      set to On.<br>
+    <h3>TIME-TRIGGERED BEHAVIORS:<br>
+    </h3>
+    <p>7.2 &nbsp;&nbsp; If mAtFloor[f,b]=true and mDesiredFloor.f=f and
+      mDesiredFloor.d=d, CarLantern[d] shall be set to On.<br>
       7.3&nbsp;&nbsp;&nbsp; If all mDoorClosed[b,r]=true, CarLantern[d]
       and mCarLantern[d] shall be set to Off.<br>
       7.4&nbsp;&nbsp;&nbsp; If mDesiredFloor.d != d, CarLantern[d] and
       mCarLantern[d] shall be set to Off.<br>
+      7.5&nbsp;&nbsp;&nbsp; mCarLantern[d] shall be set to
+      CarLantern[d].<br>
     </p>
     <h3>STATECHART: </h3>
     <img alt="SC_LanternControl" src="SC_LanternControl.png"><br>
@@ -2317,10 +2319,9 @@
     <meta charset="utf-8">
     <br>
     <table style="font-family: Times; letter-spacing: normal; orphans:
-      2; text-indent: 0px; text-transform: none; widows: 2;
-      &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD word-spacing: 0px; text-align:
-      left;" border="1" cellpadding="2" cellspacing="2" height="97"
-      width="525">
+      2; text-indent: 0px; text-transform: none; widows: 2; text-align:
+      left;" border="1" cellpadding="2" cellspacing="2" height="132"
+      width="561">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -2331,10 +2332,11 @@
           </td>
         </tr>
         <tr>
-          <td style="vertical-align: top; ">T7.1<br>
+          <td valign="top">T7.1<br>
           </td>
-          <td style="vertical-align: top; ">(mDesiredFloor.d == d)
-            &amp;&amp; (any mDoorClosed[b,r] == false)<br>
+          <td valign="top">(mAtFloor[f,b] == true) &amp;&amp;
+            (mDesiredFloor.f == f) &amp;&amp; <br>
+            (mDesiredFloor.d == d);<br>
           </td>
         </tr>
         <tr>
@@ -2374,7 +2376,7 @@
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204); "><br>
           </td>
-          <td colspan="3" rowspan="1" style="vertical-align: top;
+          <td colspan="4" rowspan="1" style="vertical-align: top;
             background-color: rgb(204, 204, 204); ">Requirements<br>
           </td>
         </tr>
@@ -2389,6 +2391,8 @@
             204, 204); ">BR7.3</td>
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204); ">BR7.4</td>
+          <td bgcolor="#cccccc" valign="top">BR7.5<br>
+          </td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
@@ -2399,6 +2403,8 @@
           <td style="vertical-align: top; ">X<br>
           </td>
           <td style="vertical-align: top; ">X<br>
+          </td>
+          <td valign="top">X<br>
           </td>
         </tr>
         <tr>
@@ -2411,6 +2417,8 @@
           </td>
           <td style="vertical-align: top; "><br>
           </td>
+          <td valign="top">X<br>
+          </td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
@@ -2422,6 +2430,8 @@
           </td>
           <td style="vertical-align: top; " bgcolor="#cccccc"><br>
           </td>
+          <td bgcolor="#cccccc" valign="top"><br>
+          </td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
@@ -2432,6 +2442,8 @@
           </td>
           <td style="vertical-align: top; "><br>
           </td>
+          <td valign="top"><br>
+          </td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
@@ -2441,6 +2453,8 @@
           <td style="vertical-align: top; ">X<br>
           </td>
           <td style="vertical-align: top; ">X<br>
+          </td>
+          <td valign="top"><br>
           </td>
         </tr>
       </tbody>
