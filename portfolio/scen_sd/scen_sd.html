@@ -33,7 +33,24 @@
           <li><a href="#scenario2a">Scenario 2A</a> </li>
           <li><a href="#scenario2b">Scenario 2B</a></li>
         </ul>
-        <li><a href="#usecase3">3. Passenger Enters Car</a> </li>
+        <li><a href="#usecase3">3. Passenger Enters Car</a></li>
+        <ul>
+          <li><a
+href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario3a">Scenario
+
+
+
+
+
+              3A</a> </li>
+          <li><a
+href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario3b">Scenario
+
+
+
+
+              3B</a></li>
+        </ul>
         <li><a href="#usecase4">4. Passenger Exits Car</a> </li>
         <li><a href="#usecase5">5. Passenger Triggers Door Reversal</a>
         </li>
@@ -48,17 +65,18 @@
           <li><a href="#scenario7b">Scenario 7B</a>&nbsp;</li>
           <li><a href="#scenario7c">Scenario 7C</a></li>
         </ul>
-        <li><a href="#usecase8">8. Move Car to Next Floor</a> </li>
+        <li><a href="#usecase8">8. Move Car to Next Floor</a></li>
+        <ul>
+          <li><a href="#scenario8a">Scenario 8A</a> </li>
+          <li><a href="#scenario8b">Scenario 8B</a>&nbsp;</li>
+          <li><a href="#scenario8c">Scenario 8C</a><br>
+          </li>
+        </ul>
         <li><a href="#usecase9">9. Cycle Doors</a></li>
         <ul>
           <li><a href="#scenario9a">Scenario 9A</a> </li>
           <li><a href="#scenario9b">Scenario 9B</a>&nbsp;</li>
           <li><a href="#scenario9c">Scenario 9C</a></li>
-        </ul>
-        <li><a href="#usecase10">10. Overweight Sensor</a></li>
-        <ul>
-          <li><a href="#scenario10a">Scenario 10A<br>
-            </a></li>
         </ul>
       </ul>
       <div align="center">
@@ -113,14 +131,19 @@
           closed, but after doors are too fully closed for passenger to
           enter. </li>
         <li>Hall button lights up. </li>
-        <li>Doors complete closing. <i>(You might want to change this
-            step; it's OK to do that for this project assignment.)</i> </li>
+        <li>Dispatcher updates mDesiredFloor to <b>f, b, d </b>(same <b>d</b>
+          as before).&nbsp;</li>
+        <li>Hall button turns off. <br>
+        </li>
+        <li>Doors open.<br>
+        </li>
       </ol>
       <h3> Post-Conditions: </h3>
       <ul type="disc">
         <li>Elevator is at the passenger's floor. </li>
-        <li>Door is closed. </li>
-        <li>Hall button light for passenger's desired direction is on. </li>
+        <li>Door is open. </li>
+        <li>Hall button light for passenger's desired direction is off.
+        </li>
       </ul>
       <h3> Sequence Diagram: </h3>
       <p> <a href="sd1b.png"><img src="sd1b.png" alt="1B"></a> </p>
@@ -231,12 +254,13 @@
       <h3> Sequence Diagram: </h3>
       <img alt="sd2b" src="sd2b.png" height="441" width="956"><br>
       <div align="center">
-        <hr align="center" size="2" width="100%"> </div>
-      <p> &nbsp; </p>
+        <hr align="center" size="2" width="100%">&nbsp; </div>
       <h2> <a name="usecase3" id="usecase3"></a>Use Case 3: Passenger
         Enters Elevator </h2>
-      <h3> Scenario 3A: Passenger is waiting at a hallway for the
-        elevator and has already pressed the hall call button. </h3>
+      <h3> </h3>
+      <h3><a name="scenario3a" id="scenario7c"></a>Scenario 3A:
+        Passenger is waiting at a hallway for the elevator and has
+        already pressed the hall call button. </h3>
       <h3> Author name: Jessica Tiu </h3>
       <h3> Pre-Conditions: </h3>
       <ul type="disc">
@@ -251,8 +275,16 @@
       <h3> Scenario: </h3>
       <ol start="1" type="1">
         <li>The car arrives at floor <b>f</b>.</li>
+        <li>The floor, hallway, and direction desired by the Dispatcher
+          are <b>f, b, </b>and <b>d</b> respectively.</li>
+        <li>HallLight[<b>f,b,d]</b> turns off. <br>
+        </li>
+        <li>Car is level in the <b>~d</b> direction, but not level in
+          the <b>d</b> direction.&nbsp;</li>
+        <li>Car levels in the direction of <b>d</b>.</li>
+        <li>After reaching a level state, the car stops leveling. <br>
+        </li>
         <li>Door[<b>b</b>,<b>r</b>] starts to open.</li>
-        <li>Hall call button stops being lit.</li>
         <li>Door[<b>b</b>,<b>r</b>] finishes opening.</li>
         <li>The passenger enters the car.</li>
       </ol>
@@ -266,8 +298,47 @@
       <h3> Sequence Diagram: </h3>
       <p> <a href="sd3a.png"><img src="sd3a.png"></a></p>
       <div align="center">
+        <hr align="center" size="2" width="100%">&nbsp; </div>
+      <h3><a name="scenario3b" id="scenario7c"></a>Scenario 3B:
+        Passenger enters elevator and triggers overweight sensor <br>
+      </h3>
+      <h3> Author name: Collin Buchan (cbuchan)<br>
+      </h3>
+      <h3> Pre-Conditions: </h3>
+      <ul type="disc">
+        <li>Elevator is at floor <b>f</b>, with at least one Door[<b>b</b>,<b>r</b>]
+          open. </li>
+        <li>mCarWeight(g) is less than MaxCarCapacity, but mCarWeight(g)
+          plus 150 (weight of one passenger) &gt;= MaxCarCapacity<br>
+        </li>
+      </ul>
+      <h3> Scenario: </h3>
+      <ol>
+        <li>Passenger enters car.<br>
+        </li>
+        <li>mCarWeight exceeds or is equal to MaxCarCapacity.<br>
+        </li>
+        <li>Doors are commanded to open.<br>
+        </li>
+        <li>CarWeightAlarm sounds.</li>
+        <li>Drive is commanded to Stop<br>
+        </li>
+      </ol>
+      <h3> Post-Conditions: </h3>
+      <ul>
+        <li>Doors are open.<br>
+        </li>
+        <li>Passenger is in car.</li>
+        <li>Elevator is at floor <b>f</b>.&nbsp;</li>
+        <li>CarWeightAlarm=true.<br>
+        </li>
+      </ul>
+      <h3> Sequence Diagram: </h3>
+      <img alt="sd3b" src="sd3b.png" height="318" width="952"><br>
+      <br>
+      <div align="center">
         <hr align="center" size="2" width="100%"> </div>
-      <p> &nbsp; </p>
+      <br>
       <h2> <a name="usecase4" id="usecase4"></a>Use Case 4: Passenger
         Exits Elevator </h2>
       <h3> Scenario 4A: Passenger is in the elevator as it arrives at
@@ -283,6 +354,10 @@
       <h3> Scenario: </h3>
       <ol>
         <li>The car arrives at floor <b>f</b>.</li>
+        <li>The floor, hallway, and direction desired by the Dispatcher
+          are <b>f, b, </b>and <b>d</b> respectively.</li>
+        <li>CarLight[f,b] turns off and mCarCall[f,b] is set to false.<br>
+        </li>
         <li>DriveControl sets drive speed to <b>Level</b> and Car
           reaches a level state.<br>
         </li>
@@ -307,6 +382,9 @@
       </a>
       <h2><a href="sd4a.png"> </a><a name="usecase5" id="usecase5"></a>Use
 
+
+
+
         Case 5: Passenger Triggers Door Reversal </h2>
       <h3> <a name="scenario5a" id="scenario5a"></a>Scenario 5A:
         Passenger attempts to enter the car as the doors begin to close.
@@ -323,6 +401,9 @@
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to enter and is nudged by Door[<b>b</b>,<b>r</b>],
+
+
+
 
           triggering the door reversal sensors.</li>
         <li>A door reversal occurs for Door[<b>b</b>,<b>r</b>].</li>
@@ -358,7 +439,15 @@
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to exit and is nudged by Door[<b>b</b>,<b>r</b>],
 
-          triggering the door reversal sensors.</li>
+
+
+
+triggering
+
+
+
+
+          the door reversal sensors.</li>
         <li>A door reversal occurs for Door[<b>b</b>,<b>r</b>].</li>
         <li>Door[<b>b</b>,<b>r</b>] finishes opening.</li>
         <li>The passenger exits the car. </li>
@@ -371,13 +460,15 @@
       <li>At least one door[<b>b</b>,<b>r</b>] is nudging closed.</li>
       <h3> Sequence Diagram: </h3>
       <p> <a href="sd5b.png"><img src="sd5b.png"></a></p>
+      <br>
       <div align="center">
-        <hr align="center" size="2" width="200%"> </div>
-      <p> &nbsp; </p>
+        <hr align="center" size="2" width="100%"> </div>
+      <br>
       <h2> <a name="usecase6" id="usecase6"></a>Use Case 6: Determine
         Car Position </h2>
       <h3> Scenario 6A: Car moves from hallway f on floor x to adjacent
-        hallway g on floor y and stops. </h3>
+        hallway g on floor y and stops.<br>
+      </h3>
       <p> Note: Recall that the Drive of the&nbsp;elevator we provided
         is never commanded to go Fast, so the elevator only moves Slow
         and can therefore stop right away when it sees the appropriate
@@ -391,24 +482,40 @@
       <ul type="disc">
         <li>Car is at hallway [<b>x</b>, <b>f</b>]. </li>
         <li>All elevator doors are closed. </li>
-        <li>Car is moving in hoistway. </li>
       </ul>
       <h3> Scenario: </h3>
       <ol>
-        <li>There are no CarCalls or HallCalls. </li>
-        <li>AtFloor[<b>x,f</b>] is set to FALSE as it passes hallway
+        <li>mAtFloor[<b>x,f</b>] is set to True</li>
+        <li>CarPositionControl indicates a car position at floor <b>x</b>.</li>
+        <li>Car begins moving towards floor <b>y </b>at speed Slow.<br>
+        </li>
+        <li>AtFloor[<b>x,f</b>] is set to False as it passes hallway
           [x,f].</li>
-        <li>AtFloor[<b>y,g</b>] is set to TRUE.</li>
-        <li>Car levels to prepare for stop</li>
-        <li>Car stops to more quickly service future HallCall</li>
+        <li>Drive begins accelerating to Fast speed.</li>
+        <li>Drive reaches FastSpeed (** may not ever reach MaxSpeed
+          before needing to slow down **).<br>
+        </li>
+        <li>CarPositionControl notifies DriveControl of the commit point
+          for floor <b>y</b> by updating CarPositionIndicator to <b>y</b>.<br>
+        </li>
+        <li>DriveControl decelerates by commanding Drive to Slow. <br>
+        </li>
+        <li>Car reaches floor <b>y</b> and mAtFloor[<b>y,g]</b> is set
+          to True.<br>
+        </li>
+        <li>Car levels to prepare for stop.<br>
+        </li>
+        <li>Car stops. <br>
+        </li>
       </ol>
       <h3> Post-Conditions: </h3>
+    </div>
+    <ul>
       <li>There are no passengers in the car. </li>
       <li>Car is stopped and ready for departure. </li>
       <li>All doors are closed.</li>
-      <li>All HallLights are off.</li>
-      <li>All CarLights are off.</li>
-      <li>Both CarLanterns are off.</li>
+    </ul>
+    <div class="Section1">
       <h3> Sequence Diagram: </h3>
       <p> <a href="sd6a.png"><img src="sd6a.png"></a></p>
       <div align="center">
@@ -497,12 +604,15 @@
       <h3> Scenario: </h3>
       <ol>
         <li>Door[<b>b,r] </b>starts to close.</li>
-        <li>Doors finish closing.<br>
+        <li>Doors finish closing.</li>
+        <li>Door motor is commanded to Stop.</li>
+        <li>The car lanterns turn off.<br>
         </li>
       </ol>
       <h3> Post-Conditions: </h3>
       <ul>
-        <li>Doors are closed.<br>
+        <li>Doors are closed.</li>
+        <li>The car lanterns are off.<br>
         </li>
       </ul>
       <h3> Sequence Diagram: </h3>
@@ -512,8 +622,8 @@
       <p> &nbsp; </p>
       <h2> <a name="usecase8" id="usecase8"></a>Use Case 8: Move Car to
         Next Floor </h2>
-      <h3> Scenario 8A: Elevator moves from {floor f, hallway b} to
-        {floor g, hallway c} in direction d. </h3>
+      <h3> <a name="scenario8a"></a>Scenario 8A: Elevator moves from
+        {floor f, hallway b} to {floor g, hallway c} in direction d. </h3>
       <h3> Author name: Jesse Salazar (jessesal)<br>
       </h3>
       <p> Note: You will want to create other scenarios that involve
@@ -541,6 +651,87 @@
       </ul>
       <h3> Sequence Diagram: </h3>
       <img alt="sd8a" src="sd8a.png"><br>
+      <br>
+      <h3> <a name="scenario8b"></a>Scenario 8B: Elevator is moving
+        from {floor f, hallway b} to {floor g, hallway c} in direction d
+        when it receives a serviceable hall call for {floor h, hallway
+        e} in between floor f and floor g. </h3>
+      <h3> Author name: Jessica Tiu<br>
+      </h3>
+      <h3> Pre-Conditions: </h3>
+      <ul type="disc">
+        <li>mAtFloor[f, b] was last received as true, and mDesiredFloor
+          = (g, c). </li>
+        <li>All doors are closed.</li>
+        <li>Drive is moving at a non-leveling speed. </li>
+      </ul>
+      <h3> Scenario: </h3>
+      <ol>
+        <li>A passenger arrives at floor h, hallway e and presses the
+          hall call button for direction d.</li>
+        <li>The hall call button for h,e lights up.<br>
+        </li>
+        <li>CarPositionControl calculates the commit point for (h,e) and
+          determines that the car is able to stop in time to service the
+          hall call.</li>
+        <li>The Dispatcher revises mDesiredFloor to be (h,e,d).</li>
+        <li>Drive begins decelerating to Slow speed.<br>
+        </li>
+        <li>The car reaches floor (h,e). AtFloor[<b>h,e</b>] is set to
+          TRUE. </li>
+        <li>The hall call button for h,e turns off.<br>
+        </li>
+        <li>DriveControl levels the car.</li>
+        <li>The doors open.</li>
+        <li>The passenger enters the car.</li>
+      </ol>
+      <h3> Post-Conditions: </h3>
+      <ul>
+        <li>Doors are open.<br>
+        </li>
+        <li>Car is stopped at hallway[h,e]</li>
+      </ul>
+      <h3>Sequence Diagram: </h3>
+      <img alt="sd8b" src="sd8b.png" height="588" width="1412"><br>
+      <p></p>
+      <h3> <a name="scenario8c"></a>Scenario 8C: Elevator is moving
+        from {floor f, hallway b} to {floor g, hallway c} in direction d
+        when it receives a non-serviceable hall call for {floor h,
+        hallway e} in between floor f and floor g. </h3>
+      <h3> Author name: Jessica Tiu<br>
+      </h3>
+      <h3> Pre-Conditions: </h3>
+      <ul type="disc">
+        <li>mAtFloor[f, b] was last received as true, and mDesiredFloor
+          = (g, c). </li>
+        <li>All doors are closed.</li>
+        <li>Drive is moving at a non-leveling speed. </li>
+      </ul>
+      <h3> Scenario: </h3>
+      <ol>
+        <li>A passenger arrives at floor h, hallway e and presses the
+          hall call button for direction d.</li>
+        <li>The hall call button for h,e lights up.<br>
+        </li>
+        <li>CarPositionControl calculates the commit point for (h,e) and
+          determines that the car is <b>not</b><b></b> able to stop in
+          time to service the hall call.</li>
+        <li>Drive begins decelerating to Slow speed.<br>
+        </li>
+        <li>The car reaches floor (g,c). AtFloor[<b>g,c</b>] is set to
+          TRUE. </li>
+        <li>DriveControl levels the car.</li>
+        <li>The doors open.</li>
+      </ol>
+      <h3> Post-Conditions: </h3>
+      <ul>
+        <li>Doors are open.<br>
+        </li>
+        <li>Car is stopped at hallway[g,c]</li>
+      </ul>
+      <h3>Sequence Diagram: </h3>
+      <img alt="sd8c" src="sd8c.png" height="532" width="1412"><br>
+      <br>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <p> &nbsp; </p>
@@ -552,9 +743,6 @@
         desired floor just as doors open. Doors close. </h3>
       <h3> Author name: Jesse Salazar (jessesal)<br>
       </h3>
-      <p> Note: This dispatcher is really dumb and stops at every floor,
-        in order. It would be much better to stop only at floors with
-        people on them or that people want to go to. </p>
       <h3> Pre-Conditions: </h3>
       <ul type="disc">
         <li>Car is stopped. </li>
@@ -649,48 +837,6 @@
         <hr align="center" size="2" width="100%"> </div>
       <ul>
       </ul>
-      <h2> <a name="usecase10" id="usecase8"></a>Use Case 10: Passenger
-        Triggers Overweight Sensor<br>
-      </h2>
-      <h3> </h3>
-      <h3><a name="scenario10a" id="scenario7c"></a>Scenario 10A:
-        Elevator moves from {floor f, hallway b} to {floor g, hallway c}
-        in direction d. </h3>
-      <h3> Author name: Collin Buchan (cbuchan)<br>
-      </h3>
-      <h3> Pre-Conditions: </h3>
-      <ul type="disc">
-        <li>Elevator is at floor <b>f</b>, with at least one Door[<b>b</b>,<b>r</b>]
-          open. </li>
-        <li>mCarWeight(g) is less than MaxCarCapacity, but mCarWeight(g)
-          plus 150 (weight of one passenger) &gt;= MaxCarCapacity<br>
-        </li>
-      </ul>
-      <h3> Scenario: </h3>
-      <ol>
-        <li>Passenger enters car.<br>
-        </li>
-        <li>mCarWeight exceeds or is equal to MaxCarCapacity.<br>
-        </li>
-        <li>Doors are commanded to open.<br>
-        </li>
-        <li>CarWeightAlarm sounds.</li>
-        <li>Drive is commanded to Stop<br>
-        </li>
-      </ol>
-      <h3> Post-Conditions: </h3>
-      <ul>
-        <li>Doors are open.<br>
-        </li>
-        <li>Passenger is in car.</li>
-        <li>Elevator is at floor <b>f</b>.&nbsp;</li>
-        <li>CarWeightAlarm=true.<br>
-        </li>
-      </ul>
-      <h3> Sequence Diagram: </h3>
-      <img alt="sd10a" src="sd10a.png"><br>
-      <div align="center">
-        <hr align="center" size="2" width="100%"> </div>
       <ul>
       </ul>
     </div>
