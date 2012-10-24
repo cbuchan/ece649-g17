@@ -38,26 +38,9 @@
           <li><a
 href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario3a">Scenario
 
-
-
-
-
-
-
-
-
               3A</a> </li>
           <li><a
 href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario3b">Scenario
-
-
-
-
-
-
-
-
-
               3B</a></li>
         </ul>
         <li><a href="#usecase4">4. Passenger Exits Car</a> </li>
@@ -379,17 +362,6 @@ href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#s
         <p> &nbsp; </p>
       </a>
       <h2><a href="sd4a.png"> </a><a name="usecase5" id="usecase5"></a>Use
-
-
-
-
-
-
-
-
-
-
-
         Case 5: Passenger Triggers Door Reversal </h2>
       <h3> <a name="scenario5a" id="scenario5a"></a>Scenario 5A:
         Passenger attempts to enter the car as the doors begin to close.
@@ -406,17 +378,6 @@ href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#s
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to enter and is nudged by Door[<b>b</b>,<b>r</b>],
-
-
-
-
-
-
-
-
-
-
-
           triggering the door reversal sensors.</li>
         <li>A door reversal occurs for Door[<b>b</b>,<b>r</b>].</li>
         <li>Door[<b>b</b>,<b>r</b>] finishes opening.</li>
@@ -454,14 +415,8 @@ href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#s
 
 
 
-
-
-
-
-
-
-
-          triggering the door reversal sensors.</li>
+triggering
+          the door reversal sensors.</li>
         <li>A door reversal occurs for Door[<b>b</b>,<b>r</b>].</li>
         <li>Door[<b>b</b>,<b>r</b>] finishes opening.</li>
         <li>The passenger exits the car. </li>
@@ -618,12 +573,15 @@ href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#s
       <h3> Scenario: </h3>
       <ol>
         <li>Door[<b>b,r] </b>starts to close.</li>
-        <li>Doors finish closing.<br>
+        <li>Doors finish closing.</li>
+        <li>Door motor is commanded to Stop.</li>
+        <li>The car lanterns turn off.<br>
         </li>
       </ol>
       <h3> Post-Conditions: </h3>
       <ul>
-        <li>Doors are closed.<br>
+        <li>Doors are closed.</li>
+        <li>The car lanterns are off.<br>
         </li>
       </ul>
       <h3> Sequence Diagram: </h3>
