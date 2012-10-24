@@ -38,9 +38,25 @@
           <li><a
 href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario3a">Scenario
 
+
+
+
+
+
+
+
+
               3A</a> </li>
           <li><a
 href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario3b">Scenario
+
+
+
+
+
+
+
+
 
               3B</a></li>
         </ul>
@@ -236,8 +252,7 @@ href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#s
       <h3> Sequence Diagram: </h3>
       <img alt="sd2b" src="sd2b.png" height="441" width="956"><br>
       <div align="center">
-        <hr align="center" size="2" width="100%"> </div>
-      <p> &nbsp; </p>
+        <hr align="center" size="2" width="100%">&nbsp; </div>
       <h2> <a name="usecase3" id="usecase3"></a>Use Case 3: Passenger
         Enters Elevator </h2>
       <h3> </h3>
@@ -258,8 +273,16 @@ href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#s
       <h3> Scenario: </h3>
       <ol start="1" type="1">
         <li>The car arrives at floor <b>f</b>.</li>
+        <li>The floor, hallway, and direction desired by the Dispatcher
+          are <b>f, b, </b>and <b>d</b> respectively.</li>
+        <li>HallLight[<b>f,b,d]</b> turns off. <br>
+        </li>
+        <li>Car is level in the <b>~d</b> direction, but not level in
+          the <b>d</b> direction.&nbsp;</li>
+        <li>Car levels in the direction of <b>d</b>.</li>
+        <li>After reaching a level state, the car stops leveling. <br>
+        </li>
         <li>Door[<b>b</b>,<b>r</b>] starts to open.</li>
-        <li>Hall call button stops being lit.</li>
         <li>Door[<b>b</b>,<b>r</b>] finishes opening.</li>
         <li>The passenger enters the car.</li>
       </ol>
@@ -309,8 +332,7 @@ href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#s
         </li>
       </ul>
       <h3> Sequence Diagram: </h3>
-      <img alt="sd10a"
-src="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/sd10a.png"><br>
+      <img alt="sd3b" src="sd3b.png" height="318" width="952"><br>
       <br>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
@@ -330,6 +352,10 @@ src="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/sd10a.png"><br>
       <h3> Scenario: </h3>
       <ol>
         <li>The car arrives at floor <b>f</b>.</li>
+        <li>The floor, hallway, and direction desired by the Dispatcher
+          are <b>f, b, </b>and <b>d</b> respectively.</li>
+        <li>CarLight[f,b] turns off and mCarCall[f,b] is set to false.<br>
+        </li>
         <li>DriveControl sets drive speed to <b>Level</b> and Car
           reaches a level state.<br>
         </li>
@@ -356,6 +382,14 @@ src="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/sd10a.png"><br>
 
 
 
+
+
+
+
+
+
+
+
         Case 5: Passenger Triggers Door Reversal </h2>
       <h3> <a name="scenario5a" id="scenario5a"></a>Scenario 5A:
         Passenger attempts to enter the car as the doors begin to close.
@@ -372,6 +406,14 @@ src="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/sd10a.png"><br>
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to enter and is nudged by Door[<b>b</b>,<b>r</b>],
+
+
+
+
+
+
+
+
 
 
 
@@ -411,6 +453,14 @@ src="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/sd10a.png"><br>
 
 
 
+
+
+
+
+
+
+
+
           triggering the door reversal sensors.</li>
         <li>A door reversal occurs for Door[<b>b</b>,<b>r</b>].</li>
         <li>Door[<b>b</b>,<b>r</b>] finishes opening.</li>
@@ -431,7 +481,8 @@ src="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/sd10a.png"><br>
       <h2> <a name="usecase6" id="usecase6"></a>Use Case 6: Determine
         Car Position </h2>
       <h3> Scenario 6A: Car moves from hallway f on floor x to adjacent
-        hallway g on floor y and stops. </h3>
+        hallway g on floor y and stops.<br>
+      </h3>
       <p> Note: Recall that the Drive of the&nbsp;elevator we provided
         is never commanded to go Fast, so the elevator only moves Slow
         and can therefore stop right away when it sees the appropriate
@@ -445,24 +496,40 @@ src="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/sd10a.png"><br>
       <ul type="disc">
         <li>Car is at hallway [<b>x</b>, <b>f</b>]. </li>
         <li>All elevator doors are closed. </li>
-        <li>Car is moving in hoistway. </li>
       </ul>
       <h3> Scenario: </h3>
       <ol>
-        <li>There are no CarCalls or HallCalls. </li>
-        <li>AtFloor[<b>x,f</b>] is set to FALSE as it passes hallway
+        <li>mAtFloor[<b>x,f</b>] is set to True</li>
+        <li>CarPositionControl indicates a car position at floor <b>x</b>.</li>
+        <li>Car begins moving towards floor <b>y </b>at speed Slow.<br>
+        </li>
+        <li>AtFloor[<b>x,f</b>] is set to False as it passes hallway
           [x,f].</li>
-        <li>AtFloor[<b>y,g</b>] is set to TRUE.</li>
-        <li>Car levels to prepare for stop</li>
-        <li>Car stops to more quickly service future HallCall</li>
+        <li>Drive begins accelerating to Fast speed.</li>
+        <li>Drive reaches FastSpeed (** may not ever reach MaxSpeed
+          before needing to slow down **).<br>
+        </li>
+        <li>CarPositionControl notifies DriveControl of the commit point
+          for floor <b>y</b> by updating CarPositionIndicator to <b>y</b>.<br>
+        </li>
+        <li>DriveControl decelerates by commanding Drive to Slow. <br>
+        </li>
+        <li>Car reaches floor <b>y</b> and mAtFloor[<b>y,g]</b> is set
+          to True.<br>
+        </li>
+        <li>Car levels to prepare for stop.<br>
+        </li>
+        <li>Car stops. <br>
+        </li>
       </ol>
       <h3> Post-Conditions: </h3>
+    </div>
+    <ul>
       <li>There are no passengers in the car. </li>
       <li>Car is stopped and ready for departure. </li>
       <li>All doors are closed.</li>
-      <li>All HallLights are off.</li>
-      <li>All CarLights are off.</li>
-      <li>Both CarLanterns are off.</li>
+    </ul>
+    <div class="Section1">
       <h3> Sequence Diagram: </h3>
       <p> <a href="sd6a.png"><img src="sd6a.png"></a></p>
       <div align="center">
