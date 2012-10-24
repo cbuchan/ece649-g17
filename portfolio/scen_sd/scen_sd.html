@@ -38,9 +38,11 @@
           <li><a
 href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario3a">Scenario
 
+
               3A</a> </li>
           <li><a
 href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario3b">Scenario
+
               3B</a></li>
         </ul>
         <li><a href="#usecase4">4. Passenger Exits Car</a> </li>
@@ -117,14 +119,19 @@ href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#s
           closed, but after doors are too fully closed for passenger to
           enter. </li>
         <li>Hall button lights up. </li>
-        <li>Doors complete closing. <i>(You might want to change this
-            step; it's OK to do that for this project assignment.)</i> </li>
+        <li>Dispatcher updates mDesiredFloor to <b>f, b, d </b>(same <b>d</b>
+          as before).&nbsp;</li>
+        <li>Hall button turns off. <br>
+        </li>
+        <li>Doors open.<br>
+        </li>
       </ol>
       <h3> Post-Conditions: </h3>
       <ul type="disc">
         <li>Elevator is at the passenger's floor. </li>
-        <li>Door is closed. </li>
-        <li>Hall button light for passenger's desired direction is on. </li>
+        <li>Door is open. </li>
+        <li>Hall button light for passenger's desired direction is off.
+        </li>
       </ul>
       <h3> Sequence Diagram: </h3>
       <p> <a href="sd1b.png"><img src="sd1b.png" alt="1B"></a> </p>
@@ -362,6 +369,7 @@ href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#s
         <p> &nbsp; </p>
       </a>
       <h2><a href="sd4a.png"> </a><a name="usecase5" id="usecase5"></a>Use
+
         Case 5: Passenger Triggers Door Reversal </h2>
       <h3> <a name="scenario5a" id="scenario5a"></a>Scenario 5A:
         Passenger attempts to enter the car as the doors begin to close.
@@ -378,6 +386,7 @@ href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#s
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to enter and is nudged by Door[<b>b</b>,<b>r</b>],
+
           triggering the door reversal sensors.</li>
         <li>A door reversal occurs for Door[<b>b</b>,<b>r</b>].</li>
         <li>Door[<b>b</b>,<b>r</b>] finishes opening.</li>
@@ -416,6 +425,7 @@ href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#s
 
 
 triggering
+
           the door reversal sensors.</li>
         <li>A door reversal occurs for Door[<b>b</b>,<b>r</b>].</li>
         <li>Door[<b>b</b>,<b>r</b>] finishes opening.</li>
