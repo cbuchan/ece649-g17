@@ -61,7 +61,12 @@ href="file:///Users/Collin/Workspace/ece649-g17/portfolio/scen_sd/scen_sd.html#s
           <li><a href="#scenario7b">Scenario 7B</a>&nbsp;</li>
           <li><a href="#scenario7c">Scenario 7C</a></li>
         </ul>
-        <li><a href="#usecase8">8. Move Car to Next Floor</a> </li>
+        <li><a href="#usecase8">8. Move Car to Next Floor</a></li>
+        <ul>
+          <li><a href="#scenario8a">Scenario 8A</a> </li>
+          <li><a href="#scenario8b">Scenario 8B</a> <br>
+          </li>
+        </ul>
         <li><a href="#usecase9">9. Cycle Doors</a></li>
         <ul>
           <li><a href="#scenario9a">Scenario 9A</a> </li>
@@ -606,8 +611,8 @@ triggering
       <p> &nbsp; </p>
       <h2> <a name="usecase8" id="usecase8"></a>Use Case 8: Move Car to
         Next Floor </h2>
-      <h3> Scenario 8A: Elevator moves from {floor f, hallway b} to
-        {floor g, hallway c} in direction d. </h3>
+      <h3> <a name="scenario8a"></a>Scenario 8A: Elevator moves from
+        {floor f, hallway b} to {floor g, hallway c} in direction d. </h3>
       <h3> Author name: Jesse Salazar (jessesal)<br>
       </h3>
       <p> Note: You will want to create other scenarios that involve
@@ -635,6 +640,51 @@ triggering
       </ul>
       <h3> Sequence Diagram: </h3>
       <img alt="sd8a" src="sd8a.png"><br>
+      <br>
+      <h3> <a name="scenario8b"></a>Scenario 8B: Elevator is moving
+        from {floor f, hallway b} to {floor g, hallway c} in direction d
+        when it receives a serviceable hall call for {floor h, hallway
+        e} in between floor f and floor g. </h3>
+      <h3> Author name: Jessica Tiu<br>
+      </h3>
+      <h3> Pre-Conditions: </h3>
+      <ul type="disc">
+        <li>mAtFloor[f, b] was last received as true, and mDesiredFloor
+          = (g, c). </li>
+        <li>All doors are closed.</li>
+        <li>Drive is moving at a non-leveling speed. </li>
+      </ul>
+      <h3> Scenario: </h3>
+      <ol>
+        <li>A passenger arrives at floor h, hallway e and presses the
+          hall call button for direction d.</li>
+        <li>The hall call button for h,e lights up.<br>
+        </li>
+        <li>CarPositionControl calculates the commit point for (h,e) and
+          determines that the car is able to stop in time to service the
+          hall call.</li>
+        <li>The Dispatcher revises mDesiredFloor to be (h,e,d).</li>
+        <li>Drive begins decelerating to Slow speed.<br>
+        </li>
+        <li>The car reaches floor (h,e). AtFloor[<b>h,e</b>] is set to
+          TRUE. </li>
+        <li>The hall call button for h,e turns off.<br>
+        </li>
+        <li>DriveControl levels the car.</li>
+        <li>The doors open.</li>
+        <li>The passenger enters the car.</li>
+      </ol>
+      <h3> Post-Conditions: </h3>
+      <ul>
+        <li>Doors are open.<br>
+        </li>
+        <li>Car is stopped at hallway[h,e]</li>
+      </ul>
+      <h3>Sequence Diagram: </h3>
+      <img alt="sd8b" src="sd8b.png" height="588" width="1412"><br>
+      <p></p>
+      <br>
+      <br>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <p> &nbsp; </p>
