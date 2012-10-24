@@ -1795,15 +1795,6 @@
     6.5&nbsp;&nbsp;&nbsp; If mCarWeight(x) &gt;= MaxCarCapacity, the
     drive shall not be commanded to {Slow, d} or {Fast, d}until the car
     is no longer overloaded.
-    <h3> EVENT-TRIGGERED BEHAVIORS: </h3>
-    ET6.6 &nbsp;&nbsp; If any mAtFloor[f,b] is True, then Drive[s,d]
-    shall be set to (Level,d).<br>
-    ET6.7 &nbsp;&nbsp; If mLevel[*] = True, then Drive[s,d] shall be
-    commanded to (Stop,d) or (Stop,Stop).<br>
-    ET6.8 &nbsp;&nbsp; If mDoorClosed[*,*] is True, and DesiredDirection
-    is not Stop, then Drive[s,d] shall be commanded to (Slow,d).<br>
-    ET6.9&nbsp;&nbsp;&nbsp; If mEmergencyBrake[b]=On, then Drive[s,d]
-    shall be commanded to Stop.
     <h3>TIME-TRIGGERED BEHAVIORS:<br>
     </h3>
     <p> 6.6 &nbsp;&nbsp; DesiredDirection shall be updated every Drive
@@ -2310,16 +2301,7 @@
     </ul>
     <h3> CONSTRAINTS: </h3>
     7.1&nbsp;&nbsp;&nbsp; Both CarLanterns[d] shall not be On at the
-    same time.
-    <h3> EVENT-TRIGGERED BEHAVIORS: </h3>
-    ET7.2 &nbsp;&nbsp; If mDoorClosed[b, r] is false and
-    DesiredDirection is not Stop, CarLantern[d] shall be set to
-    DesiredDirection.<br>
-    ET7.3&nbsp;&nbsp;&nbsp; If mDoorClosed[b, r] is false and
-    DesiredDirection is Stop, both CarLanterns[d] shall be commanded to
-    be off.<br>
-    ET7.4&nbsp;&nbsp;&nbsp; DesiredDirection shall be kept updated by a
-    physical model to indicate current desired direction of car.<br>
+    same time.<br>
     <h3>TIME-TRIGGERED BEHAVIORS: </h3>
     <p>7.2 &nbsp;&nbsp; If mDesiredFloor.d = d and any
       mDoorClosed[b,r]=false, CarLantern[d] and mCarLantern[d] shall be
@@ -2501,17 +2483,7 @@
         is invalid it has a mnemonic value of None. </li>
     </ul>
     <h3> CONSTRAINTS: </h3>
-    None
-    <h3> EVENT-TRIGGERED BEHAVIORS: </h3>
-    ET8.1 If HallCall[f,b,d]=Pressed <br>
-    &nbsp;&nbsp; ET8.1.1 HallLight[f,b,d] shall be set to On.<br>
-    ET8.2 If mDoorClosed[b,r]=false with mAtFloor[f,b]=True and
-    mDesiredFloor=[f,b,d] <br>
-    &nbsp;&nbsp; ET8.2.1 HallLight[f,b,d] shall be set to Off.<br>
-    ET8.3 mHallCall[f,b,d] shall be set to the current value of
-    HallCall[f,b,d]<br>
-    ET8.4 mHallLight[f,b,d] shall be set to the current value of
-    HallLight[f,b,d] <br>
+    None<br>
     <h3>TIME-TRIGGERED BEHAVIORS: </h3>
     <p>8.1 If any HallCall[f,b,d]=Pressed<br>
       &nbsp;&nbsp; 8.1.1 HallLight[f,b,d] shall be set to On.<br>
@@ -2780,13 +2752,7 @@
         is invalid it has a mnemonic value of None. </li>
     </ul>
     <h3> CONSTRAINTS: </h3>
-    None
-    <h3> EVENT-TRIGGERED BEHAVIORS: </h3>
-    ET9.1 If CarCall[<b>f</b>,<b>b</b>]=True and mDoorOpened[b,r]=False,
-    CarLight[<b>f</b>,<b>b</b>] shall be set to On.<br>
-    ET9.2 If CarCall[<b>f</b>,<b>b</b>]=True and mDoorOpened[b,r]=True,
-    CarLight[<b>f</b>,<b>b</b>] shall be set to Off.<br>
-    ET9.3 mCarCall[<b>f</b>,<b>b</b>] shall always be set to CarCall[<b>f</b>,<b>b</b>].<br>
+    None<br>
     <h3>TIME-TRIGGERED BEHAVIORS: </h3>
     <p>9.1 If CarCall[<b>f</b>,<b>b</b>]=true:<br>
       &nbsp;&nbsp;&nbsp; 9.1.1 CarLight[<b>f</b>,<b>b</b>] shall be set
