@@ -41,7 +41,7 @@
         "DriveControl statechart", "doorcontrol.java"</li>
     </ul>
     <br>
-    <table height="4493" border="1" cellpadding="2" cellspacing="2"
+    <table border="1" cellpadding="2" cellspacing="2" height="4493"
       width="1070">
       <tbody>
         <tr>
@@ -740,14 +740,16 @@
           </td>
           <td valign="top">10/23/2012<br>
           </td>
-          <td valign="top">[<b>open issue]</b><br>
+          <td valign="top">[<b>open issue]</b>(BR fixed, SD2B fixed)<br>
           </td>
           <td valign="top">jessesal<br>
           </td>
           <td valign="top">SD2B<br>
           </td>
           <td valign="top">The current implementation of Dispatcher does
-            not re-open the doors in SD2B.&nbsp; <br>
+            not allow mDesiredFloor to be updated prior to the Drive
+            being commanded to move (so that DoorControl can re-open the
+            doors in SD2B).<br>
           </td>
           <td valign="top">Dispatcher must re-calculate mDesiredFloor
             prior to Drive being commanded to move.</td>
@@ -769,6 +771,46 @@
             injection-Dispatcher_01.mf-0.stats;<br>
             Dispatcher_02.mf;<br>
             injection-Dispatcher_02.mf-0.stats;<br>
+            <br>
+            <u><b>=&gt;Integration testing</b></u>:<br>
+            proj7acceptance1.pass;<br>
+            proj7acceptance2.pass;<br>
+            proj7acceptance3.pass;<br>
+            proj8group17acceptance1.pass<br>
+            <br>
+            <br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">35<br>
+          </td>
+          <td valign="top">10/25/2012<br>
+          </td>
+          <td valign="top"><b>[open issue]</b>(not all affected docs
+            fixed)<br>
+          </td>
+          <td valign="top">jessesal<br>
+          </td>
+          <td valign="top">Architecture<br>
+          </td>
+          <td valign="top"><b>Modification</b>: mDriveSpeed and
+            mCarLevelPosition will be added to Dispatcher; <br>
+            <br>
+            <b>Description</b>: Dispatcher might want a different
+            CommitPoint calculation based on what state it is in (based
+            on mDesiredFloor.d, etc). <br>
+          </td>
+          <td valign="top">Modify the architecture and input interface
+            for Dispatcher; <br>
+            <br>
+            <br>
+          </td>
+          <td valign="top">Dispatcher.java;<br>
+            requirements2.html (SC_Dispatcher, BR_Dispatcher);<br>
+            Dispatcher_01.mf; <br>
+            Dispatcher_02.mf;<br>
+            <br>
+            <br>
           </td>
         </tr>
       </tbody>
