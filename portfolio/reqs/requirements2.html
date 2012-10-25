@@ -1016,50 +1016,51 @@
 
     5.5&nbsp;&nbsp;&nbsp; If CarWeight(x) &gt;= MaxCarCapacity, the
     doors shall open completely until the car is no longer overloaded.<br>
+5.6&nbsp;&nbsp;&nbsp; No DoorController[b,*] shall be commanded to Nudge without at least one door reversal having occured during the stop at the current floor.<br>
 
     <h3> TIME-TRIGGERED BEHAVIORS: </h3>
 
-    5.6 &nbsp;&nbsp; Door shall not be commanded to open unless
+    5.7 &nbsp;&nbsp; Door shall not be commanded to open unless
     Elevator.hasLanding(f, b) is true and mDriveSpeed.s is equal to Stop.<br>
 
-    5.7 &nbsp;&nbsp; If any mAtFloor[f, b] is True and f equals
+    5.8 &nbsp;&nbsp; If any mAtFloor[f, b] is True and f equals
     mDesiredFloor.f and either b equals mDesiredFloor.h or
     mDesiredFloor.h is Both, then DoorMotor[b, r] shall be commanded to
     Open. <br>
 
-    5.8 &nbsp;&nbsp; If mCarWeight(g) &gt;= MaxCarCapacity, and
+    5.9 &nbsp;&nbsp; If mCarWeight(g) &gt;= MaxCarCapacity, and
     mDoorOpened[b, r] is False, DoorMotor[b, r] shall be commanded to
     Open.<br>
 
-    5.9 &nbsp;&nbsp; If mDoorReversal=true, and mDoorOpened[b,r] is
+    5.10 &nbsp;&nbsp; If mDoorReversal=true, and mDoorOpened[b,r] is
     False, DoorMotor[b,r] shall be commanded to Open.<br>
 
-    5.10 &nbsp;&nbsp; When DoorMotor[b,r] is commanded to Open<br>
-    &nbsp;&nbsp;&nbsp; 5.10.1 &nbsp;&nbsp; If mDoorReversal is false, then 
+    5.11 &nbsp;&nbsp; When DoorMotor[b,r] is commanded to Open<br>
+    &nbsp;&nbsp;&nbsp; 5.11.1 &nbsp;&nbsp; If mDoorReversal is false, then 
     countdown shall be set to Dwell.<br>
-    &nbsp;&nbsp;&nbsp; 5.10.2 &nbsp;&nbsp; If mDoorReversal is true, then 
+    &nbsp;&nbsp;&nbsp; 5.11.2 &nbsp;&nbsp; If mDoorReversal is true, then 
     countdown shall be set to EmergencyDwell.<br>
 
 
-    5.11 &nbsp;&nbsp; Dwell shall be set to an appropriate value based on
+    5.12 &nbsp;&nbsp; Dwell shall be set to an appropriate value based on
     mDesiredDwell[b].<br>
 
-    5.12 &nbsp;&nbsp; If mDoorOpened[b, r] is True, then DoorMotor[b,r] shall
+    5.13 &nbsp;&nbsp; If mDoorOpened[b, r] is True, then DoorMotor[b,r] shall
     be commanded to Stop.<br>
 
-    5.13 &nbsp;&nbsp; If mDoorOpened[b, r] is True then CountDown shall be 
+    5.14 &nbsp;&nbsp; If mDoorOpened[b, r] is True then CountDown shall be 
     decremented.<br>
 
-    5.14 &nbsp;&nbsp; If CountDown &lt;= 0<br>
-    &nbsp;&nbsp;&nbsp; 5.14.1 &nbsp;&nbsp; If a door reversal did not 
+    5.15 &nbsp;&nbsp; If CountDown &lt;= 0<br>
+    &nbsp;&nbsp;&nbsp; 5.15.1 &nbsp;&nbsp; If a door reversal did not 
     previously occur, then DoorMotor[b,r] shall be commanded to Close.<br>
-    &nbsp;&nbsp;&nbsp; 5.14.2 &nbsp;&nbsp; If a door reversal previously 
+    &nbsp;&nbsp;&nbsp; 5.15.2 &nbsp;&nbsp; If a door reversal previously 
     occured, then DoorMotor[b,r] shall be commanded to Nudge.<br>
 
-    5.15 &nbsp;&nbsp; If mDoorClosed[b, r] is True, then DoorMotor[b,r] should
+    5.16 &nbsp;&nbsp; If mDoorClosed[b, r] is True, then DoorMotor[b,r] should
     be commanded to Stop.<br>
 
-    5.16 &nbsp;&nbsp; mDoorMotor[b,r] shall be set to the current value of
+    5.17 &nbsp;&nbsp; mDoorMotor[b,r] shall be set to the current value of
     DoorMotor[b,r].<br>
 
     <h3>STATECHART: </h3>
@@ -1189,26 +1190,26 @@
             204, 204);"><span style="font-weight: bold;">States</span><br>
           </td>
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);">BR5.6<br>
-          </td>
-          <td style="vertical-align: top; background-color: rgb(204,
             204, 204);">BR5.7<br>
           </td>
-          <td valign="top" bgcolor="#cccccc">BR5.8<br>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);">BR5.8<br>
           </td>
-          <td valign="top" bgcolor="#cccccc">BR5.9</td>
-          <td valign="top" bgcolor="#cccccc">BR5.10.1</td>
-          <td valign="top" bgcolor="#cccccc">BR5.10.2<br>
+          <td valign="top" bgcolor="#cccccc">BR5.9<br>
           </td>
-          <td valign="top" bgcolor="#cccccc">BR5.11</td>
-          <td valign="top" bgcolor="#cccccc">BR5.12<br>
+          <td valign="top" bgcolor="#cccccc">BR5.10</td>
+          <td valign="top" bgcolor="#cccccc">BR5.11.1</td>
+          <td valign="top" bgcolor="#cccccc">BR5.11.2<br>
           </td>
+          <td valign="top" bgcolor="#cccccc">BR5.12</td>
           <td valign="top" bgcolor="#cccccc">BR5.13<br>
           </td>
-          <td valign="top" bgcolor="#cccccc">BR5.14.1</td>
-          <td valign="top" bgcolor="#cccccc">BR5.14.2</td>
-          <td valign="top" bgcolor="#cccccc">BR5.15</td>
+          <td valign="top" bgcolor="#cccccc">BR5.14<br>
+          </td>
+          <td valign="top" bgcolor="#cccccc">BR5.15.1</td>
+          <td valign="top" bgcolor="#cccccc">BR5.15.2</td>
           <td valign="top" bgcolor="#cccccc">BR5.16</td>
+          <td valign="top" bgcolor="#cccccc">BR5.17</td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
