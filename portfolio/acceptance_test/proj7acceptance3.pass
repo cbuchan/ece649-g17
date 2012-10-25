@@ -1,12 +1,13 @@
 ; 18649 Fall 2012 - Group 17
 ; Jesse Salazar (jessesal)
 ; Jessica Tiu (jtiu)
-; Colin Buchan (cbuchan)
+; Collin Buchan (cbuchan)
 ; Rajeev Sharma (rdsharma)
 ;
-;Project 7 acceptance test 3
+; Project 7 acceptance test 3
 ; DOWN Peak				
-;Time	Start Floor	Start Hallway	End Floor	End Hallway
+; Time | Start Floor | Start Hallway | End Floor | End Hallway
+
 60s	1	FRONT	1	BACK
 66.3s	3	FRONT	1	BACK
 85.3s	3	FRONT	1	BACK

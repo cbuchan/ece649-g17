@@ -1,12 +1,13 @@
 ; 18649 Fall 2012 - Group 17
 ; Jesse Salazar (jessesal)
 ; Jessica Tiu (jtiu)
-; Colin Buchan (cbuchan)
+; Collin Buchan (cbuchan)
 ; Rajeev Sharma (rdsharma)
 ;
-;Project 7 acceptance test 1
-; NOTE:  Passign this test is REQUIRED for project 7 and to get a grade in this course. 
-;Time	Start Floor	Start Hallway	End Floor	End Hallway
+; Project 7 acceptance test 1
+; NOTE:  Passing this test is REQUIRED for project 7 and to get a grade in this course. 
+; Time | Start Floor | Start Hallway | End Floor | End Hallway
+
 600s	5	FRONT	2	BACK
 905.7s	5	FRONT	4	FRONT
 974.6s	7	BACK	4	FRONT

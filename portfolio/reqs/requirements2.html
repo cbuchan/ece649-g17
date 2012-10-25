@@ -992,50 +992,77 @@
     <ul>
       <li>Dwell, long integer with number of msec desired for door dwell
         during current cycle. </li>
+      <li>EmergencyDwell, a macro which calculates a shorter door dwell 
+        time based on the current value of Dwell.</li>
       <li>CountDown: a count-down timer for Door Dwell[b] (implemented
         in simulation by scheduling a future task execution at time of
         expiration) </li>
     </ul>
     <h3> CONSTRAINTS: </h3>
+
     5.1&nbsp;&nbsp;&nbsp; DoorClosed[b, *] shall be True when there is
     no mAtFloor[f, b] that is True.<br>
+
     5.2&nbsp;&nbsp;&nbsp; Any DoorReversal[b,*] shall not be True for
     more than an accumulated time of 50 msec without causing all
     DoorControllers[b,*] to perform an Open or Nudge command.<br>
+
     5.3&nbsp;&nbsp;&nbsp; Doors should keep moving in desired direction
     unless commanded otherwise, subject to the constraints of the door
     object.<br>
+
     5.4&nbsp;&nbsp;&nbsp; All doors of the same hallway should be
     commanded to identical positions at all times.<br>
+
     5.5&nbsp;&nbsp;&nbsp; If CarWeight(x) &gt;= MaxCarCapacity, the
-    doors shall open completely until the car is no longer overloaded.
+    doors shall open completely until the car is no longer overloaded.<br>
+5.6&nbsp;&nbsp;&nbsp; No DoorController[b,*] shall be commanded to Nudge without at least one door reversal having occured during the stop at the current floor.<br>
+
     <h3> TIME-TRIGGERED BEHAVIORS: </h3>
-    5.6 &nbsp;&nbsp; Door shall not be commanded to open unless
-    Elevator.hasLanding(f, b) is true and mDriveSpeed.s is equal to Stop<br>
-    5.7 &nbsp;&nbsp; If any mAtFloor[f, b] is True and f equals
+
+    5.7 &nbsp;&nbsp; Door shall not be commanded to open unless
+    Elevator.hasLanding(f, b) is true and mDriveSpeed.s is equal to Stop.<br>
+
+    5.8 &nbsp;&nbsp; If any mAtFloor[f, b] is True and f equals
     mDesiredFloor.f and either b equals mDesiredFloor.h or
     mDesiredFloor.h is Both, then DoorMotor[b, r] shall be commanded to
     Open. <br>
-    5.8 &nbsp;&nbsp; If mCarWeight(g) &gt;= MaxCarCapacity, and
+
+    5.9 &nbsp;&nbsp; If mCarWeight(g) &gt;= MaxCarCapacity, and
     mDoorOpened[b, r] is False, DoorMotor[b, r] shall be commanded to
     Open.<br>
-    5.9 &nbsp;&nbsp; If mDoorReversal=true, and mDoorOpened[b,r] is
+
+    5.10 &nbsp;&nbsp; If mDoorReversal=true, and mDoorOpened[b,r] is
     False, DoorMotor[b,r] shall be commanded to Open.<br>
-    5.10&nbsp; When DoorMotor[b,r] is commanded to Open, CountDown shall
-    be set to Dwell.<br>
-    5.11&nbsp; Dwell shall be set to an appropriate value based on
+
+    5.11 &nbsp;&nbsp; When DoorMotor[b,r] is commanded to Open<br>
+    &nbsp;&nbsp;&nbsp; 5.11.1 &nbsp;&nbsp; If mDoorReversal is false, then 
+    countdown shall be set to Dwell.<br>
+    &nbsp;&nbsp;&nbsp; 5.11.2 &nbsp;&nbsp; If mDoorReversal is true, then 
+    countdown shall be set to EmergencyDwell.<br>
+
+
+    5.12 &nbsp;&nbsp; Dwell shall be set to an appropriate value based on
     mDesiredDwell[b].<br>
-    5.12&nbsp; If mDoorOpened[b, r] is True, then DoorMotor[b,r] shall
+
+    5.13 &nbsp;&nbsp; If mDoorOpened[b, r] is True, then DoorMotor[b,r] shall
     be commanded to Stop.<br>
-    5.13&nbsp; If mDoorOpened[b, r] is True, and mCarWeight(g) &lt;
-    MaxCarCapacity and mDoorReversal is false, then CountDown shall be
+
+    5.14 &nbsp;&nbsp; If mDoorOpened[b, r] is True then CountDown shall be 
     decremented.<br>
-    5.14&nbsp; When CountDown &lt;= 0, then DoorMotor[b,r] should be
-    commanded to Nudge.<br>
-    5.15&nbsp; If mDoorClosed[b, r] is True, then DoorMotor[b,r] should
+
+    5.15 &nbsp;&nbsp; If CountDown &lt;= 0<br>
+    &nbsp;&nbsp;&nbsp; 5.15.1 &nbsp;&nbsp; If a door reversal did not 
+    previously occur, then DoorMotor[b,r] shall be commanded to Close.<br>
+    &nbsp;&nbsp;&nbsp; 5.15.2 &nbsp;&nbsp; If a door reversal previously 
+    occured, then DoorMotor[b,r] shall be commanded to Nudge.<br>
+
+    5.16 &nbsp;&nbsp; If mDoorClosed[b, r] is True, then DoorMotor[b,r] should
     be commanded to Stop.<br>
-    5.16&nbsp; mDoorMotor[b,r] shall be set to the current value of
+
+    5.17 &nbsp;&nbsp; mDoorMotor[b,r] shall be set to the current value of
     DoorMotor[b,r].<br>
+
     <h3>STATECHART: </h3>
     <img alt="SC_DoorControl" src="SC_DoorControl.png"><br>
     <br>
@@ -1067,22 +1094,19 @@
             ((mAtFloor[f,b]==True &amp;&amp; mDesiredFloor.f==f)
             &amp;&amp; (mDesiredFloor.h==b || mDesiredFloor.h==BOTH)) ||
             (mCarWeight(g) &gt;= MaxCarCapacity &amp;&amp;
-            mDoorOpened[b,r]==False) || (mDoorReversal==True &amp;&amp;
             mDoorOpened[b,r]==False) ]<br>
           </td>
         </tr>
         <tr>
           <td style="vertical-align: top; ">T5.3<br>
           </td>
-          <td style="vertical-align: top; ">mDoorOpened[b,r]==True
-            &amp;&amp; mCarWeight(g) &lt; MaxCarCapacity &amp;&amp;
-            mDoorReversal==False<br>
-          </td>
+          <td style="vertical-align: top; ">mDoorOpened[b,r]==True</td>
         </tr>
         <tr>
           <td style="vertical-align: top; ">T5.4<br>
           </td>
-          <td style="vertical-align: top; ">CountDown&lt;=0<br>
+          <td style="vertical-align: top; ">CountDown&lt;=0
+            &amp;&amp; mCarWeight(g) &lt; MaxCarCapacity &amp;&amp; mDoorReversal==False<br>
           </td>
         </tr>
         <tr>
@@ -1093,29 +1117,55 @@
             ((mAtFloor[f,b]==True &amp;&amp; mDesiredFloor.f==f)
             &amp;&amp; (mDesiredFloor.h==b || mDesiredFloor.h==BOTH)) ||
             (mCarWeight(g) &gt;= MaxCarCapacity &amp;&amp;
-            mDoorOpened[b,r]==False) || (mDoorReversal==True &amp;&amp;
             mDoorOpened[b,r]==False) ] </td>
         </tr>
         <tr>
           <td style="vertical-align: top; ">T5.6<br>
           </td>
-          <td style="vertical-align: top; ">mDoorOpened[b,r] == True
-            &amp;&amp; ( mCarWeight(g) &gt;= MaxCarCapacity ||
-            mDoorReversal==True )<br>
+          <td style="vertical-align: top; ">Elevator.hasLanding(f, b)
+            &amp;&amp; mDriveSpeed.s == Stop &amp;&amp; 
+            mDoorReversal==True &amp;&amp;
+            mDoorOpened[b,r]==False<br>
           </td>
         </tr>
         <tr>
           <td style="vertical-align: top; ">T5.7<br>
           </td>
-          <td style="vertical-align: top; ">mCarWeight(g) &lt;
-            MaxCarCapacity &amp;&amp; mDoorReversal==False<br>
+          <td style="vertical-align: top; ">Elevator.hasLanding(f, b)
+            &amp;&amp; mDriveSpeed.s == Stop &amp;&amp; 
+            mDoorReversal==True &amp;&amp;
+            mDoorOpened[b,r]==False<br>
           </td>
         </tr>
         <tr>
           <td style="vertical-align: top; ">T5.8<br>
           </td>
-          <td style="vertical-align: top; ">mCarWeight(g) &gt;=
-            MaxCarCapacity || mDoorReversal==True<br>
+          <td style="vertical-align: top; ">mDoorOpened[b,r]==True
+            &amp;&amp; mDoorReversal==False<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T5.9<br>
+          </td>
+          <td style="vertical-align: top; ">CountDown&lt;=0 &amp;&amp;
+            mCarWeight(g) &lt; MaxCarCapacity<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T5.10<br>
+          </td>
+          <td style="vertical-align: top; ">mDoorClosed[b,r]==True<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T5.11<br>
+          </td>
+          <td style="vertical-align: top; "> Elevator.hasLanding(f, b)
+            &amp;&amp; mDriveSpeed.s == Stop &amp;&amp; [
+            ((mAtFloor[f,b]==True &amp;&amp; mDesiredFloor.f==f)
+            &amp;&amp; (mDesiredFloor.h==b || mDesiredFloor.h==BOTH)) ||
+            (mCarWeight(g) &gt;= MaxCarCapacity &amp;&amp;
+            mDoorOpened[b,r]==False) ] <br>
           </td>
         </tr>
       </tbody>
@@ -1131,7 +1181,7 @@
           <td style=" vertical-align: top; background-color: rgb(204,
             204, 204);"><br>
           </td>
-          <td colspan="15" rowspan="1" style="vertical-align: top;
+          <td colspan="17" rowspan="1" style="vertical-align: top;
             background-color: rgb(204, 204, 204);">Requirements<br>
           </td>
         </tr>
@@ -1140,148 +1190,102 @@
             204, 204);"><span style="font-weight: bold;">States</span><br>
           </td>
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);">BR5.6<br>
-          </td>
-          <td style="vertical-align: top; background-color: rgb(204,
             204, 204);">BR5.7<br>
           </td>
-          <td bgcolor="#cccccc" valign="top">BR5.8<br>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);">BR5.8<br>
           </td>
-          <td bgcolor="#cccccc" valign="top">BR5.9</td>
-          <td bgcolor="#cccccc" valign="top">BR5.10<br>
+          <td valign="top" bgcolor="#cccccc">BR5.9<br>
           </td>
-          <td bgcolor="#cccccc" valign="top">BR5.11</td>
-          <td bgcolor="#cccccc" valign="top">BR5.12<br>
+          <td valign="top" bgcolor="#cccccc">BR5.10</td>
+          <td valign="top" bgcolor="#cccccc">BR5.11.1</td>
+          <td valign="top" bgcolor="#cccccc">BR5.11.2<br>
           </td>
-          <td bgcolor="#cccccc" valign="top">BR5.13<br>
+          <td valign="top" bgcolor="#cccccc">BR5.12</td>
+          <td valign="top" bgcolor="#cccccc">BR5.13<br>
           </td>
-          <td bgcolor="#cccccc" valign="top">BR5.14</td>
-          <td bgcolor="#cccccc" valign="top">BR5.15</td>
-          <td bgcolor="#cccccc" valign="top">BR5.16</td>
+          <td valign="top" bgcolor="#cccccc">BR5.14<br>
+          </td>
+          <td valign="top" bgcolor="#cccccc">BR5.15.1</td>
+          <td valign="top" bgcolor="#cccccc">BR5.15.2</td>
+          <td valign="top" bgcolor="#cccccc">BR5.16</td>
+          <td valign="top" bgcolor="#cccccc">BR5.17</td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);">State DOOR_CLOSING<br>
           </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">X</td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);">State DOOR_CLOSED<br>
           </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">X</td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);">State DOOR_OPENING<br>
           </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">X</td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);">State DOOR_OPEN<br>
           </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">X</td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);">State DOOR_OPEN_E<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle">X<br>
+            204, 204);">State DOOR_REVERSING
           </td>
           <td align="center" valign="middle">X<br>
           </td>
@@ -1289,10 +1293,56 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
-          </td>
           <td align="center" valign="middle">X<br>
           </td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">X<br>
+          </td>
+          <td align="center" valign="middle">X<br></td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle"><br>
+          </td>
+          <td align="center" valign="middle">X</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);">State DOOR_REVERSED </td>
+          <td align="center" valign="middle"><br></td>
+          <td align="center" valign="middle"><br></td>
+          <td align="center" valign="middle"><br></td>
+          <td align="center" valign="middle"><br></td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle"><br></td>
+          <td align="center" valign="middle">X<br></td>
+          <td align="center" valign="middle">X<br></td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle"><br></td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle"><br></td>
+          <td align="center" valign="middle">X</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);">State DOOR_NUDGING </td>
+          <td align="center" valign="middle"><br></td>
+          <td align="center" valign="middle"><br></td>
+          <td align="center" valign="middle"><br></td>
+          <td align="center" valign="middle"><br></td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle"><br></td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle"><br></td>
+          <td align="center" valign="middle"><br></td>
+          <td align="center" valign="middle"><br></td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle"><br></td>
+          <td align="center" valign="middle">X</td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
@@ -1309,6 +1359,7 @@
           </td>
           <td align="center" bgcolor="#cccccc" valign="middle"><br>
           </td>
+          <td align="center" bgcolor="#cccccc" valign="middle">&nbsp;</td>
           <td align="center" bgcolor="#cccccc" valign="middle"><br>
           </td>
           <td align="center" bgcolor="#cccccc" valign="middle"><br>
@@ -1319,6 +1370,7 @@
           </td>
           <td align="center" bgcolor="#cccccc" valign="middle"><br>
           </td>
+          <td align="center" bgcolor="#cccccc" valign="middle">&nbsp;</td>
           <td align="center" bgcolor="#cccccc" valign="middle"><br>
           </td>
           <td align="center" bgcolor="#cccccc" valign="middle"><br>
@@ -1328,225 +1380,196 @@
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);">T5.1<br>
           </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-            <br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);">T5.2<br>
           </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-            <br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);">T5.3<br>
           </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-            <br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);">T5.4<br>
           </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-            <br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);">T5.5<br>
           </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-            <br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);">T5.6<br>
           </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-            <br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);">T5.7<br>
           </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-            <br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);">T5.8<br>
           </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-            <br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);">T5.9</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);">T5.10</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">&nbsp;</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);">T5.11</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">X</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
         </tr>
       </tbody>
     </table>
@@ -1795,8 +1818,35 @@
     6.5&nbsp;&nbsp;&nbsp; If mCarWeight(x) &gt;= MaxCarCapacity, the
     drive shall not be commanded to {Slow, d} or {Fast, d}until the car
     is no longer overloaded.
-    <h3>TIME-TRIGGERED BEHAVIORS:<br>
-    </h3>
+    <h3>TIME-TRIGGERED BEHAVIORS:</h3>
+    <p><br>
+      6.6 &nbsp;&nbsp; DesiredDirection shall be updated every Drive period using the
+      values of mDesiredFloor.f and CurrentFloor.<br>
+      6.7&nbsp;&nbsp;&nbsp; If DriveSpeed is (0, STOP):<br>
+      &nbsp; 6.7.1 &nbsp;&nbsp; If mLevel[Up] is False and mLevel[Down] is True, Drive[s,d] shall be
+      commanded to (Level, Up).<br>
+      &nbsp; 6.7.2 &nbsp;&nbsp; If  mLevel[Up] is True and mLevel[Down] is False, Drive[s,d] shall be
+      commanded to (Level, Down).<br>
+      &nbsp; 6.7.3 &nbsp;&nbsp; If DesiredDirection is not Stop and all
+      mDoorClosed[*, *] is true, Drive[s,d] shall be commanded to (Slow,
+      DesiredDirection).<br>
+      6.8&nbsp;&nbsp;&nbsp; If DriveSpeed is (LevelSpeed, <b>d</b>):<br>
+      &nbsp; 6.8.1&nbsp;&nbsp;&nbsp; If all mLevel[*] is True, then Drive[s, d] shall be commanded to (Stop, Stop).<br>
+      6.9 &nbsp; If DriveSpeed is (SlowSpeed, <b>d</b>):<br>
+      &nbsp; 6.9.1&nbsp;&nbsp;&nbsp; If DesiredDirection is Stop and
+      mLevel[<b>d</b>] is False and mLevel[~<b>d</b>] is True,
+      Drive[s,d] shall be commanded to (Level, <b>d</b>).<br>
+      &nbsp; 6.9.2&nbsp;&nbsp;&nbsp; If DesiredDirection is <b>d</b>
+      and CommitPoint[f] == NotReached and mDesiredFloor.f == f, then
+      Drive[s,d] shall be commanded to (Fast, <b>d</b>).<br>
+      6.10&nbsp; If DriveSpeed is (&gt;SlowSpeed, <b>d</b>):<br>
+      &nbsp; 6.10.1&nbsp; If DesiredDirection is <b>d</b> and
+      CommitPoint[f] is Reached where f = mDesiredFloor.f, then
+      Drive[s,d] shall be commanded to (Slow, <b>d</b>).<br>
+      6.11 DriveSpeed is (&gt;LevelSpeed, <b>d)</b> and
+      mEmergencyBrake[b] is On or mCarWeight(x) &gt;= MaxCarCapacity,
+      then car shall decelerate via adjacent speeds as per C6.3. </p>
+    <p>Old</p>
     <p> 6.6 &nbsp;&nbsp; DesiredDirection shall be updated every Drive
       period using the values of mDesiredFloor.f and CurrentFloor.<br>
       6.7 &nbsp;&nbsp; If DesiredDirection is Stop,<br>
@@ -1816,6 +1866,12 @@
       Drive[s, d] shall be commanded to (Stop, Stop).<br>
       6.11 &nbsp;&nbsp; If mEmergencyBrake[b] is On, then Drive[s, d]
       shall be commanded to (Stop, Stop).<br>
+      6.12&nbsp;&nbsp;&nbsp; If DriveSpeed == (SlowSpeed, d) and
+      CommitPoint[f] == NotReached and mDesiredFloor.f == f then
+      Drive[s,d] should be commanded to (Fast, d). <br>
+      6.13&nbsp;&nbsp;&nbsp; If DriveSpeed == (Fast, d) and
+      CommitPoint[f] == Reached and mDesiredFloor.f == f, then
+      DriveSpeed shall be commanded to (Slow, d)<br>
     </p>
     <h3>STATECHART: </h3>
     <img alt="SC_DriveControl.png" src="SC_DriveControl.png"
@@ -2992,6 +3048,14 @@
     <h3> TIME-TRIGGERED BEHAVIORS: </h3>
     10.4 &nbsp;&nbsp;&nbsp; Whenever any mAtFloor[f, b] is True,
     CarPositionIndicator shall be commanded to display CurrentFloor. <br>
+    10.5&nbsp;&nbsp;&nbsp;&nbsp; If all mAtFloor[f,b] are False, and
+    mDriveSpeed.d == UP, then CarPositionIndicator shall be commanded to
+    display f, where f if the highest floor where CommitPoint[f] ==
+    Reached<br>
+    10.6&nbsp;&nbsp;&nbsp;&nbsp; If all mAtFloor[f,b] are False, and
+    mDriveSpeed.d == DOWN, then CarPositionIndicator shall be commanded
+    to display f, where f if the lowest floor where CommitPoint[f] ==
+    Reached<br>
     <br>
     <h3>STATECHART: </h3>
     <img alt="SC_CarPositionControl" src="SC_CarPositionControl.png"
@@ -3080,6 +3144,23 @@
       <li>mHallCall[f, b, d]&nbsp;&nbsp; </li>
       <li>mCarCall[f, b]&nbsp;&nbsp;&nbsp; </li>
       <li>mCarWeight </li>
+      <li>
+        <meta charset="utf-8">
+        <span style="color: rgb(0, 0, 0); font-family: Times; font-size:
+          medium; font-style: normal; font-variant: normal; font-weight:
+          normal; letter-spacing: normal; line-height: normal; orphans:
+          2; text-align: left; text-indent: 0px; text-transform: none;
+          white-space: normal; widows: 2; word-spacing: 0px;
+          -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
+          0px; display: inline !important; float: none; ">mDriveSpeed</span></li>
+      <li><span style="color: rgb(0, 0, 0); font-family: Times;
+          font-size: medium; font-style: normal; font-variant: normal;
+          font-weight: normal; letter-spacing: normal; line-height:
+          normal; orphans: 2; text-align: left; text-indent: 0px;
+          text-transform: none; white-space: normal; widows: 2;
+          word-spacing: 0px; -webkit-text-size-adjust: auto;
+          -webkit-text-stroke-width: 0px; display: inline !important;
+          float: none; ">mCarLevelPosition</span></li>
     </ul>
     <h3> Output Interface: </h3>
     <ul>
