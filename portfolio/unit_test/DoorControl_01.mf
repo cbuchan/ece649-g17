@@ -19,8 +19,8 @@
 ;check initial state
 ;#state 'STATE_DOOR_CLOSING'
 +0.21s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_CLOSING
-+0s    A F DoorMotor FRONT LEFT : command == NUDGE
-+0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == NUDGE
++0s    A F DoorMotor FRONT LEFT : command == CLOSE
++0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == CLOSE
 
 ;set conditions for T5.1
 +0s    I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
@@ -64,8 +64,8 @@
 ;#state 'STATE_DOOR_CLOSING'
 ;should have transitioned due to countdown timer
 +1.21s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_CLOSING
-+0s    A F DoorMotor FRONT LEFT : command == NUDGE
-+0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == NUDGE
++0s    A F DoorMotor FRONT LEFT : command == CLOSE
++0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == CLOSE
 
 ;set conditions for T5.5
 +0.1s    I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = false
