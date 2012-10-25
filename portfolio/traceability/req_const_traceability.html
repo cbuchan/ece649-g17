@@ -66,11 +66,12 @@
           </td>
           <td>5.5 Overweight -&gt; doors open<br>
           </td>
+          <td>5.6 Nudge only after reversal</td>
         </tr>
         <tr>
           <td style="vertical-align: top;"><span style="font-weight:
-              bold;">DoorControl - Completed by (Jessica Tiu, jtiu),
-              last updated 10/11/2012</span><br>
+              bold;">DoorControl - Completed by Rajeev Sharma (rdsharma),
+              last updated 10/25/2012</span><br>
           </td>
           <td style="vertical-align: top;"><br>
           </td>
@@ -82,9 +83,10 @@
           </td>
           <td style="vertical-align: top;"><br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
-          <td valign="top">5.6 valid landing and drive stopped -&gt;
+          <td valign="top">5.7 valid landing and drive stopped -&gt;
             open door<br>
           </td>
           <td valign="top">X<br>
@@ -97,9 +99,10 @@
           </td>
           <td valign="top">~<br>
           </td>
+          <td valign="top">&nbsp;</td>
         </tr>
         <tr>
-          <td>5.7 At a desired floor --&gt; open door<br>
+          <td>5.8 At a desired floor --&gt; open door<br>
           </td>
           <td style="vertical-align: top;">X<br>
           </td>
@@ -111,9 +114,10 @@
           </td>
           <td>~<br>
           </td>
+          <td>&nbsp;</td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">5.8 overweight --&gt; open
+          <td style="vertical-align: top;">5.9 overweight --&gt; open
             door </td>
           <td style="vertical-align: top;">~<br>
           </td>
@@ -125,9 +129,10 @@
           </td>
           <td style="vertical-align: top;">X<br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
-          <td valign="top">5.9 mDoorReversal =&gt; open door</td>
+          <td valign="top">5.10 mDoorReversal =&gt; open door</td>
           <td valign="top">~<br>
           </td>
           <td valign="top">X<br>
@@ -138,9 +143,10 @@
           </td>
           <td valign="top">~<br>
           </td>
+          <td valign="top">&nbsp;</td>
         </tr>
         <tr>
-          <td>5.10 set dwell when door opens<br>
+          <td>5.11.1 Use Dwell for countdown when door opens normally<br>
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
@@ -152,10 +158,10 @@
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">5.11 Dwell based on
-            mDesiredDwell[b]<br>
+          <td style="vertical-align: top;">5.11.2 Use EmergencyDwell for countdown when door reverses<br>
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
@@ -163,27 +169,39 @@
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
-          <td style="vertical-align: top;">X<br>
+          <td style="vertical-align: top;">~<br>
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
-          <td>5.12 door opened -&gt; stop door<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
+          <td style="vertical-align: top;">5.12 Set Dwell based on
+          mDesiredDwell[b]</td>
+          <td style="vertical-align: top;">~</td>
+          <td style="vertical-align: top;">~</td>
+          <td style="vertical-align: top;">~</td>
+          <td style="vertical-align: top;">X</td>
+          <td style="vertical-align: top;">~</td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
-          <td>5.13 door open and not violating constraint -&gt;
+          <td>5.13 door opened -&gt; stop door<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">&nbsp;</td>
+        </tr>
+        <tr>
+          <td>5.14 door open and not violating constraint -&gt;
             decrement CountDown<br>
           </td>
           <td style="vertical-align: top;">~<br>
@@ -196,9 +214,10 @@
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
-          <td>5.14 CountDown expire -&gt; close door<br>
+          <td>5.15.1 CountDown expires, no reversal -&gt; close door<br>
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
@@ -210,23 +229,34 @@
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
+          <td style="vertical-align: top;">X</td>
         </tr>
         <tr>
-          <td> 5.15 door closed -&gt; stop door<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
-          <td style="vertical-align: top;">~<br>
-          </td>
+          <td>5.15.2 CountDown expires, reversal -&gt; nudge door<br></td>
+          <td style="vertical-align: top;">~<br></td>
+          <td style="vertical-align: top;">~<br></td>
+          <td style="vertical-align: top;">~<br></td>
+          <td style="vertical-align: top;">X<br></td>
+          <td style="vertical-align: top;">~<br></td>
+          <td style="vertical-align: top;">X</td>
         </tr>
         <tr>
-          <td> 5.16 Set mDoorMotor<br>
+          <td> 5.16 door closed -&gt; stop door<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">~<br>
+          </td>
+          <td style="vertical-align: top;">&nbsp;</td>
+        </tr>
+        <tr>
+          <td> 5.17 Set mDoorMotor<br>
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
@@ -238,6 +268,7 @@
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;"> <u><b>Behavioral
@@ -255,6 +286,7 @@
           </td>
           <td style="vertical-align: top;">6.5 Overweight -&gt; Stop<br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;"><span style="font-weight:
@@ -270,6 +302,7 @@
           </td>
           <td style="vertical-align: top;"><br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">6.6 update desired direction<br>
@@ -284,8 +317,7 @@
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
-          <td style="vertical-align: top;"><br>
-          </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">6.7.1 car is at desired
@@ -301,6 +333,7 @@
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td valign="top">6.7.2 car is at desired floor, car not level
@@ -316,6 +349,7 @@
           </td>
           <td valign="top">~<br>
           </td>
+          <td valign="top">&nbsp;</td>
         </tr>
         <tr>
           <td valign="top">6.7.3 car is at desired floor, car not level
@@ -331,6 +365,7 @@
           </td>
           <td valign="top">~<br>
           </td>
+          <td valign="top">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">6.8 door closed, has desired
@@ -346,6 +381,7 @@
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td valign="top">6.9 any door not closed -&gt; drive stop<br>
@@ -360,6 +396,7 @@
           </td>
           <td valign="top">~<br>
           </td>
+          <td valign="top">&nbsp;</td>
         </tr>
         <tr>
           <td valign="top">6.10 car overweight -&gt; drive stop<br>
@@ -374,6 +411,7 @@
           </td>
           <td valign="top">X<br>
           </td>
+          <td valign="top">&nbsp;</td>
         </tr>
         <tr>
           <td valign="top">6.11 emergency brake -&gt; drive stop<br>
@@ -388,6 +426,7 @@
           </td>
           <td valign="top">~<br>
           </td>
+          <td valign="top">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;"><u><b>Behavioral
@@ -403,6 +442,7 @@
           </td>
           <td style="vertical-align: top;"><br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;"><span style="font-weight:
@@ -418,6 +458,7 @@
           </td>
           <td style="vertical-align: top;"><br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">7.2 Set lantern only in
@@ -432,6 +473,7 @@
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">7.3 Latern off when stopped<br>
@@ -446,6 +488,7 @@
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">7.4 DesiredDirection updated<br>
@@ -460,6 +503,7 @@
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;"><br>
@@ -474,6 +518,7 @@
           </td>
           <td style="vertical-align: top;"><br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">No constraints for 8 and 9<u><b><br>
@@ -488,6 +533,7 @@
           </td>
           <td style="vertical-align: top;"> <br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;"><br>
@@ -502,6 +548,7 @@
           </td>
           <td style="vertical-align: top;"><br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;"><u><b>Behavioral
@@ -518,6 +565,7 @@
           </td>
           <td style="vertical-align: top;"><br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;"><span style="font-weight:
@@ -533,6 +581,7 @@
           </td>
           <td style="vertical-align: top;"><br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">10.4 Whenever any mAtFloor[f,
@@ -548,6 +597,7 @@
           </td>
           <td style="vertical-align: top;"><br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;"><u><b>Behavioral
@@ -564,6 +614,7 @@
           </td>
           <td style="vertical-align: top;"><br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;"><span style="font-weight:
@@ -579,6 +630,7 @@
           </td>
           <td style="vertical-align: top;"><br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">11.4 set DesiredFloor.f to
@@ -594,6 +646,7 @@
           </td>
           <td style="vertical-align: top;"><br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">11.5 set DesiredFloor.d to
@@ -609,6 +662,7 @@
           </td>
           <td style="vertical-align: top;"><br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">11.6 set DesiredFloor.b to
@@ -624,6 +678,7 @@
           </td>
           <td style="vertical-align: top;"><br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">11.7 set TargetHall to FRONT<br>
@@ -638,6 +693,7 @@
           </td>
           <td style="vertical-align: top;"><br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">11.8 set TargetHall to BACK </td>
@@ -651,6 +707,7 @@
           </td>
           <td style="vertical-align: top;"><br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">11.9 set TargetHall to BOTH </td>
@@ -664,6 +721,7 @@
           </td>
           <td style="vertical-align: top;"><br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">11.10 mDoorClosed false,
@@ -680,6 +738,7 @@
           </td>
           <td style="vertical-align: top;"><br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td valign="top">11.11 CurrentFloor = 1, HallCall or CarCall
@@ -694,6 +753,7 @@
           </td>
           <td valign="top"><br>
           </td>
+          <td valign="top">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">11.12.1 all mAtFloor false,
@@ -709,6 +769,7 @@
           </td>
           <td style="vertical-align: top;"><br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td valign="top">11.12.2 all mAtFloor false, any mDoorClosed
@@ -724,8 +785,7 @@
           </td>
           <td valign="top"><br>
           </td>
-          <td valign="top"><br>
-          </td>
+          <td valign="top">&nbsp;</td>
         </tr>
         <tr>
           <td valign="top">11.13 set mDesiredDwell<br>
@@ -740,8 +800,7 @@
           </td>
           <td valign="top"><br>
           </td>
-          <td valign="top"><br>
-          </td>
+          <td valign="top">&nbsp;</td>
         </tr>
       </tbody>
     </table>
