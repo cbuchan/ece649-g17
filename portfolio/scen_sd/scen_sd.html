@@ -369,6 +369,7 @@
       </a>
       <h2><a href="sd4a.png"> </a><a name="usecase5" id="usecase5"></a>Use
 
+
         Case 5: Passenger Triggers Door Reversal </h2>
       <h3> <a name="scenario5a" id="scenario5a"></a>Scenario 5A:
         Passenger attempts to enter the car as the doors begin to close.
@@ -385,6 +386,7 @@
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to enter and is nudged by Door[<b>b</b>,<b>r</b>],
+
 
           triggering the door reversal sensors.</li>
         <li>A door reversal occurs for Door[<b>b</b>,<b>r</b>].</li>
@@ -426,6 +428,7 @@
 triggering
 
 
+
           the door reversal sensors.</li>
         <li>A door reversal occurs for Door[<b>b</b>,<b>r</b>].</li>
         <li>Door[<b>b</b>,<b>r</b>] finishes opening.</li>
@@ -445,8 +448,8 @@ triggering
       <br>
       <h2> <a name="usecase6" id="usecase6"></a>Use Case 6: Determine
         Car Position </h2>
-      <h3> Scenario 6A: Car moves from hallway f on floor x to adjacent
-        hallway g on floor y and stops.<br>
+      <h3> Scenario 6A: Car moves from hallway b on floor f to adjacent
+        hallway c on floor g and stops.<br>
       </h3>
       <p> Note: Recall that the Drive of the&nbsp;elevator we provided
         is never commanded to go Fast, so the elevator only moves Slow
@@ -459,28 +462,30 @@ triggering
       <h3> Author name: Jesse Salazar (jessesal)</h3>
       <h3> Pre-Conditions: </h3>
       <ul type="disc">
-        <li>Car is at hallway [<b>x</b>, <b>f</b>]. </li>
+        <li>Car is at hallway [<b>f</b>, <b>b</b>]. </li>
         <li>All elevator doors are closed. </li>
       </ul>
       <h3> Scenario: </h3>
       <ol>
-        <li>mAtFloor[<b>x,f</b>] is set to True</li>
-        <li>CarPositionControl indicates a car position at floor <b>x</b>.</li>
-        <li>Car begins moving towards floor <b>y </b>at speed Slow.<br>
+        <li>mAtFloor[<b>f,b</b>] is set to True.</li>
+        <li>CarPositionControl indicates a car position at floor <b>f</b>.</li>
+        <li>Car begins moving towards floor <b>g </b>at speed Slow.<br>
         </li>
-        <li>AtFloor[<b>x,f</b>] is set to False as it passes hallway
-          [x,f].</li>
+        <li>AtFloor[<b>f,b</b>] is set to False as it passes hallway
+          [f,b].</li>
         <li>Drive begins accelerating to Fast speed.</li>
         <li>Drive reaches FastSpeed (** may not ever reach MaxSpeed
           before needing to slow down **).<br>
         </li>
-        <li>CarPositionControl notifies DriveControl of the commit point
-          for floor <b>y</b> by updating CarPositionIndicator to <b>y</b>.<br>
+        <li>DriveControl determines the commit point for floor g has
+          been reached using the values of mCarLevelPosition and
+          DriveSpeed.<br>
         </li>
         <li>DriveControl decelerates by commanding Drive to Slow. <br>
         </li>
-        <li>Car reaches floor <b>y</b> and mAtFloor[<b>y,g]</b> is set
-          to True.<br>
+        <li>Car reaches floor <b>g</b> and mAtFloor[<b>g,c]</b> is set
+          to True.</li>
+        <li>CarPositionControl indicates a car position at floor <b>g</b>.<br>
         </li>
         <li>Car levels to prepare for stop.<br>
         </li>
@@ -496,7 +501,7 @@ triggering
     </ul>
     <div class="Section1">
       <h3> Sequence Diagram: </h3>
-      <p> <a href="sd6a.png"><img src="sd6a.png"></a></p>
+      <img alt="sd6a" src="sd6a.png" height="685" width="1176">
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <p> &nbsp; </p>
