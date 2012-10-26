@@ -1841,15 +1841,12 @@
       &nbsp; 6.9.2&nbsp;&nbsp;&nbsp; If DesiredDirection is <b>d</b>
       and CommitPoint[f] == NotReached and mDesiredFloor.f == f, then
       Drive[s,d] shall be commanded to (Fast, <b>d</b>).<br>
-      6.10&nbsp; If DriveSpeed is (&gt;SlowSpeed, <b>d</b>) and
-      DesiredDirection is <b>d</b> and CommitPoint[f] is Reached where
-      f = mDesiredFloor.f, then Drive[s,d] shall be commanded to (Slow,
-      <b>d</b>).<br>
-      6.11 If DriveSpeed is (&gt;LevelSpeed, <b>d)</b> and
-      mEmergencyBrake[b] is On or mCarWeight(x) &gt;= MaxCarCapacity,
-      then car shall decelerate via adjacent speeds as per C6.3. <br>
-      6.12 mDriveSpeed[s,d] shall be updated every Drive period to
-      correspond to the value of DriveSpeed[s,d]<br>
+      6.10&nbsp; If DriveSpeed is (&gt;SlowSpeed, <b>d</b>) and DesiredDirection is <b>d</b> and
+      CommitPoint[f] is Reached where f = mDesiredFloor.f, then
+      Drive[s,d] shall be commanded to (Slow, <b>d</b>).<br>
+      6.11 If DriveSpeed is (&gt;LevelSpeed, <b>d)</b> and mCarWeight(x) &gt;= MaxCarCapacity,
+    then car shall decelerate via adjacent speeds as per C6.3. <br>6.12 If mEmergencyBrake[b] is on, then Drive shall be commanded to (Stop,Stop)<br>
+      6.13 mDriveSpeed[s,d] shall be updated every Drive period to correspond to the value of DriveSpeed[s,d]<br>
     </p>
     <h3>STATECHART: </h3>
     <img alt="SC_DriveControl.png" src="SC_DriveControl.png"
