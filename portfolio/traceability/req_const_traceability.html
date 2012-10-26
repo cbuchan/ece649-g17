@@ -305,7 +305,7 @@
           <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">6.6 update desired direction<br>
+          <td style="vertical-align: top;">6.6	set DesiredDirection<br>
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
@@ -320,8 +320,7 @@
           <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">6.7.1 car is at desired
-            floor, car level -&gt; stop car<br>
+          <td style="vertical-align: top;">6.7.1	StopSpeed, level[UP] = F, level[DOWN] = T -&gt; (Level, UP)<br>
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
@@ -336,8 +335,7 @@
           <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
-          <td valign="top">6.7.2 car is at desired floor, car not level
-            at top -&gt; car level up<br>
+          <td valign="top">6.7.2	StopSpeed, level[UP] = T, level[DOWN] = F -&gt; (Level, DOWN)<br>
           </td>
           <td valign="top">~<br>
           </td>
@@ -352,8 +350,7 @@
           <td valign="top">&nbsp;</td>
         </tr>
         <tr>
-          <td valign="top">6.7.3 car is at desired floor, car not level
-            at bottom -&gt; car level down<br>
+          <td valign="top">6.7.3	StopSpeed, DesiredDirection = ~Stop, doors closed -&gt; (Slow, DesiredDirection)<br>
           </td>
           <td valign="top">~<br>
           </td>
@@ -368,8 +365,7 @@
           <td valign="top">&nbsp;</td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">6.8 door closed, has desired
-            dir, car not overweight -&gt; set drive slow <br>
+          <td style="vertical-align: top;">6.8	LevelSpeed, completely level -&gt; (Stop, Stop)<br>
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
@@ -384,7 +380,7 @@
           <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
-          <td valign="top">6.9 any door not closed -&gt; drive stop<br>
+          <td valign="top">6.9.1	SlowSpeed, DesiredDirection stop, not level -&gt; level car<br>
           </td>
           <td valign="top">X<br>
           </td>
@@ -399,7 +395,7 @@
           <td valign="top">&nbsp;</td>
         </tr>
         <tr>
-          <td valign="top">6.10 car overweight -&gt; drive stop<br>
+          <td valign="top">6.9.2	SlowSpeed, CommitPoint not reached -&gt; (Fast, DesiredDirection)<br>
           </td>
           <td valign="top">~<br>
           </td>
@@ -414,7 +410,7 @@
           <td valign="top">&nbsp;</td>
         </tr>
         <tr>
-          <td valign="top">6.11 emergency brake -&gt; drive stop<br>
+          <td valign="top">6.10	&gt;SlowSpeed, CommitPoint Reached -&gt; (Slow, DesiredDirection)<br>
           </td>
           <td valign="top">~<br>
           </td>
@@ -427,6 +423,24 @@
           <td valign="top">~<br>
           </td>
           <td valign="top">&nbsp;</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">6.11	&gt;LevelSpeed, emergency brake or overweight -&gt; decelerate</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">6.12	set mDriveSpeed to DriveSpeed</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+          <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top;"><u><b>Behavioral
@@ -461,8 +475,7 @@
           <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">7.2 Set lantern only in
-            direction of travel</td>
+          <td style="vertical-align: top;">7.2	at floor, desired floor, desired direction -&gt; Lantern on</td>
           <td style="vertical-align: top;">X<br>
           </td>
           <td style="vertical-align: top;">~<br>
@@ -476,7 +489,7 @@
           <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">7.3 Latern off when stopped<br>
+          <td style="vertical-align: top;">7.3	doors closed -&gt; Lantern off<br>
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
@@ -491,7 +504,7 @@
           <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">7.4 DesiredDirection updated<br>
+          <td style="vertical-align: top;">7.4	not desired direction -&gt; lantern off<br>
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
@@ -506,7 +519,7 @@
           <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
-          <td style="vertical-align: top;"><br>
+          <td style="vertical-align: top;">7.5	mCarLantern set to CarLantern<br>
           </td>
           <td style="vertical-align: top;"><br>
           </td>
@@ -518,6 +531,15 @@
           </td>
           <td style="vertical-align: top;"><br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">&nbsp;</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+          <td style="vertical-align: top;">&nbsp;</td>
           <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
@@ -584,9 +606,7 @@
           <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">10.4 Whenever any mAtFloor[f,
-            b] is True, CarPositionIndicator shall be commanded to
-            display CurrentFloor.</td>
+          <td style="vertical-align: top;">10.4	mAtFloor[f, b]=True -&gt; CarPositionIndicator display CurrentFloor.&nbsp;</td>
           <td style="vertical-align: top;">X<br>
           </td>
           <td style="vertical-align: top;">X<br>
@@ -597,6 +617,24 @@
           </td>
           <td style="vertical-align: top;"><br>
           </td>
+          <td style="vertical-align: top;">&nbsp;</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">10.5	display CommitPoint UP</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">10.6	display CommitPoint DOWN</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+          <td style="vertical-align: top;">&nbsp;</td>
+          <td style="vertical-align: top;">&nbsp;</td>
           <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
@@ -633,8 +671,7 @@
           <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">11.4 set DesiredFloor.f to
-            TargetFloor<br>
+          <td style="vertical-align: top;">11.4	compute TargetHall<br>
           </td>
           <td style="vertical-align: top;">X<br>
           </td>
@@ -649,8 +686,7 @@
           <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">11.5 set DesiredFloor.d to
-            STOP<br>
+          <td style="vertical-align: top;">11.5	set mDesiredFloor.f to TargetFloor<br>
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
@@ -665,8 +701,7 @@
           <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">11.6 set DesiredFloor.b to
-            TargetHallway<br>
+          <td style="vertical-align: top;">11.6	set mDesiredFloor.h to TargetHall<br>
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
@@ -681,7 +716,7 @@
           <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">11.7 set TargetHall to FRONT<br>
+          <td style="vertical-align: top;">11.7.1	compute CommitPoint: at floor<br>
           </td>
           <td style="vertical-align: top;">~<br>
           </td>
@@ -696,7 +731,7 @@
           <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">11.8 set TargetHall to BACK </td>
+          <td style="vertical-align: top;">11.7.2	compute CommitPoint: DriveSpeed.d = UP</td>
           <td style="vertical-align: top;">~<br>
           </td>
           <td style="vertical-align: top;">~<br>
@@ -710,7 +745,7 @@
           <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">11.9 set TargetHall to BOTH </td>
+          <td style="vertical-align: top;">11.7.3	compute CommitPoint: DriveSpeed.d = DOWN</td>
           <td style="vertical-align: top;">~<br>
           </td>
           <td style="vertical-align: top;">~<br>
@@ -724,9 +759,7 @@
           <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">11.10 mDoorClosed false,
-            HallCall or CarCall true, CurrentFloor = TargetFloor -&gt;
-            set TargetFloor to (CurrentFloor % MaxFloors) + 1<br>
+          <td style="vertical-align: top;">11.8.1	Stopped and call up -&gt; set mDesiredFloor.d to UP<br>
           </td>
           <td style="vertical-align: top;">X<br>
           </td>
@@ -741,8 +774,7 @@
           <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
-          <td valign="top">11.11 CurrentFloor = 1, HallCall or CarCall
-            true -&gt; set TargetFloor to (CurrentFloor % MaxFloors) + 1</td>
+          <td valign="top">11.8.2	Stopped and call up -&gt; set TargetFloor to nearest that can be reached</td>
           <td valign="top">X<br>
           </td>
           <td valign="top">X<br>
@@ -756,8 +788,7 @@
           <td valign="top">&nbsp;</td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">11.12.1 all mAtFloor false,
-            any mDoorClosed false -&gt; set TargetFloor to 1<br>
+          <td style="vertical-align: top;">11.9.1	Stopped and call down -&gt; set mDesiredFloor.d to DOWN<br>
           </td>
           <td style="vertical-align: top;">X<br>
           </td>
@@ -772,8 +803,7 @@
           <td style="vertical-align: top;">&nbsp;</td>
         </tr>
         <tr>
-          <td valign="top">11.12.2 all mAtFloor false, any mDoorClosed
-            false -&gt; set TargetHall to NONE<br>
+          <td valign="top">11.9.2	Stopped and call down -&gt; set TargetFloor to nearest that can be reached<br>
           </td>
           <td valign="top">~<br>
           </td>
@@ -788,7 +818,7 @@
           <td valign="top">&nbsp;</td>
         </tr>
         <tr>
-          <td valign="top">11.13 set mDesiredDwell<br>
+          <td valign="top">11.10.1	mDesiredFloor.d != Stop -&gt; service UP<br>
           </td>
           <td valign="top">~<br>
           </td>
@@ -800,6 +830,51 @@
           </td>
           <td valign="top"><br>
           </td>
+          <td valign="top">&nbsp;</td>
+        </tr>
+        <tr>
+          <td valign="top">11.10.2	mDesiredFloor.d != Stop -&gt; service DOWN</td>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+        </tr>
+        <tr>
+          <td valign="top">11.11	No calls -&gt; mDesiredFloor = (CurrentFloor, None, Stop)</td>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+        </tr>
+        <tr>
+          <td valign="top">11.12.1	door not closed between floor -&gt; TargetFloor set to 1</td>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+        </tr>
+        <tr>
+          <td valign="top">11.12.2	door not closed between floor -&gt; TargetHall set to None</td>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+        </tr>
+        <tr>
+          <td valign="top">11.13	set desired dwell</td>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
+          <td valign="top">&nbsp;</td>
           <td valign="top">&nbsp;</td>
         </tr>
       </tbody>
