@@ -469,16 +469,18 @@ triggering
       <ol>
         <li>mAtFloor[<b>f,b</b>] is set to True.</li>
         <li>CarPositionControl indicates a car position at floor <b>f</b>.</li>
-        <li>Car begins moving towards floor <b>g </b>at speed Slow.<br>
-        </li>
+        <li>Car begins moving towards floor <b>g </b>at speed Slow.</li>
         <li>AtFloor[<b>f,b</b>] is set to False as it passes hallway
           [f,b].</li>
+        <li>CarPositionControl calculates a new commit point <b>g</b>
+          and sets CarPositionIndicator.<br>
+        </li>
         <li>Drive begins accelerating to Fast speed.</li>
         <li>Drive reaches FastSpeed (** may not ever reach MaxSpeed
           before needing to slow down **).<br>
         </li>
-        <li>DriveControl determines the commit point for floor g has
-          been reached using the values of mCarLevelPosition and
+        <li>DriveControl determines the commit point for floor <b>g</b>
+          has been reached using the values of mCarLevelPosition and
           DriveSpeed.<br>
         </li>
         <li>DriveControl decelerates by commanding Drive to Slow. <br>
@@ -501,7 +503,7 @@ triggering
     </ul>
     <div class="Section1">
       <h3> Sequence Diagram: </h3>
-      <img alt="sd6a" src="sd6a.png" height="685" width="1176">
+      <img alt="sd6a" src="sd6a.png" height="685" width="1176"><br>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <p> &nbsp; </p>
