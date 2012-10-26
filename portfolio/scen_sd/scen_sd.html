@@ -25,20 +25,26 @@
         <li><a href="#usecase1">1. Passenger Makes a Hall Call</a> </li>
         <ul>
           <li><a href="#scenario1a">Scenario 1A</a> </li>
-          <li><a href="#scenario1b">Scenario 1B</a> </li>
+          <li><a href="#scenario1b">Scenario 1B - R-T7</a> </li>
           <li><a href="#scenario1c">Scenario 1C</a></li>
         </ul>
         <li><a href="#usecase2">2. Passenger Makes a Car Call</a> </li>
         <ul>
           <li><a href="#scenario2a">Scenario 2A</a> </li>
-          <li><a href="#scenario2b">Scenario 2B</a></li>
+          <li><a href="#scenario2b">Scenario 2B </a><a
+href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">-
+              R-T7</a></li>
         </ul>
         <li><a href="#usecase3">3. Passenger Enters Car</a></li>
         <ul>
-          <li><a href="#scenario3a">Scenario 3A</a> </li>
+          <li><a href="#scenario3a">Scenario 3A </a><a
+href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">-
+              R-T6; R-T7</a> </li>
           <li><a href="#scenario3b">Scenario 3B</a></li>
         </ul>
-        <li><a href="#usecase4">4. Passenger Exits Car</a> </li>
+        <li><a href="#usecase4">4. Passenger Exits Car </a><a
+href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">-
+            R-T7</a> </li>
         <li><a href="#usecase5">5. Passenger Triggers Door Reversal</a>
         </li>
         <ul>
@@ -46,23 +52,35 @@
           <li><a href="#scenario5b">Scenario 5B - R-T10<br>
             </a></li>
         </ul>
-        <li><a href="#usecase6">6. Determine Car Position - R-T9</a> </li>
+        <li><a href="#usecase6">6. Determine Car Position - R-T6; R-T9</a>
+        </li>
         <li><a href="#usecase7">7. Determine Car Direction</a> </li>
         <ul>
-          <li><a href="#scenario7a">Scenario 7A</a> </li>
+          <li><a href="#scenario7a">Scenario 7A - R-T8.1;R-T8.2</a> </li>
           <li><a href="#scenario7b">Scenario 7B</a>&nbsp;</li>
           <li><a href="#scenario7c">Scenario 7C</a></li>
         </ul>
         <li><a href="#usecase8">8. Move Car to Next Floor</a></li>
         <ul>
           <li><a href="#scenario8a">Scenario 8A</a> </li>
-          <li><a href="#scenario8b">Scenario 8B</a>&nbsp;</li>
-          <li><a href="#scenario8c">Scenario 8C</a><br>
+          <li><a href="#scenario8b">Scenario 8B</a><a
+href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">
+              - </a><a
+href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">R-T6;
+            </a><a
+href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">R-T7</a></li>
+          <li><a href="#scenario8c">Scenario 8C </a><a
+href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">-
+            </a><a
+href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">R-T6;
+            </a><a
+href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">R-T7</a>
           </li>
         </ul>
         <li><a href="#usecase9">9. Cycle Doors</a></li>
         <ul>
-          <li><a href="#scenario9a">Scenario 9A</a> </li>
+          <li><a href="#scenario9a">Scenario 9A - R-T8.1; R-T8.2; R-T8.3</a>
+          </li>
           <li><a href="#scenario9b">Scenario 9B</a>&nbsp;</li>
           <li><a href="#scenario9c">Scenario 9C</a></li>
         </ul>
@@ -744,11 +762,11 @@ triggering
       </ul>
       <h3> Scenario: </h3>
       <ol>
+        <li>CarLantern[d] turns on before new direction is computed.</li>
         <li>Door[<b>b</b>,<b>*</b>] starts to open.</li>
         <li>Dispatcher computes next desired floor.</li>
         <li>Dispatcher computes desired dwell.<br>
         </li>
-        <li>CarLantern[d] turns on after new direction is computed.</li>
         <li>Door[<b>b,*]</b> finishes opening.<br>
         </li>
         <li>Passenger arrives and enters car.</li>
