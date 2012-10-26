@@ -6,7 +6,7 @@
 
 ; Project 8 acceptance test 1
 ; Elevator travels at fast speed,
-; scenario 8B	- hall call between floors (serviceable),
+; scenario 8B - hall call between floors (serviceable),
 ; scenario 8C - hall call between floors (not serviceable)
 
 ; Time | Start Floor | Start Hallway | End Floor | End Hallway
@@ -24,71 +24,70 @@
 
 ;===== scenario 8B d=UP =====
 ;call for f,b,d = 1 FRONT UP
-60s	1	FRONT	2	BACK
+10s	1 FRONT 2 BACK
 
-;call for g,c,d = 6 FRONT UP in between floors
-65s	6	FRONT	8	FRONT
+;call for g,c,d = 6 FRONT UP
++5s	6 FRONT 8 FRONT
 
-;call for h,e,d = 4 FRONT UP
-70s 4 FRONT 8 FRONT
+;call for h,e,d = 4 FRONT UP in between floors
++10s 4 FRONT 8 FRONT
 
 ;elevator now at floor 8, call for 8 FRONT DOWN
-90s 8 FRONT 2 BACK
++50s 8 FRONT 2 BACK
 
 ;call for g,c,d = 6 FRONT DOWN in between floors
-95s	6	FRONT	2	BACK
++10s 6 FRONT 2 BACK
 
 ;===== scenario 8B d=DOWN =====
 ;elevator now at floor 2. call for 7 FRONT UP
-150s 3 FRONT 7 FRONT
++50s 3 FRONT 7 FRONT
 
 ;elevator within commit point for 5 when call for 5 happens 
-155s 5 FRONT 7 BACK
++10s 5 FRONT 7 BACK
 
 ;elevator at floor 7, BOTH open, call for 1
-170s 1 BACK 2 BACK
++50s 1 BACK 2 BACK
 
 ;elevator going to floor 1, call for 3
-175s 3 FRONT 1 FRONT
++10s 3 FRONT 1 FRONT
 
 ;elevator pick up at 3, moves to 1. both hallways open.   
 
 ;===== scenario 8C d=UP =====
 ;elevator moving to 2. call from 4.
-180s 4 FRONT 6 FRONT
++5s 4 FRONT 6 FRONT
 
 ;call from 3 as elevator moves 2->4, too late
-185s 3 FRONT 6 FRONT
++10s 3 FRONT 6 FRONT
 
 ;car at 6, call from 7 (more dispatcher logic -- 3 or 7? longer waiting passenger or the closer passenger?
-190s 7 BACK 8 FRONT
-
++30s 7 BACK 8 FRONT
 ;call for 7 FRONT UP
-250s 3 FRONT 7 FRONT
++0s 3 FRONT 7 FRONT
 
 ;elevator leaves 3, outside commit point for 5 when call for 5 happens
-270s 5 FRONT 7 BACK
++10s 5 FRONT 7 BACK
 
 ;===== scenario 8C d=DOWN =====
 ;elevator at 7, service 5 next. unserviceable call for 6 happens
-280s 6 FRONT 5 FRONT
++30s 6 FRONT 5 FRONT
 
 ;elevator at 5, service 6 next. call for 8
-290s 8 FRONT 4 FRONT
++10s 8 FRONT 4 FRONT
 
 ;at floor 8, service 4 next. unserviceable call for 7 happens
-310s 7 BACK 3 FRONT
++10s 7 BACK 3 FRONT
 
 ;at floor 4, service 7 next. call for 3
-350s 3 FRONT 1 FRONT
++20s 3 FRONT 1 FRONT
 
 ;call for 1 to floor 2
-355s 1 BACK 2 BACK
++20s 1 BACK 2 BACK
 
 ; ===== dispatcher logic test =====
 ; elevator at 1, moving to 2. hall call from 1, too late
-370s 1 BACK 2 BACK
++10s 1 BACK 2 BACK
 
 ;move to 2. call from 3. which floor to service first -- 1 or 3?
-380s 3 FRONT 4 FRONT
++10s 3 FRONT 4 FRONT
 

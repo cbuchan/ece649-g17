@@ -1,0 +1,116 @@
+18649 Fall 2012 - Group 17
+Jesse Salazar (jessesal)
+Jessica Tiu (jtiu)
+Collin Buchan (cbuchan)
+Rajeev Sharma (rdsharma)
+
+Simulator Parameters:
+Command line = -gui -head headerfile -pf proj8group17acceptance1.pass
+RandomSeed = 1351185081405
+CanNetworkBitTime = 0 ns
+Effective Can Bitrate = Infinity
+Run Time = null
+Real time rate = null
+Acceptance Test File = proj8group17acceptance1.pass
+
+STATISTICS FOR ELEVATOR SIMULATION PASSENGER DELIVERY
+-----------------------------------------------------
+
+
+These passengers were delivered:
+Passenger 6: INJECTED AT 145.0s and DELIVERED in 152.946s
+  Satisfaction score: 81.0
+    @294.866000000: 0.90 Repeated car call press
+    @295.366000000: 0.90 Repeated car call press
+Passenger 11: INJECTED AT 250.0s and DELIVERED in 100.122s
+  Satisfaction score: 90.0
+    @348.202000000: 0.90 Repeated car call press
+Passenger 1: INJECTED AT 15.0s and DELIVERED in 336.555s
+  Satisfaction score: 90.0
+    @348.240000000: 0.90 Repeated car call press
+Passenger 2: INJECTED AT 25.0s and DELIVERED in 328.223s
+  Satisfaction score: 81.0
+    @347.740000000: 0.90 Repeated car call press
+    @348.240000000: 0.90 Repeated car call press
+Passenger 0: INJECTED AT 10.0s and DELIVERED in 566.318s
+  Satisfaction score: 90.0
+    @574.218000000: 0.90 Repeated car call press
+Passenger 19: INJECTED AT 360.0s and DELIVERED in 217.773s
+  Satisfaction score: 90.0
+    @574.273000000: 0.90 Repeated car call press
+Passenger 3: INJECTED AT 75.0s and DELIVERED in 504.441s
+  Satisfaction score: 50.0
+    @520.600000000: 0.50 Car passed passenger's destination floor without servicing it
+Passenger 18: INJECTED AT 350.0s and DELIVERED in 231.234s
+  Satisfaction score: 90.0
+    @574.234000000: 0.90 Repeated car call press
+Passenger 7: INJECTED AT 195.0s and DELIVERED in 388.299s
+  Satisfaction score: 90.0
+    @574.299000000: 0.90 Repeated car call press
+Passenger 4: INJECTED AT 85.0s and DELIVERED in 499.911s
+  Satisfaction score: 45.0
+    @520.600000000: 0.50 Car passed passenger's destination floor without servicing it
+    @573.860000000: 0.90 Repeated car call press
+Passenger 15: INJECTED AT 300.0s and DELIVERED in 382.959s
+  Satisfaction score: 40.5
+    @480.600000000: 0.50 Car passed passenger's destination floor without servicing it
+    @679.740000000: 0.90 Repeated car call press
+    @680.240000000: 0.90 Repeated car call press
+Passenger 20: INJECTED AT 370.0s and DELIVERED in 314.739s
+  Satisfaction score: 90.0
+    @680.219000000: 0.90 Repeated car call press
+Passenger 10: INJECTED AT 220.0s and DELIVERED in 568.654s
+  Satisfaction score: 81.0
+    @785.860000000: 0.90 Repeated car call press
+    @786.360000000: 0.90 Repeated car call press
+Passenger 9: INJECTED AT 210.0s and DELIVERED in 579.926s
+  Satisfaction score: 90.0
+    @786.360000000: 0.90 Repeated car call press
+Passenger 13: INJECTED AT 260.0s and DELIVERED in 581.463s
+  Satisfaction score: 90.0
+    @839.263000000: 0.90 Repeated car call press
+Passenger 12: INJECTED AT 250.0s and DELIVERED in 592.082s
+  Satisfaction score: 81.0
+    @838.740000000: 0.90 Repeated car call press
+    @839.240000000: 0.90 Repeated car call press
+Passenger 5: INJECTED AT 135.0s and DELIVERED in 708.872s
+  Satisfaction score: 81.0
+    @838.740000000: 0.90 Repeated car call press
+    @839.240000000: 0.90 Repeated car call press
+Passenger 8: INJECTED AT 205.0s and DELIVERED in 863.197s
+  Satisfaction score: 81.0
+    @1064.860000000: 0.90 Repeated car call press
+    @1065.360000000: 0.90 Repeated car call press
+Passenger 17: INJECTED AT 330.0s and DELIVERED in 739.544s
+  Satisfaction score: 81.0
+    @1064.860000000: 0.90 Repeated car call press
+    @1065.360000000: 0.90 Repeated car call press
+Passenger 16: INJECTED AT 310.0s and DELIVERED in 864.173s
+  Satisfaction score: 40.5
+    @1044.600000000: 0.50 Car passed passenger's destination floor without servicing it
+    @1170.660000000: 0.90 Repeated car call press
+    @1171.160000000: 0.90 Repeated car call press
+Passenger 14: INJECTED AT 290.0s and DELIVERED in 989.568s
+  Satisfaction score: 40.5
+    @1004.600000000: 0.50 Car passed passenger's destination floor without servicing it
+    @1276.660000000: 0.90 Repeated car call press
+    @1277.160000000: 0.90 Repeated car call press
+
+Passenger Delivery Summary
+Delivered: 21
+Stranded: 0
+Total: 21
+
+Deliver Stats (lower is better):
+Average_delivery_time: 500.524
+Maximum_delivery_time:  989.568
+Delivery_performance_score:  2991.663
+
+Satisfaction Stats (higher is better):
+Average_satisfaction_score: 75.881
+Min_satisfaction_score:  40.500
+Satisfaction_performance_score:  344.024
+
+
+
+
