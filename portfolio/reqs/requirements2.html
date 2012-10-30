@@ -3233,11 +3233,10 @@
       &nbsp;&nbsp;&nbsp;11.12.2 &nbsp;&nbsp;&nbsp;TargetHall shall be
       set to None.<br>
       11.13 &nbsp;&nbsp;&nbsp;mDesiredDwell shall always be set to a
-      constant appropriate value for door open dwell. &nbsp; &nbsp; <br>
-    </p>
+      constant appropriate value for door open dwell. &nbsp; &nbsp;</p>
     <h3>STATECHART:</h3>
-    <img alt="SC_Dispatcher" src="SC_Dispatcher.png" height="550"
-      width="766">&nbsp; <br>
+    <img alt="SC_Dispatcher" src="SC_Dispatcher.png" height="431"
+      width="840">&nbsp; <br>
     <table style="text-align: left; width: 800px;" border="1"
       cellpadding="2" cellspacing="2">
       <tbody>
@@ -3252,31 +3251,74 @@
         <tr>
           <td style="vertical-align: top;">T11.1</td>
           <td style="vertical-align: top;">CurrentFloor == 1 &amp;&amp;
-            (any mHallCall[f,b,d] == true || any mCarCall[f,b] == true)
-          </td>
+            all mDoorClosed[*,*] == True</td>
         </tr>
         <tr>
           <td valign="top">T11.2<br>
           </td>
-          <td valign="top">TRUE</td>
+          <td valign="top">Direction != Stop</td>
         </tr>
         <tr>
           <td valign="top">T11.3<br>
           </td>
-          <td valign="top">any mDoorClosed[b, r] == false &amp;&amp;
-            (any mHallCall[f,b,d] == true || any mCarCall[f,b] == true)
-            &amp;&amp; CurrentFloor == TargetFloor<br>
-          </td>
+          <td valign="top">CurrentFloor == TargetFloor</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">T11.4</td>
-          <td style="vertical-align: top;">CurrentFloor == NONE
-            &amp;&amp; any mDoorClosed[b, r] == false<br>
+          <td style="vertical-align: top;">anyUpCall(CurrentFloor) || anyDownCall(CurrentFloor) &amp;&amp; any mDoorClosed[b,r] == false<br>
           </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">T11.5</td>
+          <td style="vertical-align: top;">~anyUpCall(CurrentFloor) &amp;&amp; ~anyDownCall(CurrentFloor) &amp;&amp; any mDoorClosed[b,r] == false</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">T11.6</td>
+          <td style="vertical-align: top;">all mAtFloor[b,r] == false &amp;&amp; any mDoorClosed[b,r] == false</td>
         </tr>
       </tbody>
     </table>
-    <h3>REQUIREMENTS TO STATECHART TRACEABILITY: </h3>
+    <p><strong>MACROS</strong>:</p>
+    <table style="text-align: left; width: 800px;" border="1"
+      cellpadding="2" cellspacing="2">
+      <tbody>
+        <tr>
+          <td style="vertical-align: top; font-weight: bold;
+            background-color: rgb(204, 204, 204);">Macro<br></td>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);"><span style="font-weight: bold;">Value</span><br></td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">CurrentFloor</td>
+          <td style="vertical-align: top;">value of f of whichever mAtFloor[f,b] true, if any. Set to None if all mAtFloor[f,b] false. </td>
+        </tr>
+        <tr>
+          <td valign="top">anyUpCall(CommitPoint)<br></td>
+          <td valign="top">(any mHallCall[f,b,UP] == true || any mCarCall[f,b] == true) where CommitPoint &gt;= f</td>
+        </tr>
+        <tr>
+          <td valign="top">anyDownCall(CommitPoint)<br></td>
+          <td valign="top">(any mHallCall[f,b,DOWN] == true || any mCarCall[f,b] == true) where CommitPoint &lt; f</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">nextUpCall(CommitPoint)</td>
+          <td style="vertical-align: top;">min(HallCall[f,b,UP], CarCall[f,b]) where f &gt;= CommitPoint</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">nextDownCall(CommitPoint)</td>
+          <td style="vertical-align: top;">max(HallCall[f,b,DOWN], CarCall[f,b]) where f &lt;= CommitPoint</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">closestCall</td>
+          <td style="vertical-align: top;">value of f of the nearest floor, arbitrarily biased towards UP in the event of a tie</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">getHalls(TargetFloor)</td>
+          <td style="vertical-align: top;">halls where calls exist on the given floor</td>
+        </tr>
+      </tbody>
+    </table>
+    <h3>REQUIREMENTS TO STATECHART TRACEABILITY:    </h3>
     <p><span style="color: rgb(0, 0, 0); font-family: Times; font-size:
         medium; font-style: normal; font-variant: normal; font-weight:
         normal; letter-spacing: normal; line-height: normal; orphans: 2;
@@ -3293,7 +3335,7 @@
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);"><br>
           </td>
-          <td colspan="11" rowspan="1" style="vertical-align: top;
+          <td colspan="16" rowspan="1" style="vertical-align: top;
             background-color: rgb(204, 204, 204);">Requirements<br>
           </td>
         </tr>
@@ -3309,101 +3351,108 @@
           </td>
           <td bgcolor="#cccccc" valign="top">BR11.6<br>
           </td>
-          <td bgcolor="#cccccc" valign="top">BR11.7</td>
-          <td bgcolor="#cccccc" valign="top">BR11.8<br>
+          <td bgcolor="#cccccc" valign="top">BR11.7.1</td>
+          <td bgcolor="#cccccc" valign="top">BR11.7.2</td>
+          <td bgcolor="#cccccc" valign="top">BR11.7.3</td>
+          <td bgcolor="#cccccc" valign="top">BR11.8.1<br></td>
+          <td bgcolor="#cccccc" valign="top">BR11.8.2</td>
+          <td bgcolor="#cccccc" valign="top">BR11.9.1</td>
+          <td bgcolor="#cccccc" valign="top">BR11.9.2</td>
+          <td bgcolor="#cccccc" valign="top">BR11.10.1<br>
           </td>
-          <td bgcolor="#cccccc" valign="top">BR11.9</td>
-          <td bgcolor="#cccccc" valign="top">BR11.10<br>
-          </td>
+          <td bgcolor="#cccccc" valign="top">BR11.10.2</td>
           <td bgcolor="#cccccc" valign="top">BR11.11<br>
           </td>
           <td bgcolor="#cccccc" valign="top">BR11.12.1<br>
           </td>
           <td bgcolor="#cccccc" valign="top">BR11.12.2<br>
           </td>
-          <td bgcolor="#cccccc" valign="top">11.13<br>
-          </td>
+          <td bgcolor="#cccccc" valign="top">11.13</td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);">State INIT<br>
+            204, 204);">State RESET<br>
           </td>
           <td style="vertical-align: top;" align="center"
-            valign="middle">X<br>
-          </td>
+            valign="middle">&nbsp;</td>
           <td style="vertical-align: top;" align="center"
-            valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="top"><br>
-          </td>
-          <td align="center" valign="top"><br>
-          </td>
-          <td align="center" valign="top">X<br>
-          </td>
+            valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="top">&nbsp;</td>
+          <td align="center" valign="top">&nbsp;</td>
+          <td align="center" valign="top">&nbsp;</td>
         </tr>
         <tr>
-          <td bgcolor="#cccccc" valign="top">State COMPUTE_NEXT<br>
+          <td bgcolor="#cccccc" valign="top">State IDLE<br>
           </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="top"><br>
-          </td>
-          <td align="center" valign="top"><br>
-          </td>
-          <td align="center" valign="top">X<br>
-          </td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="top">&nbsp;</td>
+          <td align="center" valign="top">&nbsp;</td>
+          <td align="center" valign="top">&nbsp;</td>
         </tr>
         <tr>
           <td bgcolor="#cccccc" valign="top">State SERVICE_CALL<br>
           </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="top"><br>
-          </td>
-          <td align="center" valign="top"><br>
-          </td>
-          <td align="center" valign="top">X<br>
-          </td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="top">&nbsp;</td>
+          <td align="center" valign="top">&nbsp;</td>
+          <td align="center" valign="top">&nbsp;</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);" bgcolor="#FFFFFF">State COMPUTE_NEXT</td>
+          <td style="vertical-align: top;" align="center"
+            bgcolor="#FFFFFF" valign="middle">&nbsp;</td>
+          <td style="vertical-align: top;" align="center"
+            bgcolor="#FFFFFF" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#FFFFFF" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#FFFFFF" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#FFFFFF" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#FFFFFF" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#FFFFFF" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#FFFFFF" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#FFFFFF" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#FFFFFF" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#FFFFFF" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#FFFFFF" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#FFFFFF" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#FFFFFF" valign="top">&nbsp;</td>
+          <td align="center" bgcolor="#FFFFFF" valign="top">&nbsp;</td>
+          <td align="center" bgcolor="#FFFFFF" valign="top">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
@@ -3411,143 +3460,113 @@
               bold;">Transitions</span><br>
           </td>
           <td style="vertical-align: top;" align="center"
-            bgcolor="#cccccc" valign="middle"><br>
-          </td>
+            bgcolor="#cccccc" valign="middle">&nbsp;</td>
           <td style="vertical-align: top;" align="center"
-            bgcolor="#cccccc" valign="middle"><br>
-          </td>
-          <td align="center" bgcolor="#cccccc" valign="middle"><br>
-          </td>
-          <td align="center" bgcolor="#cccccc" valign="middle"><br>
-          </td>
-          <td align="center" bgcolor="#cccccc" valign="middle"><br>
-          </td>
-          <td align="center" bgcolor="#cccccc" valign="middle"><br>
-          </td>
-          <td align="center" bgcolor="#cccccc" valign="middle"><br>
-          </td>
-          <td align="center" bgcolor="#cccccc" valign="middle"><br>
-          </td>
-          <td align="center" bgcolor="#cccccc" valign="top"><br>
-          </td>
-          <td align="center" bgcolor="#cccccc" valign="top"><br>
-          </td>
-          <td align="center" bgcolor="#cccccc" valign="top"><br>
-          </td>
+            bgcolor="#cccccc" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#cccccc" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#cccccc" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#cccccc" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#cccccc" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#cccccc" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#cccccc" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#cccccc" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#cccccc" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#cccccc" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#cccccc" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#cccccc" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#cccccc" valign="top">&nbsp;</td>
+          <td align="center" bgcolor="#cccccc" valign="top">&nbsp;</td>
+          <td align="center" bgcolor="#cccccc" valign="top">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);" bgcolor="#cccccc">T11.1<br>
           </td>
           <td style="vertical-align: top;" align="center"
-            valign="middle"><br>
-          </td>
+            valign="middle">&nbsp;</td>
           <td style="vertical-align: top;" align="center"
-            valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="top"><br>
-          </td>
-          <td align="center" valign="top"><br>
-          </td>
-          <td align="center" valign="top"><br>
-          </td>
+            valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="top">&nbsp;</td>
+          <td align="center" valign="top">&nbsp;</td>
+          <td align="center" valign="top">&nbsp;</td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);" bgcolor="#cccccc">T11.2<br>
           </td>
           <td style="vertical-align: top;" align="center"
-            bgcolor="#ffffff" valign="middle">X<br>
-          </td>
+            bgcolor="#ffffff" valign="middle">&nbsp;</td>
           <td style="vertical-align: top;" align="center"
-            bgcolor="#ffffff" valign="middle">X<br>
-          </td>
-          <td align="center" bgcolor="#ffffff" valign="middle">X<br>
-          </td>
-          <td align="center" bgcolor="#ffffff" valign="middle"><br>
-          </td>
-          <td align="center" bgcolor="#ffffff" valign="middle"><br>
-          </td>
-          <td align="center" bgcolor="#ffffff" valign="middle"><br>
-          </td>
-          <td align="center" bgcolor="#ffffff" valign="middle"><br>
-          </td>
-          <td align="center" bgcolor="#ffffff" valign="middle"><br>
-          </td>
-          <td align="center" bgcolor="#ffffff" valign="top"><br>
-          </td>
-          <td align="center" bgcolor="#ffffff" valign="top"><br>
-          </td>
-          <td align="center" bgcolor="#ffffff" valign="top"><br>
-          </td>
+            bgcolor="#ffffff" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#ffffff" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#ffffff" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#ffffff" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#ffffff" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#ffffff" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#ffffff" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#ffffff" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#ffffff" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#ffffff" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#ffffff" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#ffffff" valign="middle">&nbsp;</td>
+          <td align="center" bgcolor="#ffffff" valign="top">&nbsp;</td>
+          <td align="center" bgcolor="#ffffff" valign="top">&nbsp;</td>
+          <td align="center" bgcolor="#ffffff" valign="top">&nbsp;</td>
         </tr>
         <tr>
           <td bgcolor="#cccccc" valign="top">T11.3<br>
           </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="top"><br>
-          </td>
-          <td align="center" valign="top"><br>
-          </td>
-          <td align="center" valign="top"><br>
-          </td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="top">&nbsp;</td>
+          <td align="center" valign="top">&nbsp;</td>
+          <td align="center" valign="top">&nbsp;</td>
         </tr>
         <tr>
           <td bgcolor="#cccccc" valign="top">T11.4<br>
           </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="top">X<br>
-          </td>
-          <td align="center" valign="top">X<br>
-          </td>
-          <td align="center" valign="top"><br>
-          </td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="middle">&nbsp;</td>
+          <td align="center" valign="top">&nbsp;</td>
+          <td align="center" valign="top">&nbsp;</td>
+          <td align="center" valign="top">&nbsp;</td>
         </tr>
       </tbody>
     </table>
     <p><br>
-      &nbsp; </p>
+  &nbsp; </p>
   </body>
 </html>
