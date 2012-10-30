@@ -6,7 +6,7 @@
 ; * Author
 
 ; Unit test for DoorControl
-; General test, completes all transitions and states
+; General test, completes all non-emergency transitions and states
 
 #INCLUDE defines.mf ;include CAN id and period definitions
 

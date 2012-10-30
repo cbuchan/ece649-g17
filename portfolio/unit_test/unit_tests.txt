@@ -11,7 +11,6 @@
 DoorControl DoorControl.cf DoorControl_01.mf
 DoorControl DoorControl.cf DoorControl_02.mf
 DoorControl DoorControl.cf DoorControl_03.mf
-DoorControl DoorControl.cf DoorControl_04.mf
 CarButtonControl CarButtonControl.cf CarButtonControl_01.mf
 DriveControl DriveControl.cf DriveControl_01.mf
 DriveControl DriveControl.cf DriveControl_02.mf
