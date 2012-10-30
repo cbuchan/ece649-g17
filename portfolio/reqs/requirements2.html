@@ -1821,130 +1821,41 @@
     is no longer overloaded.
     <h3>TIME-TRIGGERED BEHAVIORS:</h3>
     <p><br>
-      6.6 &nbsp;&nbsp; DesiredDirection shall be updated every Drive
-      period using the values of mDesiredFloor.f and CurrentFloor.<br>
+      6.6 &nbsp;&nbsp; LevelDir, DriveDir, CurrentFloor, CommitPoint
+      shall be updated every Drive period using the input interface of
+      Drive.<br>
       6.7&nbsp;&nbsp;&nbsp; If DriveSpeed is (0, STOP):<br>
       &nbsp; 6.7.1 &nbsp;&nbsp; If mLevel[Up] is False and mLevel[Down]
       is True, Drive[s,d] shall be commanded to (Level, Up).<br>
       &nbsp; 6.7.2 &nbsp;&nbsp; If mLevel[Up] is True and mLevel[Down]
       is False, Drive[s,d] shall be commanded to (Level, Down).<br>
-      &nbsp; 6.7.3 &nbsp;&nbsp; If DesiredDirection is not Stop and all
+      &nbsp; 6.7.3 &nbsp;&nbsp; If DriveDir is not Stop and all
       mDoorClosed[*, *] is true, Drive[s,d] shall be commanded to (Slow,
-      DesiredDirection).<br>
+      DriveDir).<br>
       6.8&nbsp;&nbsp; If DriveSpeed is (LevelSpeed, <b>d</b>) and all
       mLevel[*] is True, then Drive[s, d] shall be commanded to (Stop,
       Stop).<br>
       6.9 &nbsp; If DriveSpeed is (SlowSpeed, <b>d</b>):<br>
-      &nbsp; 6.9.1&nbsp;&nbsp;&nbsp; If DesiredDirection is Stop and
-      mLevel[<b>d</b>] is False and mLevel[~<b>d</b>] is True,
-      Drive[s,d] shall be commanded to (Level, <b>d</b>).<br>
-      &nbsp; 6.9.2&nbsp;&nbsp;&nbsp; If DesiredDirection is <b>d</b>
-      and CommitPoint[f] == NotReached and mDesiredFloor.f == f, then
+      &nbsp; 6.9.1&nbsp;&nbsp;&nbsp; If DriveDir is Stop and mLevel[<b>d</b>]
+      is False and mLevel[~<b>d</b>] is True, Drive[s,d] shall be
+      commanded to (Level, <b>d</b>).<br>
+      &nbsp; 6.9.2&nbsp;&nbsp;&nbsp; If DriveDir is <b>d</b> and
+      CommitPoint[f] == NotReached and mDesiredFloor.f == f, then
       Drive[s,d] shall be commanded to (Fast, <b>d</b>).<br>
-      6.10&nbsp; If DriveSpeed is (&gt;SlowSpeed, <b>d</b>) and DesiredDirection is <b>d</b> and
-      CommitPoint[f] is Reached where f = mDesiredFloor.f, then
-      Drive[s,d] shall be commanded to (Slow, <b>d</b>).<br>
-      6.11 If DriveSpeed is (&gt;LevelSpeed, <b>d)</b> and mCarWeight(x) &gt;= MaxCarCapacity,
-    then car shall decelerate via adjacent speeds as per C6.3. <br>6.12 If mEmergencyBrake[b] is on, then Drive shall be commanded to (Stop,Stop)<br>
-      6.13 mDriveSpeed[s,d] shall be updated every Drive period to correspond to the value of DriveSpeed[s,d]<br>
+      6.10&nbsp; If DriveSpeed is (&gt;SlowSpeed, <b>d</b>) and
+      DriveDir is <b>d</b> and CommitPoint[f] is Reached where f =
+      mDesiredFloor.f, then Drive[s,d] shall be commanded to (Slow, <b>d</b>).<br>
+      6.11 If DriveSpeed is (&gt;LevelSpeed, <b>d)</b> and
+      mCarWeight(x) &gt;= MaxCarCapacity, then car shall decelerate via
+      adjacent speeds as per C6.3. <br>
+      6.12 If mEmergencyBrake[b] is on, then Drive shall be commanded to
+      (Stop,Stop)<br>
+      6.13 mDriveSpeed[s,d] shall be updated every Drive period to
+      correspond to the value of DriveSpeed[s,d]<br>
     </p>
     <h3>STATECHART: </h3>
-    <img alt="SC_DriveControl.png" src="SC_DriveControl.png"
-      height="493" width="657"><br>
-    <br>
-    <table style="font-family: Times; letter-spacing: normal; orphans:
-      2; text-indent: 0px; text-transform: none; widows: 2; text-align:
-      left;" border="1" cellpadding="2" cellspacing="2" height="630"
-      width="786">
-      <tbody>
-        <tr>
-          <td style="vertical-align: top; font-weight: bold;
-            background-color: rgb(204, 204, 204); ">Transition:<br>
-          </td>
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204); "><span style="font-weight: bold; ">Condition</span>:<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; ">T6.1<br>
-          </td>
-          <td style="vertical-align: top; ">DesiredDirection == Stop
-            &amp;&amp; <br>
-            mLevel[Up] == false &amp;&amp; mLevel[Down] == true<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; ">T6.2<br>
-          </td>
-          <td style="vertical-align: top; ">mCarWeight[x] &gt;=
-            MaxCarCapacity || <br>
-            mEmergencyBrake[b] == true || <br>
-            !(mDoorClosed[*,*] == true) ||<br>
-            (mLevel[*] == true &amp;&amp; DesiredDirection == Stop)<br>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top">T6.3<br>
-          </td>
-          <td valign="top">DesiredDirection == Stop &amp;&amp; <br>
-            mLevel[Down] == false &amp;&amp; mLevel[Up] == true<br>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top">T6.4<br>
-          </td>
-          <td valign="top">mCarWeight[x] &gt;= MaxCarCapacity || <br>
-            mEmergencyBrake[b] == true || <br>
-            !(mDoorClosed[*,*] == true) ||<br>
-            (mLevel[*] == true &amp;&amp; DesiredDirection == Stop) </td>
-        </tr>
-        <tr>
-          <td valign="top">T6.5<br>
-          </td>
-          <td valign="top">DesiredDirection == Stop &amp;&amp; <br>
-            mLevel[Down] == false &amp;&amp; mLevel[Up] == true<br>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top">T6.6<br>
-          </td>
-          <td valign="top">DesiredDirection == Stop &amp;&amp; <br>
-            mLevel[Up] == false &amp;&amp; mLevel[Down] == true<br>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top">T6.7<br>
-          </td>
-          <td valign="top">DesiredDirection == Stop &amp;&amp; <br>
-            mLevel[Up] == false &amp;&amp; mLevel[Down] == true<br>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top">T6.8<br>
-          </td>
-          <td valign="top">DesiredDirection == Stop &amp;&amp; <br>
-            mLevel[Down] == false &amp;&amp; mLevel[Up] == true<br>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top">T6.9<br>
-          </td>
-          <td valign="top">mDoorClosed[*,*] == true &amp;&amp;<br>
-            DesiredDirection ~= Stop &amp;&amp;<br>
-            mCarWeight[x] &lt; MaxCarCapacity &amp;&amp;<br>
-            mEmergencyBrake[b] == false<br>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top">T6.10<br>
-          </td>
-          <td valign="top">mCarWeight[x] &gt;= MaxCarCapacity ||<br>
-            mEmergencyBrake[b] == true ||<br>
-            !(mDoorClosed[*,*] == true)<br>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <img alt="SC_DriveControl" src="SC_DriveControl.png" height="983"
+      width="1023"><br>
     <h3>REQUIREMENTS TO STATECHART TRACEABILITY:</h3>
     <span style="color: rgb(0, 0, 0); font-family: Times; font-size:
       medium; font-style: normal; font-variant: normal; font-weight:
@@ -1952,20 +1863,17 @@
       text-align: start; text-indent: 0px; text-transform: none;
       white-space: normal; widows: 2; word-spacing: 0px;
       -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;
-      display: inline !important; float: none; ">Completed by: Jesse
-      Salazar (jessesal)<br>
-    </span><br>
+      display: inline !important; float: none; "> </span>
     <table style="font-family: Times; letter-spacing: normal; orphans:
-      2; text-indent: 0px; text-transform: none; widows: 2;
-      &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD word-spacing: 0px; text-align:
-      left;" border="1" cellpadding="2" cellspacing="2" height="399"
-      width="656">
+      2; text-indent: 0px; text-transform: none; widows: 2; text-align:
+      left;" border="1" cellpadding="2" cellspacing="2" height="562"
+      width="793">
       <tbody>
         <tr style="font-weight: bold; ">
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204); "><br>
           </td>
-          <td colspan="8" rowspan="1" style="vertical-align: top;
+          <td colspan="11" rowspan="1" style="vertical-align: top;
             background-color: rgb(204, 204, 204); ">Requirements:<br>
           </td>
         </tr>
@@ -1984,57 +1892,83 @@
           </td>
           <td bgcolor="#cccccc" valign="top">BR6.8<br>
           </td>
-          <td bgcolor="#cccccc" valign="top">BR6.9<br>
+          <td bgcolor="#cccccc" valign="top">BR6.9.1<br>
+          </td>
+          <td bgcolor="#cccccc" valign="top">BR6.9.2<br>
           </td>
           <td bgcolor="#cccccc" valign="top">BR6.10<br>
           </td>
           <td bgcolor="#cccccc" valign="top">BR6.11<br>
+          </td>
+          <td bgcolor="#cccccc" valign="top">BR6.12<br>
+          </td>
+          <td bgcolor="#cccccc" valign="top">BR6.13<br>
           </td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204); ">State 1: Drive Stopped<br>
           </td>
-          <td style="vertical-align: top; "><br>
+          <td style="vertical-align: top; ">x<br>
           </td>
-          <td style="vertical-align: top; ">X<br>
+          <td style="vertical-align: top; "><br>
           </td>
           <td style="vertical-align: top; "><br>
           </td>
           <td valign="top"><br>
           </td>
+          <td valign="top">x<br>
+          </td>
           <td valign="top"><br>
           </td>
-          <td valign="top">X<br>
+          <td valign="top"><br>
           </td>
-          <td valign="top">X<br>
+          <td valign="top"><br>
           </td>
-          <td valign="top">X<br>
+          <td valign="top"><br>
+          </td>
+          <td valign="top">x<br>
+          </td>
+          <td valign="top">x<br>
           </td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204); ">State 2: Drive Slow<br>
+            204, 204); ">State 2: Drive Level<br>
           </td>
-          <td style="vertical-align: top; "><br>
+          <td style="vertical-align: top; ">x<br>
           </td>
-          <td style="vertical-align: top; "><br>
+          <td style="vertical-align: top; ">x<br>
           </td>
-          <td style="vertical-align: top; "><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top">X<br>
+          <td style="vertical-align: top; ">x<br>
           </td>
           <td valign="top"><br>
           </td>
           <td valign="top"><br>
           </td>
+          <td valign="top">x<br>
+          </td>
           <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top">x<br>
           </td>
         </tr>
         <tr>
-          <td bgcolor="#cccccc" valign="top">State 3: Drive Level Up<br>
+          <td bgcolor="#cccccc" valign="top">State 3: Drive Slow<br>
+          </td>
+          <td valign="top">x<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top">x<br>
           </td>
           <td valign="top"><br>
           </td>
@@ -2042,25 +1976,19 @@
           </td>
           <td valign="top"><br>
           </td>
-          <td valign="top">X<br>
+          <td valign="top">x<br>
+          </td>
+          <td valign="top">x<br>
           </td>
           <td valign="top"><br>
           </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top"><br>
+          <td valign="top">x<br>
           </td>
         </tr>
         <tr>
-          <td bgcolor="#cccccc" valign="top">State 4: Drive Level Down<br>
+          <td bgcolor="#cccccc" valign="top">State 4: Drive Fast<br>
           </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top">X<br>
+          <td valign="top">x<br>
           </td>
           <td valign="top"><br>
           </td>
@@ -2071,6 +1999,16 @@
           <td valign="top"><br>
           </td>
           <td valign="top"><br>
+          </td>
+          <td valign="top">x<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top">x<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top">x<br>
           </td>
         </tr>
         <tr>
@@ -2093,17 +2031,29 @@
           </td>
           <td bgcolor="#cccccc" valign="top"><br>
           </td>
+          <td bgcolor="#cccccc" valign="top"><br>
+          </td>
+          <td bgcolor="#cccccc" valign="top"><br>
+          </td>
+          <td bgcolor="#cccccc" valign="top"><br>
+          </td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204); ">T6.1</td>
-          <td style="vertical-align: top; ">X<br>
-          </td>
           <td style="vertical-align: top; "><br>
           </td>
-          <td style="vertical-align: top; "><br>
+          <td style="vertical-align: top; ">x<br>
           </td>
-          <td valign="top">X<br>
+          <td style="vertical-align: top; ">x<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
           </td>
           <td valign="top"><br>
           </td>
@@ -2117,38 +2067,50 @@
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204); ">T6.2</td>
-          <td style="vertical-align: top; ">X<br>
+          <td style="vertical-align: top; "><br>
           </td>
-          <td style="vertical-align: top; ">X<br>
+          <td style="vertical-align: top; "><br>
           </td>
           <td style="vertical-align: top; "><br>
           </td>
           <td valign="top"><br>
           </td>
+          <td valign="top">x<br>
+          </td>
           <td valign="top"><br>
           </td>
-          <td valign="top">X<br>
+          <td valign="top"><br>
           </td>
-          <td valign="top">X<br>
+          <td valign="top"><br>
           </td>
-          <td valign="top">X<br>
+          <td valign="top"><br>
+          </td>
+          <td valign="top">x<br>
+          </td>
+          <td valign="top"><br>
           </td>
         </tr>
         <tr>
           <td bgcolor="#cccccc" valign="top">T6.3</td>
-          <td valign="top">X<br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top">X<br>
-          </td>
           <td valign="top"><br>
           </td>
           <td valign="top"><br>
           </td>
           <td valign="top"><br>
           </td>
+          <td valign="top">x<br>
+          </td>
           <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top">x<br>
           </td>
           <td valign="top"><br>
           </td>
@@ -2156,33 +2118,45 @@
         <tr>
           <td bgcolor="#cccccc" valign="top">T6.4<br>
           </td>
-          <td valign="top">X<br>
-          </td>
-          <td valign="top">X<br>
-          </td>
           <td valign="top"><br>
           </td>
           <td valign="top"><br>
           </td>
           <td valign="top"><br>
           </td>
-          <td valign="top">X<br>
+          <td valign="top"><br>
           </td>
-          <td valign="top">X<br>
+          <td valign="top"><br>
           </td>
-          <td valign="top">X<br>
+          <td valign="top">x<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top">x<br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
           </td>
         </tr>
         <tr>
           <td bgcolor="#cccccc" valign="top">T6.5<br>
           </td>
-          <td valign="top">X<br>
+          <td valign="top"><br>
           </td>
           <td valign="top"><br>
           </td>
-          <td valign="top">X<br>
+          <td valign="top"><br>
           </td>
           <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top">x<br>
           </td>
           <td valign="top"><br>
           </td>
@@ -2196,17 +2170,23 @@
         <tr>
           <td bgcolor="#cccccc" valign="top">T6.6<br>
           </td>
-          <td valign="top">X<br>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
           </td>
           <td valign="top"><br>
           </td>
           <td valign="top"><br>
           </td>
-          <td valign="top">X<br>
-          </td>
           <td valign="top"><br>
           </td>
           <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top">x<br>
+          </td>
+          <td valign="top">x<br>
           </td>
           <td valign="top"><br>
           </td>
@@ -2216,19 +2196,25 @@
         <tr>
           <td bgcolor="#cccccc" valign="top">T6.7<br>
           </td>
-          <td valign="top">X<br>
-          </td>
           <td valign="top"><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top">X<br>
           </td>
           <td valign="top"><br>
           </td>
           <td valign="top"><br>
           </td>
           <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
+          <td valign="top">x<br>
           </td>
           <td valign="top"><br>
           </td>
@@ -2236,11 +2222,7 @@
         <tr>
           <td bgcolor="#cccccc" valign="top">T6.8<br>
           </td>
-          <td valign="top">X<br>
-          </td>
           <td valign="top"><br>
-          </td>
-          <td valign="top">X<br>
           </td>
           <td valign="top"><br>
           </td>
@@ -2252,45 +2234,15 @@
           </td>
           <td valign="top"><br>
           </td>
-        </tr>
-        <tr>
-          <td bgcolor="#cccccc" valign="top">T6.9<br>
-          </td>
-          <td valign="top">X<br>
-          </td>
           <td valign="top"><br>
           </td>
           <td valign="top"><br>
           </td>
           <td valign="top"><br>
           </td>
-          <td valign="top">X<br>
+          <td valign="top">x<br>
           </td>
           <td valign="top"><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-        </tr>
-        <tr>
-          <td bgcolor="#cccccc" valign="top">T6.10<br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top">X<br>
-          </td>
-          <td valign="top">X<br>
-          </td>
-          <td valign="top">X<br>
           </td>
         </tr>
       </tbody>
