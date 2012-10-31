@@ -32,6 +32,11 @@ import java.util.HashMap;
  */
 public class Utility {
 
+    /**
+     * ************************************************************************
+     * DoorClosed
+     * ************************************************************************
+     */
     public static class DoorClosedArray {
 
         /* Design decision:  since the Hallway enum contains special cases such 
@@ -113,6 +118,11 @@ public class Utility {
         }
     }
 
+    /**
+     * ************************************************************************
+     * CarCall
+     * ************************************************************************
+     */
     public static class CarCallArray {
 
         public final int numFloors = Elevator.numFloors;
@@ -152,6 +162,11 @@ public class Utility {
     }
 
 
+    /**
+     * ************************************************************************
+     * HallCall
+     * ************************************************************************
+     */
     public static class HallCallArray {
         public final int numFloors = Elevator.numFloors;
         public HallCallFloorArray[] translatorArray;
@@ -262,7 +277,11 @@ public class Utility {
 
     }
 
-
+    /**
+     * ************************************************************************
+     * AtFloor
+     * ************************************************************************
+     */
     public static class AtFloorArray {
 
         public HashMap<Integer, AtFloorCanPayloadTranslator> networkAtFloorsTranslators = new HashMap<Integer, AtFloorCanPayloadTranslator>();
@@ -307,6 +326,11 @@ public class Utility {
         }
     }
 
+    /**
+     * ************************************************************************
+     * CommitPoint calculation
+     * ************************************************************************
+     */
     public static class CommitPointCalculator {
 
         private CarLevelPositionCanPayloadTranslator mCarLevelPosition;
