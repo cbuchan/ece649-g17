@@ -11,7 +11,9 @@
 package simulator.elevatorcontrol;
 
 import simulator.elevatormodules.AtFloorCanPayloadTranslator;
+import simulator.elevatormodules.CarLevelPositionCanPayloadTranslator;
 import simulator.elevatormodules.DoorClosedCanPayloadTranslator;
+import simulator.elevatormodules.DriveObject;
 import simulator.framework.*;
 import simulator.payloads.CANNetwork.CanConnection;
 import simulator.payloads.CanMailbox;
@@ -303,5 +305,56 @@ public class Utility {
             }
             return retval;
         }
+    }
+
+    public static class CommitPointCalculator {
+
+        private CarLevelPositionCanPayloadTranslator mCarLevelPosition;
+
+        public CommitPointCalculator(CanConnection conn) {
+
+            ReadableCanMailbox networkCarLevelPosition =
+                    CanMailbox.getReadableCanMailbox(MessageDictionary.CAR_POSITION_CAN_ID);
+
+            mCarLevelPosition =
+                    new CarLevelPositionCanPayloadTranslator(networkCarLevelPosition);
+
+            conn.registerTimeTriggered(networkCarLevelPosition);
+
+        }
+
+        //Returns whether commit point has been reached for floor f based on current pos, speed, dir of car in hoistway.
+        //Assumes f is towards the direction that car is traveling in.
+        public Boolean commitPoint(int f, Direction driveSpeed_d, double driveSpeed_s){
+            int dir = driveSpeed_d==Direction.UP ? 1 : -1;     //sign determined by current direction
+            double speed = driveSpeed_s;
+            double pos = mCarLevelPosition.getPosition();
+            double fPos = (f-1)*Elevator.DISTANCE_BETWEEN_FLOORS;
+            double commitPt = pos;
+
+            double decel = DriveObject.Deceleration;
+            double slow = DriveObject.SlowSpeed;
+            double stop = DriveObject.StopSpeed;
+
+            if (speed > slow){
+                commitPt += dir * (1/decel) *
+                        ( speed*(speed-slow) + slow*(slow-stop)
+                                - 0.5 * ( (speed-slow)*(speed-slow) + (slow-stop)*(slow-stop)) );
+            } else if (speed > stop){
+                commitPt += dir * (1/decel) *
+                        ( speed*(speed-stop)
+                                - 0.5 * (speed-stop)*(speed-stop) );
+            }
+
+            if (dir==1){
+                if (fPos > commitPt) return false; //not reached
+            }
+            else if (dir==-1){
+                if (fPos < commitPt) return false; //not reached
+            }
+            return true; //reached
+        }
+
+
     }
 }

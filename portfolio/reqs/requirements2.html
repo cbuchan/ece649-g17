@@ -1821,9 +1821,8 @@
     is no longer overloaded.
     <h3>TIME-TRIGGERED BEHAVIORS:</h3>
     <p><br>
-      6.6 &nbsp;&nbsp; LevelDir, DriveDir, CurrentFloor, CommitPoint
-      shall be updated every Drive period using the input interface of
-      Drive.<br>
+      6.6 &nbsp;&nbsp; DriveDir, CurrentFloor shall be updated every
+      Drive period using the input interface of Drive.<br>
       6.7&nbsp;&nbsp;&nbsp; If DriveSpeed is (0, STOP):<br>
       &nbsp; 6.7.1 &nbsp;&nbsp; If mLevel[Up] is False and mLevel[Down]
       is True, Drive[s,d] shall be commanded to (Level, Up).<br>
@@ -1854,8 +1853,137 @@
       correspond to the value of DriveSpeed[s,d]<br>
     </p>
     <h3>STATECHART: </h3>
-    <img alt="SC_DriveControl" src="SC_DriveControl.png" height="983"
+    <img alt="SC_DriveControl" src="SC_DriveControl.png" height="343"
       width="1023"><br>
+    <br>
+    <table style="text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="306" width="952">
+      <tbody>
+        <tr>
+          <td style="vertical-align: top; font-weight: bold;
+            background-color: rgb(204, 204, 204);">Transition<br>
+          </td>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);"><span style="font-weight: bold;">Condition</span><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">T6.1</td>
+          <td style="vertical-align: top;">DriveDir == Stop &amp;&amp;
+            mLevel[*] ~= True<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">T6.2<br>
+          </td>
+          <td valign="top">DriveDir == Stop &amp;&amp; mLevel[*] == True
+            <br>
+            || mEmergencyBrake[b] == True<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">T6.3<br>
+          </td>
+          <td valign="top">DriveDir ~= Stop &amp;&amp; mDoorClosed[*,*]
+            == True <br>
+            &amp;&amp; mEmergencyBrake[b] == False<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">T6.4</td>
+          <td style="vertical-align: top;">DriveDir == Stop &amp;&amp;
+            mLevel[*] ~= True <br>
+            || mCarWeight(x) &gt;= MaxCarCapacity<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">T6.5</td>
+          <td style="vertical-align: top;">DriveDir ~= Stop &amp;&amp;
+            CommitPoint[f] == NotReached &amp;&amp; mDesiredFloor.f == f<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">T6.6</td>
+          <td style="vertical-align: top;">DriveDir ~= Stop &amp;&amp;
+            CommitPoint[f] == Reached &amp;&amp; mDesiredFloor.f == f <br>
+            || mCarWeight(x) &gt;= MaxCarCapacity<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">T6.7<br>
+          </td>
+          <td valign="top">mEmergencyBrake[b] == True<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">T6.8<br>
+          </td>
+          <td valign="top">mEmergencyBrake[b] == True</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>MACROS</strong>:</p>
+    <table style="text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="378" width="952">
+      <tbody>
+        <tr>
+          <td style="vertical-align: top; font-weight: bold;
+            background-color: rgb(204, 204, 204);">Macro<br>
+          </td>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);"><span style="font-weight: bold;">Value</span><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">LevelDir</td>
+          <td style="vertical-align: top;">Up&nbsp;&nbsp;&nbsp;&nbsp; :
+            mLevel[Up] == False &amp;&amp; mLevel[Down] == True<br>
+            Down : mLevel[Up] == True&nbsp; &amp;&amp; mLevel[Down] ==
+            False<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">DriveDir<br>
+          </td>
+          <td valign="top">Up&nbsp;&nbsp;&nbsp;&nbsp; : CurrentFloor
+            &lt; mDesiredFloor.f<br>
+            Down : CurrentFloor &gt; mDesiredFloor.f<br>
+            Stop&nbsp; : CurrentFloor == mDesiredFloor.f<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">CurrentFloor<br>
+          </td>
+          <td valign="top">f where mAtFloor[f,b] == True<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">CommitPoint</td>
+          <td style="vertical-align: top;">DriveSpeed == Fast:<br>
+            mCarLevelPosition(x) + (1/Deceleration) * [ FastSpeed *
+            (FastSpeed - SlowSpeed) + SlowSpeed * (SlowSpeed -
+            StopSpeed)<br>
+            - 0.5 * ( (FastSpeed - SlowSpeed)^2&nbsp; + (SlowSpeed -
+            StopSpeed)^2) ]<br>
+            DriveSpeed == Slow:<br>
+            mCarLevelPosition(x) + (1/Deceleration) * [ SlowSpeed *
+            (SlowSpeed - StopSpeed) <br>
+            - 0.5 * (SlowSpeed - StopSpeed)^2) ]<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">CommitPoint[f]<br>
+          </td>
+          <td valign="top">Reached&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;
+            f &lt;=* CommitPoint<br>
+            NotReached :&nbsp; f &gt;* CommitPoint<br>
+            * here we define the relations &lt; or &gt; depending on
+            Drive direction.<br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
     <h3>REQUIREMENTS TO STATECHART TRACEABILITY:</h3>
     <span style="color: rgb(0, 0, 0); font-family: Times; font-size:
       medium; font-style: normal; font-variant: normal; font-weight:
@@ -3217,16 +3345,21 @@
         </tr>
         <tr>
           <td style="vertical-align: top;">T11.4</td>
-          <td style="vertical-align: top;">anyUpCall(CurrentFloor) || anyDownCall(CurrentFloor) &amp;&amp; any mDoorClosed[b,r] == false<br>
+          <td style="vertical-align: top;">anyUpCall(CurrentFloor) ||
+            anyDownCall(CurrentFloor) &amp;&amp; any mDoorClosed[b,r] ==
+            false<br>
           </td>
         </tr>
         <tr>
           <td style="vertical-align: top;">T11.5</td>
-          <td style="vertical-align: top;">~anyUpCall(CurrentFloor) &amp;&amp; ~anyDownCall(CurrentFloor) &amp;&amp; any mDoorClosed[b,r] == false</td>
+          <td style="vertical-align: top;">~anyUpCall(CurrentFloor)
+            &amp;&amp; ~anyDownCall(CurrentFloor) &amp;&amp; any
+            mDoorClosed[b,r] == false</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">T11.6</td>
-          <td style="vertical-align: top;">all mAtFloor[b,r] == false &amp;&amp; any mDoorClosed[b,r] == false</td>
+          <td style="vertical-align: top;">all mAtFloor[b,r] == false
+            &amp;&amp; any mDoorClosed[b,r] == false</td>
         </tr>
       </tbody>
     </table>
@@ -3236,41 +3369,53 @@
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
-            background-color: rgb(204, 204, 204);">Macro<br></td>
+            background-color: rgb(204, 204, 204);">Macro<br>
+          </td>
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);"><span style="font-weight: bold;">Value</span><br></td>
+            204, 204);"><span style="font-weight: bold;">Value</span><br>
+          </td>
         </tr>
         <tr>
           <td style="vertical-align: top;">CurrentFloor</td>
-          <td style="vertical-align: top;">value of f of whichever mAtFloor[f,b] true, if any. Set to None if all mAtFloor[f,b] false. </td>
+          <td style="vertical-align: top;">value of f of whichever
+            mAtFloor[f,b] true, if any. Set to None if all mAtFloor[f,b]
+            false. </td>
         </tr>
         <tr>
-          <td valign="top">anyUpCall(CommitPoint)<br></td>
-          <td valign="top">(any mHallCall[f,b,UP] == true || any mCarCall[f,b] == true) where CommitPoint &gt;= f</td>
+          <td valign="top">anyUpCall(CommitPoint)<br>
+          </td>
+          <td valign="top">(any mHallCall[f,b,UP] == true || any
+            mCarCall[f,b] == true) where CommitPoint &gt;= f</td>
         </tr>
         <tr>
-          <td valign="top">anyDownCall(CommitPoint)<br></td>
-          <td valign="top">(any mHallCall[f,b,DOWN] == true || any mCarCall[f,b] == true) where CommitPoint &lt; f</td>
+          <td valign="top">anyDownCall(CommitPoint)<br>
+          </td>
+          <td valign="top">(any mHallCall[f,b,DOWN] == true || any
+            mCarCall[f,b] == true) where CommitPoint &lt; f</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">nextUpCall(CommitPoint)</td>
-          <td style="vertical-align: top;">min(HallCall[f,b,UP], CarCall[f,b]) where f &gt;= CommitPoint</td>
+          <td style="vertical-align: top;">min(HallCall[f,b,UP],
+            CarCall[f,b]) where f &gt;= CommitPoint</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">nextDownCall(CommitPoint)</td>
-          <td style="vertical-align: top;">max(HallCall[f,b,DOWN], CarCall[f,b]) where f &lt;= CommitPoint</td>
+          <td style="vertical-align: top;">max(HallCall[f,b,DOWN],
+            CarCall[f,b]) where f &lt;= CommitPoint</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">closestCall</td>
-          <td style="vertical-align: top;">value of f of the nearest floor, arbitrarily biased towards UP in the event of a tie</td>
+          <td style="vertical-align: top;">value of f of the nearest
+            floor, arbitrarily biased towards UP in the event of a tie</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">getHalls(TargetFloor)</td>
-          <td style="vertical-align: top;">halls where calls exist on the given floor</td>
+          <td style="vertical-align: top;">halls where calls exist on
+            the given floor</td>
         </tr>
       </tbody>
     </table>
-    <h3>REQUIREMENTS TO STATECHART TRACEABILITY:    </h3>
+    <h3>REQUIREMENTS TO STATECHART TRACEABILITY: </h3>
     <p><span style="color: rgb(0, 0, 0); font-family: Times; font-size:
         medium; font-style: normal; font-variant: normal; font-weight:
         normal; letter-spacing: normal; line-height: normal; orphans: 2;
@@ -3306,7 +3451,8 @@
           <td bgcolor="#cccccc" valign="top">BR11.7.1</td>
           <td bgcolor="#cccccc" valign="top">BR11.7.2</td>
           <td bgcolor="#cccccc" valign="top">BR11.7.3</td>
-          <td bgcolor="#cccccc" valign="top">BR11.8.1<br></td>
+          <td bgcolor="#cccccc" valign="top">BR11.8.1<br>
+          </td>
           <td bgcolor="#cccccc" valign="top">BR11.8.2</td>
           <td bgcolor="#cccccc" valign="top">BR11.9.1</td>
           <td bgcolor="#cccccc" valign="top">BR11.9.2</td>
@@ -3519,6 +3665,6 @@
       </tbody>
     </table>
     <p><br>
-  &nbsp; </p>
+      &nbsp; </p>
   </body>
 </html>
