@@ -231,7 +231,7 @@ public class DriveControl extends Controller {
                 //state actions for DRIVE_STOPPED
                 localDrive.set(Speed.STOP, Direction.STOP);
                 mDrive.set(Speed.STOP, Direction.STOP);
-                mDriveSpeed.set(Speed.STOP, Direction.STOP);
+                mDriveSpeed.set(localDriveSpeed.speed(), localDriveSpeed.direction());
 
                 //transitions
 
@@ -258,7 +258,7 @@ public class DriveControl extends Controller {
                 //state actions for DRIVE_LEVEL
                 localDrive.set(Speed.LEVEL, levelDir);
                 mDrive.set(Speed.LEVEL, levelDir);
-                mDriveSpeed.set(Speed.LEVEL, levelDir);
+                mDriveSpeed.set(localDriveSpeed.speed(), localDriveSpeed.direction());
 
                 //transitions
 
@@ -279,7 +279,7 @@ public class DriveControl extends Controller {
                 //state actions for DRIVE_SLOW
                 localDrive.set(Speed.SLOW, driveDir);
                 mDrive.set(Speed.SLOW, driveDir);
-                mDriveSpeed.set(Speed.SLOW, driveDir);
+                mDriveSpeed.set(localDriveSpeed.speed(), localDriveSpeed.direction());
 
                 //transitions
 
@@ -312,7 +312,7 @@ public class DriveControl extends Controller {
                 //state actions for DRIVE_FAST
                 localDrive.set(Speed.FAST, driveDir);
                 mDrive.set(Speed.FAST, driveDir);
-                mDriveSpeed.set(Speed.FAST, driveDir);
+                mDriveSpeed.set(localDriveSpeed.speed(), localDriveSpeed.direction());
 
                 //transitions
 
