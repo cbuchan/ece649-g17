@@ -2896,8 +2896,7 @@
       &nbsp;&nbsp;&nbsp; 9.2.3 mCarCall[<b>f</b>,<b>b</b>] shall be set
       to false.</p>
     <h3>STATECHART: </h3>
-    <img alt="SC_CarButtonControl" src="SC_CarButtonControl.png"
-      height="385" width="670">
+    <img alt="SC_CarButtonControl" src="SC_CarButtonControl.png">
     <table style="text-align: left; width: 800px;" border="1"
       cellpadding="2" cellspacing="2">
       <tbody>
@@ -3084,10 +3083,12 @@
       <li>CurrentFloor, is a shorthand notation for the value f of
         whichever mAtFloor[f, b] is True, if any.&nbsp; If CurrentFloor
         is invalid it has a mnemonic value of None.</li>
-      <li>CommitPoint[f](v); v = {Reached, NotReached} calculated based
-        on car's acceleration profile, current speed, and distance from
-        the floor f, to determine whether or not the car can still stop
-        at the next floor. </li>
+      <li>CommitedFloor, a macro which returns the most recently commited 
+        floor.  This is the highest floor for which the commit point has 
+        been reached if the elevator is traveling up, or the lowest floor 
+        for which the commit point has been reached if the elevator is 
+        travelling down.  See DriveControl for definition of commit 
+        points.</li>
     </ul>
     <h3> CONSTRAINTS: </h3>
     10.1&nbsp;&nbsp;&nbsp; The Car can be at only one position at a
@@ -3113,12 +3114,11 @@
     Reached<br>
     <br>
     <h3>STATECHART: </h3>
-    <img alt="SC_CarPositionControl" src="SC_CarPositionControl.png"
-      height="337" width="466"><br>
+    <img alt="SC_CarPositionControl" src="SC_CarPositionControl.png"><br>
     <br>
     <br>
     <table style="text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="58" width="324">
+      cellspacing="2" height="58">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -3129,8 +3129,12 @@
           </td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">N/A</td>
-          <td style="vertical-align: top;">N/A</td>
+          <td style="vertical-align: top;">T10.1</td>
+          <td style="vertical-align: top;">All mAtFloor[f] == false</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">T10.2</td>
+          <td style="vertical-align: top;">Any mAtFloor[f] == true</td>
         </tr>
       </tbody>
     </table>
@@ -3142,34 +3146,60 @@
         text-align: start; text-indent: 0px; text-transform: none;
         white-space: normal; widows: 2; word-spacing: 0px;
         -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;
-        display: inline !important; float: none; ">Completed by: Jesse
-        Salazar (jessesal)<br>
+        display: inline !important; float: none; ">Completed by: Rajeev Sharma (rdsharma)<br>
       </span></p>
     <table style="text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="86" width="304">
+      cellspacing="2" height="233">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);"><br>
-          </td>
-          <td colspan="1" rowspan="1" style="vertical-align: top;
-            background-color: rgb(204, 204, 204);">Requirements<br>
-          </td>
+            204, 204);"><br></td>
+          <td colspan="3" rowspan="1" style="vertical-align: top;
+            background-color: rgb(204, 204, 204);">Requirements<br></td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);"><span style="font-weight: bold;">States</span><br>
-          </td>
+            204, 204);"><span style="font-weight: bold;">States</span><br></td>
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);">10.4<br>
-          </td>
+            204, 204);">BR10.4<br></td>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);">BR10.5<br></td>
+          <td valign="top" bgcolor="#cccccc">BR10.6<br></td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);">State DISPLAY_FLOOR<br>
-          </td>
-          <td style="vertical-align: top;">X<br>
-          </td>
+            204, 204);">State DISPLAY_FLOOR<br></td>
+          <td style="vertical-align: top;">X</td>
+          <td style="vertical-align: top;"><br></td>
+          <td valign="top"><br></td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);">State DISPLAY_COMMIT_POINT<br></td>
+          <td style="vertical-align: top;"><br></td>
+          <td style="vertical-align: top;">X<br></td>
+          <td valign="top">X<br></td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);"><span style="font-weight: bold;">Transitions</span><br></td>
+          <td style="vertical-align: top;" bgcolor="#cccccc"><br></td>
+          <td style="vertical-align: top;" bgcolor="#cccccc"><br></td>
+          <td valign="top" bgcolor="#cccccc"><br></td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);">T10.1<br></td>
+          <td style="vertical-align: top;"><br></td>
+          <td style="vertical-align: top;">X<br></td>
+          <td valign="top">X<br></td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204);">T10.2<br></td>
+          <td style="vertical-align: top;">X<br></td>
+          <td style="vertical-align: top;"><br></td>
+          <td valign="top"><br></td>
         </tr>
       </tbody>
     </table>
