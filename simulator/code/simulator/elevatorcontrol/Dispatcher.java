@@ -10,15 +10,16 @@
 package simulator.elevatorcontrol;
 
 import jSimPack.SimTime;
-import simulator.elevatorcontrol.Utility.AtFloorArray;
-import simulator.elevatorcontrol.Utility.CarCallArray;
-import simulator.elevatorcontrol.Utility.DoorClosedArray;
-import simulator.elevatorcontrol.Utility.HallCallArray;
+import simulator.elevatorcontrol.Utility.*;
 import simulator.elevatormodules.CarWeightCanPayloadTranslator;
-import simulator.framework.*;
+import simulator.framework.Controller;
+import simulator.framework.Direction;
+import simulator.framework.Hallway;
+import simulator.framework.ReplicationComputer;
 import simulator.payloads.CanMailbox;
 import simulator.payloads.CanMailbox.ReadableCanMailbox;
 import simulator.payloads.CanMailbox.WriteableCanMailbox;
+import simulator.elevatormodules.CarLevelPositionCanPayloadTranslator;
 
 
 /**
@@ -60,9 +61,16 @@ public class Dispatcher extends Controller {
     private CarCallArray networkCarCallArrayFront;
     private CarCallArray networkCarCallArrayBack;
     private ReadableCanMailbox networkCarWeight;
+    private ReadableCanMailbox networkDriveSpeed;
+    private ReadableCanMailbox networkCarLevelPosition;
 
     //translators for input network messages
     private CarWeightCanPayloadTranslator mCarWeight;
+    private DriveSpeedCanPayloadTranslator mDriveSpeed;
+    private CarLevelPositionCanPayloadTranslator mCarLevelPosition;
+
+    // CommitPoint interface
+    private CommitPointCalculator commitPointCalculator;
 
     //these variables keep track of which instance this is.
     private final int numFloors;
@@ -85,6 +93,7 @@ public class Dispatcher extends Controller {
     private Hallway targetHallway;
     private Direction direction;
     private int commitPoint;
+
 
     /**
      * The arguments listed in the .cf configuration file should match the order and
@@ -219,7 +228,7 @@ public class Dispatcher extends Controller {
             case STATE_COMPUTE_NEXT:
 
                 //TODO: calculate commit point based on mDriveSpeed and CarLevelPosition
-
+                //commitPoint = commitPointCalculator.nextReachableFloor(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
                 //state actions for STATE_COMPUTE_NEXT
                 targetFloor = computeNextFloor(commitPoint, direction);
 
