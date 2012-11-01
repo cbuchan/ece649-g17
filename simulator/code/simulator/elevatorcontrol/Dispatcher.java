@@ -146,24 +146,32 @@ public class Dispatcher extends Controller {
         canInterface.sendTimeTriggered(networkDesiredDwellBack, period);
 
         /*
-         * To register for network messages from the smart sensors or other objects
-         * defined in elevator modules, use the translators already defined in
-         * elevatormodules package.  These translators are specific to one type
-         * of message.
-         */
+        * To register for network messages from the smart sensors or other objects
+        * defined in elevator modules, use the translators already defined in
+        * elevatormodules package.  These translators are specific to one type
+        * of message.
+        */
         networkAtFloorArray = new AtFloorArray(canInterface);
         networkDoorClosed = new DoorClosedArray(canInterface);
         networkHallCallArray = new HallCallArray(canInterface);
         networkCarCallArrayFront = new CarCallArray(Hallway.FRONT, canInterface);
         networkCarCallArrayBack = new CarCallArray(Hallway.BACK, canInterface);
-        networkCarWeight =
-                CanMailbox.getReadableCanMailbox(MessageDictionary.CAR_WEIGHT_CAN_ID);
+        networkCarWeight = CanMailbox.getReadableCanMailbox(MessageDictionary.CAR_WEIGHT_CAN_ID);
+        networkDriveSpeed = CanMailbox.getReadableCanMailbox(MessageDictionary.DRIVE_SPEED_CAN_ID);
+        networkCarLevelPosition = CanMailbox.getReadableCanMailbox(MessageDictionary.CAR_LEVEL_POSITION_CAN_ID);
 
+        // translators
         mCarWeight = new CarWeightCanPayloadTranslator(networkCarWeight);
+        mDriveSpeed = new DriveSpeedCanPayloadTranslator(networkDriveSpeed);
+        mCarLevelPosition = new CarLevelPositionCanPayloadTranslator(networkCarLevelPosition);
 
         //register to receive periodic updates to the mailbox via the CAN network
         //the period of updates will be determined by the sender of the message
         canInterface.registerTimeTriggered(networkCarWeight);
+        canInterface.registerTimeTriggered(networkDriveSpeed);
+        canInterface.registerTimeTriggered(networkCarLevelPosition);
+
+        commitPointCalculator = new CommitPointCalculator(canInterface);
 
         /* issuing the timer start method with no callback data means a NULL value 
         * will be passed to the callback later.  Use the callback data to distinguish
@@ -227,8 +235,8 @@ public class Dispatcher extends Controller {
 
             case STATE_COMPUTE_NEXT:
 
-                //TODO: calculate commit point based on mDriveSpeed and CarLevelPosition
-                //commitPoint = commitPointCalculator.nextReachableFloor(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
+                commitPoint = commitPointCalculator.nextReachableFloor(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
+
                 //state actions for STATE_COMPUTE_NEXT
                 targetFloor = computeNextFloor(commitPoint, direction);
 
