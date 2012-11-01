@@ -338,7 +338,7 @@ public class Utility {
         public CommitPointCalculator(CanConnection conn) {
 
             ReadableCanMailbox networkCarLevelPosition =
-                    CanMailbox.getReadableCanMailbox(MessageDictionary.CAR_POSITION_CAN_ID);
+                    CanMailbox.getReadableCanMailbox(MessageDictionary.CAR_LEVEL_POSITION_CAN_ID);
 
             mCarLevelPosition =
                     new CarLevelPositionCanPayloadTranslator(networkCarLevelPosition);
