@@ -349,36 +349,54 @@ public class Utility {
 
         //Returns whether commit point has been reached for floor f based on current pos, speed, dir of car in hoistway.
         //Assumes f is towards the direction that car is traveling in.
-        public Boolean commitPoint(int f, Direction driveSpeed_d, double driveSpeed_s){
-            int dir = driveSpeed_d==Direction.UP ? 1 : -1;     //sign determined by current direction
+        public Boolean commitPoint(int f, Direction driveSpeed_d, double driveSpeed_s) {
+            int dir = driveSpeed_d == Direction.UP ? 1 : -1;     //sign determined by current direction
             double speed = driveSpeed_s;
             double pos = mCarLevelPosition.getPosition();
-            double fPos = (f-1)*Elevator.DISTANCE_BETWEEN_FLOORS;
+            double fPos = (f - 1) * Elevator.DISTANCE_BETWEEN_FLOORS;
             double commitPt = pos;
 
             double decel = DriveObject.Deceleration;
             double slow = DriveObject.SlowSpeed;
             double stop = DriveObject.StopSpeed;
 
-            if (speed > slow){
-                commitPt += dir * (1/decel) *
-                        ( speed*(speed-slow) + slow*(slow-stop)
-                                - 0.5 * ( (speed-slow)*(speed-slow) + (slow-stop)*(slow-stop)) );
-            } else if (speed > stop){
-                commitPt += dir * (1/decel) *
-                        ( speed*(speed-stop)
-                                - 0.5 * (speed-stop)*(speed-stop) );
+            if (speed > slow) {
+                commitPt += dir * (1 / decel) *
+                        (speed * (speed - slow) + slow * (slow - stop)
+                                - 0.5 * ((speed - slow) * (speed - slow) + (slow - stop) * (slow - stop)));
+            } else if (speed > stop) {
+                commitPt += dir * (1 / decel) *
+                        (speed * (speed - stop)
+                                - 0.5 * (speed - stop) * (speed - stop));
             }
 
-            if (dir==1){
+            if (dir == 1) {
                 if (fPos > commitPt) return false; //not reached
-            }
-            else if (dir==-1){
+            } else if (dir == -1) {
                 if (fPos < commitPt) return false; //not reached
             }
             return true; //reached
         }
 
-
+        public int nextReachableFloor(Direction driveSpeed_d, double driveSpeed_s) {
+            // Returns the lowest "Not Reached" floor
+            if (driveSpeed_d == Direction.UP) {
+                for (int i = 1; i < Elevator.numFloors; i++) {
+                    if (commitPoint(i, driveSpeed_d, driveSpeed_s) == false) {
+                        return i; //Found the closest "Not Reached"
+                    }
+                }
+            }
+            // Returns the highest "Not Reached" floor
+            else if (driveSpeed_d == Direction.DOWN) {
+                for (int i = Elevator.numFloors; i >= 1; i--) {
+                    if (commitPoint(i, driveSpeed_d, driveSpeed_s) == false) {
+                        return i; //Found the closest "Not Reached"
+                    }
+                }
+            }
+            // Failed to find a floor. Try to return the nearest floor
+            return (int) (mCarLevelPosition.getPosition() / Elevator.DISTANCE_BETWEEN_FLOORS);
+        }
     }
 }
