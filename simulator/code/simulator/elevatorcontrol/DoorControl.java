@@ -362,7 +362,7 @@ public class DoorControl extends Controller {
     }
 
     private Boolean isStopped() {
-        return mDriveSpeed.getSpeed() == Speed.STOP;
+        return mDriveSpeed.getSpeed() == 0.0;
     }
 
     private Boolean isOverweight() {
