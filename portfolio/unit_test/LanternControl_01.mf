@@ -34,6 +34,9 @@
 +0s    A N CAR_LANTERN_[UP]_CAN_ID Boolean : getValue == FALSE
 
 ;open a door to set conditions for T7.1
+; *****REPLACE THIS LINE TO MAKE PASS*****
++0.09s I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
++0s    I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 3 FRONT UP
 +0.09s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
 
 ;#transition T7.1

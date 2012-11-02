@@ -16,6 +16,9 @@ import simulator.payloads.CanMailbox.WriteableCanMailbox;
 import simulator.payloads.CarLanternPayload;
 import simulator.payloads.CarLanternPayload.WriteableCarLanternPayload;
 import simulator.payloads.translators.BooleanCanPayloadTranslator;
+import simulator.elevatorcontrol.Utility.AtFloorArray;
+import simulator.elevatormodules.AtFloorCanPayloadTranslator;
+
 
 /**
  * LanternControl controls the light within the car which shows passengers
@@ -43,8 +46,8 @@ public class LanternControl extends Controller {
     private ReadableCanMailbox networkDesiredFloor;
     private DesiredFloorCanPayloadTranslator mDesiredFloor;
 
-    //Readd when used
-    //private Utility.AtFloorArray networkAtFloorArray;
+    //Read when used
+    private Utility.AtFloorArray networkAtFloorArray;
 
     //these variables keep track of which instance this is.
     private final Direction direction;
@@ -62,6 +65,7 @@ public class LanternControl extends Controller {
 
     //state variable initialized to the initial state DOOR_CLOSING
     private State state = State.STATE_CAR_LANTERN_OFF;
+	private int desiredFloor; 
 
     /**
      * The arguments listed in the .cf configuration file should match the order and
@@ -101,7 +105,7 @@ public class LanternControl extends Controller {
         canInterface.registerTimeTriggered(networkDesiredFloor);
 
         // Readd when used
-        //networkAtFloorArray = new Utility.AtFloorArray(canInterface);
+        networkAtFloorArray = new Utility.AtFloorArray(canInterface);
 
         timer.start(period);
     }
@@ -117,6 +121,9 @@ public class LanternControl extends Controller {
         State newState = state;
         switch (state) {
             case STATE_CAR_LANTERN_OFF:
+				
+				desiredFloor = mDesiredFloor.getFloor();
+				
                 //state actions
                 localCarLantern.set(false);
                 mCarLantern.set(false);
@@ -124,7 +131,7 @@ public class LanternControl extends Controller {
                 //transitions -- note that transition conditions are mutually exclusive
                 //#transition 'T7.1'
                 //if any mDoorClosed[b,r] == false && mDesiredFloor.d == d
-                if ((!networkDoorClosedArray.getAllClosed())
+                if ((networkAtFloorArray.getCurrentFloor() == desiredFloor)
                         && (mDesiredFloor.getDirection() == direction)) {
                     newState = State.STATE_CAR_LANTERN_ON;
                 } else {
