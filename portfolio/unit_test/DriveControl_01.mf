@@ -62,7 +62,7 @@
 +0s	A F Drive : direction == UP
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == LEVEL
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == UP
-+0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed > 0.0
++0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed == 0.05
 +0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == UP
 ;===================================4.0======================================
 
@@ -145,7 +145,7 @@
 +0s	A F Drive : direction == UP
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == SLOW
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == UP
-+0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed > 0.0
++0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed <= 0.25
 +0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == UP
 ;=================================12.0========================================
 
