@@ -398,5 +398,26 @@ public class Utility {
             // Failed to find a floor. Try to return the nearest floor
             return (int) (mCarLevelPosition.getPosition() / Elevator.DISTANCE_BETWEEN_FLOORS);
         }
+
+        public int getCommitedFloor(Direction driveSpeed_d, double driveSpeed_s) {
+            // Returns the highest "reached" floor
+            if (driveSpeed_d == Direction.UP) {
+                for (int i = Elevator.numFloors; i >= 1; i--) {
+                    if (commitPoint(i, driveSpeed_d, driveSpeed_s) == true) {
+                        return i; //Found the highest "reached"
+                    }
+                }
+            }
+            // Returns the lowest "reached" floor
+            else if (driveSpeed_d == Direction.DOWN) {
+                for (int i = 1; i < Elevator.numFloors; i++) {
+                    if (commitPoint(i, driveSpeed_d, driveSpeed_s) == true) {
+                        return i; //Found the lowest "reached"
+                    }
+                }
+            }
+            // Failed to find a floor. Try to return the nearest floor
+            return (int) (mCarLevelPosition.getPosition() / Elevator.DISTANCE_BETWEEN_FLOORS);
+        }
     }
 }
