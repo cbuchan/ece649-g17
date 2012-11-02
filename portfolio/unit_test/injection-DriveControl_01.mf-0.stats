@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf DriveControl.cf -mf DriveControl_01.mf
-RandomSeed = 1351112106163
+RandomSeed = 1351829839632
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -23,12 +23,12 @@ Assertion Results:
 @1.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@1d5a0305 :: getSpeed ?== STOP PASSED
 @1.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@60765a16 :: getDirection ?== UP PASSED
 @3.0s:  PASSED DriveControl::checkState(STATE) ?== STATE_DRIVE_LEVEL_UP PASSED
-@3.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@19c247a0 :: speed ?== LEVEL PASSED
-@3.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@27431340 :: direction ?== UP PASSED
-@3.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@452bb7e0 :: getSpeed ?== LEVEL PASSED
-@3.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@46e45076 :: getDirection ?== UP PASSED
-@3.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2321ab80 :: getSpeed ?== LEVEL PASSED
-@3.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@152c7568 :: getDirection ?== UP PASSED
+@3.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@54cbf30e :: speed ?== LEVEL PASSED
+@3.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@21ec6696 :: direction ?== UP PASSED
+@3.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@24a4e2e3 :: getSpeed ?== LEVEL PASSED
+@3.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@26fd68b1 :: getDirection ?== UP PASSED
+@3.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@375e9756 :: getSpeed ?== LEVEL PASSED
+@3.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@77827284 :: getDirection ?== UP PASSED
 @5.0s:  PASSED DriveControl::checkState(STATE) ?== STATE_DRIVE_LEVEL_DOWN PASSED
 @5.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@13b8f864 :: speed ?== LEVEL PASSED
 @5.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@5f989f84 :: direction ?== DOWN PASSED
