@@ -17,38 +17,49 @@
 #INCLUDE defines.mf ;include CAN id and period definitions
 
 ;initialize
-0s   I  AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
-+0s  I  AT_FLOOR_PERIOD N AT_FLOOR_[1][BACK]_CAN_ID AtFloor 1 BACK = true
-+0s  I  AT_FLOOR_PERIOD N AT_FLOOR_[2][BACK]_CAN_ID AtFloor 2 BACK = false
+0s     I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
++0s    I AT_FLOOR_PERIOD N AT_FLOOR_[1][BACK]_CAN_ID AtFloor 1 BACK = true
++0s    I AT_FLOOR_PERIOD N AT_FLOOR_[2][BACK]_CAN_ID AtFloor 2 BACK = false
++0s    I DRIVE_PERIOD N DRIVE_SPEED_CAN_ID DriveSpeed = 0.0 STOP
++0s    I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 0
 
-; #state 'DISPLAY_FLOOR'
-; check initialization parameters
-+0.41s  A S CarPositionControl : STATE == STATE_DISPLAY_FLOOR
-+0s  A F CarPositionIndicator : floor == 1
-+0s  A N CAR_POSITION_CAN_ID Integer : getValue == 1
+;check initial state
+;#state 'DISPLAY_FLOOR'
++0.11s A S CarPositionControl : STATE == STATE_DISPLAY_FLOOR
++0s    A F CarPositionIndicator : floor == 1
++0s    A N CAR_POSITION_CAN_ID Integer : getValue == 1
 
-;arrive at a floor
-+0.21s  I  AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = false
-+0s  I  AT_FLOOR_PERIOD N AT_FLOOR_[1][BACK]_CAN_ID AtFloor 1 BACK = false
-+0s  I  AT_FLOOR_PERIOD N AT_FLOOR_[2][BACK]_CAN_ID AtFloor 2 BACK = true
+;set conditions for T10.1
+;start moving away from floor
++0.09s I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = false
++0s    I AT_FLOOR_PERIOD N AT_FLOOR_[1][BACK]_CAN_ID AtFloor 1 BACK = false
++0s    I DRIVE_PERIOD N DRIVE_SPEED_CAN_ID DriveSpeed = 0.1 UP
++0s    I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 1
 
-; #state 'DISPLAY_FLOOR'
-+0.21s  A S CarPositionControl : STATE == STATE_DISPLAY_FLOOR
-+0s  A F CarPositionIndicator : floor == 2
-+0s  A N CAR_POSITION_CAN_ID Integer : getValue == 2
+;#transition T10.1
+;check state
+;#state 'DISPLAY_COMMIT_POINT'
++0.11s A S CarPositionControl : STATE == STATE_DISPLAY_COMMIT_POINT
++0s    A F CarPositionIndicator : floor == 1
++0s    A N CAR_POSITION_CAN_ID Integer : getValue == 1
 
-;travel to next floor...
-+0.21s  I  AT_FLOOR_PERIOD N AT_FLOOR_[2][BACK]_CAN_ID AtFloor 2 BACK = false
+;set conditions to reach next floor via commit point
++0.09s I DRIVE_PERIOD N DRIVE_SPEED_CAN_ID DriveSpeed = 1.5 UP
++0s    I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 4
 
-; #state 'DISPLAY_FLOOR'
-+0.21s  A S CarPositionControl : STATE == STATE_DISPLAY_FLOOR
-+0s  A F CarPositionIndicator : floor == 2
-+0s  A N CAR_POSITION_CAN_ID Integer : getValue == 2
 
-;arrive at next floor...
-+0.21s  I  AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
+;check state
+;#state 'DISPLAY_COMMIT_POINT'
++0.11s A S CarPositionControl : STATE == STATE_DISPLAY_COMMIT_POINT
++0s    A F CarPositionIndicator : floor == 2
++0s    A N CAR_POSITION_CAN_ID Integer : getValue == 2
 
-; #state 'DISPLAY_FLOOR'
-+0.21s  A S CarPositionControl : STATE == STATE_DISPLAY_FLOOR
-+0s  A F CarPositionIndicator : floor == 3
-+0s  A N CAR_POSITION_CAN_ID Integer : getValue == 3
+;set conditions for T10.2
++0.09s I AT_FLOOR_PERIOD N AT_FLOOR_[2][BACK]_CAN_ID AtFloor 2 BACK = true
+
+;#transition T10.2
+;check state
+;#state 'DISPLAY_FLOOR'
++0.11s A S CarPositionControl : STATE == STATE_DISPLAY_FLOOR
++0s    A F CarPositionIndicator : floor == 2
++0s    A N CAR_POSITION_CAN_ID Integer : getValue == 2
