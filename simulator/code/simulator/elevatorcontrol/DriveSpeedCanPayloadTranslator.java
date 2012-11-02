@@ -51,13 +51,12 @@ public class DriveSpeedCanPayloadTranslator extends CanPayloadTranslator {
     
     public void setSpeed(double speed) {
         BitSet b = getMessagePayload();
-        addDoubleToBitset(b, speed, 0, 64);
+        addIntToBitset(b, Float.floatToRawIntBits((float)speed), 0, 32);
         setMessagePayload(b, getByteSize());
     }
 
     public double getSpeed() {
-        double val = getDoubleFromBitset(getMessagePayload(), 0, 64);
-        return val;
+        return (double)Float.intBitsToFloat(getIntFromBitset(getMessagePayload(), 0, 32));
     }
 
     public void setDirection(Direction dir) {
@@ -79,81 +78,5 @@ public class DriveSpeedCanPayloadTranslator extends CanPayloadTranslator {
     @Override
     public String payloadToString() {
         return "DriveSpeed:  speed=" + getSpeed() + " direction=" + getDirection();
-    }
-
-
-
-    public static void addDoubleToBitset(BitSet b, double value, int startLocation,
-                                         int bitSize)
-    {
-
-        long v = Double.doubleToRawLongBits(value);
-
-        if (bitSize > 64)
-        {
-            throw new IllegalArgumentException("bitSize too large");
-        }
-        if (bitSize <= 0)
-        {
-            throw new IllegalArgumentException("bitSize must be positive");
-        }
-        if (bitSize < 64)
-        {
-            // check min/max
-            int max = (int) Math.pow(2.0, bitSize - 1) - 1;
-            int min = -(int) Math.pow(2.0, bitSize - 1);
-            if (v > max)
-            {
-                throw new IllegalArgumentException("Value " + v
-                        + " is too large place into " + bitSize + " bits.");
-            }
-            if (v < min)
-            {
-                throw new IllegalArgumentException("Value " + v
-                        + " is too small to place into " + bitSize + " bits.");
-            }
-        }
-        long mask = 0x1;
-        int bitOffset = startLocation;
-        for (int i = 0; i < bitSize; i++)
-        {
-            b.set(bitOffset, (v & mask) == mask);
-            mask = mask << 1;
-            bitOffset++;
-        }
-    }
-
-    public static double getDoubleFromBitset(BitSet b, int startLocation, int bitSize)
-    {
-        if (bitSize > 64)
-        {
-            throw new RuntimeException("bitSize too large");
-        }
-        if (bitSize <= 0)
-        {
-            throw new RuntimeException("bitSize must be positive");
-        }
-        long value = 0;
-        long mask = 0x1;
-        int bitOffset = startLocation;
-        for (int i = 0; i < bitSize; i++)
-        {
-            if (b.get(bitOffset))
-            {
-                value = value | mask;
-            }
-            mask = mask << 1;
-            bitOffset++;
-        }
-        if (bitSize < 64 && b.get(bitOffset - 1))
-        {
-            // sign extend the result is the top bit was set
-            for (int i = bitSize; i < 64; i++)
-            {
-                value = value | mask;
-                mask = mask << 1;
-            }
-        }
-        return Double.longBitsToDouble(value);
     }
 }
