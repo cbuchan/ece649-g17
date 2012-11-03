@@ -5,7 +5,7 @@
 ; Rajeev Sharma (rdsharma)
 ; * Author
 ; Unit test for DriveControl
-; Last modified 2012-10-09
+; Last modified 2012-Nov-03
 
 ;Note:  Assertions must be inserted more than two periods after a message or physical
 ;value has been inserted to be sure that the change propagates through the system

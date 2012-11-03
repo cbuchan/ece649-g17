@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf DriveControl.cf -mf DriveControl_02.mf
-RandomSeed = 1351829841564
+RandomSeed = 1351844166840
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -16,14 +16,14 @@ Controller File = DriveControl.cf
 
 Assertion Results:
 @1.0s:  PASSED DriveControl::checkState(STATE) ?== STATE_DRIVE_STOPPED PASSED
-@3.0s:  PASSED DriveControl::checkState(STATE) ?== STATE_DRIVE_LEVEL_DOWN PASSED
+@3.0s:  FAILED DriveControl::checkState(STATE) ?== STATE_DRIVE_LEVEL_DOWN (STATE_DRIVE_LEVEL instead) FAILED
 @5.0s:  PASSED DriveControl::checkState(STATE) ?== STATE_DRIVE_STOPPED PASSED
 @7.0s:  PASSED DriveControl::checkState(STATE) ?== STATE_DRIVE_SLOW PASSED
-@9.0s:  PASSED DriveControl::checkState(STATE) ?== STATE_DRIVE_LEVEL_DOWN PASSED
+@9.0s:  FAILED DriveControl::checkState(STATE) ?== STATE_DRIVE_LEVEL_DOWN (STATE_DRIVE_LEVEL instead) FAILED
 
 
 ******************Summary******************
-Passed:  5
-Failed:  0
+Passed:  3
+Failed:  2
 Total :  5
 

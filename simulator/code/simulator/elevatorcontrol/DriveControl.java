@@ -4,6 +4,7 @@
  * Rajeev Sharma (rdsharma) 
  * Collin Buchan (cbuchan)
  * Jessica Tiu   (jtiu) - Author
+ * Last modified: 2012-Nov-03
  */
 
 
@@ -236,7 +237,7 @@ public class DriveControl extends Controller {
                 //transitions
 
                 //#transition 'T6.1'
-                if (driveDir==Direction.STOP && (!mLevelDown.getValue() || !mLevelDown.getValue())) {
+                if (driveDir==Direction.STOP && (!mLevelUp.getValue() || !mLevelDown.getValue())) {
                     newState = State.STATE_DRIVE_LEVEL;
                 }
 
