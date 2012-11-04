@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf DoorControl.cf -mf DoorControl_01.mf
-RandomSeed = 1351993062019
+RandomSeed = 1352050196146
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -28,8 +28,8 @@ Assertion Results:
 @1.72s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@68fe748f :: command ?== STOP PASSED
 @1.72s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@6b4da8f4 :: getCommand ?== STOP PASSED
 @3.02s:  PASSED DoorControl[FRONT][LEFT]::checkState(STATE) ?== STATE_DOOR_CLOSING PASSED
-@3.02s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@6627e353 :: command ?== CLOSE PASSED
-@3.02s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@79dfc547 :: getCommand ?== CLOSE PASSED
+@3.02s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@44bd928a :: command ?== CLOSE PASSED
+@3.02s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@5210f6d3 :: getCommand ?== CLOSE PASSED
 @3.31s:  PASSED DoorControl[FRONT][LEFT]::checkState(STATE) ?== STATE_DOOR_OPENING PASSED
 @3.31s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@450e790c :: command ?== OPEN PASSED
 @3.31s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@432a0f6c :: getCommand ?== OPEN PASSED
