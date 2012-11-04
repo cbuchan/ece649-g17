@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf HallButtonControl.cf -mf HallButtonControl_01.mf
-RandomSeed = 1351844174784
+RandomSeed = 1351993080273
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
