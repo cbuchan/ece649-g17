@@ -198,6 +198,8 @@ public class Utility {
         }
 
         public boolean getOff(int floor, Hallway hallway, Direction dir) {
+            if (floor < 0 || floor >= Elevator.numFloors)
+                return false;
             return translatorArray[floor].getOff(hallway, dir);
         }
     }
@@ -243,7 +245,7 @@ public class Utility {
                 return (back.down.getValue());
             } else if (hallway == Hallway.BOTH && dir == Direction.UP) {
             }
-            throw new RuntimeException("Illegal hallway in HallCallFloorArray.getAllHallwayOff");
+            throw new RuntimeException("Illegal hallway in HallCallFloorArray.getOff");
         }
 
     }
