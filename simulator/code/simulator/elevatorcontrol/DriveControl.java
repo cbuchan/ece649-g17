@@ -127,7 +127,7 @@ public class DriveControl extends Controller {
                 driveDir = Direction.STOP;
             }
         }
-        return driveDir;
+        return Direction.STOP;//driveDir;
     }
 
     /**
