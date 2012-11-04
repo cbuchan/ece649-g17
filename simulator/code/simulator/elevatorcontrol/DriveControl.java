@@ -127,7 +127,7 @@ public class DriveControl extends Controller {
                 driveDir = Direction.STOP;
             }
         }
-        return Direction.STOP;//driveDir;
+        return driveDir;
     }
 
     /**
@@ -226,7 +226,8 @@ public class DriveControl extends Controller {
         switch (state) {
 
             case STATE_DRIVE_STOPPED:
-
+				
+				
                 driveDir = getDriveDir(driveDir);
 
                 //state actions for DRIVE_STOPPED
