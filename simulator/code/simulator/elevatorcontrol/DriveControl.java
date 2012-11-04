@@ -227,7 +227,11 @@ public class DriveControl extends Controller {
 
             case STATE_DRIVE_STOPPED:
 				
+<<<<<<< HEAD
 				
+=======
+					
+>>>>>>> 708738c15c8e35cc814d6c07980238913ca19b01
                 driveDir = getDriveDir(driveDir);
 
                 //state actions for DRIVE_STOPPED

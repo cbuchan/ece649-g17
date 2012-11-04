@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf DriveControl.cf -mf DriveControl_02.mf
-RandomSeed = 1352062332636
+RandomSeed = 1352063038742
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
