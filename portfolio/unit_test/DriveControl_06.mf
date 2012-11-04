@@ -25,7 +25,7 @@
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == STOP
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == STOP
 +0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed == 0.0
-+0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == UP
++0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == STOP
 ;==================================2.0=======================================
 
 ;initial conditions
