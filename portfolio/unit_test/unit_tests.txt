@@ -18,5 +18,3 @@ HallButtonControl HallButtonControl.cf HallButtonControl_01.mf
 LanternControl LanternControl.cf LanternControl_01.mf
 CarPositionControl CarPositionControl.cf CarPositionControl_01.mf
 Dispatcher Dispatcher.cf Dispatcher_01.mf
-Dispatcher Dispatcher.cf Dispatcher_02.mf
-
