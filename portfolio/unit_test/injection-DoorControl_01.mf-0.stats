@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf DoorControl.cf -mf DoorControl_01.mf
-RandomSeed = 1352063593615
+RandomSeed = 1352078815244
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
