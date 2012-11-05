@@ -13,6 +13,16 @@
 #INCLUDE defines.mf ;include CAN id and period definitions
 
 
+
+; Unit test for LanternControl
+
+; Note: Assertions must be inserted more than two periods after a message
+;       or physical value has been inserted to be sure that the change 
+;       propagates through the system.
+
+; Note: This test file demonstrates network/framework message injections
+;       and network/framework/controller state assertions.
+
 ;test path
 ;#transition 'T7.1'
 ;#transition 'T7.2'		-- branch (01 tested)

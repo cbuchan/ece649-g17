@@ -86,7 +86,9 @@ public class DoorControl extends Controller {
         STATE_DOOR_CLOSED,
         STATE_DOOR_OPENING,
         STATE_DOOR_OPEN,
-        STATE_DOOR_OPEN_E,
+        STATE_DOOR_REVERSING,
+        STATE_DOOR_REVERSED,
+        STATE_DOOR_NUDGING,
     }
 
     //state variable initialized to the initial state DOOR_CLOSING
@@ -188,18 +190,22 @@ public class DoorControl extends Controller {
         switch (state) {
             case STATE_DOOR_CLOSING:
                 //state actions
-                localDoorMotor.set(DoorCommand.NUDGE);
-                mDoorMotorCommand.set(DoorCommand.NUDGE);
+                localDoorMotor.set(DoorCommand.CLOSE);
+                mDoorMotorCommand.set(DoorCommand.CLOSE);
 
                 dwell = mDesiredDwell.getDwell();
                 countDown = SimTime.ZERO;
 
                 //transitions -- note that transition conditions are mutually exclusive
-                //#transition 'T5.5'
+                //#transition 'T5.6'
                 if (isValidHallway() && isStopped()
+                        && isDoorReversal() && !doorOpened()) {
+                    newState = State.STATE_DOOR_REVERSING;
+                }
+                //#transition 'T5.5'
+                else if (isValidHallway() && isStopped()
                         && ((isDesiredFloor() && isDesiredHallway())
-                        || (isOverweight() && !doorOpened())
-                        || (isDoorReversal() && !doorOpened()))) {
+                        || (isOverweight() && !doorOpened()))) {
                     newState = State.STATE_DOOR_OPENING;
 
                 }
@@ -219,11 +225,15 @@ public class DoorControl extends Controller {
                 countDown = SimTime.ZERO;
 
                 //transitions
-                //#transition 'T5.2'
+                //#transition 'T5.7'
                 if (isValidHallway() && isStopped()
+                        && isDoorReversal() && !doorOpened()) {
+                    newState = State.STATE_DOOR_REVERSING;
+                }
+                //#transition 'T5.2'
+                else if (isValidHallway() && isStopped()
                         && ((isDesiredFloor() && isDesiredHallway())
-                        || (isOverweight() && !doorOpened())
-                        || (isDoorReversal() && !doorOpened()))) {
+                        || (isOverweight() && !doorOpened()))) {
                     newState = State.STATE_DOOR_OPENING;
                 } else {
                     newState = state;
@@ -239,12 +249,8 @@ public class DoorControl extends Controller {
 
                 //transitions
                 //#transition 'T5.3'
-                if (doorOpened() && !isOverweight() && !isDoorReversal()) {
+                if (doorOpened()) {
                     newState = State.STATE_DOOR_OPEN;
-                }
-                //#transition 'T5.6'
-                else if (doorOpened() && (isOverweight() || isDoorReversal())) {
-                    newState = State.STATE_DOOR_OPEN_E;
                 } else {
                     newState = state;
                 }
@@ -259,29 +265,67 @@ public class DoorControl extends Controller {
 
                 //transitions
                 //#transition 'T5.4'
-                if (countDown.isLessThanOrEqual(SimTime.ZERO)) {
+                if (countDown.isLessThanOrEqual(SimTime.ZERO)
+                        && !isOverweight() && !isDoorReversal()) {
                     newState = State.STATE_DOOR_CLOSING;
 
-                }
-                //#transition 'T5.7'
-                else if (isOverweight() || isDoorReversal()) {
-                    newState = State.STATE_DOOR_OPEN_E;
                 } else {
                     newState = state;
                 }
                 break;
-            case STATE_DOOR_OPEN_E:
+            case STATE_DOOR_REVERSING:
+                //state actions
+                localDoorMotor.set(DoorCommand.OPEN);
+                mDoorMotorCommand.set(DoorCommand.OPEN);
+
+                dwell = mDesiredDwell.getDwell();
+                countDown = new SimTime(getEmergencyDwell(),
+                        SimTime.SimTimeUnit.SECOND);
+
+                //transitions
+                //#transition 'T5.8'
+                if (doorOpened() && !isDoorReversal()) {
+                    newState = State.STATE_DOOR_REVERSED;
+                } else {
+                    newState = state;
+                }
+                break;
+            case STATE_DOOR_REVERSED:
                 //state actions
                 localDoorMotor.set(DoorCommand.STOP);
                 mDoorMotorCommand.set(DoorCommand.STOP);
 
                 dwell = mDesiredDwell.getDwell();
-                countDown = new SimTime(dwell, SimTime.SimTimeUnit.SECOND);
+                countDown = SimTime.subtract(countDown, period);
 
                 //transitions
-                //#transition 'T5.8'
-                if (!isOverweight() && !isDoorReversal()) {
-                    newState = State.STATE_DOOR_OPEN;
+                //#transition 'T5.9'
+                if (countDown.isLessThanOrEqual(SimTime.ZERO)
+                        && !isOverweight()) {
+                    newState = State.STATE_DOOR_NUDGING;
+
+                } else {
+                    newState = state;
+                }
+                break;
+            case STATE_DOOR_NUDGING:
+                //state actions
+                localDoorMotor.set(DoorCommand.NUDGE);
+                mDoorMotorCommand.set(DoorCommand.NUDGE);
+
+                dwell = mDesiredDwell.getDwell();
+                countDown = SimTime.ZERO;
+
+                //transitions
+                //#transition 'T5.11'
+                if (isValidHallway() && isStopped()
+                        && ((isDesiredFloor() && isDesiredHallway())
+                        || (isOverweight() && !doorOpened()))) {
+                    newState = State.STATE_DOOR_OPENING;
+                }
+                //#transition 'T5.10'
+                else if (doorClosed()) {
+                    newState = State.STATE_DOOR_CLOSED;
                 } else {
                     newState = state;
                 }
@@ -318,7 +362,7 @@ public class DoorControl extends Controller {
     }
 
     private Boolean isStopped() {
-        return mDriveSpeed.getSpeed() == Speed.STOP;
+        return mDriveSpeed.getSpeed() == 0.0;
     }
 
     private Boolean isOverweight() {
@@ -343,5 +387,11 @@ public class DoorControl extends Controller {
 
     private Boolean isDesiredHallway() {
         return (hallway == mDesiredFloor.getHallway() || mDesiredFloor.getHallway() == Hallway.BOTH);
+    }
+
+    private int getEmergencyDwell() {
+        if (dwell <= 1)
+            return 0;
+        return dwell / 2;
     }
 }

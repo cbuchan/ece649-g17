@@ -10,15 +10,16 @@
 package simulator.elevatorcontrol;
 
 import jSimPack.SimTime;
-import simulator.elevatorcontrol.Utility.AtFloorArray;
-import simulator.elevatorcontrol.Utility.CarCallArray;
-import simulator.elevatorcontrol.Utility.DoorClosedArray;
-import simulator.elevatorcontrol.Utility.HallCallArray;
+import simulator.elevatorcontrol.Utility.*;
 import simulator.elevatormodules.CarWeightCanPayloadTranslator;
-import simulator.framework.*;
+import simulator.framework.Controller;
+import simulator.framework.Direction;
+import simulator.framework.Hallway;
+import simulator.framework.ReplicationComputer;
 import simulator.payloads.CanMailbox;
 import simulator.payloads.CanMailbox.ReadableCanMailbox;
 import simulator.payloads.CanMailbox.WriteableCanMailbox;
+import simulator.elevatormodules.CarLevelPositionCanPayloadTranslator;
 
 
 /**
@@ -60,9 +61,16 @@ public class Dispatcher extends Controller {
     private CarCallArray networkCarCallArrayFront;
     private CarCallArray networkCarCallArrayBack;
     private ReadableCanMailbox networkCarWeight;
+    private ReadableCanMailbox networkDriveSpeed;
+    private ReadableCanMailbox networkCarLevelPosition;
 
     //translators for input network messages
     private CarWeightCanPayloadTranslator mCarWeight;
+    private DriveSpeedCanPayloadTranslator mDriveSpeed;
+    private CarLevelPositionCanPayloadTranslator mCarLevelPosition;
+
+    // CommitPoint interface
+    private CommitPointCalculator commitPointCalculator;
 
     //these variables keep track of which instance this is.
     private final int numFloors;
@@ -72,16 +80,20 @@ public class Dispatcher extends Controller {
 
     //enumerate states
     private enum State {
-        STATE_INIT,
+        STATE_RESET,
+        STATE_IDLE,
         STATE_SERVICE_CALL,
         STATE_COMPUTE_NEXT,
     }
 
     //state variable initialized to the initial state STATE_INIT
     private int CONST_DWELL = 10;
-    private State state = State.STATE_INIT;
+    private State state = State.STATE_RESET;
     private int targetFloor;
     private Hallway targetHallway;
+    private Direction direction;
+    private int commitPoint;
+
 
     /**
      * The arguments listed in the .cf configuration file should match the order and
@@ -134,24 +146,32 @@ public class Dispatcher extends Controller {
         canInterface.sendTimeTriggered(networkDesiredDwellBack, period);
 
         /*
-         * To register for network messages from the smart sensors or other objects
-         * defined in elevator modules, use the translators already defined in
-         * elevatormodules package.  These translators are specific to one type
-         * of message.
-         */
+        * To register for network messages from the smart sensors or other objects
+        * defined in elevator modules, use the translators already defined in
+        * elevatormodules package.  These translators are specific to one type
+        * of message.
+        */
         networkAtFloorArray = new AtFloorArray(canInterface);
         networkDoorClosed = new DoorClosedArray(canInterface);
         networkHallCallArray = new HallCallArray(canInterface);
         networkCarCallArrayFront = new CarCallArray(Hallway.FRONT, canInterface);
         networkCarCallArrayBack = new CarCallArray(Hallway.BACK, canInterface);
-        networkCarWeight =
-                CanMailbox.getReadableCanMailbox(MessageDictionary.CAR_WEIGHT_CAN_ID);
+        networkCarWeight = CanMailbox.getReadableCanMailbox(MessageDictionary.CAR_WEIGHT_CAN_ID);
+        networkDriveSpeed = CanMailbox.getReadableCanMailbox(MessageDictionary.DRIVE_SPEED_CAN_ID);
+        networkCarLevelPosition = CanMailbox.getReadableCanMailbox(MessageDictionary.CAR_LEVEL_POSITION_CAN_ID);
 
+        // translators
         mCarWeight = new CarWeightCanPayloadTranslator(networkCarWeight);
+        mDriveSpeed = new DriveSpeedCanPayloadTranslator(networkDriveSpeed);
+        mCarLevelPosition = new CarLevelPositionCanPayloadTranslator(networkCarLevelPosition);
 
         //register to receive periodic updates to the mailbox via the CAN network
         //the period of updates will be determined by the sender of the message
         canInterface.registerTimeTriggered(networkCarWeight);
+        canInterface.registerTimeTriggered(networkDriveSpeed);
+        canInterface.registerTimeTriggered(networkCarLevelPosition);
+
+        commitPointCalculator = new CommitPointCalculator(canInterface);
 
         /* issuing the timer start method with no callback data means a NULL value 
         * will be passed to the callback later.  Use the callback data to distinguish
@@ -161,97 +181,109 @@ public class Dispatcher extends Controller {
         timer.start(period);
     }
 
-    private boolean allCallsOff() {
-        return networkHallCallArray.getAllOff() && networkCarCallArrayBack.getAllOff() && networkCarCallArrayFront.getAllOff();
-    }
-
-    private Hallway getAllHallways(int floor) {
-        Hallway desiredHallway;
-        if (Elevator.hasLanding(floor, Hallway.BACK) && Elevator.hasLanding(floor, Hallway.FRONT)) {
-            desiredHallway = Hallway.BOTH;
-        } else if (Elevator.hasLanding(floor, Hallway.BACK)) {
-            desiredHallway = Hallway.BACK;
-        } else if (Elevator.hasLanding(floor, Hallway.FRONT)) {
-            desiredHallway = Hallway.FRONT;
-        } else {
-            desiredHallway = Hallway.NONE;
-        }
-        return desiredHallway;
-    }
-
     /*
-     * The timer callback is where the main controller code is executed.  For time
-     * triggered design, this consists mainly of a switch block with a case blcok for
-     * each state.  Each case block executes actions for that state, then executes
-     * a transition to the next state if the transition conditions are met.
-     */
+    * The timer callback is where the main controller code is executed.  For time
+    * triggered design, this consists mainly of a switch block with a case blcok for
+    * each state.  Each case block executes actions for that state, then executes
+    * a transition to the next state if the transition conditions are met.
+    */
     public void timerExpired(Object callbackData) {
         State newState = state;
 
         switch (state) {
 
-            case STATE_INIT:
+            case STATE_RESET:
 
-                //state actions for STATE_INIT
+                //state actions for STATE_RESET
                 targetFloor = 1;
                 targetHallway = Hallway.NONE;
+
                 mDesiredFloor.setFloor(targetFloor);
                 mDesiredFloor.setHallway(targetHallway);
                 mDesiredFloor.setDirection(Direction.STOP);
+
                 mDesiredDwellBack.set(CONST_DWELL);
                 mDesiredDwellFront.set(CONST_DWELL);
 
                 //#transition 'T11.1'
-                //  CurrentFloor == 1 && (any mHallCall[f,b,d] == true || any mCarCall[f,b] == true)
-                if (networkAtFloorArray.getCurrentFloor() == 1 && !allCallsOff()) {
-                    newState = State.STATE_COMPUTE_NEXT;
+                if (networkAtFloorArray.getCurrentFloor() == 1 && networkDoorClosed.getAllClosed()) {
+                    newState = State.STATE_IDLE;
                 } else {
                     newState = state;
                 }
                 break;
 
+            case STATE_IDLE:
+
+                //state actions for STATE_IDLE
+                direction = computeDirection(direction, networkAtFloorArray.getCurrentFloor());
+                commitPoint = networkAtFloorArray.getCurrentFloor();
+
+                mDesiredFloor.setFloor(networkAtFloorArray.getCurrentFloor());
+                mDesiredFloor.setHallway(Hallway.NONE);
+                mDesiredFloor.setDirection(direction);
+
+                mDesiredDwellBack.set(CONST_DWELL);
+                mDesiredDwellFront.set(CONST_DWELL);
+
+                //#transition 'T11.2'
+                if (direction != Direction.STOP) {
+                    newState = State.STATE_COMPUTE_NEXT;
+                }
+
+                break;
+
             case STATE_COMPUTE_NEXT:
 
-                //state actions for STATE_COMPUTE_NEXT
-                targetFloor = (networkAtFloorArray.getCurrentFloor() % numFloors) + 1;
+                commitPoint = commitPointCalculator.nextReachableFloor(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
 
-                //set the target Hallway to be as many floors as possible
-                targetHallway = getAllHallways(targetFloor);
+                //state actions for STATE_COMPUTE_NEXT
+                targetFloor = computeNextFloor(commitPoint, direction);
+
+                //set the target Hallway to be as many floors as are called for
+                targetHallway = getLitHallways(targetFloor, direction);
 
                 mDesiredFloor.setFloor(targetFloor);
                 mDesiredFloor.setHallway(targetHallway);
-                mDesiredFloor.setDirection(Direction.STOP);
+                mDesiredFloor.setDirection(direction);
+
                 mDesiredDwellBack.set(CONST_DWELL);
                 mDesiredDwellFront.set(CONST_DWELL);
 
 
-                //#transition 'T11.2'
-                if (true) {
+                //#transition 'T11.3'
+                if (networkAtFloorArray.getCurrentFloor() == targetFloor) {
                     newState = State.STATE_SERVICE_CALL;
+                }
+                //#transition 'T11.6'
+                else if (networkAtFloorArray.getCurrentFloor() == MessageDictionary.NONE && !networkDoorClosed.getAllClosed()) {
+                    newState = State.STATE_RESET;
+                } else {
+                    newState = state;
                 }
 
                 break;
 
             case STATE_SERVICE_CALL:
 
+                direction = computeDirection(direction, networkAtFloorArray.getCurrentFloor());
+                commitPoint = networkAtFloorArray.getCurrentFloor();
+
                 //state actions for STATE_SERVICE_CALL
                 mDesiredFloor.setFloor(targetFloor);
                 mDesiredFloor.setHallway(targetHallway);
-                mDesiredFloor.setDirection(Direction.STOP);
+                mDesiredFloor.setDirection(direction);
+
                 mDesiredDwellBack.set(CONST_DWELL);
                 mDesiredDwellFront.set(CONST_DWELL);
 
-                //#transition 'T11.3
-                //any mDoorClosed[b, r] == false && (any mHallCall[f,b,d] == true || any mCarCall[f,b] == true)
-                // && CurrentFloor == TargetFloor
-                if (!networkDoorClosed.getAllClosed() && !allCallsOff() && networkAtFloorArray.getCurrentFloor() == targetFloor) {
-                    newState = State.STATE_COMPUTE_NEXT;
-                }
-
                 //#transition 'T11.4
-                //CurrentFloor == NONE && any mDoorClosed[b, r] == false
-                else if (networkAtFloorArray.getCurrentFloor() == MessageDictionary.NONE && !networkDoorClosed.getAllClosed()) {
-                    newState = State.STATE_INIT;
+                if (allCallsOff() && !networkDoorClosed.getAllClosed()) {
+                    newState = State.STATE_IDLE;
+                }
+                //#transition 'T11.5
+                else if (!allCallsOff() && !networkDoorClosed.getAllClosed()) {
+                    newState = State.STATE_COMPUTE_NEXT;
                 } else {
                     newState = state;
                 }
@@ -280,5 +312,194 @@ public class Dispatcher extends Controller {
         //the timer
         timer.start(period);
     }
-}
 
+    /**
+     * ************************************************************************
+     * Macros
+     * ************************************************************************
+     */
+
+    /*
+    * returns True if any calls are found at or above the commitPoint.
+    * returns False otherwise.
+    */
+    private boolean allCallsOff() {
+        return networkHallCallArray.getAllOff() && networkCarCallArrayBack.getAllOff() && networkCarCallArrayFront.getAllOff();
+    }
+
+    /*
+    * returns True if any calls are found at or above the commitPoint.
+    * Only UP hall calls are checked.
+    * returns False otherwise.
+    */
+    private int nextUpCall(int commitPoint) {
+        for (int floor = commitPoint; floor < numFloors; floor++) {
+            if (!networkHallCallArray.getOff(floor, Hallway.FRONT, Direction.UP) || networkCarCallArrayFront.getValueForFloor(floor) ||
+                    networkCarCallArrayBack.getValueForFloor(floor)) {
+                return floor;
+            }
+        }
+        return MessageDictionary.NONE;
+    }
+
+    /*
+    * returns True if any calls are found at or above the commitPoint.
+    * Only UP hall calls are checked.
+    * returns False otherwise.
+    */
+    private boolean anyUpCall(int commitPoint) {
+        if (nextUpCall(commitPoint) != MessageDictionary.NONE) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private int nextDownCall(int commitPoint) {
+        for (int floor = commitPoint; floor >= 1; floor--) {
+            if (!networkHallCallArray.getOff(floor, Hallway.FRONT, Direction.DOWN) || networkCarCallArrayFront.getValueForFloor(floor) ||
+                    networkCarCallArrayBack.getValueForFloor(floor)) {
+                return floor;
+            }
+        }
+        return MessageDictionary.NONE;
+    }
+
+    /*
+    * returns True if any calls are found at or below the commitPoint.
+    * Only DOWN hall calls are checked
+    * returns False otherwise.
+    */
+    private boolean anyDownCall(int commitPoint) {
+        if (nextDownCall(commitPoint) != MessageDictionary.NONE) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    private int computeNextFloor(int commitPoint, Direction dir) {
+        // Traveling UP
+        if (dir == Direction.UP && nextUpCall(commitPoint) != MessageDictionary.NONE) {
+            return nextUpCall(commitPoint);
+        }
+        // Traveling DOWN
+        else if (dir == Direction.DOWN && nextDownCall(commitPoint) != MessageDictionary.NONE) {
+            return nextDownCall(commitPoint);
+        }
+        // Stopped
+        else if (closestCall(commitPoint, numFloors) != MessageDictionary.NONE) {
+            return closestCall(commitPoint, numFloors);
+        } else {
+            return 1;
+        }
+    }
+
+    /*
+    * Computes a new direction based on the current floor and previous direction.
+    * Will try to keep going in the same direction if any calls are yet to be serviced in that direction.
+    * Otherwise, it will switch directions or STOP (if no calls are found).
+    */
+    private Direction computeDirection(Direction oldDir, int currentFloor) {
+        // Previously traveling UP
+        if (oldDir == Direction.UP) {
+            if (anyUpCall(currentFloor)) {
+                return Direction.UP;
+            } else if (!anyUpCall(currentFloor) && anyDownCall(currentFloor)) {
+                return Direction.DOWN;
+            } else {
+                return Direction.STOP;
+            }
+        }
+        // Previously traveling DOWN
+        else if (oldDir == Direction.DOWN) {
+            if (anyDownCall(currentFloor)) {
+                return Direction.DOWN;
+            } else if (!anyDownCall(currentFloor) && anyUpCall(currentFloor)) {
+                return Direction.UP;
+            } else {
+                return Direction.STOP;
+            }
+        }
+        // Previous direction STOP
+        else {
+            if (anyUpCall(currentFloor) || anyDownCall(currentFloor)) {
+                return directionOfClosestCall(currentFloor, numFloors);
+            } else {
+                return Direction.STOP;
+            }
+        }
+    }
+
+    /*
+    * Gives direction of closest lit call button (hall or car), with bias towards UP in a tie.
+    * Returns STOP if no call is found.
+    */
+    private Direction directionOfClosestCall(int floor, int maxFloor) {
+
+        int closestCall = closestCall(floor, maxFloor);
+        if (closestCall == MessageDictionary.NONE) {
+            return Direction.STOP;
+        } else if (floor <= closestCall) {
+            return Direction.UP;
+        } else if (floor >= closestCall) {
+            return Direction.DOWN;
+        } else {
+            return Direction.STOP;
+        }
+    }
+
+    /*
+    * Returns the number of the floor of the closest lit call button (hall or car), with bias towards UP in a tie.
+    * Returns NONE if no call is found.
+    */
+    private int closestCall(int commitPoint, int maxFloor) {
+        for (int i = 0; i < Math.max(commitPoint, maxFloor - commitPoint); i++) {
+            //Check above
+            int tempFloor = commitPoint + i;
+            if (validFloor(tempFloor, maxFloor) && (getLitHallways(tempFloor, Direction.UP) != Hallway.NONE ||
+                    getLitHallways(tempFloor, Direction.DOWN) != Hallway.NONE)) {
+                return tempFloor;
+            }
+            //Check below
+            tempFloor = commitPoint - i;
+            if (validFloor(tempFloor, maxFloor) && (getLitHallways(tempFloor, Direction.UP) != Hallway.NONE ||
+                    getLitHallways(tempFloor, Direction.DOWN) != Hallway.NONE)) {
+                return tempFloor;
+            }
+        }
+        return MessageDictionary.NONE;
+    }
+
+
+    /*
+    * Returns True if the given floor is between 1 and maxFloor
+    * Returns False otherwise.
+    */
+    private boolean validFloor(int floor, int maxFloor) {
+        return floor <= maxFloor && floor >= 1;
+    }
+
+    /*
+    * For a given floor, returns all hallways for which a valid call has been lit.
+    */
+    private Hallway getLitHallways(int floor, Direction dir) {
+        Hallway desiredHallway;
+
+        boolean frontCall = !networkHallCallArray.getOff(floor, Hallway.FRONT, dir) || networkCarCallArrayFront.getValueForFloor(floor);
+        boolean backCall = !networkHallCallArray.getOff(floor, Hallway.BACK, dir) || networkCarCallArrayBack.getValueForFloor(floor);
+
+        if (frontCall && !backCall) {
+            desiredHallway = Hallway.FRONT;
+        } else if (backCall && !frontCall) {
+            desiredHallway = Hallway.BACK;
+        } else if (backCall && frontCall) {
+            desiredHallway = Hallway.BOTH;
+        } else {
+            desiredHallway = Hallway.NONE;
+        }
+
+        return desiredHallway;
+    }
+}

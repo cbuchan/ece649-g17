@@ -29,7 +29,7 @@ import simulator.payloads.translators.IntegerCanPayloadTranslator;
 /**
  * CarPositionControl displays the current floor of the elevator by actuating CarPositionIndicator
  *
- * @author Collin Buchan
+ * @author Collin Buchan, Rajeev Sharma
  */
 public class CarPositionControl extends Controller {
 
@@ -49,11 +49,10 @@ public class CarPositionControl extends Controller {
 
     //input network messages
     private AtFloorArray networkAtFloorArray;
-    private ReadableCanMailbox networkCarLevelPosition;
+    private Utility.CommitPointCalculator networkCommitPointCalculator;
     private ReadableCanMailbox networkDesiredFloor;
     private ReadableCanMailbox networkDriveSpeed;
 
-    private CarLevelPositionCanPayloadTranslator mCarLevelPosition;
     private DesiredFloorCanPayloadTranslator mDesiredFloor;
     private DriveSpeedCanPayloadTranslator mDriveSpeed;
 
@@ -62,13 +61,15 @@ public class CarPositionControl extends Controller {
 
     //enumerate states
     private enum State {
-        STATE_INIT,
-        STATE_DISPLAY_FLOOR
+        STATE_DISPLAY_FLOOR,
+        STATE_DISPLAY_COMMIT_POINT,
     }
 
     //state variable initialized to the initial state STATE_DISPLAY_FLOOR
     private State state = State.STATE_DISPLAY_FLOOR;
-    private int currentFloor; // initialized to first floor (lobby)
+    private int currentFloor;
+    private int commitedFloor;
+
     private Boolean[] commitPoint;
 
     /**
@@ -108,9 +109,7 @@ public class CarPositionControl extends Controller {
         //initialize input network interface
         networkAtFloorArray = new Utility.AtFloorArray(canInterface);
 
-        networkCarLevelPosition = CanMailbox.getReadableCanMailbox(MessageDictionary.CAR_LEVEL_POSITION_CAN_ID);
-        mCarLevelPosition = new CarLevelPositionCanPayloadTranslator(networkCarLevelPosition);
-        canInterface.registerTimeTriggered(networkCarLevelPosition);
+        networkCommitPointCalculator = new Utility.CommitPointCalculator(canInterface);
 
         networkDesiredFloor = CanMailbox.getReadableCanMailbox(MessageDictionary.DESIRED_FLOOR_CAN_ID);
         mDesiredFloor = new DesiredFloorCanPayloadTranslator(networkDesiredFloor);
@@ -145,14 +144,43 @@ public class CarPositionControl extends Controller {
             case STATE_DISPLAY_FLOOR:
                 //state actions for 'DISPLAY_FLOOR'
                 currentFloor = networkAtFloorArray.getCurrentFloor();
+                commitedFloor =
+                        networkCommitPointCalculator.getCommitedFloor(
+                                mDriveSpeed.getDirection(),
+                                mDriveSpeed.getSpeed());
 
+                // Make sure we don't set an illegal mCarPositionIndicator
                 if (currentFloor != MessageDictionary.NONE) {
                     mCarPositionIndicator.set(currentFloor);
                     localCarPositionIndicator.set(currentFloor);
                 }
 
-                //transitions -- transition conditions are mutually exclusive
-                newState = state;
+                //transitions -- note that transition conditions are mutually exclusive
+                //#transition 'T10.1'
+                if (currentFloor == MessageDictionary.NONE) {
+                    newState = State.STATE_DISPLAY_COMMIT_POINT;
+                } else {
+                    newState = state;
+                }
+                break;
+            case STATE_DISPLAY_COMMIT_POINT:
+                //state actions for 'DISPLAY_COMMIT_POINT'
+                currentFloor = networkAtFloorArray.getCurrentFloor();
+                commitedFloor =
+                        networkCommitPointCalculator.getCommitedFloor(
+                                mDriveSpeed.getDirection(),
+                                mDriveSpeed.getSpeed());
+
+                mCarPositionIndicator.set(commitedFloor);
+                localCarPositionIndicator.set(commitedFloor);
+
+                //transitions -- note that transition conditions are mutually exclusive
+                //#transition 'T10.2'
+                if (currentFloor != MessageDictionary.NONE) {
+                    newState = State.STATE_DISPLAY_FLOOR;
+                } else {
+                    newState = state;
+                }
                 break;
             default:
                 throw new RuntimeException("State " + state + " was not recognized.");

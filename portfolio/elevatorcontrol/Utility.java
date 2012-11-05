@@ -11,7 +11,9 @@
 package simulator.elevatorcontrol;
 
 import simulator.elevatormodules.AtFloorCanPayloadTranslator;
+import simulator.elevatormodules.CarLevelPositionCanPayloadTranslator;
 import simulator.elevatormodules.DoorClosedCanPayloadTranslator;
+import simulator.elevatormodules.DriveObject;
 import simulator.framework.*;
 import simulator.payloads.CANNetwork.CanConnection;
 import simulator.payloads.CanMailbox;
@@ -30,6 +32,11 @@ import java.util.HashMap;
  */
 public class Utility {
 
+    /**
+     * ************************************************************************
+     * DoorClosed
+     * ************************************************************************
+     */
     public static class DoorClosedArray {
 
         /* Design decision:  since the Hallway enum contains special cases such 
@@ -111,6 +118,11 @@ public class Utility {
         }
     }
 
+    /**
+     * ************************************************************************
+     * CarCall
+     * ************************************************************************
+     */
     public static class CarCallArray {
 
         public final int numFloors = Elevator.numFloors;
@@ -150,6 +162,11 @@ public class Utility {
     }
 
 
+    /**
+     * ************************************************************************
+     * HallCall
+     * ************************************************************************
+     */
     public static class HallCallArray {
         public final int numFloors = Elevator.numFloors;
         public HallCallFloorArray[] translatorArray;
@@ -181,6 +198,8 @@ public class Utility {
         }
 
         public boolean getOff(int floor, Hallway hallway, Direction dir) {
+            if (floor < 0 || floor >= Elevator.numFloors)
+                return false;
             return translatorArray[floor].getOff(hallway, dir);
         }
     }
@@ -226,7 +245,7 @@ public class Utility {
                 return (back.down.getValue());
             } else if (hallway == Hallway.BOTH && dir == Direction.UP) {
             }
-            throw new RuntimeException("Illegal hallway in HallCallFloorArray.getAllHallwayOff");
+            throw new RuntimeException("Illegal hallway in HallCallFloorArray.getOff");
         }
 
     }
@@ -260,7 +279,11 @@ public class Utility {
 
     }
 
-
+    /**
+     * ************************************************************************
+     * AtFloor
+     * ************************************************************************
+     */
     public static class AtFloorArray {
 
         public HashMap<Integer, AtFloorCanPayloadTranslator> networkAtFloorsTranslators = new HashMap<Integer, AtFloorCanPayloadTranslator>();
@@ -302,6 +325,101 @@ public class Utility {
                 }
             }
             return retval;
+        }
+    }
+
+    /**
+     * ************************************************************************
+     * CommitPoint calculation
+     * ************************************************************************
+     */
+    public static class CommitPointCalculator {
+
+        private CarLevelPositionCanPayloadTranslator mCarLevelPosition;
+
+        public CommitPointCalculator(CanConnection conn) {
+
+            ReadableCanMailbox networkCarLevelPosition =
+                    CanMailbox.getReadableCanMailbox(MessageDictionary.CAR_LEVEL_POSITION_CAN_ID);
+
+            mCarLevelPosition =
+                    new CarLevelPositionCanPayloadTranslator(networkCarLevelPosition);
+
+            conn.registerTimeTriggered(networkCarLevelPosition);
+
+        }
+
+        //Returns whether commit point has been reached for floor f based on current pos, speed, dir of car in hoistway.
+        //Assumes f is towards the direction that car is traveling in.
+        public Boolean commitPoint(int f, Direction driveSpeed_d, double driveSpeed_s) {
+            int dir = driveSpeed_d == Direction.UP ? 1 : -1;     //sign determined by current direction
+            double speed = driveSpeed_s;
+            double pos = mCarLevelPosition.getPosition();
+            double fPos = (f - 1) * Elevator.DISTANCE_BETWEEN_FLOORS;
+            double commitPt = pos;
+
+            double decel = DriveObject.Deceleration;
+            double slow = DriveObject.SlowSpeed;
+            double stop = DriveObject.StopSpeed;
+
+            if (speed > slow) {
+                commitPt += dir * (1 / decel) *
+                        (speed * (speed - slow) + slow * (slow - stop)
+                                - 0.5 * ((speed - slow) * (speed - slow) + (slow - stop) * (slow - stop)));
+            } else if (speed > stop) {
+                commitPt += dir * (1 / decel) *
+                        (speed * (speed - stop)
+                                - 0.5 * (speed - stop) * (speed - stop));
+            }
+
+            if (dir == 1) {
+                if (fPos > commitPt) return false; //not reached
+            } else if (dir == -1) {
+                if (fPos < commitPt) return false; //not reached
+            }
+            return true; //reached
+        }
+
+        public int nextReachableFloor(Direction driveSpeed_d, double driveSpeed_s) {
+            // Returns the lowest "Not Reached" floor
+            if (driveSpeed_d == Direction.UP) {
+                for (int i = 1; i < Elevator.numFloors; i++) {
+                    if (commitPoint(i, driveSpeed_d, driveSpeed_s) == false) {
+                        return i; //Found the closest "Not Reached"
+                    }
+                }
+            }
+            // Returns the highest "Not Reached" floor
+            else if (driveSpeed_d == Direction.DOWN) {
+                for (int i = Elevator.numFloors; i >= 1; i--) {
+                    if (commitPoint(i, driveSpeed_d, driveSpeed_s) == false) {
+                        return i; //Found the closest "Not Reached"
+                    }
+                }
+            }
+            // Failed to find a floor. Try to return the nearest floor
+            return (int) (mCarLevelPosition.getPosition() / Elevator.DISTANCE_BETWEEN_FLOORS);
+        }
+
+        public int getCommitedFloor(Direction driveSpeed_d, double driveSpeed_s) {
+            // Returns the highest "reached" floor
+            if (driveSpeed_d == Direction.UP) {
+                for (int i = Elevator.numFloors; i >= 1; i--) {
+                    if (commitPoint(i, driveSpeed_d, driveSpeed_s) == true) {
+                        return i; //Found the highest "reached"
+                    }
+                }
+            }
+            // Returns the lowest "reached" floor
+            else if (driveSpeed_d == Direction.DOWN) {
+                for (int i = 1; i < Elevator.numFloors; i++) {
+                    if (commitPoint(i, driveSpeed_d, driveSpeed_s) == true) {
+                        return i; //Found the lowest "reached"
+                    }
+                }
+            }
+            // Failed to find a floor. Try to return the nearest floor
+            return (int) (mCarLevelPosition.getPosition() / Elevator.DISTANCE_BETWEEN_FLOORS);
         }
     }
 }

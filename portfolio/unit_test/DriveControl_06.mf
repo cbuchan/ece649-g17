@@ -12,6 +12,14 @@
 
 #INCLUDE defines.mf ;include CAN id and period definitions
 
+; Unit test for DriveControl
+
+; Note: Assertions must be inserted more than two periods after a message
+;       or physical value has been inserted to be sure that the change 
+;       propagates through the system.
+
+; Note: This test file demonstrates network/framework message injections
+;       and network/framework/controller state assertions.
 
 ;test path
 ; check to see that drive stays in stop when emergency brake on
@@ -33,7 +41,8 @@
 +0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 1 NONE STOP
 +0s	I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
 
-+0s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = false
+;set the emergency brake
++0s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = true
 +0s	I WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 0
 
 ;desired direction is UP

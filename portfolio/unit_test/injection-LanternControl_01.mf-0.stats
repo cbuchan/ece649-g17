@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf LanternControl.cf -mf LanternControl_01.mf
-RandomSeed = 1352078825335
+RandomSeed = 1352081838989
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -16,23 +16,23 @@ Controller File = LanternControl.cf
 
 Assertion Results:
 @0.81s:  PASSED LanternControl[UP]::checkState(STATE) ?== STATE_CAR_LANTERN_OFF PASSED
-@0.81s:  PASSED simulator.payloads.CarLanternPayload$ReadableCarLanternPayload@7bea5671 :: lighted ?== false PASSED
-@0.81s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@21f3aa07 :: getValue ?== false PASSED
+@0.81s:  PASSED simulator.payloads.CarLanternPayload$ReadableCarLanternPayload@2897a560 :: lighted ?== false PASSED
+@0.81s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@55d15445 :: getValue ?== false PASSED
 @1.71s:  PASSED LanternControl[UP]::checkState(STATE) ?== STATE_CAR_LANTERN_OFF PASSED
-@1.71s:  PASSED simulator.payloads.CarLanternPayload$ReadableCarLanternPayload@42704baa :: lighted ?== false PASSED
-@1.71s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@65b4fad5 :: getValue ?== false PASSED
+@1.71s:  PASSED simulator.payloads.CarLanternPayload$ReadableCarLanternPayload@4139eeda :: lighted ?== false PASSED
+@1.71s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@5a77a7f9 :: getValue ?== false PASSED
 @2.61s:  FAILED LanternControl[UP]::checkState(STATE) ?== STATE_CAR_LANTERN_ON (STATE_CAR_LANTERN_OFF instead) FAILED
-@2.61s:  PASSED simulator.payloads.CarLanternPayload$ReadableCarLanternPayload@4a0c68c3 :: lighted ?== true PASSED
-@2.61s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@522a4983 :: getValue ?== true PASSED
+@2.61s:  FAILED simulator.payloads.CarLanternPayload$ReadableCarLanternPayload@4ba33d48 :: lighted ?== true FAILED
+@2.61s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@74b2002f :: getValue ?== true PASSED
 @3.51s:  PASSED LanternControl[UP]::checkState(STATE) ?== STATE_CAR_LANTERN_OFF PASSED
-@3.51s:  FAILED simulator.payloads.CarLanternPayload$ReadableCarLanternPayload@79f6f296 :: lighted ?== false FAILED
-@3.51s:  FAILED simulator.payloads.CanMailbox$ReadableCanMailbox@7ddf5a8f :: getValue ?== false FAILED
+@3.51s:  PASSED simulator.payloads.CarLanternPayload$ReadableCarLanternPayload@1cc7b00c :: lighted ?== false PASSED
+@3.51s:  FAILED simulator.payloads.CanMailbox$ReadableCanMailbox@43b09468 :: getValue ?== false FAILED
 @4.41s:  PASSED LanternControl[UP]::checkState(STATE) ?== STATE_CAR_LANTERN_ON PASSED
-@4.41s:  PASSED simulator.payloads.CarLanternPayload$ReadableCarLanternPayload@45b9ce4b :: lighted ?== true PASSED
-@4.41s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@68861f24 :: getValue ?== true PASSED
+@4.41s:  PASSED simulator.payloads.CarLanternPayload$ReadableCarLanternPayload@7e80fa6f :: lighted ?== true PASSED
+@4.41s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2996c1b0 :: getValue ?== true PASSED
 @5.22s:  PASSED LanternControl[UP]::checkState(STATE) ?== STATE_CAR_LANTERN_OFF PASSED
-@5.22s:  PASSED simulator.payloads.CarLanternPayload$ReadableCarLanternPayload@2107ebe1 :: lighted ?== false PASSED
-@5.22s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@26544ec1 :: getValue ?== false PASSED
+@5.22s:  PASSED simulator.payloads.CarLanternPayload$ReadableCarLanternPayload@485329c5 :: lighted ?== false PASSED
+@5.22s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@31f26605 :: getValue ?== false PASSED
 
 
 ******************Summary******************
