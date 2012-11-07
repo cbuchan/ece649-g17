@@ -216,11 +216,8 @@ public class Dispatcher extends Controller {
             case STATE_IDLE:
 
                 //state actions for STATE_IDLE
-                //direction = computeDirection(direction, networkAtFloorArray.getCurrentFloor());
                 direction = Direction.STOP;
                 commitPoint = networkAtFloorArray.getCurrentFloor();
-
-                log("Direction: ", direction);
 
                 mDesiredFloor.setFloor(networkAtFloorArray.getCurrentFloor());
                 mDesiredFloor.setHallway(Hallway.NONE);
@@ -240,11 +237,8 @@ public class Dispatcher extends Controller {
 
                 commitPoint = commitPointCalculator.nextReachableFloor(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
 
-                log("commitPoint: ", commitPoint);
                 //state actions for STATE_COMPUTE_NEXT
                 targetFloor = computeNextFloor(commitPoint, direction);
-
-                log("targetFloor: ", targetFloor);
 
                 //set the target Hallway to be as many floors as are called for
                 targetHallway = getLitHallways(targetFloor, direction);
@@ -274,10 +268,6 @@ public class Dispatcher extends Controller {
 
                 direction = computeDirection(direction, networkAtFloorArray.getCurrentFloor());
                 commitPoint = networkAtFloorArray.getCurrentFloor();
-
-                log("commitPoint: ", commitPoint);
-                log("Direction: ", direction);
-
 
                 //state actions for STATE_SERVICE_CALL
                 mDesiredFloor.setFloor(targetFloor);
@@ -394,7 +384,6 @@ public class Dispatcher extends Controller {
 
 
     private int computeNextFloor(int commitPoint, Direction dir) {
-        log("closestCall: ", closestCall(commitPoint, numFloors));
 
         // Traveling UP
         if (dir == Direction.UP && nextUpCall(commitPoint) != MessageDictionary.NONE) {
@@ -505,6 +494,7 @@ public class Dispatcher extends Controller {
 
         boolean frontCall;
         boolean backCall;
+
         if (dir == Direction.STOP) {
             frontCall =
                     networkHallCallArray.getValue(floor, Hallway.FRONT, Direction.UP) ||

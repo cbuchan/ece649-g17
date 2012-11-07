@@ -2416,7 +2416,7 @@
     <h3>TIME-TRIGGERED BEHAVIORS:<br>
     </h3>
     <p>7.2 &nbsp;&nbsp; If mAtFloor[f,b]=true and mDesiredFloor.f=f and
-      mDesiredFloor.d=d, CarLantern[d] shall be set to On.<br>
+      mDesiredFloor.d=d, and any mDoorClosed[b,r] is false, then CarLantern[d] shall be set to On.<br>
       7.3&nbsp;&nbsp;&nbsp; If all mDoorClosed[b,r]=true, CarLantern[d]
       shall be set to Off.<br>
       7.4&nbsp;&nbsp;&nbsp; If mDesiredFloor.d != d, CarLantern[d] shall
@@ -2447,7 +2447,7 @@
           </td>
           <td valign="top">(mAtFloor[f,b] == true) &amp;&amp;
             (mDesiredFloor.f == f) &amp;&amp; <br>
-            (mDesiredFloor.d == d);<br>
+            (mDesiredFloor.d == d) &amp;&amp; (any mDoorClosed[b,r] == false);<br>
           </td>
         </tr>
         <tr>
@@ -3366,7 +3366,7 @@
         <tr>
           <td valign="top">T11.2<br>
           </td>
-          <td valign="top">Direction != Stop</td>
+          <td valign="top">any HallCall[f,b,d] == true || any CarCall[f,b] == true</td>
         </tr>
         <tr>
           <td valign="top">T11.3<br>
