@@ -11,6 +11,7 @@ package simulator.elevatorcontrol;
 
 import jSimPack.SimTime;
 import simulator.elevatorcontrol.Utility.*;
+import simulator.elevatormodules.CarLevelPositionCanPayloadTranslator;
 import simulator.elevatormodules.CarWeightCanPayloadTranslator;
 import simulator.framework.Controller;
 import simulator.framework.Direction;
@@ -19,7 +20,6 @@ import simulator.framework.ReplicationComputer;
 import simulator.payloads.CanMailbox;
 import simulator.payloads.CanMailbox.ReadableCanMailbox;
 import simulator.payloads.CanMailbox.WriteableCanMailbox;
-import simulator.elevatormodules.CarLevelPositionCanPayloadTranslator;
 
 
 /**
@@ -216,8 +216,11 @@ public class Dispatcher extends Controller {
             case STATE_IDLE:
 
                 //state actions for STATE_IDLE
-                direction = computeDirection(direction, networkAtFloorArray.getCurrentFloor());
+                //direction = computeDirection(direction, networkAtFloorArray.getCurrentFloor());
+                direction = Direction.STOP;
                 commitPoint = networkAtFloorArray.getCurrentFloor();
+
+                log("Direction: ", direction);
 
                 mDesiredFloor.setFloor(networkAtFloorArray.getCurrentFloor());
                 mDesiredFloor.setHallway(Hallway.NONE);
@@ -227,7 +230,7 @@ public class Dispatcher extends Controller {
                 mDesiredDwellFront.set(CONST_DWELL);
 
                 //#transition 'T11.2'
-                if (direction != Direction.STOP) {
+                if (!allCallsOff()) {
                     newState = State.STATE_COMPUTE_NEXT;
                 }
 
@@ -237,8 +240,11 @@ public class Dispatcher extends Controller {
 
                 commitPoint = commitPointCalculator.nextReachableFloor(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
 
+                log("commitPoint: ", commitPoint);
                 //state actions for STATE_COMPUTE_NEXT
                 targetFloor = computeNextFloor(commitPoint, direction);
+
+                log("targetFloor: ", targetFloor);
 
                 //set the target Hallway to be as many floors as are called for
                 targetHallway = getLitHallways(targetFloor, direction);
@@ -268,6 +274,10 @@ public class Dispatcher extends Controller {
 
                 direction = computeDirection(direction, networkAtFloorArray.getCurrentFloor());
                 commitPoint = networkAtFloorArray.getCurrentFloor();
+
+                log("commitPoint: ", commitPoint);
+                log("Direction: ", direction);
+
 
                 //state actions for STATE_SERVICE_CALL
                 mDesiredFloor.setFloor(targetFloor);
@@ -334,7 +344,9 @@ public class Dispatcher extends Controller {
     */
     private int nextUpCall(int commitPoint) {
         for (int floor = commitPoint; floor < numFloors; floor++) {
-            if (!networkHallCallArray.getOff(floor, Hallway.FRONT, Direction.UP) || networkCarCallArrayFront.getValueForFloor(floor) ||
+            if (networkHallCallArray.getValue(floor, Hallway.FRONT, Direction.UP) ||
+                    networkHallCallArray.getValue(floor, Hallway.BACK, Direction.UP) ||
+                    networkCarCallArrayFront.getValueForFloor(floor) ||
                     networkCarCallArrayBack.getValueForFloor(floor)) {
                 return floor;
             }
@@ -357,7 +369,9 @@ public class Dispatcher extends Controller {
 
     private int nextDownCall(int commitPoint) {
         for (int floor = commitPoint; floor >= 1; floor--) {
-            if (!networkHallCallArray.getOff(floor, Hallway.FRONT, Direction.DOWN) || networkCarCallArrayFront.getValueForFloor(floor) ||
+            if (networkHallCallArray.getValue(floor, Hallway.FRONT, Direction.DOWN) ||
+                    networkHallCallArray.getValue(floor, Hallway.BACK, Direction.DOWN) ||
+                    networkCarCallArrayFront.getValueForFloor(floor) ||
                     networkCarCallArrayBack.getValueForFloor(floor)) {
                 return floor;
             }
@@ -380,6 +394,8 @@ public class Dispatcher extends Controller {
 
 
     private int computeNextFloor(int commitPoint, Direction dir) {
+        log("closestCall: ", closestCall(commitPoint, numFloors));
+
         // Traveling UP
         if (dir == Direction.UP && nextUpCall(commitPoint) != MessageDictionary.NONE) {
             return nextUpCall(commitPoint);
@@ -424,7 +440,7 @@ public class Dispatcher extends Controller {
         }
         // Previous direction STOP
         else {
-            if (anyUpCall(currentFloor) || anyDownCall(currentFloor)) {
+            if (!allCallsOff()) {
                 return directionOfClosestCall(currentFloor, numFloors);
             } else {
                 return Direction.STOP;
@@ -487,8 +503,21 @@ public class Dispatcher extends Controller {
     private Hallway getLitHallways(int floor, Direction dir) {
         Hallway desiredHallway;
 
-        boolean frontCall = !networkHallCallArray.getOff(floor, Hallway.FRONT, dir) || networkCarCallArrayFront.getValueForFloor(floor);
-        boolean backCall = !networkHallCallArray.getOff(floor, Hallway.BACK, dir) || networkCarCallArrayBack.getValueForFloor(floor);
+        boolean frontCall;
+        boolean backCall;
+        if (dir == Direction.STOP) {
+            frontCall =
+                    networkHallCallArray.getValue(floor, Hallway.FRONT, Direction.UP) ||
+                            networkHallCallArray.getValue(floor, Hallway.FRONT, Direction.DOWN) ||
+                            networkCarCallArrayFront.getValueForFloor(floor);
+            backCall = networkHallCallArray.getValue(floor, Hallway.BACK, Direction.UP) ||
+                    networkHallCallArray.getValue(floor, Hallway.BACK, Direction.DOWN) || networkCarCallArrayBack.getValueForFloor(floor);
+        } else {
+            frontCall =
+                    networkHallCallArray.getValue(floor, Hallway.FRONT, dir) || networkCarCallArrayFront.getValueForFloor(floor);
+            backCall = networkHallCallArray.getValue(floor, Hallway.BACK, dir) || networkCarCallArrayBack.getValueForFloor(floor);
+        }
+
 
         if (frontCall && !backCall) {
             desiredHallway = Hallway.FRONT;

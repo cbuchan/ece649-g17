@@ -190,17 +190,23 @@ public class Utility {
         }
 
         public boolean getAllFloorOff(int floor) {
-            return translatorArray[floor].getAllOff();
+            return translatorArray[floor - 1].getAllOff();
         }
 
         public boolean getAllFloorHallwayOff(int floor, Hallway hallway) {
-            return translatorArray[floor].getAllHallwayOff(hallway);
+            return translatorArray[floor - 1].getAllHallwayOff(hallway);
         }
 
         public boolean getOff(int floor, Hallway hallway, Direction dir) {
             if (floor < 0 || floor >= Elevator.numFloors)
                 return false;
-            return translatorArray[floor].getOff(hallway, dir);
+            return translatorArray[floor - 1].getOff(hallway, dir);
+        }
+
+        public boolean getValue(int floor, Hallway hallway, Direction dir) {
+            if (floor < 0 || floor >= Elevator.numFloors)
+                return false;
+            return translatorArray[floor - 1].getValue(hallway, dir);
         }
     }
 
@@ -235,6 +241,10 @@ public class Utility {
 
         /* NOTE: As of now, do not call getOff for hallway == BOTH, and a specified direction */
         public boolean getOff(Hallway hallway, Direction dir) {
+            return !getValue(hallway, dir);
+        }
+
+        public boolean getValue(Hallway hallway, Direction dir) {
             if (hallway == Hallway.FRONT && dir == Direction.UP) {
                 return (front.up.getValue());
             } else if (hallway == Hallway.FRONT && dir == Direction.DOWN) {
@@ -397,8 +407,9 @@ public class Utility {
                     }
                 }
             }
+
             // Failed to find a floor. Try to return the nearest floor
-            return (int) (mCarLevelPosition.getPosition() / Elevator.DISTANCE_BETWEEN_FLOORS);
+            return (int) (mCarLevelPosition.getPosition() / (Elevator.DISTANCE_BETWEEN_FLOORS * 1000)) + 1;
         }
 
         public int getCommitedFloor(Direction driveSpeed_d, double driveSpeed_s) {
@@ -419,7 +430,7 @@ public class Utility {
                 }
             }
             // Failed to find a floor. Try to return the nearest floor
-            return (int) (mCarLevelPosition.getPosition() / Elevator.DISTANCE_BETWEEN_FLOORS);
+            return (int) (mCarLevelPosition.getPosition() / Elevator.DISTANCE_BETWEEN_FLOORS) + 1;
         }
     }
 }
