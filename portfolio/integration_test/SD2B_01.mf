@@ -16,25 +16,44 @@
 ;========================================================================
 ;initialize
 ;========================================================================
+0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
+
 ;Passenger is in the car at floor f (4).
 ;Elevator has arrived at the desired hallway (FRONT), but the passenger has not yet exited the car.
 ;At least one door[b,r] (FRONT, RIGHT) is open.
 
-0s	I AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
-0s	I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][RIGHT]_CAN_ID DoorOpened FRONT RIGHT = true
++0s	I AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
++0s	I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][RIGHT]_CAN_ID DoorOpened FRONT RIGHT = true
 
 ;passenger in car, elevator at the desired floor
-;0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 4 NONE STOP
-0s  I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT = 1
 
 ;========================================================================
 ;1. Door[b,r] starts to close.
 ;========================================================================
 ;arc 1
 +0.21s  A  S DoorControl[FRONT][RIGHT] : STATE == STATE_DOOR_CLOSING
-+0s     A  F DoorMotor FRONT RIGHT : command == NUDGE
++0s     A  F DoorMotor FRONT RIGHT : command == CLOSE
 
 +0s	    I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][RIGHT]_CAN_ID DoorOpened FRONT RIGHT = false
+
+;Dispatcher stuff
++0s	    I AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = false
+
++0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
++0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
++0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
++0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
++0s     I DRIVE_PERIOD N DRIVE_SPEED_CAN_ID DriveSpeed = 0.0 STOP
++0s     I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 0
+
++0.1s     I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
++0.1s     I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = false
+
++0.21s  I  CAR_BUTTON_CONTROL_PERIOD F CarCall 3 FRONT = true
++0.21s  I  CAR_BUTTON_CONTROL_PERIOD F CarCall 3 FRONT = false
+
++0s	I AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
+;End Dispatcher stuff
 
 ;========================================================================
 ;2. The passenger presses the car call button for floor f and hallway b,
@@ -55,7 +74,9 @@
 ;    and that the desired hallway is the current hallway.
 ;========================================================================
 ;arc 3a
-+0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 4 BOTH STOP
++0.5s	A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 4
++0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == FRONT
++0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
 
 ;========================================================================
 ;4. The door starts opening.

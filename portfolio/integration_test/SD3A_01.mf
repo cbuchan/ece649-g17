@@ -24,64 +24,92 @@
 +0s    I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
 +0s    I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
 +0s    I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
+
+;Dispatcher stuff
++0.1s     I DRIVE_PERIOD N DRIVE_SPEED_CAN_ID DriveSpeed = 0.0 STOP
++0s     I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 0
+
++0.1s     I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
++0.1s     I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = false
+
++0.21s  I  CAR_BUTTON_CONTROL_PERIOD F CarCall 3 FRONT = true
++0.21s  I  CAR_BUTTON_CONTROL_PERIOD F CarCall 3 FRONT = false
+;End Dispatcher stuff
+
 +0s    I  WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 100
+
 ;Need to set DesiredDwell or DoorControl will oscillate once open
-+0s    I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT = 10
-+0s    I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[BACK]_CAN_ID DesiredDwell BACK = 10
+;+0s    I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT = 10
+;+0s    I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[BACK]_CAN_ID DesiredDwell BACK = 10
+
 ;Need to set a starting AtFloor so that DriveControl can compute DesiredDir and transition to DRIVE_SLOW
 +0s    I  AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
 
 +0.10s  I  HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[4][FRONT][UP]_CAN_ID Boolean = true
-+0.10s  I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 4 FRONT STOP
 
 ; wait for Dispatcher to set direction
 
 +0.10s I  AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = false
 
+;========================================================================
+;Scenario Step 1 & 2
+;========================================================================
+;arc 2
++0.5s	A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 4
++0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == FRONT
++0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
 
-;========================================================================
-;Scenario Step 1
-;========================================================================
 ;arc 1a-c
 +1.00s I  AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
-+0s    I  LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
-
-;arc 1d
-+0.41s A  F Drive : speed == LEVEL
-+0s    A  F Drive : direction == UP
-
-;arc 1e
-+0.79s I  LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
-
-;arc 1f
-+0.30s A  F Drive : speed == STOP
-
-;========================================================================
-;Scenario Step 2
-;========================================================================
-;arc 2a
-+0.21s A  F DoorMotor FRONT LEFT : command == OPEN
-
-;arc 2b
-+0.59s I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
 
 ;========================================================================
 ;Scenario Step 3
 ;========================================================================
 ;arc 3
+
 +0.21s A F HallLight 4 FRONT UP : lighted == false
 
 ;========================================================================
 ;Scenario Step 4
 ;========================================================================
-;arc 4a
-+0.79s I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
-
-;arc 4b
-+0.41s A  F DoorMotor FRONT LEFT : command == STOP
+;arc 4a, 4b
++0.79s I  LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = false
++0s    I  LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
 
 ;========================================================================
 ;Scenario Step 5
 ;========================================================================
-;arc 5a (Passenger sees door open)
-;arc 5b (Passenger enters)
+;arc 5a
++0.41s A  F Drive : speed == LEVEL
++0s    A  F Drive : direction == UP
+
+;arc 5b
++0.79s I  LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
+
+;========================================================================
+;Scenario Step 6
+;========================================================================
+;arc 6a, 6b
++0.30s A  F Drive : speed == STOP
+
+;========================================================================
+;Scenario Step 7
+;========================================================================
+;arc 7a
++0.21s A  F DoorMotor FRONT LEFT : command == OPEN
++0.59s I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
+
+;arc 7b
++0.79s I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
+
+;========================================================================
+;Scenario Step 8
+;========================================================================
+;arc 8
++0.41s A  F DoorMotor FRONT LEFT : command == STOP
+
+;========================================================================
+;Scenario Step 9
+;========================================================================
+;arc 9a (Passenger sees door open)
+;arc 9b (Passenger enters)

@@ -75,7 +75,7 @@
 +0.1s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
 
 ;arc 6a, 6b
-+0.41s  A  F HallLight 4 FRONT DOWN : lighted == false
++1s     A  F HallLight 4 FRONT DOWN : lighted == false
 +0s     A  N HALL_LIGHT_[4][FRONT][DOWN]_CAN_ID Boolean : getValue == false
 
 ;========================================================================

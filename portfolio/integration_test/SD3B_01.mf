@@ -63,13 +63,16 @@
 ;door finishes opening
 +0s I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[BACK][RIGHT]_CAN_ID DoorOpened BACK RIGHT = true
 
++0.79s I  LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
++0s    I  LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
+
 ;arc 5. check drive set to STOP STOP
 +0.5s	A S DriveControl : STATE == STATE_DRIVE_STOPPED
 +0s	A F Drive : speed == STOP
 +0s	A F Drive : direction == STOP
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == STOP
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == STOP
-+0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed == STOP
++0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed == 0
 
 ;========================================================================
 ;Post Conditions

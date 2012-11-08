@@ -9,5 +9,6 @@
 ;Jessica Tiu   (jtiu)
 ;========================================================================
 
-DoorControl FRONT RIGHT 10ms TRUE
+DoorControl FRONT RIGHT 10ms FALSE
 CarButtonControl 4 FRONT 100ms TRUE
+Dispatcher 8 50ms TRUE

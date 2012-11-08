@@ -29,7 +29,7 @@
 ;========================================================================
 ;Arc 1a
 +0.21s  A  S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_CLOSING
-+0s     A  F DoorMotor FRONT LEFT : command == NUDGE
++0s     A  F DoorMotor FRONT LEFT : command == CLOSE
 
 ;========================================================================
 ;2. Passenger arrives at a hallway [f,b] to use the elevator going in
