@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf LanternControl.cf -mf LanternControl_01.mf
-RandomSeed = 1352389752112
+RandomSeed = 1352395702574
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -32,7 +32,7 @@ Assertion Results:
 @4.41s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@1f292d26 :: getValue ?== true PASSED
 @5.22s:  PASSED LanternControl[UP]::checkState(STATE) ?== STATE_CAR_LANTERN_OFF PASSED
 @5.22s:  PASSED simulator.payloads.CarLanternPayload$ReadableCarLanternPayload@2107ebe1 :: lighted ?== false PASSED
-@5.22s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@26544ec1 :: getValue ?== false PASSED
+@5.22s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@19968e23 :: getValue ?== false PASSED
 
 
 ******************Summary******************
