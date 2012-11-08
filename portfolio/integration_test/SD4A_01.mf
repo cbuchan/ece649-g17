@@ -8,7 +8,7 @@
 ;Jesse Salazar (jessesal)
 ;Jessica Tiu   (jtiu)
 ;
-;Last modified 2012-10-09 (cbuchan)
+;Last modified 2012-11-08 (cbuchan)
 ;========================================================================
 
 #INCLUDE defines.mf ;include CAN id and period definitions
@@ -26,13 +26,22 @@
 +0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
 +0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
 
-;passenger in car, elevator is approaching desired floor
-+0s I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 4 FRONT STOP
-+0s I DISPATCHER_PERIOD N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT = 1
++0.1s     I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
++0.1s     I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = false
+
+;car call
++0.21s  I  CAR_BUTTON_CONTROL_PERIOD F CarCall 4 FRONT = true
++0.21s  I  CAR_BUTTON_CONTROL_PERIOD F CarCall 4 FRONT = false
 
 ;========================================================================
-;1. The car arrives at floor f=4.
+;1. The car arrives at floor f=4. and 2. dispatcher desired floor
 ;========================================================================
+;passenger in car, elevator is approaching desired floor
+;Dispatcher calculates new desired floor
++0.5s	A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 4
++0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == FRONT
++0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
+
 ;arc 1a, 1b
 +0.21s I AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
 
@@ -40,47 +49,50 @@
 +0s    I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = false
 
 ;========================================================================
-;2. DriveControl sets drive speed to Level and Car reaches a level state.
-;========================================================================
-;check state level
-;arc 2a
-+0.21s A F Drive : speed == LEVEL
-+0s    A F Drive : direction == DOWN
-
-;arc 2b
-+0.21s  I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
-
-;========================================================================
-;3. DriveControl sets drive speed to Stop.
-;========================================================================
-;arc 3a, 3b
-+0.21s A F Drive : speed == STOP
-+0s    A F Drive : direction == STOP
-
-;========================================================================
-;4. Door[b,r] starts to open.
-;========================================================================
-;arc 4a, 4b
-+0.21s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPENING
-+0s    A F DoorMotor FRONT LEFT : command == OPEN
-
-;========================================================================
-;5. Door[b,r] finishes opening.
-;========================================================================
-;arc 5a
-+0s I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
-
-;check 5. DoorMotor=Stop results (DoorControl)
-;arc 5b
-+0.41s A F DoorMotor FRONT LEFT : command == STOP
-
-;========================================================================
-;6. The passenger exits the car.
+;3. CarLight[f,b] turns off and mCarCall[f,b] is set to false.
 ;========================================================================
 +0.21s A N CAR_CALL_[4][FRONT]_CAN_ID Boolean : getValue == false
 +0s    A N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean : getValue == false
 
-;arc 6 (passenger exits)
+;========================================================================
+;4. DriveControl sets drive speed to Level and Car reaches a level state.
+;========================================================================
+;check state level
+;arc 4a
++0.21s A F Drive : speed == LEVEL
++0s    A F Drive : direction == DOWN
+
+;arc 4b
++0.21s  I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
+
+;========================================================================
+;5. DriveControl sets drive speed to Stop.
+;========================================================================
+;arc 5a, 5b
++0.21s A F Drive : speed == STOP
++0s    A F Drive : direction == STOP
+
+;========================================================================
+;6. Door[b,r] starts to open.
+;========================================================================
+;arc 6a, 6b
++0.21s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPENING
++0s    A F DoorMotor FRONT LEFT : command == OPEN
+
+;========================================================================
+;7. Door[b,r] finishes opening.
+;========================================================================
+;arc 7a
++0s I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
+
+;check 5. DoorMotor=Stop results (DoorControl)
+;arc 7b
++0.41s A F DoorMotor FRONT LEFT : command == STOP
+
+;========================================================================
+;8. The passenger exits the car.
+;========================================================================
+;arc 8 (passenger exits)
 
 ;========================================================================
 ;Post Conditions
@@ -88,4 +100,3 @@
 ;The passenger is not in the car.
 ;The car is at floor f.
 ;At least one Door[b,r] is open.
-
