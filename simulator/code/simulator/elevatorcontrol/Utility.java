@@ -364,13 +364,16 @@ public class Utility {
         public Boolean commitPoint(int f, Direction driveSpeed_d, double driveSpeed_s) {
             int dir = driveSpeed_d == Direction.UP ? 1 : -1;     //sign determined by current direction
             double speed = driveSpeed_s;                             // in m/s
-            double pos = mCarLevelPosition.getPosition()/1000;       // level position in mm, *updates at each floor
+            double pos = mCarLevelPosition.getPosition()/1000;       // level position in m, *updates at each floor
             double fPos = (f-1) * Elevator.DISTANCE_BETWEEN_FLOORS;  // DISTANCE_BETWEEN_FLOORS in m
             double commitPt = pos;
 
             double decel = DriveObject.Deceleration;    // in m/s^2
             double slow = DriveObject.SlowSpeed;        // in m/s
             double stop = DriveObject.StopSpeed;        // in m/s
+
+            if ((dir == 1 && fPos <= pos) ||
+                (dir == -1 && fPos >= pos)) return true; // reached for f 'less' than curr floor (direction dependent)
 
             if (speed > slow) {
                 commitPt += dir * (1/decel) *
@@ -387,14 +390,14 @@ public class Utility {
              * stopping distance from slow is 0.03125m
              */
 
-            //System.out.println("(levelpos, dir, commitpt, fpos) = ("+pos+", "+dir+", "+commitPt+", "+fPos+")");
+            System.out.println("(levelpos, dir, commitpt, fpos) = ("+pos+", "+dir+", "+commitPt+", "+fPos+")");
 
-            // let's set the error threshold to 100cm (to compensate for the level position sensor updating)
-            double error = 1.0;
+            // let's set the error threshold to 10cm (to compensate for the level position sensor updating)
+            double error = 0.1;
             if (dir == 1) {
-                if (fPos > commitPt+error) return false; //not reached
+                if (commitPt < fPos-error) return false; //not reached
             } else if (dir == -1) {
-                if (fPos < commitPt-error) return false; //not reached
+                if (commitPt > fPos+error) return false; //not reached
             }
             return true; //reached
         }
