@@ -1870,50 +1870,39 @@
         <tr>
           <td style="vertical-align: top;">T6.1</td>
           <td style="vertical-align: top;">DriveDir == Stop &amp;&amp;
-            mLevel[*] ~= True<br>
-          </td>
+            mLevel[*] ~= True</td>
         </tr>
         <tr>
           <td valign="top">T6.2<br>
           </td>
           <td valign="top">DriveDir == Stop &amp;&amp; mLevel[*] == True
-            <br>
-            || mEmergencyBrake[b] == True<br>
-          </td>
+            || mEmergencyBrake[b] == True</td>
         </tr>
         <tr>
           <td valign="top">T6.3<br>
           </td>
           <td valign="top">DriveDir ~= Stop &amp;&amp; mDoorClosed[*,*]
-            == True <br>
-            &amp;&amp; mEmergencyBrake[b] == False<br>
-          </td>
+            == True  &amp;&amp; mEmergencyBrake[b] == False</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">T6.4</td>
           <td style="vertical-align: top;">DriveDir == Stop &amp;&amp;
-            mLevel[*] ~= True <br>
-            || mCarWeight(x) &gt;= MaxCarCapacity<br>
-          </td>
+            mLevel[*] ~= True || mCarWeight(x) &gt;= MaxCarCapacity</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">T6.5</td>
-          <td style="vertical-align: top;">DriveDir ~= Stop &amp;&amp;
-            CommitPoint[f] == NotReached &amp;&amp; mDesiredFloor.f == f<br>
-          </td>
+          <td style="vertical-align: top;">DriveSpeed.s == SlowSpeed &amp;&amp; DriveDir ~= Stop &amp;&amp;
+            CommitPoint[f] == NotReached &amp;&amp; mDesiredFloor.f == f</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">T6.6</td>
           <td style="vertical-align: top;">DriveDir ~= Stop &amp;&amp;
-            CommitPoint[f] == Reached &amp;&amp; mDesiredFloor.f == f <br>
-            || mCarWeight(x) &gt;= MaxCarCapacity<br>
-          </td>
+            CommitPoint[f] == Reached &amp;&amp; mDesiredFloor.f == f || mCarWeight(x) &gt;= MaxCarCapacity</td>
         </tr>
         <tr>
           <td valign="top">T6.7<br>
           </td>
-          <td valign="top">mEmergencyBrake[b] == True<br>
-          </td>
+          <td valign="top">mEmergencyBrake[b] == True</td>
         </tr>
         <tr>
           <td valign="top">T6.8<br>
