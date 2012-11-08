@@ -278,9 +278,11 @@ public class DriveControl extends Controller {
                 mDrive.set(Speed.SLOW, driveDir);
                 mDriveSpeed.set(localDriveSpeed.speed(), localDriveSpeed.direction());
 
-                //log("localDrive="+localDrive.speed()+", "+localDrive.direction());
-                //log("localDriveSpeed="+localDriveSpeed.speed()+", "+localDriveSpeed.direction());
-                //log("mDriveSpeed="+mDriveSpeed.getSpeed()+", "+mDriveSpeed.getDirection());
+                log("localDrive="+localDrive.speed()+", "+localDrive.direction());
+                log("localDriveSpeed="+localDriveSpeed.speed()+", "+localDriveSpeed.direction());
+                log("mDriveSpeed="+mDriveSpeed.getSpeed()+", "+mDriveSpeed.getDirection());
+                log("commitP="+networkCommitPoint.commitPoint(mDesiredFloor.getFloor(),
+                        localDriveSpeed.direction(), localDriveSpeed.speed()));
 
                 //transitions
 
@@ -314,9 +316,11 @@ public class DriveControl extends Controller {
                 mDrive.set(Speed.FAST, driveDir);
                 mDriveSpeed.set(localDriveSpeed.speed(), localDriveSpeed.direction());
 
-                //log("localDrive="+localDrive.speed()+", "+localDrive.direction());
-                //log("localDriveSpeed="+localDriveSpeed.speed()+", "+localDriveSpeed.direction());
-                //log("mDriveSpeed="+mDriveSpeed.getSpeed()+", "+mDriveSpeed.getDirection());
+                log("localDrive="+localDrive.speed()+", "+localDrive.direction());
+                log("localDriveSpeed="+localDriveSpeed.speed()+", "+localDriveSpeed.direction());
+                log("mDriveSpeed="+mDriveSpeed.getSpeed()+", "+mDriveSpeed.getDirection());
+                log("commitP="+networkCommitPoint.commitPoint(mDesiredFloor.getFloor(),
+                        localDriveSpeed.direction(), localDriveSpeed.speed()));
 
                 //transitions
 
