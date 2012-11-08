@@ -46,7 +46,7 @@
 +0.25s  I DOOR_CONTROL_PERIOD N HALL_CALL_[2][BACK][UP]_CAN_ID Boolean = true
 
 ;#state 'COMPUTE_NEXT'
-+0.15s  A S Dispatcher : STATE == STATE_COMPUTE_NEXT
++0.20s  A S Dispatcher : STATE == STATE_COMPUTE_NEXT
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 2
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == BACK
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
@@ -62,7 +62,7 @@
 +0.10s  I DOOR_CONTROL_PERIOD N HALL_CALL_[2][BACK][UP]_CAN_ID Boolean = false
 
 ;#state 'SERVICE_CALL'
-+0.10s  A S Dispatcher : STATE == STATE_SERVICE_CALL
++0.20s  A S Dispatcher : STATE == STATE_SERVICE_CALL
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 2
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == BACK
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
@@ -75,7 +75,7 @@
 +0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = false
 
 ;#state 'COMPUTE_NEXT'
-+0.15s  A S Dispatcher : STATE == STATE_COMPUTE_NEXT
++0.20s  A S Dispatcher : STATE == STATE_COMPUTE_NEXT
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 3
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == FRONT
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == UP
@@ -91,7 +91,7 @@
 
 
 ;#state 'SERVICE_CALL'
-+0.15s  A S Dispatcher : STATE == STATE_SERVICE_CALL
++0.20s  A S Dispatcher : STATE == STATE_SERVICE_CALL
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 3
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == FRONT
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
@@ -104,7 +104,7 @@
 +0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = false
 
 ;#state 'IDLE'
-+0.15s  A S Dispatcher : STATE == STATE_IDLE
++0.20s  A S Dispatcher : STATE == STATE_IDLE
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 3
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == NONE
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP

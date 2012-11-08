@@ -32,6 +32,21 @@
 ;#transition 'T6.4'		-- branch (1 1 0 tested)		
 ;#transition 'T6.2'		-- branch (0 0 1 tested)
 
+;#transition 'T6.3'
+;#transition 'T6.5'
+;#transition 'T6.6'		-- branch (0 0 0 1 tested) 		
+;#transition 'T6.4'		-- branch (0 0 1 tested)		
+;#transition 'T6.2'		-- branch (0 0 1 tested again)
+
+;#transition 'T6.3'
+;#transition 'T6.7'
+
+;#transition 'T6.3'
+;#transition 'T6.5'
+;#transition 'T6.8'
+
+;=========================================================================
+; Transitions 6.1 -> 6.2
 
 ;====1.0s=====================================================================
 ;#state 'STATE_DRIVE_STOPPED'
@@ -44,20 +59,14 @@
 +0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed == 0.0
 +0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == STOP
 
-
-
-
-;=========================================================================
-; Transitions 6.1 -> 6.2
 ;=========================================================================
 ;#transition 'T6.1'
 
 ;initial conditions
 ;no emergency condition
-+0.5s I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = false
++1.0s I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = false
 +0s	I WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 0
-
-+0s I DRIVE_PERIOD F DriveSpeed = UP 0.03
+;+0s I DRIVE_PERIOD F DriveSpeed = 0.0
 
 ;drive direction is stop
 +0s	I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
@@ -74,19 +83,14 @@
 +0s	A F Drive : direction == UP
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == LEVEL
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == UP
-+0s A F DriveSpeed : speed <= 0.05
-+0s	A F DriveSpeed : direction == UP
 +0s A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed <= 0.05
-+0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == UP
++0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == STOP
 ;=========================================================================
 ;#transition 'T6.2'
 
 ;drive direction is stop
 +0.5s I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
 +0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 3 FRONT STOP
-
-+0s I DRIVE_PERIOD F DriveSpeed = STOP 0.0
-
 ;level up,down are true
 +0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
 +0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
@@ -122,9 +126,7 @@
 +0s	I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
 +0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 5 FRONT STOP
 
-+0s I DRIVE_PERIOD F DriveSpeed = UP 0.24
-
-;+0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 15000
+;+0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 3000
 
 ;====4.0s=====================================================================
 ;#state 'STATE_DRIVE_SLOW'
@@ -134,9 +136,6 @@
 +0s	A F Drive : direction == UP
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == SLOW
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == UP
-+0s A F DriveSpeed : speed > 0.05
-+0s A F DriveSpeed : speed <= 0.25
-+0s	A F DriveSpeed : direction == UP
 +0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed <= 0.25
 +0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == UP
 
@@ -148,9 +147,8 @@
 +0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 5 FRONT STOP
 
 ;insert conditions for CommitPoint[5] NotReached
-+0s I DRIVE_PERIOD F DriveSpeed = UP 1.0
-;car is not within 0.5m to floor 5
-+0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 19000
+;+0s I DRIVE_PERIOD F DriveSpeed = 0.25 UP
++0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 3450
 
 ;====5.0s=====================================================================
 ;#state 'STATE_DRIVE_FAST'
@@ -167,19 +165,17 @@
 ;#transition 'T6.6' branch 1110
 
 ;drive dir not stop
-;+0.4s	I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
-+0.5s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 5 FRONT STOP
++0.5s	I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
++0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 5 FRONT STOP
 
 ;insert conditions for CommitPoint[5] Reached
-+0s I DRIVE_PERIOD F DriveSpeed = UP 1.0
-;car is within 0.5m to floor 5 = 20.0m, at floor f~4.9 = 19.5m - 0.2m = 19.3m
-+0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 19501
+;+0s I DRIVE_PERIOD F DriveSpeed = 1.0 UP
++0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 4501
 
 ;====6.0s=====================================================================
 ;#state 'STATE_DRIVE_SLOW'
 
-+0.5s I DRIVE_PERIOD F DriveSpeed = UP 0.24
-+0.0s A S DriveControl : STATE == STATE_DRIVE_SLOW
++0.5s A S DriveControl : STATE == STATE_DRIVE_SLOW
 +0s	A F Drive : speed == SLOW
 +0s	A F Drive : direction == UP
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == SLOW
@@ -233,3 +229,125 @@
 
 
 
+;=========================================================================
+; Transitions 6.3 -> 6.7
+
+;=========================================================================
+;#transition 'T6.3'
+
+;reset the leveling sensors
++0.5s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = false
++0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = false
+;all doors closed
++0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
++0s	I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
++0s	I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
++0s	I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
+;drive direction not stop
++0s	I AT_FLOOR_PERIOD N AT_FLOOR_[5][FRONT]_CAN_ID AtFloor 5 FRONT = false
++0s	I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
++0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 5 FRONT STOP
+
+;+0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 3000
+
+;====14.0s=====================================================================
+;#state 'STATE_DRIVE_SLOW'
+
++0.5s A S DriveControl : STATE == STATE_DRIVE_SLOW
++0s	A F Drive : speed == SLOW
++0s	A F Drive : direction == UP
++0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == SLOW
++0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == UP
++0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed <= 0.25
++0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == UP
+
+;=========================================================================
+;#transition 'T6.7'
+
+; set the emergency brake
++0.5s I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = true
+
+;====15.0s=====================================================================
+;#state 'STATE_DRIVE_LEVEL_STOPPED'
+
++0.5s	A S DriveControl : STATE == STATE_DRIVE_STOPPED
++0s	A F Drive : speed == STOP
++0s	A F Drive : direction == STOP
++0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == STOP
++0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == STOP
++0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed == 0.0
++0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == STOP
+
+
+
+;=========================================================================
+; Transitions 6.3 -> 6.5 -> 6.8
+
+;=========================================================================
+;#transition 'T6.3'
+
+;reset the leveling sensors
++0.5s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = false
++0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = false
+;reset the emergency brake
++0s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = false
+;all doors closed
++0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
++0s	I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
++0s	I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
++0s	I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
+;drive direction not stop
++0s	I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
++0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 5 FRONT STOP
+
+;+0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 3000
+
+;====16.0s=====================================================================
+;#state 'STATE_DRIVE_SLOW'
+
++0.5s	A S DriveControl : STATE == STATE_DRIVE_SLOW
++0s	A F Drive : speed == SLOW
++0s	A F Drive : direction == UP
++0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == SLOW
++0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == UP
++0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed <= 0.25
++0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == UP
+
+;=========================================================================
+;#transition 'T6.5'
+
+;drive dir not stop
++0.5s I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
++0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 5 FRONT STOP
+
+;insert conditions for CommitPoint[5] NotReached
+;+0s I DRIVE_PERIOD F DriveSpeed = 0.25 UP
++0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 3450
+
+;====17.0s=====================================================================
+;#state 'STATE_DRIVE_FAST'
+
++0.5s A S DriveControl : STATE == STATE_DRIVE_FAST
++0s	A F Drive : speed == FAST
++0s	A F Drive : direction == UP
++0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == FAST
++0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == UP
++0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed >= 0.5
++0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == UP
+
+;=========================================================================
+;#transition 'T6.8'
+
+; set the emergency brake
++0.5s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = true
+
+;====18.0s=====================================================================
+;#state 'STATE_DRIVE_LEVEL_STOPPED'
+
++0.5s A S DriveControl : STATE == STATE_DRIVE_STOPPED
++0s	A F Drive : speed == STOP
++0s	A F Drive : direction == STOP
++0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == STOP
++0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == STOP
++0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed == 0.0
++0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == STOP

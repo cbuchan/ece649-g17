@@ -52,8 +52,8 @@
 ;========================================================================
 ;check 3. DoorMotor[b,r]=Closed (DoorControl) after timeout
 ;arc 3
-+2.0s	A F DoorMotor FRONT LEFT : command == NUDGE
-+0s	    A F DoorMotor FRONT LEFT : command == NUDGE
++2.0s	A F DoorMotor FRONT LEFT : command == CLOSE
++0s	    A F DoorMotor FRONT LEFT : command == CLOSE
 
 +0.21s	I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = false
 +0s	    I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = false

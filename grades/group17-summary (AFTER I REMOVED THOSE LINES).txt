@@ -1,0 +1,130 @@
+group17 code compiled correctly.
+
+
+Staring Unit Tests
+  
+Unit Test Summary Results
+# of missing unit tests (malformed test list or missing files):  0
+# of unit tests that failed to run (Java runtime errors):  0
+# of failed assertions in all unit tests:   75
+
+Unit test detailed results (compare these to the pass/fail totals in the Unit Test Log):
+injection-CarButtonControl_01.mf-0.stats:Passed:  20
+injection-CarButtonControl_01.mf-0.stats-Failed:  0
+injection-CarButtonControl_01.mf-0.stats-Total :  20
+--
+injection-CarPositionControl_01.mf-0.stats:Passed:  12
+injection-CarPositionControl_01.mf-0.stats-Failed:  0
+injection-CarPositionControl_01.mf-0.stats-Total :  12
+--
+injection-Dispatcher_01.mf-0.stats:Passed:  24
+injection-Dispatcher_01.mf-0.stats-Failed:  24
+injection-Dispatcher_01.mf-0.stats-Total :  48
+--
+injection-DoorControl_01.mf-0.stats:Passed:  18
+injection-DoorControl_01.mf-0.stats-Failed:  0
+injection-DoorControl_01.mf-0.stats-Total :  18
+--
+injection-DoorControl_02.mf-0.stats:Passed:  66
+injection-DoorControl_02.mf-0.stats-Failed:  0
+injection-DoorControl_02.mf-0.stats-Total :  66
+--
+injection-DoorControl_03.mf-0.stats:Passed:  69
+injection-DoorControl_03.mf-0.stats-Failed:  0
+injection-DoorControl_03.mf-0.stats-Total :  69
+--
+injection-DriveControl_01.mf-0.stats:Passed:  78
+injection-DriveControl_01.mf-0.stats-Failed:  48
+injection-DriveControl_01.mf-0.stats-Total :  126
+--
+injection-DriveControl_06.mf-0.stats:Passed:  8
+injection-DriveControl_06.mf-0.stats-Failed:  0
+injection-DriveControl_06.mf-0.stats-Total :  8
+--
+injection-HallButtonControl_01.mf-0.stats:Passed:  20
+injection-HallButtonControl_01.mf-0.stats-Failed:  0
+injection-HallButtonControl_01.mf-0.stats-Total :  20
+--
+injection-LanternControl_01.mf-0.stats:Passed:  15
+injection-LanternControl_01.mf-0.stats-Failed:  3
+injection-LanternControl_01.mf-0.stats-Total :  18
+
+
+Starting integrcation tests
+  Integration test SD3B SD3B.cf SD3B_01.mf failed to run (had runtime errors)  Check integration_test.log for details.
+Integration Test Summary
+# of missing integration tests (malformed test list or missing files):  0
+# of integration tests that failed to run (Java runtime errors):  1
+# of failed assertions in all integration tests:   38
+  
+Integration test detailed results (compare these to the pass/fail totals in the Integration Test Log):
+injection-SD1A_01.mf-0.stats:Passed:  2
+injection-SD1A_01.mf-0.stats-Failed:  0
+injection-SD1A_01.mf-0.stats-Total :  2
+--
+injection-SD1B_01.mf-0.stats:Passed:  5
+injection-SD1B_01.mf-0.stats-Failed:  1
+injection-SD1B_01.mf-0.stats-Total :  6
+--
+injection-SD1C_01.mf-0.stats:Passed:  5
+injection-SD1C_01.mf-0.stats-Failed:  1
+injection-SD1C_01.mf-0.stats-Total :  6
+--
+injection-SD2A_01.mf-0.stats:Passed:  6
+injection-SD2A_01.mf-0.stats-Failed:  2
+injection-SD2A_01.mf-0.stats-Total :  8
+--
+injection-SD2B_01.mf-0.stats:Passed:  9
+injection-SD2B_01.mf-0.stats-Failed:  1
+injection-SD2B_01.mf-0.stats-Total :  10
+--
+injection-SD3A_01.mf-0.stats:Passed:  6
+injection-SD3A_01.mf-0.stats-Failed:  0
+injection-SD3A_01.mf-0.stats-Total :  6
+--
+injection-SD4A_01.mf-0.stats:Passed:  9
+injection-SD4A_01.mf-0.stats-Failed:  0
+injection-SD4A_01.mf-0.stats-Total :  9
+--
+injection-SD5A_01.mf-0.stats:Passed:  3
+injection-SD5A_01.mf-0.stats-Failed:  3
+injection-SD5A_01.mf-0.stats-Total :  6
+--
+injection-SD5B_01.mf-0.stats:Passed:  3
+injection-SD5B_01.mf-0.stats-Failed:  3
+injection-SD5B_01.mf-0.stats-Total :  6
+--
+injection-SD6A_01.mf-0.stats:Passed:  7
+injection-SD6A_01.mf-0.stats-Failed:  0
+injection-SD6A_01.mf-0.stats-Total :  7
+--
+injection-SD7A_01.mf-0.stats:Passed:  10
+injection-SD7A_01.mf-0.stats-Failed:  1
+injection-SD7A_01.mf-0.stats-Total :  11
+--
+injection-SD7B_01.mf-0.stats:Passed:  11
+injection-SD7B_01.mf-0.stats-Failed:  0
+injection-SD7B_01.mf-0.stats-Total :  11
+--
+injection-SD7C_01.mf-0.stats:Passed:  3
+injection-SD7C_01.mf-0.stats-Failed:  1
+injection-SD7C_01.mf-0.stats-Total :  4
+--
+injection-SD8A_01.mf-0.stats:Passed:  11
+injection-SD8A_01.mf-0.stats-Failed:  2
+injection-SD8A_01.mf-0.stats-Total :  13
+--
+injection-SD9A_01.mf-0.stats:Passed:  5
+injection-SD9A_01.mf-0.stats-Failed:  7
+injection-SD9A_01.mf-0.stats-Total :  12
+--
+injection-SD9B_01.mf-0.stats:Passed:  10
+injection-SD9B_01.mf-0.stats-Failed:  9
+injection-SD9B_01.mf-0.stats-Total :  19
+--
+injection-SD9C_01.mf-0.stats:Passed:  8
+injection-SD9C_01.mf-0.stats-Failed:  7
+injection-SD9C_01.mf-0.stats-Total :  15
+Acceptance tests not requested.
+Runtime monitoring tests not requested.
+Removing code tree

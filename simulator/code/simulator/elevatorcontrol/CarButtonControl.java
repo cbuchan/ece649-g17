@@ -165,10 +165,6 @@ public class CarButtonControl extends Controller {
                 mCarLight.set(true);
                 mCarCall.setValue(true);
 
-                log("mAtFloor: ", mAtFloor.getValue());
-                log("desired floor: ", mDesiredFloor.getFloor(), "==", floor, " desired hallway: ", mDesiredFloor.getHallway(), "==",
-                        hallway);
-
                 //transitions -- transition conditions are mutually exclusive
                 //#transition 'T9.2'
                 if (mAtFloor.getValue() == true && mDesiredFloor.getFloor() == floor &&

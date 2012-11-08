@@ -29,7 +29,7 @@
 ;========================================================================
 ;Arc 1a
 +0.21s  A  S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_CLOSING
-+0s     A  F DoorMotor FRONT LEFT : command == NUDGE
++0s     A  F DoorMotor FRONT LEFT : command == CLOSE
 
 ;========================================================================
 ;2. Passenger arrives at a hallway [f, b] to use the elevator, with
@@ -49,11 +49,42 @@
 +0.21s  A  F HallLight 4 FRONT DOWN : lighted == true
 +0s     A  N HALL_LIGHT_[4][FRONT][DOWN]_CAN_ID Boolean : getValue == true
 
+
 ;========================================================================
-;5. Doors complete closing.
+;5. Dispatcher updates mDesiredFloor to f, b, d. 
 ;========================================================================
-;arc 5a, 5b
-+0.21s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
++0.1s   I  AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = false
++0.1s   I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
++0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
++0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
++0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
++0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
+
+;Dispatcher calculates new desired floor
++0.5s	A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 4
++0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == FRONT
++0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
+
++0.1s  I  DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = false
++0.1s   I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = false
++0.1s   I  AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
+
+;========================================================================
+;6. Hall button turns off.
+;========================================================================
++0.1s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
+
+;arc 6a, 6b
++1s     A  F HallLight 4 FRONT DOWN : lighted == false
++0s     A  N HALL_LIGHT_[4][FRONT][DOWN]_CAN_ID Boolean : getValue == false
+
+;========================================================================
+;7. Doors open.
+;========================================================================
+
+;arc 7a, 7b, 7c
++0.41s  A  F DoorMotor FRONT LEFT : command == OPEN
++0.1s  I  DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
 +0.41s  A  F DoorMotor FRONT LEFT : command == STOP
 
 ;========================================================================

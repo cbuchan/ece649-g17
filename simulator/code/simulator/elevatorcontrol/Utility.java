@@ -198,13 +198,13 @@ public class Utility {
         }
 
         public boolean getOff(int floor, Hallway hallway, Direction dir) {
-            if (floor < 0 || floor >= Elevator.numFloors)
+            if (floor < 1 || floor >= Elevator.numFloors)
                 return false;
             return translatorArray[floor - 1].getOff(hallway, dir);
         }
 
         public boolean getValue(int floor, Hallway hallway, Direction dir) {
-            if (floor < 0 || floor >= Elevator.numFloors)
+            if (floor < 1 || floor >= Elevator.numFloors)
                 return false;
             return translatorArray[floor - 1].getValue(hallway, dir);
         }

@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf CarPositionControl.cf -mf CarPositionControl_01.mf
-RandomSeed = 1352081839850
+RandomSeed = 1352395703337
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -22,15 +22,15 @@ Assertion Results:
 @0.31s:  PASSED simulator.payloads.CarPositionIndicatorPayload$ReadableCarPositionIndicatorPayload@7bea5671 :: floor ?== 1 PASSED
 @0.31s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@21f3aa07 :: getValue ?== 1 PASSED
 @0.51s:  PASSED CarPositionControl::checkState(STATE) ?== STATE_DISPLAY_COMMIT_POINT PASSED
-@0.51s:  PASSED simulator.payloads.CarPositionIndicatorPayload$ReadableCarPositionIndicatorPayload@42704baa :: floor ?== 2 PASSED
-@0.51s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@65b4fad5 :: getValue ?== 2 PASSED
+@0.51s:  FAILED simulator.payloads.CarPositionIndicatorPayload$ReadableCarPositionIndicatorPayload@42704baa :: floor ?== 2 FAILED
+@0.51s:  FAILED simulator.payloads.CanMailbox$ReadableCanMailbox@65b4fad5 :: getValue ?== 2 FAILED
 @0.71s:  PASSED CarPositionControl::checkState(STATE) ?== STATE_DISPLAY_FLOOR PASSED
-@0.71s:  PASSED simulator.payloads.CarPositionIndicatorPayload$ReadableCarPositionIndicatorPayload@74b2002f :: floor ?== 2 PASSED
+@0.71s:  FAILED simulator.payloads.CarPositionIndicatorPayload$ReadableCarPositionIndicatorPayload@74b2002f :: floor ?== 2 FAILED
 @0.71s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@56406199 :: getValue ?== 2 PASSED
 
 
 ******************Summary******************
-Passed:  12
-Failed:  0
+Passed:  9
+Failed:  3
 Total :  12
 
