@@ -15,6 +15,7 @@ import simulator.elevatorcontrol.Utility.AtFloorArray;
 import simulator.elevatorcontrol.Utility.CommitPointCalculator;
 import simulator.elevatorcontrol.Utility.DoorClosedHallwayArray;
 import simulator.elevatormodules.CarWeightCanPayloadTranslator;
+import simulator.elevatormodules.DriveObject;
 import simulator.elevatormodules.LevelingCanPayloadTranslator;
 import simulator.framework.*;
 import simulator.payloads.CanMailbox;
@@ -89,8 +90,7 @@ public class DriveControl extends Controller {
     //state variable initialized to the initial state DRIVE_STOPPED
     private State state = State.STATE_DRIVE_STOPPED;
 
-    //macros
-    private Direction driveDir = Direction.UP;
+    /** Macros -- getLevelDir, getDriveDir */
 
     //returns the level direction based on mLevel sensors
     private Direction getLevelDir() {
@@ -98,6 +98,8 @@ public class DriveControl extends Controller {
         else if (mLevelUp.getValue() && !mLevelDown.getValue()) return Direction.DOWN;
         else return Direction.STOP;
     }
+
+    private Direction driveDir = Direction.UP;
 
     //returns the desired direction based on current floor and desired floor by dispatcher
     private Direction getDriveDir(Direction curDirection) {
@@ -228,6 +230,10 @@ public class DriveControl extends Controller {
                 mDrive.set(Speed.STOP, Direction.STOP);
                 mDriveSpeed.set(localDriveSpeed.speed(), localDriveSpeed.direction());
 
+                //log("localDrive="+localDrive.speed()+", "+localDrive.direction());
+                //log("localDriveSpeed="+localDriveSpeed.speed()+", "+localDriveSpeed.direction());
+                //log("mDriveSpeed="+mDriveSpeed.getSpeed()+", "+mDriveSpeed.getDirection());
+
                 //transitions
 
                 //#transition 'T6.1'
@@ -272,6 +278,10 @@ public class DriveControl extends Controller {
                 mDrive.set(Speed.SLOW, driveDir);
                 mDriveSpeed.set(localDriveSpeed.speed(), localDriveSpeed.direction());
 
+                //log("localDrive="+localDrive.speed()+", "+localDrive.direction());
+                //log("localDriveSpeed="+localDriveSpeed.speed()+", "+localDriveSpeed.direction());
+                //log("mDriveSpeed="+mDriveSpeed.getSpeed()+", "+mDriveSpeed.getDirection());
+
                 //transitions
 
                 //#transition 'T6.4'
@@ -282,6 +292,7 @@ public class DriveControl extends Controller {
 
                 //#transition 'T6.5'
                 else if (driveDir != Direction.STOP
+                        && !(localDriveSpeed.speed()<DriveObject.SlowSpeed)        //********** finished accelerating
                         && !networkCommitPoint.commitPoint(
                         mDesiredFloor.getFloor(), localDriveSpeed.direction(), localDriveSpeed.speed())) {
                     newState = State.STATE_DRIVE_FAST;
@@ -302,6 +313,10 @@ public class DriveControl extends Controller {
                 localDrive.set(Speed.FAST, driveDir);
                 mDrive.set(Speed.FAST, driveDir);
                 mDriveSpeed.set(localDriveSpeed.speed(), localDriveSpeed.direction());
+
+                //log("localDrive="+localDrive.speed()+", "+localDrive.direction());
+                //log("localDriveSpeed="+localDriveSpeed.speed()+", "+localDriveSpeed.direction());
+                //log("mDriveSpeed="+mDriveSpeed.getSpeed()+", "+mDriveSpeed.getDirection());
 
                 //transitions
 

@@ -363,29 +363,38 @@ public class Utility {
         //Assumes f is towards the direction that car is traveling in.
         public Boolean commitPoint(int f, Direction driveSpeed_d, double driveSpeed_s) {
             int dir = driveSpeed_d == Direction.UP ? 1 : -1;     //sign determined by current direction
-            double speed = driveSpeed_s;
-            double pos = mCarLevelPosition.getPosition();
-            double fPos = (f - 1) * Elevator.DISTANCE_BETWEEN_FLOORS;
+            double speed = driveSpeed_s;                             // in m/s
+            double pos = mCarLevelPosition.getPosition()/1000;       // level position in mm, *updates at each floor
+            double fPos = (f-1) * Elevator.DISTANCE_BETWEEN_FLOORS;  // DISTANCE_BETWEEN_FLOORS in m
             double commitPt = pos;
 
-            double decel = DriveObject.Deceleration;
-            double slow = DriveObject.SlowSpeed;
-            double stop = DriveObject.StopSpeed;
+            double decel = DriveObject.Deceleration;    // in m/s^2
+            double slow = DriveObject.SlowSpeed;        // in m/s
+            double stop = DriveObject.StopSpeed;        // in m/s
 
             if (speed > slow) {
-                commitPt += dir * (1 / decel) *
+                commitPt += dir * (1/decel) *
                         (speed * (speed - slow) + slow * (slow - stop)
                                 - 0.5 * ((speed - slow) * (speed - slow) + (slow - stop) * (slow - stop)));
             } else if (speed > stop) {
-                commitPt += dir * (1 / decel) *
+                commitPt += dir * (1/decel) *
                         (speed * (speed - stop)
                                 - 0.5 * (speed - stop) * (speed - stop));
             }
 
+            /* Some numbers (assume fast speed = 1.0, slow speed = 0.25):
+             * stopping distance from fast is 0.5m
+             * stopping distance from slow is 0.03125m
+             */
+
+            //System.out.println("(levelpos, dir, commitpt, fpos) = ("+pos+", "+dir+", "+commitPt+", "+fPos+")");
+
+            // let's set the error threshold to 100cm (to compensate for the level position sensor updating)
+            double error = 1.0;
             if (dir == 1) {
-                if (fPos > commitPt) return false; //not reached
+                if (fPos > commitPt+error) return false; //not reached
             } else if (dir == -1) {
-                if (fPos < commitPt) return false; //not reached
+                if (fPos < commitPt-error) return false; //not reached
             }
             return true; //reached
         }
