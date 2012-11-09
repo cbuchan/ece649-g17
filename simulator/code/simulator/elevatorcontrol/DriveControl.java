@@ -189,11 +189,9 @@ public class DriveControl extends Controller {
 
             case STATE_DRIVE_STOPPED:
 
-                if (mDesiredFloor.getFloor() < 1) {
-                    driveDir = Direction.STOP;
-                } else {
-                    driveDir = getDriveDir(driveDir);
-                }
+		
+				driveDir = getDriveDir(driveDir);
+        
 
                 //state actions for DRIVE_STOPPED
                 localDrive.set(Speed.STOP, Direction.STOP);
@@ -257,7 +255,8 @@ public class DriveControl extends Controller {
                 //transitions
 
                 //#transition 'T6.4'
-                if (driveDir == Direction.STOP && (!mLevelUp.getValue() || !mLevelDown.getValue())
+                if ( (driveDir == Direction.STOP && (!mLevelUp.getValue() || !mLevelDown.getValue())
+						&& !mEmergencyBrake.getValue())
                         || mCarWeight.getWeight() >= Elevator.MaxCarCapacity) {
                     newState = State.STATE_DRIVE_LEVEL;
                 }

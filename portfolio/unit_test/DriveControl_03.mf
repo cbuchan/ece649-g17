@@ -64,7 +64,9 @@
 +0s	I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
 +0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 5 FRONT STOP
 
-;+0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 3000
+;+0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 15000
+
++0.5s I DRIVE_PERIOD F DriveSpeed = UP 0.24
 
 ;====14.0s=====================================================================
 ;#state 'STATE_DRIVE_SLOW'
@@ -75,22 +77,44 @@
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == SLOW
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == UP
 +0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed <= 0.25
++0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed > 0.05
 +0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == UP
 
 ;=========================================================================
 ;#transition 'T6.7'
 
+;**************************************************************************************************************************************************
+;**************************************************************************************************************************************************
+;**************************************************************************************************************************************************
+;**************************************************************************************************************************************************
+
 ; set the emergency brake
-+0.5s I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = true
++1.0s I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = true
++0s	I WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 0
+
+; AtFloor from previous transition no longer true
++0s	I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = false
+
+;insert conditions for Emergency brake
++0.0s I DRIVE_PERIOD F DriveSpeed = STOP 0.00
++0.0s I DRIVE_PERIOD N DRIVE_SPEED_CAN_ID DriveSpeed = 0.00 STOP
++0.0s I DRIVE_CONTROL_PERIOD N DRIVE_COMMAND_CAN_ID DriveCommand = STOP STOP
+
+
+;all doors closed
++0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
+
 
 ;====15.0s=====================================================================
 ;#state 'STATE_DRIVE_LEVEL_STOPPED'
 
-+0.5s	A S DriveControl : STATE == STATE_DRIVE_STOPPED
++5.0s	A S DriveControl : STATE == STATE_DRIVE_STOPPED
 +0s	A F Drive : speed == STOP
 +0s	A F Drive : direction == STOP
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == STOP
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == STOP
+
+
 +0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed == 0.0
 +0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == STOP
 
@@ -116,7 +140,9 @@
 +0s	I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
 +0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 5 FRONT STOP
 
-;+0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 3000
++0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 15000
+
++0.0s I DRIVE_PERIOD F DriveSpeed = UP 0.24
 
 ;====16.0s=====================================================================
 ;#state 'STATE_DRIVE_SLOW'
