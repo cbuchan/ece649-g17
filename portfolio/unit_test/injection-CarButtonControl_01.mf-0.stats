@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf CarButtonControl.cf -mf CarButtonControl_01.mf
-RandomSeed = 1352395694866
+RandomSeed = 1352491867116
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -28,9 +28,9 @@ Assertion Results:
 @4.42s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@1cc7b00c :: getValue ?== false PASSED
 @4.42s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@43b09468 :: getValue ?== false PASSED
 @5.84s:  PASSED CarButtonControl[4][FRONT]::checkState(STATE) ?== STATE_LIGHT_ON PASSED
-@5.84s:  PASSED simulator.payloads.CarLightPayload$ReadableCarLightPayload@7e80fa6f :: lighted ?== true PASSED
-@5.84s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2996c1b0 :: getValue ?== true PASSED
-@5.84s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@3d66aa18 :: getValue ?== true PASSED
+@5.84s:  PASSED simulator.payloads.CarLightPayload$ReadableCarLightPayload@4de13d52 :: lighted ?== true PASSED
+@5.84s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@45b9ce4b :: getValue ?== true PASSED
+@5.84s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@68861f24 :: getValue ?== true PASSED
 @7.84s:  PASSED CarButtonControl[4][FRONT]::checkState(STATE) ?== STATE_LIGHT_OFF PASSED
 @7.84s:  PASSED simulator.payloads.CarLightPayload$ReadableCarLightPayload@2107ebe1 :: lighted ?== false PASSED
 @7.84s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@26544ec1 :: getValue ?== false PASSED

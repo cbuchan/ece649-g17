@@ -71,6 +71,9 @@
 +0s	A F Drive : direction == UP
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == SLOW
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == UP
++0s   A F DriveSpeed : speed > 0.05
++0s   A F DriveSpeed : speed <= 0.25
++0s	A F DriveSpeed : direction == UP
 +0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed <= 0.25
 +0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == UP
 
@@ -82,8 +85,9 @@
 +0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 5 FRONT STOP
 
 ;insert conditions for CommitPoint[5] NotReached
+;+0s I DRIVE_PERIOD F DriveSpeed = UP 1.0
 ;+0s I DRIVE_PERIOD F DriveSpeed = 0.25 UP
-+0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 15450
++0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 16000
 
 ;====10.0s=====================================================================
 ;#state 'STATE_DRIVE_FAST'
@@ -93,7 +97,7 @@
 +0s	A F Drive : direction == UP
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == FAST
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == UP
-+0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed >= 0.5
++0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed <= 1.0
 +0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == UP
 
 ;=========================================================================
@@ -108,7 +112,7 @@
 +0s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = false
 ;CommitPoint[5] Reached
 ;+0s I DRIVE_PERIOD F DriveSpeed = 1.0 UP
-+0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 20000
++0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 24490
 
 ;====11.0s=====================================================================
 ;#state 'STATE_DRIVE_SLOW'

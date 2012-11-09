@@ -122,9 +122,9 @@
 +0s	I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
 +0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 5 FRONT STOP
 
-+0s I DRIVE_PERIOD F DriveSpeed = UP 0.24
++0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 15000
 
-;+0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 15000
++0.5s I DRIVE_PERIOD F DriveSpeed = UP 0.24
 
 ;====4.0s=====================================================================
 ;#state 'STATE_DRIVE_SLOW'
@@ -144,13 +144,15 @@
 ;#transition 'T6.5'
 
 ;drive dir not stop
-+0.5s I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
++0.5s I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = false
 +0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 5 FRONT STOP
 
-;insert conditions for CommitPoint[5] NotReached
-+0s I DRIVE_PERIOD F DriveSpeed = UP 1.0
+
 ;car is not within 0.5m to floor 5
 +0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 19000
+
+;insert conditions for CommitPoint[5] NotReached
++0.5s I DRIVE_PERIOD F DriveSpeed = UP 0.99
 
 ;====5.0s=====================================================================
 ;#state 'STATE_DRIVE_FAST'
@@ -160,20 +162,20 @@
 +0s	A F Drive : direction == UP
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == FAST
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == UP
-+0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed >= 0.5
++0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed <= 1.0
 +0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == UP
 
 ;=========================================================================
 ;#transition 'T6.6' branch 1110
 
 ;drive dir not stop
-;+0.4s	I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
+;+0.4s	I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = false
 +0.5s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 5 FRONT STOP
 
 ;insert conditions for CommitPoint[5] Reached
 +0s I DRIVE_PERIOD F DriveSpeed = UP 1.0
 ;car is within 0.5m to floor 5 = 20.0m, at floor f~4.9 = 19.5m - 0.2m = 19.3m
-+0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 19501
++0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 24490
 
 ;====6.0s=====================================================================
 ;#state 'STATE_DRIVE_SLOW'
