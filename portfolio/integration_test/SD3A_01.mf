@@ -9,6 +9,7 @@
 ;Jessica Tiu   (jtiu)
 ;
 ;Last modified 2012-10-11 (rdsharma)
+;Last modified 2012-11-08 (cbuchan)
 ;========================================================================
 
 #INCLUDE defines.mf ;include CAN id and period definitions

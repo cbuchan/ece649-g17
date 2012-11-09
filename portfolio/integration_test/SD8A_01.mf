@@ -40,7 +40,7 @@
 ;arc 1. check door motor closing <-- DoorControl
 +0.5s A S DoorControl[BACK][LEFT] : STATE == STATE_DOOR_CLOSING
 
-+0s   A F DoorMotor BACK LEFT : command == NUDGE
++0s   A F DoorMotor BACK LEFT : command == CLOSE
 
 ;========================================================================
 ;2. Doors finish closing.
@@ -82,7 +82,7 @@
 +0s   I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = false
 
 ;arc 6. check drive in level state <-- DriveControl
-+0.5s A S DriveControl : STATE == STATE_DRIVE_LEVEL_UP
++0.5s A S DriveControl : STATE == STATE_DRIVE_LEVEL
 +0s   A F Drive : speed == LEVEL
 +0s   A F Drive : direction == UP
 

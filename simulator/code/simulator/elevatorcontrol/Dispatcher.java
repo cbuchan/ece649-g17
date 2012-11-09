@@ -384,20 +384,36 @@ public class Dispatcher extends Controller {
 
 
     private int computeNextFloor(int commitPoint, Direction dir) {
-
-        // Traveling UP
-        if (dir == Direction.UP && nextUpCall(commitPoint) != MessageDictionary.NONE) {
-            return nextUpCall(commitPoint);
+        //Car moving, DON'T CHANGE DIRECTION
+        if (mDriveSpeed.getDirection() == Direction.UP) {
+            if (nextUpCall(commitPoint) != MessageDictionary.NONE) {
+                return nextUpCall(commitPoint);
+            } else {
+                return closestCall(commitPoint, numFloors);
+            }
+        } else if (mDriveSpeed.getDirection() == Direction.DOWN) {
+            if (nextDownCall(commitPoint) != MessageDictionary.NONE) {
+                return nextDownCall(commitPoint);
+            } else {
+                return closestCall(commitPoint, numFloors);
+            }
         }
-        // Traveling DOWN
-        else if (dir == Direction.DOWN && nextDownCall(commitPoint) != MessageDictionary.NONE) {
-            return nextDownCall(commitPoint);
-        }
-        // Stopped
-        else if (closestCall(commitPoint, numFloors) != MessageDictionary.NONE) {
-            return closestCall(commitPoint, numFloors);
-        } else {
-            return 1;
+        //Car stopped, use desired direction
+        else {
+            // Traveling UP
+            if (dir == Direction.UP && nextUpCall(commitPoint) != MessageDictionary.NONE) {
+                return nextUpCall(commitPoint);
+            }
+            // Traveling DOWN
+            else if (dir == Direction.DOWN && nextDownCall(commitPoint) != MessageDictionary.NONE) {
+                return nextDownCall(commitPoint);
+            }
+            // Stopped
+            else if (closestCall(commitPoint, numFloors) != MessageDictionary.NONE) {
+                return closestCall(commitPoint, numFloors);
+            } else {
+                return 1;
+            }
         }
     }
 

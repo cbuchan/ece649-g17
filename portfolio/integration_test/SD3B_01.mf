@@ -8,7 +8,8 @@
 ;Jesse Salazar (jessesal)
 ;Jessica Tiu   (jtiu) - Author
 ;
-;Last modified 2012-10-16 (jtiu)
+;modified 2012-10-16 (jtiu)
+;Last modified 2012-11-08 (cbuchan)
 ;========================================================================
 
 #INCLUDE defines.mf ;include CAN id and period definitions

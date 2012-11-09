@@ -6,3 +6,4 @@
 ; * Author
 
 DriveControl 10ms TRUE
+CarPositionControl 50.0ms TRUE

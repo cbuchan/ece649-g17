@@ -7,6 +7,8 @@
 ;Rajeev Sharma (rdsharma)
 ;Jesse Salazar (jessesal)
 ;Jessica Tiu   (jtiu)
+
+;Last modified 2012-11-08 (cbuchan)
 ;========================================================================
 
 #INCLUDE defines.mf ;include CAN id and period definitions
