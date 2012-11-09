@@ -5,4 +5,6 @@
 ; Rajeev Sharma (rdsharma)
 ; * Author
 
-DoorControl BACK LEFT 10ms TRUE
+LanternControl UP 200ms FALSE
+LanternControl DOWN 200ms FALSE
+DoorControl BACK LEFT 10ms FALSE

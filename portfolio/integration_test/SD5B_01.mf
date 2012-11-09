@@ -8,7 +8,7 @@
 ;Jesse Salazar (jessesal)
 ;Jessica Tiu   (jtiu)
 ;
-;Last modified 2012-10-10 (cbuchan)
+;Last modified 2012-11-08 (cbuchan)
 ;========================================================================
 
 #INCLUDE defines.mf ;include CAN id and period definitions
@@ -29,12 +29,11 @@
 ;========================================================================
 ;arc 1
 +1.21s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_CLOSING
-+0s    A F DoorMotor FRONT LEFT : command == NUDGE
-+0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == NUDGE
++0s    A F DoorMotor FRONT LEFT : command == CLOSE
++0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == CLOSE
 
 ;========================================================================
-;2. The passenger attempts to exit and is nudged by Door[b,r], triggering
-;    the door reversal sensors.
+;2. The passenger attempts to exit and triggers the door reversal sensors.
 ;========================================================================
 ;arc 2a, 2b
 +0s    I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = false
@@ -44,18 +43,36 @@
 ;3. A door reversal occurs for Door[b,r].
 ;========================================================================
 ;arc 3
-+0.61s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPENING
++0.61s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_REVERSING
 +0s    A F DoorMotor FRONT LEFT : command == OPEN
 +0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == OPEN
 
 ;========================================================================
-;4. The passenger exits the car.
+;4. Door opened.
 ;========================================================================
-;passenger exits car
++0.1s	I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
++0.09s I DOOR_REVERSAL_NETWORK_PERIOD N DOOR_REVERSAL_SENSOR_[FRONT][LEFT]_CAN_ID DoorReversal FRONT LEFT = false
+
+;========================================================================
+;5. The passenger exits the car.
+;========================================================================
+;passenger enters car
+
+;========================================================================
+;6. Countdown expires
+;========================================================================
+;countdown expires
+
+;========================================================================
+;7. Door nudging.
+;========================================================================
++0.61s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_NUDGING
++0s    A F DoorMotor FRONT LEFT : command == NUDGE
++0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == NUDGE
 
 ;========================================================================
 ;Post Conditions
 ;========================================================================
-;Passenger is no longer inside the car.
-;Car is stopped at floor f and hallway b.
+;Passenger is inside the car.
+;Car is stopped at passenger's floor f and hallway b.
 ;At least one door[b,r] is open.

@@ -9,6 +9,7 @@
 ;Jessica Tiu   (jtiu) - Author
 ;
 ;Last modified 2012-10-16 (jtiu)
+;Last modified 2012-11-08 (cbuchan)
 ;========================================================================
 
 #INCLUDE defines.mf ;include CAN id and period definitions
@@ -26,7 +27,7 @@
 +0s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
 +0s	I DISPATCHER_PERIOD   N DESIRED_FLOOR_CAN_ID       DesiredFloor = 2 BACK STOP 
 
-; f=2, b=BACK
+;f=2, b=BACK
 +0s I AT_FLOOR_PERIOD N AT_FLOOR_[2][BACK]_CAN_ID AtFloor 2 BACK = true
 
 ; doors all closed
@@ -43,9 +44,6 @@
 ;========================================================================
 ;1. Door[b,r] starts opening.
 ;========================================================================
-; d=UP
-+0.1s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 3 BACK UP
-
 ; hall call at f,b,d = 2,BACK,UP
 +0s	I HALL_BUTTON_CONTROL_PERIOD F HallCall 2 BACK UP = true
 
@@ -58,12 +56,17 @@
 +0.5s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = false
 +0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = false
 
+;1d
++0s I AT_FLOOR_PERIOD N AT_FLOOR_[2][BACK]_CAN_ID AtFloor 2 BACK = true
+
+; arc 1e, d=UP
++0.1s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 2 BACK UP
 ;========================================================================
 ;2. CarLantern for direction d lights up.
 ;========================================================================
 ; arc 2. check car lanterns <-- CarLanternControl
 
-+0.5s A F CarLantern UP : lighted == true
++1s   A F CarLantern UP : lighted == true
 +0s   A F CarLantern DOWN : lighted == false
 
 ;========================================================================
