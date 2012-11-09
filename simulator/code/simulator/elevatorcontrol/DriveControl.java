@@ -189,11 +189,7 @@ public class DriveControl extends Controller {
 
             case STATE_DRIVE_STOPPED:
 
-                if (mDesiredFloor.getFloor() < 1) {
-                    driveDir = Direction.STOP;
-                } else {
-                    driveDir = getDriveDir(driveDir);
-                }
+                driveDir = getDriveDir(driveDir);
 
                 //state actions for DRIVE_STOPPED
                 localDrive.set(Speed.STOP, Direction.STOP);
@@ -207,7 +203,12 @@ public class DriveControl extends Controller {
                 //transitions
 
                 //#transition 'T6.1'
-                if (driveDir == Direction.STOP && (!mLevelUp.getValue() || !mLevelDown.getValue())) {
+//                if (driveDir == Direction.STOP && (!mLevelUp.getValue() || !mLevelDown.getValue()) && localDriveSpeed.speed() == 0) {
+//                    newState = State.STATE_DRIVE_LEVEL;
+//                }
+
+                if ((driveDir == Direction.STOP && (!mLevelUp.getValue() || !mLevelDown.getValue()) && localDriveSpeed.speed() == 0) ||
+                        (mCarWeight.getWeight() >= Elevator.MaxCarCapacity && (!mLevelUp.getValue() || !mLevelDown.getValue()))) {
                     newState = State.STATE_DRIVE_LEVEL;
                 }
 
@@ -255,9 +256,13 @@ public class DriveControl extends Controller {
                         localDriveSpeed.direction(), localDriveSpeed.speed()));
 
                 //transitions
+                if (driveDir == Direction.STOP && mLevelUp.getValue() && mLevelDown.getValue() &&
+                        localDriveSpeed.speed() < DriveObject.SlowSpeed) {
+                    newState = State.STATE_DRIVE_STOPPED;
+                }
 
                 //#transition 'T6.4'
-                if (driveDir == Direction.STOP && (!mLevelUp.getValue() || !mLevelDown.getValue())
+                else if (driveDir == Direction.STOP && (!mLevelUp.getValue() || !mLevelDown.getValue())
                         || mCarWeight.getWeight() >= Elevator.MaxCarCapacity) {
                     newState = State.STATE_DRIVE_LEVEL;
                 }
@@ -318,6 +323,7 @@ public class DriveControl extends Controller {
             log("remains in state: ", state);
         } else {
             log("Transition:", state, "->", newState);
+            System.out.println("Transition:" + state + "->" + newState);
         }
 
         //update the state variable

@@ -411,6 +411,7 @@ public class Utility {
                         return i; //Found the closest "Not Reached"
                     }
                 }
+                return (int) Math.ceil((mCarLevelPosition.getPosition() / (Elevator.DISTANCE_BETWEEN_FLOORS * 1000))) + 1;
             }
             // Returns the highest "Not Reached" floor
             else if (driveSpeed_d == Direction.DOWN) {
@@ -419,10 +420,11 @@ public class Utility {
                         return i; //Found the closest "Not Reached"
                     }
                 }
+                return (int) Math.floor((mCarLevelPosition.getPosition() / (Elevator.DISTANCE_BETWEEN_FLOORS * 1000))) + 1;
             }
 
             // Failed to find a floor. Try to return the nearest floor
-            return (int) (mCarLevelPosition.getPosition() / (Elevator.DISTANCE_BETWEEN_FLOORS * 1000)) + 1;
+            return (int) Math.round(mCarLevelPosition.getPosition() / (Elevator.DISTANCE_BETWEEN_FLOORS * 1000)) + 1;
         }
 
         public int getCommitedFloor(Direction driveSpeed_d, double driveSpeed_s) {
@@ -443,7 +445,7 @@ public class Utility {
                 }
             }
             // Failed to find a floor. Try to return the nearest floor
-            return (int) (mCarLevelPosition.getPosition() / Elevator.DISTANCE_BETWEEN_FLOORS) + 1;
+            return (int) Math.round(mCarLevelPosition.getPosition() / Elevator.DISTANCE_BETWEEN_FLOORS) + 1;
         }
     }
 }

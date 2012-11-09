@@ -253,9 +253,13 @@ public class Dispatcher extends Controller {
 
 
                 //#transition 'T11.3'
-                if (networkAtFloorArray.getCurrentFloor() == targetFloor) {
+//                if (networkAtFloorArray.getCurrentFloor() == targetFloor) {
+//                    newState = State.STATE_SERVICE_CALL;
+//                }
+                if (commitPoint == targetFloor) {
                     newState = State.STATE_SERVICE_CALL;
                 }
+
                 //#transition 'T11.6'
                 else if (networkAtFloorArray.getCurrentFloor() == MessageDictionary.NONE && !networkDoorClosed.getAllClosed()) {
                     newState = State.STATE_RESET;
@@ -267,8 +271,8 @@ public class Dispatcher extends Controller {
 
             case STATE_SERVICE_CALL:
 
-                direction = computeDirection(direction, networkAtFloorArray.getCurrentFloor());
-                commitPoint = networkAtFloorArray.getCurrentFloor();
+                commitPoint = computeCommitPoint();
+                direction = computeDirection(direction, commitPoint);
 
                 //state actions for STATE_SERVICE_CALL
                 mDesiredFloor.setFloor(targetFloor);
@@ -295,13 +299,15 @@ public class Dispatcher extends Controller {
                 throw new RuntimeException("State " + state + " was not recognized.");
         }
 
+        System.out.println("CommitPoint: " + commitPoint);
+        System.out.println(
+                "State: " + state + " " + mDesiredFloor.getFloor() + " " + mDesiredFloor.getHallway() + " " + mDesiredFloor.getDirection());
+
         //log the results of this iteration
         if (state == newState) {
             log("remains in state: ", state);
         } else {
             log("Transition:", state, "->", newState);
-            System.out.println(mDesiredFloor.getFloor() + " " + mDesiredFloor.getHallway() + " " + mDesiredFloor.getDirection());
-            System.out.println("    Transition: " + state + "->" + newState);
         }
 
         //update the state variable
@@ -544,10 +550,6 @@ public class Dispatcher extends Controller {
     }
 
     private int computeCommitPoint() {
-        if (networkAtFloorArray.getCurrentFloor() != MessageDictionary.NONE) {
-            return networkAtFloorArray.getCurrentFloor();
-        } else {
-            return commitPointCalculator.nextReachableFloor(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
-        }
+        return commitPointCalculator.nextReachableFloor(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
     }
 }
