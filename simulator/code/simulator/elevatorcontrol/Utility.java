@@ -18,7 +18,6 @@ import simulator.framework.*;
 import simulator.payloads.CANNetwork.CanConnection;
 import simulator.payloads.CanMailbox;
 import simulator.payloads.CanMailbox.ReadableCanMailbox;
-import simulator.payloads.translators.BooleanCanPayloadTranslator;
 
 import java.util.HashMap;
 

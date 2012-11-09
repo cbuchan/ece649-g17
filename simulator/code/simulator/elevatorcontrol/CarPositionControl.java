@@ -9,20 +9,12 @@
 package simulator.elevatorcontrol;
 
 import jSimPack.SimTime;
-import simulator.elevatormodules.AtFloorCanPayloadTranslator;
-import simulator.elevatormodules.CarLevelPositionCanPayloadTranslator;
-import simulator.elevatormodules.CarPositionIndicator;
-import simulator.elevatormodules.DoorClosedCanPayloadTranslator;
 import simulator.framework.Controller;
-import simulator.framework.Hallway;
-import simulator.framework.ReplicationComputer;
-import simulator.framework.Side;
 import simulator.payloads.*;
 import simulator.payloads.CanMailbox.ReadableCanMailbox;
 import simulator.payloads.CanMailbox.WriteableCanMailbox;
 import simulator.elevatorcontrol.Utility.AtFloorArray;
 import simulator.payloads.CarPositionIndicatorPayload.WriteableCarPositionIndicatorPayload;
-import simulator.payloads.translators.BooleanCanPayloadTranslator;
 import simulator.payloads.translators.IntegerCanPayloadTranslator;
 
 

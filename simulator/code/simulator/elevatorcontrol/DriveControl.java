@@ -25,7 +25,6 @@ import simulator.payloads.DrivePayload;
 import simulator.payloads.DrivePayload.WriteableDrivePayload;
 import simulator.payloads.DriveSpeedPayload;
 import simulator.payloads.DriveSpeedPayload.ReadableDriveSpeedPayload;
-import simulator.payloads.translators.BooleanCanPayloadTranslator;
 
 /**
  * There is one DriveControl, which controls the elevator Drive

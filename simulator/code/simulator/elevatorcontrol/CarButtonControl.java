@@ -18,7 +18,6 @@ import simulator.payloads.CarCallPayload;
 import simulator.payloads.CarCallPayload.ReadableCarCallPayload;
 import simulator.payloads.CarLightPayload;
 import simulator.payloads.CarLightPayload.WriteableCarLightPayload;
-import simulator.payloads.translators.BooleanCanPayloadTranslator;
 import simulator.elevatorcontrol.Utility.DoorClosedHallwayArray;
 
 
