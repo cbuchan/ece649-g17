@@ -19,15 +19,12 @@
 
 +0s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = false
 +0s	I WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 0
++0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
++0s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
 
 +0s	I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
 
-+0s I DOOR_CONTROL_PERIOD N HALL_CALL_[2][BACK][UP]_CAN_ID Boolean = true
-
-;Dispatcher calculates new desired floor (@0.5)
-+0.5s	A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 2
-+0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == BACK
-+0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
++0s I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[2][BACK][UP]_CAN_ID Boolean = true
 
 ;All doors start off closed
 +0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
@@ -35,21 +32,28 @@
 +0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
 +0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
 
+;Dispatcher calculates new desired floor (@0.5)
++0.5s  A S Dispatcher : STATE == STATE_COMPUTE_NEXT
++0s	   A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 2
++0s	   A N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == BACK
++0s	   A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
+
 ;Car begins moving up (@1.0)
 +0.5s   A F Drive : speed == SLOW
 +0s	    A F Drive : direction == UP
 +0s	    A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == SLOW
 +0s	    A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == UP
 
-;Car is moving in hallway from floor 1 to floor 2.
-+0s	  I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = false
-+0s	  I AT_FLOOR_PERIOD N AT_FLOOR_[2][BACK]_CAN_ID AtFloor 2 BACK = false
-
 ;========================================================================
 ; 1. Any mDoorClosed [b, r] is False (@1.5)
 ;========================================================================
 ;arc 1a, 1b, 1c
 +0.5s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
+
+;arc 1y, 1z
+;Car is moving in hallway from floor 1 to floor 2.
++0s	  I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = false
++0s	  I AT_FLOOR_PERIOD N AT_FLOOR_[2][BACK]_CAN_ID AtFloor 2 BACK = false
 
 ;========================================================================
 ; 2. mDesiredFloor updated to [1, None, d] (@2.0)
@@ -58,25 +62,6 @@
 +0.5s	A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 1
 +0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == NONE
 +0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
-
-;========================================================================
-; 3. Doors are commanded to open (@2.5)
-;========================================================================
-;arc 3
-+0.5s I DOOR_CONTROL_PERIOD N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT = OPEN
-+0s   I DOOR_CONTROL_PERIOD N DOOR_MOTOR_COMMAND_[FRONT][RIGHT]_CAN_ID DoorMotorCommand FRONT RIGHT = OPEN
-+0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
-+0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
-
-;========================================================================
-; 4. Drive is set to Stop (@3.0)
-;========================================================================
-;arc 4
-+0.5s A S DriveControl : STATE == STATE_DRIVE_STOPPED
-+0s   A F Drive : speed == STOP
-+0s	  A F Drive : direction == STOP
-+0s	  A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == STOP
-+0s	  A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == STOP
 
 ;========================================================================
 ; 5. Emergency brake is activated (@3.5)
@@ -88,10 +73,11 @@
 ; 6. Drive is set to Stop (@4.0)
 ;========================================================================
 ;arc 6
-+0.5s   A F Drive : speed == STOP
-+0s	    A F Drive : direction == STOP
-+0s	    A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == STOP
-+0s	    A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == STOP
++0.5s A S DriveControl : STATE == STATE_DRIVE_STOPPED
++0s   A F Drive : speed == STOP
++0s	  A F Drive : direction == STOP
++0s	  A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == STOP
++0s	  A N DRIVE_COMMAND_CAN_ID DriveCommand : getDirection == STOP
 
 ;========================================================================
 ;Post Conditions

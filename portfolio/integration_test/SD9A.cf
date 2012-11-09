@@ -7,4 +7,5 @@
 
 LanternControl UP 200ms FALSE
 DoorControl BACK RIGHT 10ms FALSE
+DoorControl BACK LEFT 10ms FALSE
 Dispatcher 8 50ms FALSE
