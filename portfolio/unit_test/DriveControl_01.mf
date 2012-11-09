@@ -173,7 +173,7 @@
 ;insert conditions for CommitPoint[5] Reached
 +0s I DRIVE_PERIOD F DriveSpeed = UP 1.0
 ;car is within 0.5m to floor 5 = 20.0m, at floor f~4.9 = 19.5m - 0.2m = 19.3m
-+0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 19490
++0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 19501
 
 ;====6.0s=====================================================================
 ;#state 'STATE_DRIVE_SLOW'
