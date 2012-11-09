@@ -5,6 +5,7 @@
 ; Rajeev Sharma (rdsharma)
 ; * Author
 
-LanternControl UP 200ms TRUE
+LanternControl UP 200ms FALSE
+LanternControl DOWN 200ms FALSE
 DoorControl BACK LEFT 10ms TRUE
 HallButtonControl 4 FRONT DOWN 100ms TRUE
