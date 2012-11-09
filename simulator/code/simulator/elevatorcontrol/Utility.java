@@ -198,13 +198,13 @@ public class Utility {
         }
 
         public boolean getOff(int floor, Hallway hallway, Direction dir) {
-            if (floor < 1 || floor >= Elevator.numFloors)
+            if (floor < 1 || floor > Elevator.numFloors)
                 return false;
             return translatorArray[floor - 1].getOff(hallway, dir);
         }
 
         public boolean getValue(int floor, Hallway hallway, Direction dir) {
-            if (floor < 1 || floor >= Elevator.numFloors)
+            if (floor < 1 || floor > Elevator.numFloors)
                 return false;
             return translatorArray[floor - 1].getValue(hallway, dir);
         }
@@ -275,8 +275,8 @@ public class Utility {
             up = new BooleanCanPayloadTranslator(m_u);
             conn.registerTimeTriggered(m_u);
 
-            ReadableCanMailbox m_d = CanMailbox.getReadableCanMailbox(MessageDictionary.HALL_CALL_BASE_CAN_ID +
-                    ReplicationComputer.computeReplicationId(floor, hallway, Direction.DOWN));
+            ReadableCanMailbox m_d = CanMailbox.getReadableCanMailbox(
+                    MessageDictionary.HALL_CALL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(floor, hallway, Direction.DOWN));
             down = new BooleanCanPayloadTranslator(m_d);
             conn.registerTimeTriggered(m_d);
 
@@ -364,8 +364,8 @@ public class Utility {
         public Boolean commitPoint(int f, Direction driveSpeed_d, double driveSpeed_s) {
             int dir = driveSpeed_d == Direction.UP ? 1 : -1;     //sign determined by current direction
             double speed = driveSpeed_s;                             // in m/s
-            double pos = mCarLevelPosition.getPosition()/1000;       // level position in m, *updates at each floor
-            double fPos = (f-1) * Elevator.DISTANCE_BETWEEN_FLOORS;  // DISTANCE_BETWEEN_FLOORS in m
+            double pos = mCarLevelPosition.getPosition() / 1000;       // level position in m, *updates at each floor
+            double fPos = (f - 1) * Elevator.DISTANCE_BETWEEN_FLOORS;  // DISTANCE_BETWEEN_FLOORS in m
             double commitPt = pos;
 
             double decel = DriveObject.Deceleration;    // in m/s^2
@@ -373,14 +373,14 @@ public class Utility {
             double stop = DriveObject.StopSpeed;        // in m/s
 
             if ((dir == 1 && fPos <= pos) ||
-                (dir == -1 && fPos >= pos)) return true; // reached for f 'less' than curr floor (direction dependent)
+                    (dir == -1 && fPos >= pos)) return true; // reached for f 'less' than curr floor (direction dependent)
 
             if (speed > slow) {
-                commitPt += dir * (1/decel) *
+                commitPt += dir * (1 / decel) *
                         (speed * (speed - slow) + slow * (slow - stop)
                                 - 0.5 * ((speed - slow) * (speed - slow) + (slow - stop) * (slow - stop)));
             } else if (speed > stop) {
-                commitPt += dir * (1/decel) *
+                commitPt += dir * (1 / decel) *
                         (speed * (speed - stop)
                                 - 0.5 * (speed - stop) * (speed - stop));
             }
@@ -390,15 +390,15 @@ public class Utility {
              * stopping distance from slow is 0.03125m
              */
 
-            System.out.println("(levelpos, dir, commitpt, fpos) = ("+pos+", "+dir+", "+commitPt+", "+fPos+")");
+            //System.out.println("(levelpos, dir, commitpt, fpos) = ("+pos+", "+dir+", "+commitPt+", "+fPos+")");
 
             // let's set the error threshold to 10cm (to compensate for the level position sensor updating)
             //double error = 0.1;
             double error = 1.0;
             if (dir == 1) {
-                if (commitPt < fPos-error) return false; //not reached
+                if (commitPt < fPos - error) return false; //not reached
             } else if (dir == -1) {
-                if (commitPt > fPos+error) return false; //not reached
+                if (commitPt > fPos + error) return false; //not reached
             }
             return true; //reached
         }

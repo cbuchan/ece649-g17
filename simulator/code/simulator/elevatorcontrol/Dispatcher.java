@@ -235,7 +235,8 @@ public class Dispatcher extends Controller {
 
             case STATE_COMPUTE_NEXT:
 
-                commitPoint = commitPointCalculator.nextReachableFloor(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
+                commitPoint = computeCommitPoint();
+
 
                 //state actions for STATE_COMPUTE_NEXT
                 targetFloor = computeNextFloor(commitPoint, direction);
@@ -299,6 +300,8 @@ public class Dispatcher extends Controller {
             log("remains in state: ", state);
         } else {
             log("Transition:", state, "->", newState);
+            System.out.println(mDesiredFloor.getFloor() + " " + mDesiredFloor.getHallway() + " " + mDesiredFloor.getDirection());
+            System.out.println("    Transition: " + state + "->" + newState);
         }
 
         //update the state variable
@@ -333,7 +336,7 @@ public class Dispatcher extends Controller {
     * returns False otherwise.
     */
     private int nextUpCall(int commitPoint) {
-        for (int floor = commitPoint; floor < numFloors; floor++) {
+        for (int floor = commitPoint; floor <= numFloors; floor++) {
             if (networkHallCallArray.getValue(floor, Hallway.FRONT, Direction.UP) ||
                     networkHallCallArray.getValue(floor, Hallway.BACK, Direction.UP) ||
                     networkCarCallArrayFront.getValueForFloor(floor) ||
@@ -412,7 +415,7 @@ public class Dispatcher extends Controller {
             else if (closestCall(commitPoint, numFloors) != MessageDictionary.NONE) {
                 return closestCall(commitPoint, numFloors);
             } else {
-                return 1;
+                return MessageDictionary.NONE;
             }
         }
     }
@@ -460,7 +463,7 @@ public class Dispatcher extends Controller {
     private Direction directionOfClosestCall(int floor, int maxFloor) {
 
         int closestCall = closestCall(floor, maxFloor);
-        if (closestCall == MessageDictionary.NONE) {
+        if (closestCall == MessageDictionary.NONE || closestCall == floor) {
             return Direction.STOP;
         } else if (floor <= closestCall) {
             return Direction.UP;
@@ -476,17 +479,19 @@ public class Dispatcher extends Controller {
     * Returns NONE if no call is found.
     */
     private int closestCall(int commitPoint, int maxFloor) {
-        for (int i = 0; i < Math.max(commitPoint, maxFloor - commitPoint); i++) {
+        for (int i = 0; i <= Math.max(commitPoint, maxFloor - commitPoint); i++) {
             //Check above
             int tempFloor = commitPoint + i;
             if (validFloor(tempFloor, maxFloor) && (getLitHallways(tempFloor, Direction.UP) != Hallway.NONE ||
-                    getLitHallways(tempFloor, Direction.DOWN) != Hallway.NONE)) {
+                    getLitHallways(tempFloor, Direction.DOWN) != Hallway.NONE) ||
+                    getLitHallways(tempFloor, Direction.STOP) != Hallway.NONE) {
                 return tempFloor;
             }
             //Check below
             tempFloor = commitPoint - i;
             if (validFloor(tempFloor, maxFloor) && (getLitHallways(tempFloor, Direction.UP) != Hallway.NONE ||
-                    getLitHallways(tempFloor, Direction.DOWN) != Hallway.NONE)) {
+                    getLitHallways(tempFloor, Direction.DOWN) != Hallway.NONE) ||
+                    getLitHallways(tempFloor, Direction.STOP) != Hallway.NONE) {
                 return tempFloor;
             }
         }
@@ -536,5 +541,13 @@ public class Dispatcher extends Controller {
         }
 
         return desiredHallway;
+    }
+
+    private int computeCommitPoint() {
+        if (networkAtFloorArray.getCurrentFloor() != MessageDictionary.NONE) {
+            return networkAtFloorArray.getCurrentFloor();
+        } else {
+            return commitPointCalculator.nextReachableFloor(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
+        }
     }
 }
