@@ -89,41 +89,8 @@ public class DriveControl extends Controller {
 
     //state variable initialized to the initial state DRIVE_STOPPED
     private State state = State.STATE_DRIVE_STOPPED;
-
-    /** Macros -- getLevelDir, getDriveDir */
-
-    //returns the level direction based on mLevel sensors
-    private Direction getLevelDir() {
-        if (!mLevelUp.getValue() && mLevelDown.getValue()) return Direction.UP;
-        else if (mLevelUp.getValue() && !mLevelDown.getValue()) return Direction.DOWN;
-        else return Direction.STOP;
-    }
-
     private Direction driveDir = Direction.UP;
 
-    //returns the desired direction based on current floor and desired floor by dispatcher
-    private Direction getDriveDir(Direction curDirection) {
-        Direction driveDir = curDirection;
-        int currentFloor = networkAtFloorArray.getCurrentFloor();
-        int desiredFloor = mDesiredFloor.getFloor();
-
-        //check car is not between floors
-        if (currentFloor != MessageDictionary.NONE) {
-            //current floor below desired floor
-            if (currentFloor < desiredFloor) {
-                driveDir = Direction.UP;
-            }
-            //current floor above desired floor
-            else if (currentFloor > desiredFloor) {
-                driveDir = Direction.DOWN;
-            }
-            //current floor is desired floor
-            else {
-                driveDir = Direction.STOP;
-            }
-        }
-        return driveDir;
-    }
 
     /**
      * The arguments listed in the .cf configuration file should match the order and
@@ -222,8 +189,11 @@ public class DriveControl extends Controller {
 
             case STATE_DRIVE_STOPPED:
 
-
-                driveDir = getDriveDir(driveDir);
+                if (mDesiredFloor.getFloor() < 1) {
+                    driveDir = Direction.STOP;
+                } else {
+                    driveDir = getDriveDir(driveDir);
+                }
 
                 //state actions for DRIVE_STOPPED
                 localDrive.set(Speed.STOP, Direction.STOP);
@@ -278,10 +248,10 @@ public class DriveControl extends Controller {
                 mDrive.set(Speed.SLOW, driveDir);
                 mDriveSpeed.set(localDriveSpeed.speed(), localDriveSpeed.direction());
 
-                log("localDrive="+localDrive.speed()+", "+localDrive.direction());
-                log("localDriveSpeed="+localDriveSpeed.speed()+", "+localDriveSpeed.direction());
-                log("mDriveSpeed="+mDriveSpeed.getSpeed()+", "+mDriveSpeed.getDirection());
-                log("commitP="+networkCommitPoint.commitPoint(mDesiredFloor.getFloor(),
+                log("localDrive=" + localDrive.speed() + ", " + localDrive.direction());
+                log("localDriveSpeed=" + localDriveSpeed.speed() + ", " + localDriveSpeed.direction());
+                log("mDriveSpeed=" + mDriveSpeed.getSpeed() + ", " + mDriveSpeed.getDirection());
+                log("commitP=" + networkCommitPoint.commitPoint(mDesiredFloor.getFloor(),
                         localDriveSpeed.direction(), localDriveSpeed.speed()));
 
                 //transitions
@@ -294,7 +264,7 @@ public class DriveControl extends Controller {
 
                 //#transition 'T6.5'
                 else if (driveDir != Direction.STOP
-                        && !(localDriveSpeed.speed()<DriveObject.SlowSpeed)        //********** finished accelerating
+                        && !(localDriveSpeed.speed() < DriveObject.SlowSpeed)        //********** finished accelerating
                         && !networkCommitPoint.commitPoint(
                         mDesiredFloor.getFloor(), localDriveSpeed.direction(), localDriveSpeed.speed())) {
                     newState = State.STATE_DRIVE_FAST;
@@ -316,10 +286,10 @@ public class DriveControl extends Controller {
                 mDrive.set(Speed.FAST, driveDir);
                 mDriveSpeed.set(localDriveSpeed.speed(), localDriveSpeed.direction());
 
-                log("localDrive="+localDrive.speed()+", "+localDrive.direction());
-                log("localDriveSpeed="+localDriveSpeed.speed()+", "+localDriveSpeed.direction());
-                log("mDriveSpeed="+mDriveSpeed.getSpeed()+", "+mDriveSpeed.getDirection());
-                log("commitP="+networkCommitPoint.commitPoint(mDesiredFloor.getFloor(),
+                log("localDrive=" + localDrive.speed() + ", " + localDrive.direction());
+                log("localDriveSpeed=" + localDriveSpeed.speed() + ", " + localDriveSpeed.direction());
+                log("mDriveSpeed=" + mDriveSpeed.getSpeed() + ", " + mDriveSpeed.getDirection());
+                log("commitP=" + networkCommitPoint.commitPoint(mDesiredFloor.getFloor(),
                         localDriveSpeed.direction(), localDriveSpeed.speed()));
 
                 //transitions
@@ -360,6 +330,46 @@ public class DriveControl extends Controller {
         //you must do this at the end of the timer callback in order to restart
         //the timer
         timer.start(period);
+    }
+
+    /**
+     * Macros -- getLevelDir, getDriveDir
+     */
+
+    //returns the level direction based on mLevel sensors
+    private Direction getLevelDir() {
+        if (!mLevelUp.getValue() && mLevelDown.getValue()) return Direction.UP;
+        else if (mLevelUp.getValue() && !mLevelDown.getValue()) return Direction.DOWN;
+        else return Direction.STOP;
+    }
+
+    //returns the desired direction based on current floor and desired floor by dispatcher
+    private Direction getDriveDir(Direction curDirection) {
+
+        if (mDesiredFloor.getFloor() == MessageDictionary.NONE) {
+            return Direction.STOP;
+        }
+
+        Direction driveDir = curDirection;
+        int currentFloor = networkAtFloorArray.getCurrentFloor();
+        int desiredFloor = mDesiredFloor.getFloor();
+
+        //check car is not between floors
+        if (currentFloor != MessageDictionary.NONE) {
+            //current floor below desired floor
+            if (currentFloor < desiredFloor) {
+                driveDir = Direction.UP;
+            }
+            //current floor above desired floor
+            else if (currentFloor > desiredFloor) {
+                driveDir = Direction.DOWN;
+            }
+            //current floor is desired floor
+            else {
+                driveDir = Direction.STOP;
+            }
+        }
+        return driveDir;
     }
 }
 
