@@ -20,7 +20,6 @@ import simulator.payloads.HallCallPayload;
 import simulator.payloads.HallCallPayload.ReadableHallCallPayload;
 import simulator.payloads.HallLightPayload;
 import simulator.payloads.HallLightPayload.WriteableHallLightPayload;
-import simulator.payloads.translators.BooleanCanPayloadTranslator;
 
 /**
  * HallButtonControl controls responds to passenger input on the hall buttons
@@ -52,11 +51,7 @@ public class HallButtonControl extends Controller {
     private AtFloorCanPayloadTranslator mAtFloor;
 
     //output network messages
-    private WriteableCanMailbox networkHallLightOut;
     private WriteableCanMailbox networkHallCallOut;
-
-    //translators for output network messages
-    private BooleanCanPayloadTranslator mHallLight;
 
     //these variables keep track of which instance this is.
     private final Hallway hallway;
@@ -112,8 +107,6 @@ public class HallButtonControl extends Controller {
         physicalInterface.sendTimeTriggered(localHallLight, period);
 
         //create CAN mailbox for output network messages
-        networkHallLightOut = CanMailbox.getWriteableCanMailbox(MessageDictionary.HALL_LIGHT_BASE_CAN_ID +
-                ReplicationComputer.computeReplicationId(floor, hallway, direction));
         networkHallCallOut = CanMailbox.getWriteableCanMailbox(
                 MessageDictionary.HALL_CALL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(floor, hallway, direction));
 
@@ -121,12 +114,10 @@ public class HallButtonControl extends Controller {
         * Create a translator with a reference to the CanMailbox.  Use the
         * translator to read and write values to the mailbox
         */
-        mHallLight = new BooleanCanPayloadTranslator(networkHallLightOut);
         mHallCall = new BooleanCanPayloadTranslator(networkHallCallOut);
 
         //register the mailbox to have its value broadcast on the network periodically
         //with a period specified by the period parameter.
-        canInterface.sendTimeTriggered(networkHallLightOut, period);
         canInterface.sendTimeTriggered(networkHallCallOut, period);
 
         /*
@@ -168,7 +159,6 @@ public class HallButtonControl extends Controller {
             case STATE_HALL_CALL_OFF:
                 //state actions for 'HALL_CALL_OFF'
                 localHallLight.set(false);
-                mHallLight.set(false);
                 mHallCall.set(false);
 
                 //transitions -- note that transition conditions are mutually exclusive
@@ -183,7 +173,6 @@ public class HallButtonControl extends Controller {
             case STATE_HALL_CALL_ON:
                 //state actions for 'HALL_CALL_ON'
                 localHallLight.set(true);
-                mHallLight.set(true);
                 mHallCall.set(true);
 
                 //transitions -- note that transition conditions are mutually exclusive
