@@ -18,20 +18,20 @@ import java.util.BitSet;
 /**
  * Can payload translator for the DriveSpeed command, which includes a speed value and a direction.
  * Identical to the can payload translator for Drive command.
- * 
+ * <p/>
  * See the documentation for DesiredFloorCanPayloadTranslator for more discussion
  * on CanPayloadTranslators in general.
- * 
+ *
  * @author Justin Ray
  */
 public class DriveSpeedCanPayloadTranslator extends CanPayloadTranslator {
 
     public DriveSpeedCanPayloadTranslator(WriteableCanMailbox p) {
-        super(p, 8, MessageDictionary.DRIVE_SPEED_CAN_ID);
+        super(p, 2, MessageDictionary.DRIVE_SPEED_CAN_ID);
     }
-    
+
     public DriveSpeedCanPayloadTranslator(ReadableCanMailbox p) {
-        super(p, 8, MessageDictionary.DRIVE_SPEED_CAN_ID);
+        super(p, 2, MessageDictionary.DRIVE_SPEED_CAN_ID);
     }
 
     /**
@@ -48,25 +48,34 @@ public class DriveSpeedCanPayloadTranslator extends CanPayloadTranslator {
         setSpeed(speed);
         setDirection(dir);
     }
-    
+
     public void setSpeed(double speed) {
+        int numBits = 14;
+        int offset = (int) Math.pow(2.0, numBits - 1);
+
         BitSet b = getMessagePayload();
-        addIntToBitset(b, Float.floatToRawIntBits((float)speed), 0, 32);
+        //addIntToBitset(b, Float.floatToRawIntBits((float) ((speed * 1000))) - offset, 0, 14);
+        addIntToBitset(b, (int) (speed * 1000 - offset), 0, 14);
         setMessagePayload(b, getByteSize());
     }
 
     public double getSpeed() {
-        return (double)Float.intBitsToFloat(getIntFromBitset(getMessagePayload(), 0, 32));
+
+        int numBits = 14;
+        int offset = (int) Math.pow(2.0, numBits - 1);
+
+        //return (double) Float.intBitsToFloat(getIntFromBitset(getMessagePayload(), 0, 14) + offset) / 1000;
+        return (double) (getIntFromBitset(getMessagePayload(), 0, 14) + offset) / 1000;
     }
 
     public void setDirection(Direction dir) {
         BitSet b = getMessagePayload();
-        addIntToBitset(b, dir.ordinal(), 32, 32);
+        addIntToBitset(b, dir.ordinal() - 2, 14, 2);
         setMessagePayload(b, getByteSize());
     }
 
     public Direction getDirection() {
-        int val = getIntFromBitset(getMessagePayload(), 32, 32);
+        int val = getIntFromBitset(getMessagePayload(), 14, 2) + 2;
         for (Direction d : Direction.values()) {
             if (d.ordinal() == val) {
                 return d;

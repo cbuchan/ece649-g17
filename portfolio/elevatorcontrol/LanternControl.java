@@ -9,15 +9,14 @@
 package simulator.elevatorcontrol;
 
 import jSimPack.SimTime;
-import simulator.framework.*;
+import simulator.framework.Controller;
+import simulator.framework.Direction;
+import simulator.framework.ReplicationComputer;
 import simulator.payloads.CanMailbox;
 import simulator.payloads.CanMailbox.ReadableCanMailbox;
 import simulator.payloads.CanMailbox.WriteableCanMailbox;
 import simulator.payloads.CarLanternPayload;
 import simulator.payloads.CarLanternPayload.WriteableCarLanternPayload;
-import simulator.payloads.translators.BooleanCanPayloadTranslator;
-import simulator.elevatorcontrol.Utility.AtFloorArray;
-import simulator.elevatormodules.AtFloorCanPayloadTranslator;
 
 
 /**
@@ -39,7 +38,7 @@ public class LanternControl extends Controller {
     private WriteableCarLanternPayload localCarLantern;
 
     private WriteableCanMailbox networkCarLanternOut;
-    private BooleanCanPayloadTranslator mCarLantern;
+    private TinyBooleanCanPayloadTranslator mCarLantern;
 
     private Utility.DoorClosedArray networkDoorClosedArray;
 
@@ -65,7 +64,7 @@ public class LanternControl extends Controller {
 
     //state variable initialized to the initial state DOOR_CLOSING
     private State state = State.STATE_CAR_LANTERN_OFF;
-	private int desiredFloor; 
+    private int desiredFloor;
 
     /**
      * The arguments listed in the .cf configuration file should match the order and
@@ -94,7 +93,7 @@ public class LanternControl extends Controller {
         networkCarLanternOut = CanMailbox.getWriteableCanMailbox(
                 MessageDictionary.CAR_LANTERN_BASE_CAN_ID +
                         ReplicationComputer.computeReplicationId(direction));
-        mCarLantern = new BooleanCanPayloadTranslator(networkCarLanternOut);
+        mCarLantern = new TinyBooleanCanPayloadTranslator(networkCarLanternOut);
         canInterface.sendTimeTriggered(networkCarLanternOut, period);
 
         networkDoorClosedArray = new Utility.DoorClosedArray(canInterface);
@@ -121,18 +120,17 @@ public class LanternControl extends Controller {
         State newState = state;
         switch (state) {
             case STATE_CAR_LANTERN_OFF:
-				
-				desiredFloor = mDesiredFloor.getFloor();
-				
+
+                desiredFloor = mDesiredFloor.getFloor();
+
                 //state actions
                 localCarLantern.set(false);
                 mCarLantern.set(false);
 
                 //transitions -- note that transition conditions are mutually exclusive
                 //#transition 'T7.1'
-                //if any mDoorClosed[b,r] == false && mDesiredFloor.d == d
-                if ((networkAtFloorArray.getCurrentFloor() == desiredFloor)
-                        && (mDesiredFloor.getDirection() == direction)) {
+                if ((networkAtFloorArray.getCurrentFloor() == desiredFloor) && (mDesiredFloor.getDirection() == direction) &&
+                        !networkDoorClosedArray.getAllClosed()) {
                     newState = State.STATE_CAR_LANTERN_ON;
                 } else {
                     newState = state;
@@ -145,9 +143,7 @@ public class LanternControl extends Controller {
 
                 //transitions
                 //#transition 'T7.2'
-                //if all mDoorClosed[b,r] == true || mDesiredFloor.d != d
-                if ((networkDoorClosedArray.getAllClosed())
-                        || (mDesiredFloor.getDirection() != direction)) {
+                if ((networkDoorClosedArray.getAllClosed()) || (mDesiredFloor.getDirection() != direction)) {
                     newState = State.STATE_CAR_LANTERN_OFF;
                 } else {
                     newState = state;

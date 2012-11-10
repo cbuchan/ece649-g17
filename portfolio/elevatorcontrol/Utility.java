@@ -18,7 +18,6 @@ import simulator.framework.*;
 import simulator.payloads.CANNetwork.CanConnection;
 import simulator.payloads.CanMailbox;
 import simulator.payloads.CanMailbox.ReadableCanMailbox;
-import simulator.payloads.translators.BooleanCanPayloadTranslator;
 
 import java.util.HashMap;
 
@@ -127,16 +126,16 @@ public class Utility {
 
         public final int numFloors = Elevator.numFloors;
         public final Hallway hallway;
-        public BooleanCanPayloadTranslator[] translatorArray;
+        public TinyBooleanCanPayloadTranslator[] translatorArrayTiny;
 
         public CarCallArray(Hallway hallway, CanConnection conn) {
             this.hallway = hallway;
-            translatorArrayTiny = new BooleanCanPayloadTranslator[numFloors];
+            translatorArrayTiny = new TinyBooleanCanPayloadTranslator[numFloors];
             for (int i = 0; i < numFloors; ++i) {
                 ReadableCanMailbox m = CanMailbox.getReadableCanMailbox(
                         MessageDictionary.CAR_CALL_BASE_CAN_ID +
                                 ReplicationComputer.computeReplicationId(i + 1, hallway));
-                BooleanCanPayloadTranslator t = new BooleanCanPayloadTranslator(m);
+                TinyBooleanCanPayloadTranslator t = new TinyBooleanCanPayloadTranslator(m);
                 conn.registerTimeTriggered(m);
                 translatorArrayTiny[i] = t;
             }
@@ -190,17 +189,23 @@ public class Utility {
         }
 
         public boolean getAllFloorOff(int floor) {
-            return translatorArray[floor].getAllOff();
+            return translatorArray[floor - 1].getAllOff();
         }
 
         public boolean getAllFloorHallwayOff(int floor, Hallway hallway) {
-            return translatorArray[floor].getAllHallwayOff(hallway);
+            return translatorArray[floor - 1].getAllHallwayOff(hallway);
         }
 
         public boolean getOff(int floor, Hallway hallway, Direction dir) {
-            if (floor < 0 || floor >= Elevator.numFloors)
+            if (floor < 1 || floor > Elevator.numFloors)
                 return false;
-            return translatorArray[floor].getOff(hallway, dir);
+            return translatorArray[floor - 1].getOff(hallway, dir);
+        }
+
+        public boolean getValue(int floor, Hallway hallway, Direction dir) {
+            if (floor < 1 || floor > Elevator.numFloors)
+                return false;
+            return translatorArray[floor - 1].getValue(hallway, dir);
         }
     }
 
@@ -235,6 +240,10 @@ public class Utility {
 
         /* NOTE: As of now, do not call getOff for hallway == BOTH, and a specified direction */
         public boolean getOff(Hallway hallway, Direction dir) {
+            return !getValue(hallway, dir);
+        }
+
+        public boolean getValue(Hallway hallway, Direction dir) {
             if (hallway == Hallway.FRONT && dir == Direction.UP) {
                 return (front.up.getValue());
             } else if (hallway == Hallway.FRONT && dir == Direction.DOWN) {
@@ -251,8 +260,8 @@ public class Utility {
     }
 
     public static class HallCallFloorHallwayArray {
-        private BooleanCanPayloadTranslator up;
-        private BooleanCanPayloadTranslator down;
+        private TinyBooleanCanPayloadTranslator up;
+        private TinyBooleanCanPayloadTranslator down;
         public final Hallway hallway;
         public final int floor;
 
@@ -262,12 +271,12 @@ public class Utility {
 
             ReadableCanMailbox m_u = CanMailbox.getReadableCanMailbox(MessageDictionary.HALL_CALL_BASE_CAN_ID +
                     ReplicationComputer.computeReplicationId(floor, hallway, Direction.UP));
-            up = new BooleanCanPayloadTranslator(m_u);
+            up = new TinyBooleanCanPayloadTranslator(m_u);
             conn.registerTimeTriggered(m_u);
 
-            ReadableCanMailbox m_d = CanMailbox.getReadableCanMailbox(MessageDictionary.HALL_CALL_BASE_CAN_ID +
-                    ReplicationComputer.computeReplicationId(floor, hallway, Direction.DOWN));
-            down = new BooleanCanPayloadTranslator(m_d);
+            ReadableCanMailbox m_d = CanMailbox.getReadableCanMailbox(
+                    MessageDictionary.HALL_CALL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(floor, hallway, Direction.DOWN));
+            down = new TinyBooleanCanPayloadTranslator(m_d);
             conn.registerTimeTriggered(m_d);
 
         }
@@ -353,14 +362,17 @@ public class Utility {
         //Assumes f is towards the direction that car is traveling in.
         public Boolean commitPoint(int f, Direction driveSpeed_d, double driveSpeed_s) {
             int dir = driveSpeed_d == Direction.UP ? 1 : -1;     //sign determined by current direction
-            double speed = driveSpeed_s;
-            double pos = mCarLevelPosition.getPosition();
-            double fPos = (f - 1) * Elevator.DISTANCE_BETWEEN_FLOORS;
+            double speed = driveSpeed_s;                             // in m/s
+            double pos = mCarLevelPosition.getPosition() / 1000;       // level position in m, *updates at each floor
+            double fPos = (f - 1) * Elevator.DISTANCE_BETWEEN_FLOORS;  // DISTANCE_BETWEEN_FLOORS in m
             double commitPt = pos;
 
-            double decel = DriveObject.Deceleration;
-            double slow = DriveObject.SlowSpeed;
-            double stop = DriveObject.StopSpeed;
+            double decel = DriveObject.Deceleration;    // in m/s^2
+            double slow = DriveObject.SlowSpeed;        // in m/s
+            double stop = DriveObject.StopSpeed;        // in m/s
+
+            if ((dir == 1 && fPos <= pos) ||
+                    (dir == -1 && fPos >= pos)) return true; // reached for f 'less' than curr floor (direction dependent)
 
             if (speed > slow) {
                 commitPt += dir * (1 / decel) *
@@ -372,10 +384,20 @@ public class Utility {
                                 - 0.5 * (speed - stop) * (speed - stop));
             }
 
+            /* Some numbers (assume fast speed = 1.0, slow speed = 0.25):
+             * stopping distance from fast is 0.5m
+             * stopping distance from slow is 0.03125m
+             */
+
+            //System.out.println("(levelpos, dir, commitpt, fpos) = ("+pos+", "+dir+", "+commitPt+", "+fPos+")");
+
+            // let's set the error threshold to 10cm (to compensate for the level position sensor updating)
+            //double error = 0.1;
+            double error = 1.0;
             if (dir == 1) {
-                if (fPos > commitPt) return false; //not reached
+                if (commitPt < fPos - error) return false; //not reached
             } else if (dir == -1) {
-                if (fPos < commitPt) return false; //not reached
+                if (commitPt > fPos + error) return false; //not reached
             }
             return true; //reached
         }
@@ -388,6 +410,7 @@ public class Utility {
                         return i; //Found the closest "Not Reached"
                     }
                 }
+                return (int) Math.ceil((mCarLevelPosition.getPosition() / (Elevator.DISTANCE_BETWEEN_FLOORS * 1000))) + 1;
             }
             // Returns the highest "Not Reached" floor
             else if (driveSpeed_d == Direction.DOWN) {
@@ -396,9 +419,11 @@ public class Utility {
                         return i; //Found the closest "Not Reached"
                     }
                 }
+                return (int) Math.floor((mCarLevelPosition.getPosition() / (Elevator.DISTANCE_BETWEEN_FLOORS * 1000))) + 1;
             }
+
             // Failed to find a floor. Try to return the nearest floor
-            return (int) (mCarLevelPosition.getPosition() / Elevator.DISTANCE_BETWEEN_FLOORS);
+            return (int) Math.round(mCarLevelPosition.getPosition() / (Elevator.DISTANCE_BETWEEN_FLOORS * 1000)) + 1;
         }
 
         public int getCommitedFloor(Direction driveSpeed_d, double driveSpeed_s) {
@@ -419,7 +444,7 @@ public class Utility {
                 }
             }
             // Failed to find a floor. Try to return the nearest floor
-            return (int) (mCarLevelPosition.getPosition() / Elevator.DISTANCE_BETWEEN_FLOORS);
+            return (int) Math.round(mCarLevelPosition.getPosition() / Elevator.DISTANCE_BETWEEN_FLOORS) + 1;
         }
     }
 }

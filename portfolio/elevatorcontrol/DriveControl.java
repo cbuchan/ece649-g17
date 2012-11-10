@@ -12,18 +12,12 @@ package simulator.elevatorcontrol;
 
 import jSimPack.SimTime;
 import simulator.elevatorcontrol.Utility.AtFloorArray;
-import simulator.elevatorcontrol.Utility.DoorClosedHallwayArray;
 import simulator.elevatorcontrol.Utility.CommitPointCalculator;
-import simulator.elevatormodules.CarLevelPositionCanPayloadTranslator;
+import simulator.elevatorcontrol.Utility.DoorClosedHallwayArray;
 import simulator.elevatormodules.CarWeightCanPayloadTranslator;
 import simulator.elevatormodules.DriveObject;
 import simulator.elevatormodules.LevelingCanPayloadTranslator;
-import simulator.framework.Controller;
-import simulator.framework.Direction;
-import simulator.framework.Elevator;
-import simulator.framework.Hallway;
-import simulator.framework.ReplicationComputer;
-import simulator.framework.Speed;
+import simulator.framework.*;
 import simulator.payloads.CanMailbox;
 import simulator.payloads.CanMailbox.ReadableCanMailbox;
 import simulator.payloads.CanMailbox.WriteableCanMailbox;
@@ -31,7 +25,6 @@ import simulator.payloads.DrivePayload;
 import simulator.payloads.DrivePayload.WriteableDrivePayload;
 import simulator.payloads.DriveSpeedPayload;
 import simulator.payloads.DriveSpeedPayload.ReadableDriveSpeedPayload;
-import simulator.payloads.translators.BooleanCanPayloadTranslator;
 
 /**
  * There is one DriveControl, which controls the elevator Drive
@@ -77,7 +70,7 @@ public class DriveControl extends Controller {
     //translators for input network messages
     private LevelingCanPayloadTranslator mLevelUp;
     private LevelingCanPayloadTranslator mLevelDown;
-    private BooleanCanPayloadTranslator mEmergencyBrake;
+    private TinyBooleanCanPayloadTranslator mEmergencyBrake;
     private CarWeightCanPayloadTranslator mCarWeight;
     private DesiredFloorCanPayloadTranslator mDesiredFloor;
     //private CarLevelPositionCanPayloadTranslator mCarLevelPosition;
@@ -95,40 +88,8 @@ public class DriveControl extends Controller {
 
     //state variable initialized to the initial state DRIVE_STOPPED
     private State state = State.STATE_DRIVE_STOPPED;
-
-    //macros
     private Direction driveDir = Direction.UP;
 
-    //returns the level direction based on mLevel sensors
-    private Direction getLevelDir(){
-        if (!mLevelUp.getValue() && mLevelDown.getValue()) return Direction.UP;
-        else if (mLevelUp.getValue() && !mLevelDown.getValue()) return Direction.DOWN;
-        else return Direction.STOP;
-    }
-
-    //returns the desired direction based on current floor and desired floor by dispatcher
-    private Direction getDriveDir(Direction curDirection) {
-        Direction driveDir = curDirection;
-        int currentFloor = networkAtFloorArray.getCurrentFloor();
-        int desiredFloor = mDesiredFloor.getFloor();
-
-        //check car is not between floors
-        if (currentFloor != MessageDictionary.NONE) {
-            //current floor below desired floor
-            if (currentFloor < desiredFloor) {
-                driveDir = Direction.UP;
-            }
-            //current floor above desired floor
-            else if (currentFloor > desiredFloor) {
-                driveDir = Direction.DOWN;
-            }
-            //current floor is desired floor
-            else {
-                driveDir = Direction.STOP;
-            }
-        }
-        return driveDir;
-    }
 
     /**
      * The arguments listed in the .cf configuration file should match the order and
@@ -196,7 +157,7 @@ public class DriveControl extends Controller {
         mLevelDown =
                 new LevelingCanPayloadTranslator(networkLevelDown, Direction.DOWN);
         mEmergencyBrake =
-                new BooleanCanPayloadTranslator(networkEmergencyBrake);
+                new TinyBooleanCanPayloadTranslator(networkEmergencyBrake);
         mCarWeight =
                 new CarWeightCanPayloadTranslator(networkCarWeight);
         // used to calculate desiredDir
@@ -226,12 +187,7 @@ public class DriveControl extends Controller {
         switch (state) {
 
             case STATE_DRIVE_STOPPED:
-				
-<<<<<<< HEAD
-				
-=======
-					
->>>>>>> 708738c15c8e35cc814d6c07980238913ca19b01
+
                 driveDir = getDriveDir(driveDir);
 
                 //state actions for DRIVE_STOPPED
@@ -239,20 +195,28 @@ public class DriveControl extends Controller {
                 mDrive.set(Speed.STOP, Direction.STOP);
                 mDriveSpeed.set(localDriveSpeed.speed(), localDriveSpeed.direction());
 
+                //log("localDrive="+localDrive.speed()+", "+localDrive.direction());
+                //log("localDriveSpeed="+localDriveSpeed.speed()+", "+localDriveSpeed.direction());
+                //log("mDriveSpeed="+mDriveSpeed.getSpeed()+", "+mDriveSpeed.getDirection());
+
                 //transitions
 
                 //#transition 'T6.1'
-                if (driveDir==Direction.STOP && (!mLevelUp.getValue() || !mLevelDown.getValue())) {
+//                if (driveDir == Direction.STOP && (!mLevelUp.getValue() || !mLevelDown.getValue()) && localDriveSpeed.speed() == 0) {
+//                    newState = State.STATE_DRIVE_LEVEL;
+//                }
+
+                if ((driveDir == Direction.STOP && (!mLevelUp.getValue() || !mLevelDown.getValue()) && localDriveSpeed.speed() == 0) ||
+                        (mCarWeight.getWeight() >= Elevator.MaxCarCapacity && (!mLevelUp.getValue() || !mLevelDown.getValue()))) {
                     newState = State.STATE_DRIVE_LEVEL;
                 }
 
                 //#transition 'T6.3'
-                else if (driveDir!=Direction.STOP
-                        && networkDoorClosedFront.getAllClosed() && networkDoorClosedBack.getAllClosed()){
+                else if (driveDir != Direction.STOP
+                        && networkDoorClosedFront.getAllClosed() && networkDoorClosedBack.getAllClosed()
+						&& !mEmergencyBrake.getValue()) {
                     newState = State.STATE_DRIVE_SLOW;
-                }
-
-                else newState = state;
+                } else newState = state;
 
                 break;
 
@@ -269,12 +233,10 @@ public class DriveControl extends Controller {
                 //transitions
 
                 //#transition 'T6.2'
-                if (driveDir==Direction.STOP && mLevelUp.getValue() && mLevelDown.getValue()
-                        || mEmergencyBrake.getValue()) {
+                if (driveDir == Direction.STOP && mLevelUp.getValue() && mLevelDown.getValue()
+						&& localDriveSpeed.speed() <= 0.05 || mEmergencyBrake.getValue()) {
                     newState = State.STATE_DRIVE_STOPPED;
-                }
-
-                else newState = state;
+                } else newState = state;
 
                 break;
 
@@ -288,27 +250,31 @@ public class DriveControl extends Controller {
                 mDriveSpeed.set(localDriveSpeed.speed(), localDriveSpeed.direction());
 
                 //transitions
+                if (driveDir == Direction.STOP && mLevelUp.getValue() && mLevelDown.getValue() &&
+                        localDriveSpeed.speed() < DriveObject.SlowSpeed) {
+                    newState = State.STATE_DRIVE_STOPPED;
+                }
 
                 //#transition 'T6.4'
-                if (driveDir==Direction.STOP && (!mLevelUp.getValue() || !mLevelDown.getValue())
-                        || mCarWeight.getWeight() >= Elevator.MaxCarCapacity) {
+
+                if (localDriveSpeed.speed() <= 0.25 && ((driveDir == Direction.STOP && (!mLevelUp.getValue() || !mLevelDown.getValue())
+                        && !mEmergencyBrake.getValue()) || mCarWeight.getWeight() >= Elevator.MaxCarCapacity)) {
                     newState = State.STATE_DRIVE_LEVEL;
                 }
 
                 //#transition 'T6.5'
-                else if (driveDir!=Direction.STOP
+                else if (driveDir != Direction.STOP
+                        && !(localDriveSpeed.speed() < DriveObject.SlowSpeed)        //********** finished accelerating
                         && !networkCommitPoint.commitPoint(
-                            mDesiredFloor.getFloor(),localDriveSpeed.direction(),localDriveSpeed.speed())) {
+                        mDesiredFloor.getFloor(), localDriveSpeed.direction(), localDriveSpeed.speed())) {
                     newState = State.STATE_DRIVE_FAST;
                 }
 
                 //#transition 'T6.7'
                 else if (mEmergencyBrake.getValue()) {
                     newState = State.STATE_DRIVE_STOPPED;
-                }
-
-                else newState = state;
-
+                } else newState = state;
+	
                 break;
 
             case STATE_DRIVE_FAST:
@@ -321,11 +287,11 @@ public class DriveControl extends Controller {
                 mDriveSpeed.set(localDriveSpeed.speed(), localDriveSpeed.direction());
 
                 //transitions
-
                 //#transition 'T6.6'
-                if (driveDir!=Direction.STOP
+                if ( (driveDir != Direction.STOP
                         && networkCommitPoint.commitPoint(
-                            mDesiredFloor.getFloor(),localDriveSpeed.direction(),localDriveSpeed.speed())
+                        mDesiredFloor.getFloor(), localDriveSpeed.direction(), localDriveSpeed.speed())
+						&& !mEmergencyBrake.getValue())
                         || mCarWeight.getWeight() >= Elevator.MaxCarCapacity) {
                     newState = State.STATE_DRIVE_SLOW;
                 }
@@ -333,9 +299,7 @@ public class DriveControl extends Controller {
                 //#transition 'T6.8'
                 else if (mEmergencyBrake.getValue()) {
                     newState = State.STATE_DRIVE_STOPPED;
-                }
-
-                else newState = state;
+                } else newState = state;
 
                 break;
 
@@ -348,6 +312,7 @@ public class DriveControl extends Controller {
             log("remains in state: ", state);
         } else {
             log("Transition:", state, "->", newState);
+            System.out.println("Transition:" + state + "->" + newState);
         }
 
         //update the state variable
@@ -360,6 +325,46 @@ public class DriveControl extends Controller {
         //you must do this at the end of the timer callback in order to restart
         //the timer
         timer.start(period);
+    }
+
+    /**
+     * Macros -- getLevelDir, getDriveDir
+     */
+
+    //returns the level direction based on mLevel sensors
+    private Direction getLevelDir() {
+        if (!mLevelUp.getValue() && mLevelDown.getValue()) return Direction.UP;
+        else if (mLevelUp.getValue() && !mLevelDown.getValue()) return Direction.DOWN;
+        else return Direction.STOP;
+    }
+
+    //returns the desired direction based on current floor and desired floor by dispatcher
+    private Direction getDriveDir(Direction curDirection) {
+
+        if (mDesiredFloor.getFloor() < 1) {
+            return Direction.STOP;
+        }
+
+        Direction driveDir = curDirection;
+        int currentFloor = networkAtFloorArray.getCurrentFloor();
+        int desiredFloor = mDesiredFloor.getFloor();
+
+        //check car is not between floors
+        if (currentFloor != MessageDictionary.NONE) {
+            //current floor below desired floor
+            if (currentFloor < desiredFloor) {
+                driveDir = Direction.UP;
+            }
+            //current floor above desired floor
+            else if (currentFloor > desiredFloor) {
+                driveDir = Direction.DOWN;
+            }
+            //current floor is desired floor
+            else {
+                driveDir = Direction.STOP;
+            }
+        }
+        return driveDir;
     }
 }
 
