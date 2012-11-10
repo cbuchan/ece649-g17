@@ -8,12 +8,13 @@
 
 package simulator.elevatorcontrol;
 
-import java.util.BitSet;
 import simulator.framework.Hallway;
 import simulator.framework.ReplicationComputer;
 import simulator.payloads.CanMailbox.ReadableCanMailbox;
 import simulator.payloads.CanMailbox.WriteableCanMailbox;
 import simulator.payloads.translators.CanPayloadTranslator;
+
+import java.util.BitSet;
 
 /**
  * @author Rajeev Sharma (rdsharma)
@@ -30,7 +31,7 @@ public class DesiredDwellCanPayloadTranslator extends CanPayloadTranslator {
      */
     public DesiredDwellCanPayloadTranslator(WriteableCanMailbox p, 
             Hallway hallway) {
-        super(p, 4, MessageDictionary.DESIRED_DWELL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(hallway));
+        super(p, 1, MessageDictionary.DESIRED_DWELL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(hallway));
         this.name = "DesiredDwell" 
                 + ReplicationComputer.makeReplicationString(hallway);
     }
@@ -43,7 +44,7 @@ public class DesiredDwellCanPayloadTranslator extends CanPayloadTranslator {
      */
     public DesiredDwellCanPayloadTranslator(ReadableCanMailbox p, 
             Hallway hallway) {
-        super(p, 4, MessageDictionary.DESIRED_DWELL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(hallway));
+        super(p, 1, MessageDictionary.DESIRED_DWELL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(hallway));
         this.name = "DesiredDwell" 
                 + ReplicationComputer.makeReplicationString(hallway);
     }
@@ -55,12 +56,12 @@ public class DesiredDwellCanPayloadTranslator extends CanPayloadTranslator {
 
 
     public int getValue() {
-        return getIntFromBitset(getMessagePayload(), 0, getByteSize() * 4);
+        return getIntFromBitset(getMessagePayload(), 0, 8);
     }
 
     public void setValue(int position) {
         BitSet b = getMessagePayload();
-        addIntToBitset(b, position, 0, getByteSize() * 4);
+        addIntToBitset(b, position, 0, 8);
         setMessagePayload(b, getByteSize());
     }
 

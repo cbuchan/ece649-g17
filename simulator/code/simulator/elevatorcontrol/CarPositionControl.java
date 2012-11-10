@@ -9,13 +9,13 @@
 package simulator.elevatorcontrol;
 
 import jSimPack.SimTime;
+import simulator.elevatorcontrol.Utility.AtFloorArray;
 import simulator.framework.Controller;
-import simulator.payloads.*;
+import simulator.payloads.CanMailbox;
 import simulator.payloads.CanMailbox.ReadableCanMailbox;
 import simulator.payloads.CanMailbox.WriteableCanMailbox;
-import simulator.elevatorcontrol.Utility.AtFloorArray;
+import simulator.payloads.CarPositionIndicatorPayload;
 import simulator.payloads.CarPositionIndicatorPayload.WriteableCarPositionIndicatorPayload;
-import simulator.payloads.translators.IntegerCanPayloadTranslator;
 
 
 /**
@@ -37,7 +37,7 @@ public class CarPositionControl extends Controller {
 
     //output network messages
     private WriteableCanMailbox networkCarPositionIndicator;
-    private IntegerCanPayloadTranslator mCarPositionIndicator;
+    private CarPositionIndicatorCanPayloadTranslator mCarPositionIndicator;
 
     //input network messages
     private AtFloorArray networkAtFloorArray;
@@ -113,7 +113,7 @@ public class CarPositionControl extends Controller {
 
         //initialize output network interface
         networkCarPositionIndicator = CanMailbox.getWriteableCanMailbox(MessageDictionary.CAR_POSITION_CAN_ID);
-        mCarPositionIndicator = new IntegerCanPayloadTranslator(networkCarPositionIndicator);
+        mCarPositionIndicator = new CarPositionIndicatorCanPayloadTranslator(networkCarPositionIndicator);
         canInterface.sendTimeTriggered(networkCarPositionIndicator, period);
 
         /* issuing the timer start method with no callback data means a NULL value
