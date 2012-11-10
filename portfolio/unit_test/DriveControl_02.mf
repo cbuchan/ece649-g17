@@ -61,7 +61,9 @@
 +0s	I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
 +0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 5 FRONT STOP
 
-;+0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 15000
++0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 15000
+
++0.5s I DRIVE_PERIOD F DriveSpeed = UP 0.24
 
 ;====9.0s=====================================================================
 ;#state 'STATE_DRIVE_SLOW'
@@ -84,10 +86,10 @@
 +0.5s I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = false
 +0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 5 FRONT STOP
 
++0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 19000
+
 ;insert conditions for CommitPoint[5] NotReached
-;+0s I DRIVE_PERIOD F DriveSpeed = UP 1.0
-;+0s I DRIVE_PERIOD F DriveSpeed = 0.25 UP
-+0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 16000
+;+0s I DRIVE_PERIOD F DriveSpeed = UP 0.99
 
 ;====10.0s=====================================================================
 ;#state 'STATE_DRIVE_FAST'
@@ -110,9 +112,9 @@
 ;car weight >= max
 +0s	I WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 14002
 +0s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = false
-;CommitPoint[5] Reached
-;+0s I DRIVE_PERIOD F DriveSpeed = 1.0 UP
-+0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 24490
+;CommitPoint[5] not Reached 
++0s I DRIVE_PERIOD F DriveSpeed = UP 1.0
++0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 24290
 
 ;====11.0s=====================================================================
 ;#state 'STATE_DRIVE_SLOW'

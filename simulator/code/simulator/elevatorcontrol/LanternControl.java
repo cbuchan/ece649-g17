@@ -17,7 +17,6 @@ import simulator.payloads.CanMailbox.ReadableCanMailbox;
 import simulator.payloads.CanMailbox.WriteableCanMailbox;
 import simulator.payloads.CarLanternPayload;
 import simulator.payloads.CarLanternPayload.WriteableCarLanternPayload;
-import simulator.payloads.translators.BooleanCanPayloadTranslator;
 
 
 /**

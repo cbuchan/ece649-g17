@@ -1,0 +1,32 @@
+18649 Fall 2012 - Group 17
+Jesse Salazar (jessesal)
+Jessica Tiu (jtiu)
+Collin Buchan (cbuchan)
+Rajeev Sharma (rdsharma)
+
+Simulator Parameters:
+Command line = -head headerfile -cf DriveControl.cf -mf DriveControl_05.mf
+RandomSeed = 1352504610096
+CanNetworkBitTime = 0 ns
+Effective Can Bitrate = Infinity
+Run Time = null
+Real time rate = null
+Message File = DriveControl_05.mf
+Controller File = DriveControl.cf
+
+Assertion Results:
+@0.5s:  PASSED DriveControl::checkState(STATE) ?== STATE_DRIVE_STOPPED PASSED
+@0.5s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@3d66aa18 :: speed ?== STOP PASSED
+@0.5s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@485329c5 :: direction ?== STOP PASSED
+@0.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@31f26605 :: getSpeed ?== STOP PASSED
+@0.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@f0f11b8 :: getDirection ?== STOP PASSED
+@0.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@68fe748f :: getSpeed ?== 0.0 PASSED
+@0.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@6b4da8f4 :: getDirection ?== STOP PASSED
+@2.5s:  PASSED DriveControl::checkState(STATE) ?== STATE_DRIVE_STOPPED PASSED
+
+
+******************Summary******************
+Passed:  8
+Failed:  0
+Total :  8
+

@@ -25,7 +25,6 @@ import simulator.payloads.DrivePayload;
 import simulator.payloads.DrivePayload.WriteableDrivePayload;
 import simulator.payloads.DriveSpeedPayload;
 import simulator.payloads.DriveSpeedPayload.ReadableDriveSpeedPayload;
-import simulator.payloads.translators.BooleanCanPayloadTranslator;
 
 /**
  * There is one DriveControl, which controls the elevator Drive
@@ -249,12 +248,6 @@ public class DriveControl extends Controller {
                 mDrive.set(Speed.SLOW, driveDir);
                 mDriveSpeed.set(localDriveSpeed.speed(), localDriveSpeed.direction());
 
-                log("localDrive=" + localDrive.speed() + ", " + localDrive.direction());
-                log("localDriveSpeed=" + localDriveSpeed.speed() + ", " + localDriveSpeed.direction());
-                log("mDriveSpeed=" + mDriveSpeed.getSpeed() + ", " + mDriveSpeed.getDirection());
-                log("commitP=" + networkCommitPoint.commitPoint(mDesiredFloor.getFloor(),
-                        localDriveSpeed.direction(), localDriveSpeed.speed()));
-
                 //transitions
                 if (driveDir == Direction.STOP && mLevelUp.getValue() && mLevelDown.getValue() &&
                         localDriveSpeed.speed() < DriveObject.SlowSpeed) {
@@ -262,8 +255,9 @@ public class DriveControl extends Controller {
                 }
 
                 //#transition 'T6.4'
-                else if (driveDir == Direction.STOP && (!mLevelUp.getValue() || !mLevelDown.getValue())
-                        || mCarWeight.getWeight() >= Elevator.MaxCarCapacity) {
+
+                if ((driveDir == Direction.STOP && (!mLevelUp.getValue() || !mLevelDown.getValue())
+                        && !mEmergencyBrake.getValue()) || mCarWeight.getWeight() >= Elevator.MaxCarCapacity) {
                     newState = State.STATE_DRIVE_LEVEL;
                 }
 
@@ -291,14 +285,7 @@ public class DriveControl extends Controller {
                 mDrive.set(Speed.FAST, driveDir);
                 mDriveSpeed.set(localDriveSpeed.speed(), localDriveSpeed.direction());
 
-                log("localDrive=" + localDrive.speed() + ", " + localDrive.direction());
-                log("localDriveSpeed=" + localDriveSpeed.speed() + ", " + localDriveSpeed.direction());
-                log("mDriveSpeed=" + mDriveSpeed.getSpeed() + ", " + mDriveSpeed.getDirection());
-                log("commitP=" + networkCommitPoint.commitPoint(mDesiredFloor.getFloor(),
-                        localDriveSpeed.direction(), localDriveSpeed.speed()));
-
                 //transitions
-
                 //#transition 'T6.6'
                 if (driveDir != Direction.STOP
                         && networkCommitPoint.commitPoint(
@@ -352,7 +339,7 @@ public class DriveControl extends Controller {
     //returns the desired direction based on current floor and desired floor by dispatcher
     private Direction getDriveDir(Direction curDirection) {
 
-        if (mDesiredFloor.getFloor() == MessageDictionary.NONE) {
+        if (mDesiredFloor.getFloor() < 1) {
             return Direction.STOP;
         }
 

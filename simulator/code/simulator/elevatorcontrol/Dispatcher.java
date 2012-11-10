@@ -550,6 +550,10 @@ public class Dispatcher extends Controller {
     }
 
     private int computeCommitPoint() {
-        return commitPointCalculator.nextReachableFloor(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
+        if (networkAtFloorArray.getCurrentFloor() != MessageDictionary.NONE) {
+            return networkAtFloorArray.getCurrentFloor();
+        } else {
+            return commitPointCalculator.nextReachableFloor(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
+        }
     }
 }
