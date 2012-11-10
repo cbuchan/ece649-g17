@@ -35,7 +35,6 @@
 +1.0s  A S CarButtonControl[4][FRONT] : STATE == STATE_LIGHT_OFF
 +0s    A F CarLight 4 FRONT : lighted == false
 +0s    A N CAR_CALL_[4][FRONT]_CAN_ID TinyBoolean : getValue == false
-+0s    A N CAR_LIGHT_[4][FRONT]_CAN_ID TinyBoolean : getValue == false
 
 ;========================================================================
 ;test
@@ -50,7 +49,6 @@
 +1.0s  A S CarButtonControl[4][FRONT] : STATE == STATE_LIGHT_ON
 +0s    A F CarLight 4 FRONT : lighted == true
 +0s    A N CAR_CALL_[4][FRONT]_CAN_ID TinyBoolean : getValue == true
-+0s    A N CAR_LIGHT_[4][FRONT]_CAN_ID TinyBoolean : getValue == true
 
 ;#transition 'T9.2'
 +1.0s  I AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
@@ -61,7 +59,6 @@
 +1.0s  A S CarButtonControl[4][FRONT] : STATE == STATE_LIGHT_OFF
 +0s    A F CarLight 4 FRONT : lighted == false
 +0s    A N CAR_CALL_[4][FRONT]_CAN_ID TinyBoolean : getValue == false
-+0s    A N CAR_LIGHT_[4][FRONT]_CAN_ID TinyBoolean : getValue == false
 
 ;#transition 'T9.1'
 ;dispatcher computes new floor...
@@ -76,7 +73,6 @@
 +1.0s  A S CarButtonControl[4][FRONT] : STATE == STATE_LIGHT_ON
 +0s    A F CarLight 4 FRONT : lighted == true
 +0s    A N CAR_CALL_[4][FRONT]_CAN_ID TinyBoolean : getValue == true
-+0s    A N CAR_LIGHT_[4][FRONT]_CAN_ID TinyBoolean : getValue == true
 
 ;#transition 'T9.2'
 ;check that mDesiredFloor.b = BOTH will also turn light off
@@ -88,4 +84,3 @@
 +1.0s  A S CarButtonControl[4][FRONT] : STATE == STATE_LIGHT_OFF
 +0s    A F CarLight 4 FRONT : lighted == false
 +0s    A N CAR_CALL_[4][FRONT]_CAN_ID TinyBoolean : getValue == false
-+0s    A N CAR_LIGHT_[4][FRONT]_CAN_ID TinyBoolean : getValue == false

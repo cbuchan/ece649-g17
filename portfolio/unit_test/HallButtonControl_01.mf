@@ -24,7 +24,6 @@
 0.21s  A S HallButtonControl[4][FRONT][DOWN] : STATE == STATE_HALL_CALL_OFF
 0.21s  A F HallLight 4 FRONT DOWN : lighted == false
 0.21s  A N HALL_CALL_[4][FRONT][DOWN]_CAN_ID TinyBoolean : getValue == false
-0.21s  A N HALL_LIGHT_[4][FRONT][DOWN]_CAN_ID TinyBoolean : getValue == false
 
 ;#transition T8.1
 0.70s  I  HALL_BUTTON_CONTROL_PERIOD F HallCall 4 FRONT DOWN  = true
@@ -35,7 +34,6 @@
 1.21s  A S HallButtonControl[4][FRONT][DOWN] : STATE == STATE_HALL_CALL_ON
 1.21s  A F HallLight 4 FRONT DOWN : lighted == true
 1.21s  A N HALL_CALL_[4][FRONT][DOWN]_CAN_ID TinyBoolean : getValue == true
-1.21s  A N HALL_LIGHT_[4][FRONT][DOWN]_CAN_ID TinyBoolean : getValue == true
 
 ;#transition T8.2
 1.40s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
@@ -47,7 +45,6 @@
 1.71s  A S HallButtonControl[4][FRONT][DOWN] : STATE == STATE_HALL_CALL_OFF
 1.71s  A F HallLight 4 FRONT DOWN : lighted == false
 1.71s  A N HALL_CALL_[4][FRONT][DOWN]_CAN_ID TinyBoolean : getValue == false
-1.71s  A N HALL_LIGHT_[4][FRONT][DOWN]_CAN_ID TinyBoolean : getValue == false
 
 
 ;prepare elevator for T8.1 (door closes on its way to another floor)
@@ -63,7 +60,6 @@
 2.71s  A S HallButtonControl[4][FRONT][DOWN] : STATE == STATE_HALL_CALL_ON
 2.71s  A F HallLight 4 FRONT DOWN : lighted == true
 2.71s  A N HALL_CALL_[4][FRONT][DOWN]_CAN_ID TinyBoolean : getValue == true
-2.71s  A N HALL_LIGHT_[4][FRONT][DOWN]_CAN_ID TinyBoolean : getValue == true
 
 ;#transition T8.2
 3.00s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
@@ -75,4 +71,3 @@
 3.41s  A S HallButtonControl[4][FRONT][DOWN] : STATE == STATE_HALL_CALL_OFF
 3.41s  A F HallLight 4 FRONT DOWN : lighted == false
 3.41s  A N HALL_CALL_[4][FRONT][DOWN]_CAN_ID TinyBoolean : getValue == false
-3.41s  A N HALL_LIGHT_[4][FRONT][DOWN]_CAN_ID TinyBoolean : getValue == false
