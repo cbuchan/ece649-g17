@@ -210,7 +210,8 @@ public class DriveControl extends Controller {
 
                 //#transition 'T6.3'
                 else if (driveDir != Direction.STOP
-                        && networkDoorClosedFront.getAllClosed() && networkDoorClosedBack.getAllClosed()) {
+                        && networkDoorClosedFront.getAllClosed() && networkDoorClosedBack.getAllClosed()
+						&& !mEmergencyBrake.getValue()) {
                     newState = State.STATE_DRIVE_SLOW;
                 } else newState = state;
 
@@ -272,7 +273,7 @@ public class DriveControl extends Controller {
                 else if (mEmergencyBrake.getValue()) {
                     newState = State.STATE_DRIVE_STOPPED;
                 } else newState = state;
-
+	
                 break;
 
             case STATE_DRIVE_FAST:

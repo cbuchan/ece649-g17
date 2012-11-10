@@ -26,11 +26,6 @@
 ;#transition 'T6.3'
 ;#transition 'T6.7'
 
-;#transition 'T6.3'
-;#transition 'T6.5'
-;#transition 'T6.8'
-
-
 
 ;====1.0s=====================================================================
 ;#state 'STATE_DRIVE_STOPPED'
@@ -83,11 +78,6 @@
 ;=========================================================================
 ;#transition 'T6.7'
 
-;**************************************************************************************************************************************************
-;**************************************************************************************************************************************************
-;**************************************************************************************************************************************************
-;**************************************************************************************************************************************************
-
 ; set the emergency brake
 +1.0s I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = true
 +0s	I WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 0
@@ -97,18 +87,19 @@
 
 ;insert conditions for Emergency brake
 +0.0s I DRIVE_PERIOD F DriveSpeed = STOP 0.00
-+0.0s I DRIVE_PERIOD N DRIVE_SPEED_CAN_ID DriveSpeed = 0.00 STOP
-+0.0s I DRIVE_CONTROL_PERIOD N DRIVE_COMMAND_CAN_ID DriveCommand = STOP STOP
 
+;note: these should be the outputs that are found via assertion (uncomment to force)
+;+0.0s I DRIVE_PERIOD N DRIVE_SPEED_CAN_ID DriveSpeed = 0.00 STOP
+;+0.0s I DRIVE_CONTROL_PERIOD N DRIVE_COMMAND_CAN_ID DriveCommand = STOP STOP
 
 ;all doors closed
-+0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
+;+0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
 
 
 ;====15.0s=====================================================================
 ;#state 'STATE_DRIVE_LEVEL_STOPPED'
 
-+5.0s	A S DriveControl : STATE == STATE_DRIVE_STOPPED
++0.5s	A S DriveControl : STATE == STATE_DRIVE_STOPPED
 +0s	A F Drive : speed == STOP
 +0s	A F Drive : direction == STOP
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == STOP
