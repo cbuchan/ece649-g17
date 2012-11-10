@@ -51,7 +51,7 @@
 +0.5s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = false
 +0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = false
 ;reset the emergency brake
-+0s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = false
++0s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID TinyBoolean = false
 ;all doors closed
 +0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
 +0s	I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
@@ -102,7 +102,7 @@
 ;#transition 'T6.8'
 
 ; set the emergency brake
-+0.5s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = true
++0.5s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID TinyBoolean = true
 
 ;====18.0s=====================================================================
 ;#state 'STATE_DRIVE_LEVEL_STOPPED'

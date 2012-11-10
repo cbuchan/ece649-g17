@@ -79,7 +79,7 @@
 ;#transition 'T6.7'
 
 ; set the emergency brake
-+1.0s I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = true
++1.0s I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID TinyBoolean = true
 +0s	I WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 0
 
 ; AtFloor from previous transition no longer true
