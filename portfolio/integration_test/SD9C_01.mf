@@ -39,8 +39,8 @@
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
 
 ;hallcall for 7 true, elevator travels up to f=7
-+0.25s I DOOR_CONTROL_PERIOD N HALL_CALL_[7][FRONT][UP]_CAN_ID Boolean = true
-+0s I DOOR_CONTROL_PERIOD N HALL_CALL_[7][BACK][UP]_CAN_ID Boolean = true
++0.25s I DOOR_CONTROL_PERIOD N HALL_CALL_[7][FRONT][UP]_CAN_ID TinyBoolean = true
++0s I DOOR_CONTROL_PERIOD N HALL_CALL_[7][BACK][UP]_CAN_ID TinyBoolean = true
 
 ;arc 1. mAtFloor[f,*]=true
 +0.25s I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = false

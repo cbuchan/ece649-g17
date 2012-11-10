@@ -65,10 +65,10 @@
 +0.21s  I  CAR_BUTTON_CONTROL_PERIOD F CarCall 4 FRONT = false
 
 ;arc 2c
-+0.21s  A   N CAR_CALL_[4][FRONT]_CAN_ID Boolean : getValue == true
++0.21s  A   N CAR_CALL_[4][FRONT]_CAN_ID TinyBoolean : getValue == true
 
 ;arc 2d
-+0s     A   N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean : getValue == true
++0s     A   N CAR_LIGHT_[4][FRONT]_CAN_ID TinyBoolean : getValue == true
 +0s     A   F CarLight 4 FRONT : lighted == true
 ;========================================================================
 ;3. Dispatcher calculates that the desired floor is the current floor,
@@ -90,8 +90,8 @@
 ;5. The car light turns off and the car call button for [f,b] stops reporting a call.
 ;========================================================================
 ;arc 5a, 5b
-+0.21s  A   N CAR_CALL_[4][FRONT]_CAN_ID Boolean : getValue == false
-+0s     A   N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean : getValue == false
++0.21s  A   N CAR_CALL_[4][FRONT]_CAN_ID TinyBoolean : getValue == false
++0s     A   N CAR_LIGHT_[4][FRONT]_CAN_ID TinyBoolean : getValue == false
 
 ;========================================================================
 ;6. The door finishes opening.
