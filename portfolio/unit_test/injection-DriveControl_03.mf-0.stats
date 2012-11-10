@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf DriveControl.cf -mf DriveControl_03.mf
-RandomSeed = 1352520063463
+RandomSeed = 1352586935848
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -16,27 +16,27 @@ Controller File = DriveControl.cf
 
 Assertion Results:
 @1.0s:  PASSED DriveControl::checkState(STATE) ?== STATE_DRIVE_STOPPED PASSED
-@1.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@68861f24 :: speed ?== STOP PASSED
-@1.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@1f292d26 :: direction ?== STOP PASSED
-@1.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@4bdb699b :: getSpeed ?== STOP PASSED
-@1.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2107ebe1 :: getDirection ?== STOP PASSED
-@1.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@26544ec1 :: getSpeed ?== 0.0 PASSED
-@1.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@19968e23 :: getDirection ?== STOP PASSED
+@1.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@45b9ce4b :: speed ?== STOP PASSED
+@1.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@68861f24 :: direction ?== STOP PASSED
+@1.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@1f292d26 :: getSpeed ?== STOP PASSED
+@1.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@4bdb699b :: getDirection ?== STOP PASSED
+@1.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2107ebe1 :: getSpeed ?== 0.0 PASSED
+@1.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@26544ec1 :: getDirection ?== STOP PASSED
 @2.5s:  PASSED DriveControl::checkState(STATE) ?== STATE_DRIVE_SLOW PASSED
-@2.5s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@2678a212 :: speed ?== SLOW PASSED
-@2.5s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@2c641e9a :: direction ?== UP PASSED
-@2.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@33c282a1 :: getSpeed ?== SLOW PASSED
-@2.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@151a64ed :: getDirection ?== UP PASSED
-@2.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@99b5393 :: getSpeed ?<= 0.25 PASSED
-@2.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@4a4e79f1 :: getSpeed ?> 0.05 PASSED
-@2.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@44bd928a :: getDirection ?== UP PASSED
+@2.5s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@39d85f79 :: speed ?== SLOW PASSED
+@2.5s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@6115273a :: direction ?== UP PASSED
+@2.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@270e3293 :: getSpeed ?== SLOW PASSED
+@2.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@77d80e6d :: getDirection ?== UP PASSED
+@2.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@348bdcd2 :: getSpeed ?<= 0.25 PASSED
+@2.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@44bd928a :: getSpeed ?> 0.05 PASSED
+@2.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@5210f6d3 :: getDirection ?== UP PASSED
 @4.1s:  PASSED DriveControl::checkState(STATE) ?== STATE_DRIVE_STOPPED PASSED
-@4.1s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@35c0e45a :: speed ?== STOP PASSED
-@4.1s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@58a17083 :: direction ?== STOP PASSED
-@4.1s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@4ca31e1b :: getSpeed ?== STOP PASSED
-@4.1s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@7f081d2e :: getDirection ?== STOP PASSED
-@4.1s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@42698403 :: getSpeed ?== 0.0 PASSED
-@4.1s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@7c4c51 :: getDirection ?== STOP PASSED
+@4.1s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@690da5eb :: speed ?== STOP PASSED
+@4.1s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@6db3f829 :: direction ?== STOP PASSED
+@4.1s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@1d5a0305 :: getSpeed ?== STOP PASSED
+@4.1s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@60765a16 :: getDirection ?== STOP PASSED
+@4.1s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@5ae80842 :: getSpeed ?== 0.0 PASSED
+@4.1s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@396fe0f4 :: getDirection ?== STOP PASSED
 
 
 ******************Summary******************

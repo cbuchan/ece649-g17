@@ -35,6 +35,7 @@
 ;set conditions for T5.2
 +0.09s I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
 +0s    I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 1 FRONT STOP
++0.0s I DRIVE_PERIOD N DRIVE_SPEED_CAN_ID DriveSpeed = 0.00 STOP
 
 ;#transition T5.2
 ;check state

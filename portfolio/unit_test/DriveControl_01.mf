@@ -84,7 +84,7 @@
 +0s A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed <= 0.05
 +0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == UP
 ;=========================================================================
-;#transition 'T6.2'
+;#transition 'T6.2' -- branch 110 tested
 
 ;drive direction is stop
 +0.5s I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
