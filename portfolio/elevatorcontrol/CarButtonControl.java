@@ -18,7 +18,6 @@ import simulator.payloads.CarCallPayload;
 import simulator.payloads.CarCallPayload.ReadableCarCallPayload;
 import simulator.payloads.CarLightPayload;
 import simulator.payloads.CarLightPayload.WriteableCarLightPayload;
-import simulator.payloads.translators.BooleanCanPayloadTranslator;
 import simulator.elevatorcontrol.Utility.DoorClosedHallwayArray;
 
 
@@ -54,10 +53,8 @@ public class CarButtonControl extends Controller {
 
     //network output interface
     private WriteableCanMailbox networkCarCall;
-    private WriteableCanMailbox networkCarLight;
 
-    private BooleanCanPayloadTranslator mCarCall;
-    private BooleanCanPayloadTranslator mCarLight;
+    private TinyBooleanCanPayloadTranslator mCarCall;
 
     //these variables keep track of which instance this is.
     private final Hallway hallway;
@@ -106,14 +103,9 @@ public class CarButtonControl extends Controller {
         physicalInterface.sendTimeTriggered(localCarLight, period);
 
         //initialize network output interface
-        networkCarLight = CanMailbox.getWriteableCanMailbox(MessageDictionary.CAR_LIGHT_BASE_CAN_ID +
-                ReplicationComputer.computeReplicationId(floor, hallway));
-        mCarLight = new BooleanCanPayloadTranslator(networkCarLight);
-        canInterface.sendTimeTriggered(networkCarLight, period);
-
         networkCarCall = CanMailbox.getWriteableCanMailbox(MessageDictionary.CAR_CALL_BASE_CAN_ID +
                 ReplicationComputer.computeReplicationId(floor, hallway));
-        mCarCall = new BooleanCanPayloadTranslator(networkCarCall);
+        mCarCall = new TinyBooleanCanPayloadTranslator(networkCarCall);
         canInterface.sendTimeTriggered(networkCarCall, period);
 
         //initialize network input interface
@@ -148,7 +140,6 @@ public class CarButtonControl extends Controller {
             case STATE_LIGHT_OFF:
                 //state actions for 'LIGHT_OFF'
                 localCarLight.set(false);
-                mCarLight.set(false);
                 mCarCall.setValue(false);
 
                 //transitions -- note that transition conditions are mutually exclusive
@@ -162,12 +153,7 @@ public class CarButtonControl extends Controller {
             case STATE_LIGHT_ON:
                 //state actions for 'LIGHT_ON'
                 localCarLight.set(true);
-                mCarLight.set(true);
                 mCarCall.setValue(true);
-
-                log("mAtFloor: ", mAtFloor.getValue());
-                log("desired floor: ", mDesiredFloor.getFloor(), "==", floor, " desired hallway: ", mDesiredFloor.getHallway(), "==",
-                        hallway);
 
                 //transitions -- transition conditions are mutually exclusive
                 //#transition 'T9.2'

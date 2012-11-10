@@ -45,21 +45,20 @@
         </tr>
         <tr>
           <td valign="top"><a href="DoorControl.java">DoorControl.java</a></td>
-          <td valign="top">Author: rdsharma, States Implemented:&nbsp;
+          <td valign="top">Author: rdsharma, States Implemented:
             DOOR_CLOSING, DOOR_CLOSED, DOOR_OPENING, DOOR_OPEN,
-            DOOR_OPEN_E</td>
+            DOOR_REVERSING, DOOR_REVERSED, DOOR_NUDGING</td>
         </tr>
         <tr>
           <td valign="top"><a href="DriveControl.java">DriveControl.java</a></td>
           <td valign="top">Author: jtiu, States Implemented:
-            DRIVE_STOPPED, DRIVE_LEVEL_UP, DRIVE_LEVEL_DOWN, DRIVE_SLOW
-          </td>
+            DRIVE_STOPPED, DRIVE_LEVEL, DRIVE_SLOW, DRIVE_FAST</td>
         </tr>
         <tr>
           <td valign="top"><a href="CarPositionControl.java">CarPositionControl.java</a><br>
           </td>
-          <td valign="top">Author: cbuchan, States Implemented: INIT,
-            DISPLAY_FLOOR<br>
+          <td valign="top">Author: cbuchan, States Implemented:
+            DISPLAY_FLOOR, DISPLAY_COMMIT_POINT<br>
           </td>
         </tr>
         <tr>
@@ -72,8 +71,8 @@
         <tr>
           <td valign="top"><a href="Dispatcher.java">Dispatcher.java</a><br>
           </td>
-          <td valign="top">Author: jessesal, States Implemented: INIT,
-            SERVICE_CALL, COMPUTE_NEXT</td>
+          <td valign="top">Author: jessesal, States Implemented: RESET,
+            IDLE, SERVICE_CALL, COMPUTE_NEXT,</td>
         </tr>
       </tbody>
     </table>
@@ -91,32 +90,47 @@
         </tr>
         <tr>
           <td valign="top"><a
-              href="DesiredFloorCanPayloadTranslator.java">DesiredFloorCanPayloadTranslator.java</a></td>
-          <td valign="top">CAN payload translator for mDesiredFloor<br>
+              href="CarPositionIndicatorCanPayloadTranslator.java">CarPositionIndicatorCanPayloadTranslator.java</a><br>
+          </td>
+          <td valign="top">CAN payload translator for
+            mCarPositionIndicator<br>
           </td>
         </tr>
         <tr>
           <td valign="top"><a
-href="file:///Users/Collin/Workspace/ece649-g17/portfolio/elevatorcontrol/DesiredDwellCanPayloadTranslator.java">DesiredDwellCanPayloadTranslator.java</a></td>
-          <td valign="top">CAN payload translator for mDesiredDwell<br>
+              href="DesiredDwellCanPayloadTranslator.java">DesiredDwellCanPayloadTranslator.java</a><br>
           </td>
+          <td valign="top">CAN payload translator for mDesiredDwell</td>
         </tr>
         <tr>
           <td valign="top"><a
-              href="DoorMotorCommandCanPayloadTranslator.java">DoorMotorCommandCanPayloadTranslator.java</a></td>
-          <td valign="top">CAN payload translator for mDoorMotor<br>
+              href="DesiredFloorCanPayloadTranslator.java">DesiredFloorCanPayloadTranslator.java</a><br>
           </td>
+          <td valign="top">CAN payload translator for mDesiredFloor</td>
         </tr>
         <tr>
           <td valign="top"><a
-              href="DriveCommandCanPayloadTranslator.java">DriveCommandCanPayloadTranslator.java</a></td>
-          <td valign="top">CAN payload translator for mDrive<br>
+              href="DoorMotorCommandCanPayloadTranslator.java">DoorMotorCommandCanPayloadTranslator.java</a><br>
           </td>
+          <td valign="top">CAN payload translator for mDoorMotor</td>
+        </tr>
+        <tr>
+          <td valign="top"><a
+              href="DriveCommandCanPayloadTranslator.java">DriveCommandCanPayloadTranslator.java</a><br>
+          </td>
+          <td valign="top">CAN payload translator for mDrive</td>
         </tr>
         <tr>
           <td valign="top"><a href="DriveSpeedCanPayloadTranslator.java">DriveSpeedCanPayloadTranslator.java</a><br>
           </td>
           <td valign="top">CAN payload translator for mDriveSpeed</td>
+        </tr>
+        <tr>
+          <td valign="top"><a
+              href="TinyBooleanCanPayloadTranslator.java">TinyBooleanCanPayloadTranslator.java</a><br>
+          </td>
+          <td valign="top">CAN payload translator for Boolean values<br>
+          </td>
         </tr>
       </tbody>
     </table>
