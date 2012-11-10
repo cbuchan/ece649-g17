@@ -299,9 +299,9 @@ public class Dispatcher extends Controller {
                 throw new RuntimeException("State " + state + " was not recognized.");
         }
 
-        System.out.println("CommitPoint: " + commitPoint);
-        System.out.println(
-                "State: " + state + " " + mDesiredFloor.getFloor() + " " + mDesiredFloor.getHallway() + " " + mDesiredFloor.getDirection());
+//        System.out.println("CommitPoint: " + commitPoint);
+//        System.out.println(
+//                "State: " + state + " " + mDesiredFloor.getFloor() + " " + mDesiredFloor.getHallway() + " " + mDesiredFloor.getDirection());
 
         //log the results of this iteration
         if (state == newState) {
