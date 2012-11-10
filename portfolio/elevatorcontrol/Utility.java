@@ -131,14 +131,14 @@ public class Utility {
 
         public CarCallArray(Hallway hallway, CanConnection conn) {
             this.hallway = hallway;
-            translatorArray = new BooleanCanPayloadTranslator[numFloors];
+            translatorArrayTiny = new BooleanCanPayloadTranslator[numFloors];
             for (int i = 0; i < numFloors; ++i) {
                 ReadableCanMailbox m = CanMailbox.getReadableCanMailbox(
                         MessageDictionary.CAR_CALL_BASE_CAN_ID +
                                 ReplicationComputer.computeReplicationId(i + 1, hallway));
                 BooleanCanPayloadTranslator t = new BooleanCanPayloadTranslator(m);
                 conn.registerTimeTriggered(m);
-                translatorArray[i] = t;
+                translatorArrayTiny[i] = t;
             }
         }
 
@@ -147,12 +147,12 @@ public class Utility {
                 return false;
             }
 
-            return translatorArray[floor - 1].getValue();
+            return translatorArrayTiny[floor - 1].getValue();
         }
 
         public boolean getAllOff() {
             for (int floor = 0; floor < numFloors; ++floor) {
-                if (translatorArray[floor].getValue()) {
+                if (translatorArrayTiny[floor].getValue()) {
                     return false;
                 }
             }

@@ -126,18 +126,18 @@ public class Utility {
 
         public final int numFloors = Elevator.numFloors;
         public final Hallway hallway;
-        public BooleanCanPayloadTranslator[] translatorArray;
+        public TinyBooleanCanPayloadTranslator[] translatorArrayTiny;
 
         public CarCallArray(Hallway hallway, CanConnection conn) {
             this.hallway = hallway;
-            translatorArray = new BooleanCanPayloadTranslator[numFloors];
+            translatorArrayTiny = new TinyBooleanCanPayloadTranslator[numFloors];
             for (int i = 0; i < numFloors; ++i) {
                 ReadableCanMailbox m = CanMailbox.getReadableCanMailbox(
                         MessageDictionary.CAR_CALL_BASE_CAN_ID +
                                 ReplicationComputer.computeReplicationId(i + 1, hallway));
-                BooleanCanPayloadTranslator t = new BooleanCanPayloadTranslator(m);
+                TinyBooleanCanPayloadTranslator t = new TinyBooleanCanPayloadTranslator(m);
                 conn.registerTimeTriggered(m);
-                translatorArray[i] = t;
+                translatorArrayTiny[i] = t;
             }
         }
 
@@ -146,12 +146,12 @@ public class Utility {
                 return false;
             }
 
-            return translatorArray[floor - 1].getValue();
+            return translatorArrayTiny[floor - 1].getValue();
         }
 
         public boolean getAllOff() {
             for (int floor = 0; floor < numFloors; ++floor) {
-                if (translatorArray[floor].getValue()) {
+                if (translatorArrayTiny[floor].getValue()) {
                     return false;
                 }
             }
@@ -260,8 +260,8 @@ public class Utility {
     }
 
     public static class HallCallFloorHallwayArray {
-        private BooleanCanPayloadTranslator up;
-        private BooleanCanPayloadTranslator down;
+        private TinyBooleanCanPayloadTranslator up;
+        private TinyBooleanCanPayloadTranslator down;
         public final Hallway hallway;
         public final int floor;
 
@@ -271,12 +271,12 @@ public class Utility {
 
             ReadableCanMailbox m_u = CanMailbox.getReadableCanMailbox(MessageDictionary.HALL_CALL_BASE_CAN_ID +
                     ReplicationComputer.computeReplicationId(floor, hallway, Direction.UP));
-            up = new BooleanCanPayloadTranslator(m_u);
+            up = new TinyBooleanCanPayloadTranslator(m_u);
             conn.registerTimeTriggered(m_u);
 
             ReadableCanMailbox m_d = CanMailbox.getReadableCanMailbox(
                     MessageDictionary.HALL_CALL_BASE_CAN_ID + ReplicationComputer.computeReplicationId(floor, hallway, Direction.DOWN));
-            down = new BooleanCanPayloadTranslator(m_d);
+            down = new TinyBooleanCanPayloadTranslator(m_d);
             conn.registerTimeTriggered(m_d);
 
         }

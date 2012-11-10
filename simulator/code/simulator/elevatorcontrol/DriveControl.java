@@ -70,7 +70,7 @@ public class DriveControl extends Controller {
     //translators for input network messages
     private LevelingCanPayloadTranslator mLevelUp;
     private LevelingCanPayloadTranslator mLevelDown;
-    private BooleanCanPayloadTranslator mEmergencyBrake;
+    private TinyBooleanCanPayloadTranslator mEmergencyBrake;
     private CarWeightCanPayloadTranslator mCarWeight;
     private DesiredFloorCanPayloadTranslator mDesiredFloor;
     //private CarLevelPositionCanPayloadTranslator mCarLevelPosition;
@@ -157,7 +157,7 @@ public class DriveControl extends Controller {
         mLevelDown =
                 new LevelingCanPayloadTranslator(networkLevelDown, Direction.DOWN);
         mEmergencyBrake =
-                new BooleanCanPayloadTranslator(networkEmergencyBrake);
+                new TinyBooleanCanPayloadTranslator(networkEmergencyBrake);
         mCarWeight =
                 new CarWeightCanPayloadTranslator(networkCarWeight);
         // used to calculate desiredDir

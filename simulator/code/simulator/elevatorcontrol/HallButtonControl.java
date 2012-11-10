@@ -11,7 +11,6 @@ package simulator.elevatorcontrol;
 import jSimPack.SimTime;
 import simulator.elevatorcontrol.Utility.DoorClosedHallwayArray;
 import simulator.elevatormodules.AtFloorCanPayloadTranslator;
-import simulator.elevatormodules.DoorClosedCanPayloadTranslator;
 import simulator.framework.*;
 import simulator.payloads.CanMailbox;
 import simulator.payloads.CanMailbox.ReadableCanMailbox;
@@ -46,7 +45,7 @@ public class HallButtonControl extends Controller {
     private DoorClosedHallwayArray networkDoorClosed;
 
     //translators for input network messages
-    private BooleanCanPayloadTranslator mHallCall;
+    private TinyBooleanCanPayloadTranslator mHallCall;
     private DesiredFloorCanPayloadTranslator mDesiredFloor;
     private AtFloorCanPayloadTranslator mAtFloor;
 
@@ -114,7 +113,7 @@ public class HallButtonControl extends Controller {
         * Create a translator with a reference to the CanMailbox.  Use the
         * translator to read and write values to the mailbox
         */
-        mHallCall = new BooleanCanPayloadTranslator(networkHallCallOut);
+        mHallCall = new TinyBooleanCanPayloadTranslator(networkHallCallOut);
 
         //register the mailbox to have its value broadcast on the network periodically
         //with a period specified by the period parameter.

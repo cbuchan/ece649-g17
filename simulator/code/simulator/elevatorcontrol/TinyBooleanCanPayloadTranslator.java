@@ -19,14 +19,14 @@ import java.util.BitSet;
  * 
  * @author Rajeev Sharma
  */
-public class BooleanCanPayloadTranslator extends CanPayloadTranslator {
+public class TinyBooleanCanPayloadTranslator extends CanPayloadTranslator {
 
     
     /**
      * Constructor for use with WriteableCanMailbox objects
      * @param payload
      */
-    public BooleanCanPayloadTranslator(WriteableCanMailbox payload) {
+    public TinyBooleanCanPayloadTranslator(WriteableCanMailbox payload) {
         super(payload, 1);
     }
 
@@ -35,7 +35,7 @@ public class BooleanCanPayloadTranslator extends CanPayloadTranslator {
      * @param payload
      */
 
-    public BooleanCanPayloadTranslator(ReadableCanMailbox payload) {
+    public TinyBooleanCanPayloadTranslator(ReadableCanMailbox payload) {
         super(payload, 1);
     }
     

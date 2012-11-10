@@ -54,7 +54,7 @@ public class CarButtonControl extends Controller {
     //network output interface
     private WriteableCanMailbox networkCarCall;
 
-    private BooleanCanPayloadTranslator mCarCall;
+    private TinyBooleanCanPayloadTranslator mCarCall;
 
     //these variables keep track of which instance this is.
     private final Hallway hallway;
@@ -105,7 +105,7 @@ public class CarButtonControl extends Controller {
         //initialize network output interface
         networkCarCall = CanMailbox.getWriteableCanMailbox(MessageDictionary.CAR_CALL_BASE_CAN_ID +
                 ReplicationComputer.computeReplicationId(floor, hallway));
-        mCarCall = new BooleanCanPayloadTranslator(networkCarCall);
+        mCarCall = new TinyBooleanCanPayloadTranslator(networkCarCall);
         canInterface.sendTimeTriggered(networkCarCall, period);
 
         //initialize network input interface

@@ -38,7 +38,7 @@ public class LanternControl extends Controller {
     private WriteableCarLanternPayload localCarLantern;
 
     private WriteableCanMailbox networkCarLanternOut;
-    private BooleanCanPayloadTranslator mCarLantern;
+    private TinyBooleanCanPayloadTranslator mCarLantern;
 
     private Utility.DoorClosedArray networkDoorClosedArray;
 
@@ -93,7 +93,7 @@ public class LanternControl extends Controller {
         networkCarLanternOut = CanMailbox.getWriteableCanMailbox(
                 MessageDictionary.CAR_LANTERN_BASE_CAN_ID +
                         ReplicationComputer.computeReplicationId(direction));
-        mCarLantern = new BooleanCanPayloadTranslator(networkCarLanternOut);
+        mCarLantern = new TinyBooleanCanPayloadTranslator(networkCarLanternOut);
         canInterface.sendTimeTriggered(networkCarLanternOut, period);
 
         networkDoorClosedArray = new Utility.DoorClosedArray(canInterface);

@@ -19,7 +19,7 @@ import simulator.payloads.translators.CanPayloadTranslator;
  * You are welcome to implement a similar generic class if you want to.
  *
  * Note that this translator and the ones descended from it are not compatible
- * with simulator.payloads.BooleanCanPayloadTranslator.  The same translator used
+ * with simulator.payloads.TinyBooleanCanPayloadTranslator.  The same translator used
  * to encode a value should also be used to read it.
  *
  * @author justinr2
