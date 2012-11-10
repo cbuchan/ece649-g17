@@ -43,7 +43,7 @@
 ;check initial state
 +0.81s A S LanternControl[UP] : STATE == STATE_CAR_LANTERN_OFF
 +0s    A F CarLantern UP : lighted == FALSE
-+0s    A N CAR_LANTERN_[UP]_CAN_ID Boolean : getValue == FALSE
++0s    A N CAR_LANTERN_[UP]_CAN_ID TinyBoolean : getValue == FALSE
 
 ;set DesiredFloor.d and ensure there is no transition with all doors closed
 +0.09s I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 1 FRONT UP
@@ -52,7 +52,7 @@
 ;check state
 +0.81s A S LanternControl[UP] : STATE == STATE_CAR_LANTERN_OFF
 +0s    A F CarLantern UP : lighted == FALSE
-+0s    A N CAR_LANTERN_[UP]_CAN_ID Boolean : getValue == FALSE
++0s    A N CAR_LANTERN_[UP]_CAN_ID TinyBoolean : getValue == FALSE
 
 
 
@@ -69,7 +69,7 @@
 ;check state @2.61
 +0.81s A S LanternControl[UP] : STATE == STATE_CAR_LANTERN_ON
 +0s    A F CarLantern UP : lighted == TRUE
-+0s    A N CAR_LANTERN_[UP]_CAN_ID Boolean : getValue == TRUE
++0s    A N CAR_LANTERN_[UP]_CAN_ID TinyBoolean : getValue == TRUE
 
 ;close all doors to set conditions for T7.2
 +0.09s  I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
@@ -85,7 +85,7 @@
 ;check state
 +0.81s A S LanternControl[UP] : STATE == STATE_CAR_LANTERN_OFF
 +0s    A F CarLantern UP : lighted == FALSE
-+0s    A N CAR_LANTERN_[UP]_CAN_ID Boolean : getValue == FALSE
++0s    A N CAR_LANTERN_[UP]_CAN_ID TinyBoolean : getValue == FALSE
 
 
 
@@ -102,7 +102,7 @@
 ;check state
 +0.81s A S LanternControl[UP] : STATE == STATE_CAR_LANTERN_ON
 +0s    A F CarLantern UP : lighted == TRUE
-+0s    A N CAR_LANTERN_[UP]_CAN_ID Boolean : getValue == TRUE
++0s    A N CAR_LANTERN_[UP]_CAN_ID TinyBoolean : getValue == TRUE
 
 
 
@@ -114,7 +114,7 @@
 ;check state
 +0.81s A S LanternControl[UP] : STATE == STATE_CAR_LANTERN_OFF
 +0s    A F CarLantern UP : lighted == FALSE
-+0s    A N CAR_LANTERN_[UP]_CAN_ID Boolean : getValue == FALSE
++0s    A N CAR_LANTERN_[UP]_CAN_ID TinyBoolean : getValue == FALSE
 
 
 
