@@ -234,7 +234,7 @@ public class DriveControl extends Controller {
 
                 //#transition 'T6.2'
                 if (driveDir == Direction.STOP && mLevelUp.getValue() && mLevelDown.getValue()
-                        || mEmergencyBrake.getValue()) {
+						&& localDriveSpeed.speed() <= 0.05 || mEmergencyBrake.getValue()) {
                     newState = State.STATE_DRIVE_STOPPED;
                 } else newState = state;
 
@@ -257,8 +257,8 @@ public class DriveControl extends Controller {
 
                 //#transition 'T6.4'
 
-                if ((driveDir == Direction.STOP && (!mLevelUp.getValue() || !mLevelDown.getValue())
-                        && !mEmergencyBrake.getValue()) || mCarWeight.getWeight() >= Elevator.MaxCarCapacity) {
+                if (localDriveSpeed.speed() <= 0.25 && ((driveDir == Direction.STOP && (!mLevelUp.getValue() || !mLevelDown.getValue())
+                        && !mEmergencyBrake.getValue()) || mCarWeight.getWeight() >= Elevator.MaxCarCapacity)) {
                     newState = State.STATE_DRIVE_LEVEL;
                 }
 
@@ -288,9 +288,10 @@ public class DriveControl extends Controller {
 
                 //transitions
                 //#transition 'T6.6'
-                if (driveDir != Direction.STOP
+                if ( (driveDir != Direction.STOP
                         && networkCommitPoint.commitPoint(
                         mDesiredFloor.getFloor(), localDriveSpeed.direction(), localDriveSpeed.speed())
+						&& !mEmergencyBrake.getValue())
                         || mCarWeight.getWeight() >= Elevator.MaxCarCapacity) {
                     newState = State.STATE_DRIVE_SLOW;
                 }

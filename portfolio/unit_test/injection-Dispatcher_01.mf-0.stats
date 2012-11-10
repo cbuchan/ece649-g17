@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf Dispatcher.cf -mf Dispatcher_01.mf
-RandomSeed = 1352504613996
+RandomSeed = 1352520070173
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -46,27 +46,27 @@ Assertion Results:
 @2.15s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@54cbf30e :: getDwell ?== 10 PASSED
 @2.15s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@21ec6696 :: getDwell ?== 10 PASSED
 @2.35s:  PASSED Dispatcher::checkState(STATE) ?== STATE_IDLE PASSED
-@2.35s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@3934f69a :: getFloor ?== 3 PASSED
-@2.35s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@26fd68b1 :: getHallway ?== NONE PASSED
-@2.35s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@375e9756 :: getDirection ?== STOP PASSED
-@2.35s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@77827284 :: getDwell ?== 10 PASSED
-@2.35s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@19d009b4 :: getDwell ?== 10 PASSED
+@2.35s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@452bb7e0 :: getFloor ?== 3 PASSED
+@2.35s:  FAILED simulator.payloads.CanMailbox$ReadableCanMailbox@442a15cd :: getHallway ?== NONE FAILED
+@2.35s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@46e45076 :: getDirection ?== STOP PASSED
+@2.35s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2321ab80 :: getDwell ?== 10 PASSED
+@2.35s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@152c7568 :: getDwell ?== 10 PASSED
 @2.8s:  PASSED Dispatcher::checkState(STATE) ?== STATE_COMPUTE_NEXT PASSED
-@2.8s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2b0a3b24 :: getFloor ?== 2 PASSED
-@2.8s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@bc92535 :: getHallway ?== BACK PASSED
-@2.8s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@16a4e743 :: getDirection ?== STOP PASSED
-@2.8s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@329f671b :: getDwell ?== 10 PASSED
-@2.8s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2ca6d51e :: getDwell ?== 10 PASSED
-@3.1s:  PASSED Dispatcher::checkState(STATE) ?== STATE_RESET PASSED
-@3.1s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@340d1fa5 :: getFloor ?== 1 PASSED
-@3.1s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@444cee32 :: getHallway ?== NONE PASSED
-@3.1s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@12b7eea :: getDirection ?== STOP PASSED
-@3.1s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2c76e369 :: getDwell ?== 10 PASSED
-@3.1s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@7b112783 :: getDwell ?== 10 PASSED
+@2.8s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2cb0ce8f :: getFloor ?== 2 PASSED
+@2.8s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@42a9c09e :: getHallway ?== BACK PASSED
+@2.8s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@244aeb52 :: getDirection ?== STOP PASSED
+@2.8s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@7f2a3793 :: getDwell ?== 10 PASSED
+@2.8s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@7cf1bb78 :: getDwell ?== 10 PASSED
+@3.2s:  PASSED Dispatcher::checkState(STATE) ?== STATE_RESET PASSED
+@3.2s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@340d1fa5 :: getFloor ?== 1 PASSED
+@3.2s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@444cee32 :: getHallway ?== NONE PASSED
+@3.2s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@12b7eea :: getDirection ?== STOP PASSED
+@3.2s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2c76e369 :: getDwell ?== 10 PASSED
+@3.2s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@7b112783 :: getDwell ?== 10 PASSED
 
 
 ******************Summary******************
-Passed:  48
-Failed:  0
+Passed:  47
+Failed:  1
 Total :  48
 
