@@ -57,6 +57,6 @@ public class MessageDictionary {
     public final static int DOOR_REVERSAL_SENSOR_BASE_CAN_ID =  0x0D786400;
     public final static int HOISTWAY_LIMIT_BASE_CAN_ID =        0x0F08B400;
     public final static int EMERGENCY_BRAKE_CAN_ID =            0x0BE81400;
-    public final static int LEVELING_BASE_CAN_ID =                   0x0AE81400;
+    public final static int LEVELING_BASE_CAN_ID =              0x0AE81400;
     
 }
