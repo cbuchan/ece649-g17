@@ -88,7 +88,7 @@ public class DesiredFloorCanPayloadTranslator extends CanPayloadTranslator {
      */
     public void setFloor(int floor) {
         BitSet b = getMessagePayload();
-        addIntToBitset(b, floor - 5, 0, 3);
+        addIntToBitset(b, floor, 0, 4);
         setMessagePayload(b, getByteSize());
     }
 
@@ -96,7 +96,7 @@ public class DesiredFloorCanPayloadTranslator extends CanPayloadTranslator {
      * @return the floor value from the can message payload
      */
     public int getFloor() {
-        return getIntFromBitset(getMessagePayload(), 0, 3) + 5;
+        return getIntFromBitset(getMessagePayload(), 0, 4);
     }
 
     /**
@@ -106,7 +106,7 @@ public class DesiredFloorCanPayloadTranslator extends CanPayloadTranslator {
      */
     public void setDirection(Direction dir) {
         BitSet b = getMessagePayload();
-        addIntToBitset(b, dir.ordinal() - 2, 3, 2);
+        addIntToBitset(b, dir.ordinal() - 2, 4, 2);
         setMessagePayload(b, getByteSize());
     }
 
@@ -114,7 +114,7 @@ public class DesiredFloorCanPayloadTranslator extends CanPayloadTranslator {
      * @return the direction value from the can payload
      */
     public Direction getDirection() {
-        int val = getIntFromBitset(getMessagePayload(), 3, 2) + 2;
+        int val = getIntFromBitset(getMessagePayload(), 4, 2) + 2;
         for (Direction d : Direction.values()) {
             if (d.ordinal() == val) {
                 return d;
@@ -130,7 +130,7 @@ public class DesiredFloorCanPayloadTranslator extends CanPayloadTranslator {
      */
     public void setHallway(Hallway hallway) {
         BitSet b = getMessagePayload();
-        addIntToBitset(b, hallway.ordinal() - 2, 5, 2);
+        addIntToBitset(b, hallway.ordinal() - 2, 6, 2);
         setMessagePayload(b, getByteSize());
     }
 
@@ -138,7 +138,7 @@ public class DesiredFloorCanPayloadTranslator extends CanPayloadTranslator {
      * @return the hallway value from the CAN payload.
      */
     public Hallway getHallway() {
-        int val = getIntFromBitset(getMessagePayload(), 5, 2) + 2;
+        int val = getIntFromBitset(getMessagePayload(), 6, 2) + 2;
         for (Hallway h : Hallway.values()) {
             if (h.ordinal() == val) {
                 return h;
