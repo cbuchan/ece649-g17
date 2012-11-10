@@ -68,7 +68,7 @@ public class CarPositionIndicatorCanPayloadTranslator extends CanPayloadTranslat
      */
     public void setFloor(int floor) {
         BitSet b = getMessagePayload();
-        addIntToBitset(b, floor - 5, 0, 3);
+        addIntToBitset(b, floor, 0, 4);
         setMessagePayload(b, getByteSize());
     }
 
@@ -76,7 +76,7 @@ public class CarPositionIndicatorCanPayloadTranslator extends CanPayloadTranslat
      * @return the floor value from the can message payload
      */
     public int getFloor() {
-        return getIntFromBitset(getMessagePayload(), 0, 3) + 5;
+        return getIntFromBitset(getMessagePayload(), 0, 4);
     }
 
     /**
