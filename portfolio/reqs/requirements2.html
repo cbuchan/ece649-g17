@@ -1882,22 +1882,25 @@
           <td valign="top">T6.3<br>
           </td>
           <td valign="top">DriveDir ~= Stop &amp;&amp; mDoorClosed[*,*]
-            == True  &amp;&amp; mEmergencyBrake[b] == False</td>
+            == True &amp;&amp; mEmergencyBrake[b] == False</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">T6.4</td>
           <td style="vertical-align: top;">DriveDir == Stop &amp;&amp;
-            mLevel[*] ~= True || mCarWeight(x) &gt;= MaxCarCapacity &amp;&amp; mEmergencyBrake[b] == False</td>
+            mLevel[*] ~= True || mCarWeight(x) &gt;= MaxCarCapacity
+            &amp;&amp; mEmergencyBrake[b] == False</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">T6.5</td>
-          <td style="vertical-align: top;">DriveSpeed.s == SlowSpeed &amp;&amp; DriveDir ~= Stop &amp;&amp;
-            CommitPoint[f] == NotReached &amp;&amp; mDesiredFloor.f == f</td>
+          <td style="vertical-align: top;">DriveSpeed.s == SlowSpeed
+            &amp;&amp; DriveDir ~= Stop &amp;&amp; CommitPoint[f] ==
+            NotReached &amp;&amp; mDesiredFloor.f == f</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">T6.6</td>
           <td style="vertical-align: top;">DriveDir ~= Stop &amp;&amp;
-            CommitPoint[f] == Reached &amp;&amp; mDesiredFloor.f == f || mCarWeight(x) &gt;= MaxCarCapacity</td>
+            CommitPoint[f] == Reached &amp;&amp; mDesiredFloor.f == f ||
+            mCarWeight(x) &gt;= MaxCarCapacity</td>
         </tr>
         <tr>
           <td valign="top">T6.7<br>
@@ -2405,7 +2408,8 @@
     <h3>TIME-TRIGGERED BEHAVIORS:<br>
     </h3>
     <p>7.2 &nbsp;&nbsp; If mAtFloor[f,b]=true and mDesiredFloor.f=f and
-      mDesiredFloor.d=d, and any mDoorClosed[b,r] is false, then CarLantern[d] shall be set to On.<br>
+      mDesiredFloor.d=d, and any mDoorClosed[b,r] is false, then
+      CarLantern[d] shall be set to On.<br>
       7.3&nbsp;&nbsp;&nbsp; If all mDoorClosed[b,r]=true, CarLantern[d]
       shall be set to Off.<br>
       7.4&nbsp;&nbsp;&nbsp; If mDesiredFloor.d != d, CarLantern[d] shall
@@ -2436,7 +2440,8 @@
           </td>
           <td valign="top">(mAtFloor[f,b] == true) &amp;&amp;
             (mDesiredFloor.f == f) &amp;&amp; <br>
-            (mDesiredFloor.d == d) &amp;&amp; (any mDoorClosed[b,r] == false);<br>
+            (mDesiredFloor.d == d) &amp;&amp; (any mDoorClosed[b,r] ==
+            false);<br>
           </td>
         </tr>
         <tr>
@@ -2588,7 +2593,6 @@
     <h3> Output Interface: </h3>
     <ul>
       <li>HallLight[f, b, d] </li>
-      <li>mHallLight[f, b, d] </li>
       <li>mHallCall[f, b, d] </li>
     </ul>
     <h3> State: </h3>
@@ -2602,13 +2606,11 @@
     <h3>TIME-TRIGGERED BEHAVIORS: </h3>
     <p>8.1 If any HallCall[f,b,d]=Pressed<br>
       &nbsp;&nbsp; 8.1.1 HallLight[f,b,d] shall be set to On.<br>
-      &nbsp;&nbsp; 8.1.2 mHallLight[f,b,d] shall be set to True.<br>
-      &nbsp;&nbsp; 8.1.3 mHallCall[f,b,d] shall be set to True.<br>
+      &nbsp;&nbsp; 8.1.2 mHallCall[f,b,d] shall be set to True.<br>
       8.2 If mAtFloor[f,b] = true and mDesiredFloor.f=f and either
       mDesiredDirection.d = d or mDesiredDirection.d = Stop<br>
       &nbsp;&nbsp; 8.2.1 HallLight[f,b,d] shall be set to Off.<br>
-      &nbsp;&nbsp; 8.2.2 mHallLight[f,b,d] shall be set to False.<br>
-      &nbsp;&nbsp; 8.2.3 mHallCall[f,b,d] shall be set to False.<br>
+      &nbsp;&nbsp; 8.2.2 mHallCall[f,b,d] shall be set to False.<br>
     </p>
     <meta charset="utf-8">
     <h3 style="color: rgb(0, 0, 0); font-family: Times; font-style:
@@ -2689,7 +2691,7 @@
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204); "><br>
           </td>
-          <td colspan="8" rowspan="1" style="vertical-align: top;
+          <td colspan="6" rowspan="1" style="vertical-align: top;
             background-color: rgb(204, 204, 204); ">Requirements<br>
           </td>
         </tr>
@@ -2705,13 +2707,10 @@
           </td>
           <td bgcolor="#cccccc" valign="top">BR8.1.2<br>
           </td>
-          <td bgcolor="#cccccc" valign="top">BR8.1.3</td>
           <td bgcolor="#cccccc" valign="top">BR8.2<br>
           </td>
           <td bgcolor="#cccccc" valign="top">BR8.2.1</td>
           <td bgcolor="#cccccc" valign="top">BR8.2.2<br>
-          </td>
-          <td bgcolor="#cccccc" valign="top">BR8.2.3<br>
           </td>
         </tr>
         <tr>
@@ -2728,10 +2727,6 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
           <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle">X<br>
@@ -2747,10 +2742,6 @@
           <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
@@ -2778,10 +2769,6 @@
           </td>
           <td align="center" bgcolor="#cccccc" valign="middle"><br>
           </td>
-          <td align="center" bgcolor="#cccccc" valign="middle"><br>
-          </td>
-          <td align="center" bgcolor="#cccccc" valign="middle"><br>
-          </td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
@@ -2791,10 +2778,6 @@
           </td>
           <td style="vertical-align: top; " align="center"
             valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
@@ -2817,11 +2800,7 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
-          </td>
           <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
@@ -2856,7 +2835,6 @@
     <h3> Output Interface: </h3>
     <ul>
       <li>CarLight[f, b] </li>
-      <li>mCarLight[f, b] </li>
       <li>mCarCall[f, b] </li>
     </ul>
     <h3> State: </h3>
@@ -2871,18 +2849,14 @@
     <p>9.1 If CarCall[<b>f</b>,<b>b</b>]=true:<br>
       &nbsp;&nbsp;&nbsp; 9.1.1 CarLight[<b>f</b>,<b>b</b>] shall be set
       to On.<br>
-      &nbsp;&nbsp;&nbsp; 9.1.2 mCarLight[<b>f</b>,<b>b</b>] shall be set
-      to true.<br>
-      &nbsp;&nbsp;&nbsp; 9.1.3 mCarCall[<b>f</b>,<b>b</b>] shall be set
+      &nbsp;&nbsp;&nbsp; 9.1.2 mCarCall[<b>f</b>,<b>b</b>] shall be set
       to true. <br>
       9.2 If mAtFloor[<b>f,b</b>] is true and mDesiredFloor.f = <b>f</b>
       and either mDesiredFloor.b = <b>b</b> or mDesiredFloor.b = BOTH:
       <br>
       &nbsp;&nbsp;&nbsp; 9.2.1 CarLight[<b>f</b>,<b>b</b>] shall be set
       to Off.<br>
-      &nbsp;&nbsp;&nbsp; 9.2.2 mCarLight[<b>f</b>,<b>b</b>] shall be set
-      to false.<br>
-      &nbsp;&nbsp;&nbsp; 9.2.3 mCarCall[<b>f</b>,<b>b</b>] shall be set
+      &nbsp;&nbsp;&nbsp; 9.2.2 mCarCall[<b>f</b>,<b>b</b>] shall be set
       to false.</p>
     <h3>STATECHART: </h3>
     <img alt="SC_CarButtonControl" src="SC_CarButtonControl.png">
@@ -2931,7 +2905,7 @@
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);"><br>
           </td>
-          <td colspan="6" rowspan="1" style="vertical-align: top;
+          <td colspan="4" rowspan="1" style="vertical-align: top;
             background-color: rgb(204, 204, 204);">Requirements<br>
           </td>
         </tr>
@@ -2945,13 +2919,9 @@
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);">BR9.1.2<br>
           </td>
-          <td bgcolor="#cccccc" valign="top">BR9.1.3<br>
-          </td>
           <td bgcolor="#cccccc" valign="top">BR9.2.1<br>
           </td>
           <td bgcolor="#cccccc" valign="top">BR9.2.2<br>
-          </td>
-          <td bgcolor="#cccccc" valign="top">BR9.2.3<br>
           </td>
         </tr>
         <tr>
@@ -2961,10 +2931,6 @@
           <td style="vertical-align: top;"><br>
           </td>
           <td style="vertical-align: top;"><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top">X<br>
           </td>
           <td valign="top">X<br>
           </td>
@@ -2978,10 +2944,6 @@
           <td style="vertical-align: top;">X<br>
           </td>
           <td style="vertical-align: top;">X<br>
-          </td>
-          <td valign="top">X<br>
-          </td>
-          <td valign="top"><br>
           </td>
           <td valign="top"><br>
           </td>
@@ -3000,10 +2962,6 @@
           </td>
           <td bgcolor="#cccccc" valign="top"><br>
           </td>
-          <td bgcolor="#cccccc" valign="top"><br>
-          </td>
-          <td bgcolor="#cccccc" valign="top"><br>
-          </td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
@@ -3012,10 +2970,6 @@
           <td style="vertical-align: top;">X<br>
           </td>
           <td style="vertical-align: top;">X<br>
-          </td>
-          <td valign="top">X<br>
-          </td>
-          <td valign="top"><br>
           </td>
           <td valign="top"><br>
           </td>
@@ -3029,10 +2983,6 @@
           <td style="vertical-align: top;"><br>
           </td>
           <td style="vertical-align: top;"><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top">X<br>
           </td>
           <td valign="top">X<br>
           </td>
@@ -3072,12 +3022,12 @@
       <li>CurrentFloor, is a shorthand notation for the value f of
         whichever mAtFloor[f, b] is True, if any.&nbsp; If CurrentFloor
         is invalid it has a mnemonic value of None.</li>
-      <li>CommitedFloor, a macro which returns the most recently commited 
-        floor.  This is the highest floor for which the commit point has 
-        been reached if the elevator is traveling up, or the lowest floor 
-        for which the commit point has been reached if the elevator is 
-        travelling down.  See DriveControl for definition of commit 
-        points.</li>
+      <li>CommitedFloor, a macro which returns the most recently
+        commited floor. This is the highest floor for which the commit
+        point has been reached if the elevator is traveling up, or the
+        lowest floor for which the commit point has been reached if the
+        elevator is travelling down. See DriveControl for definition of
+        commit points.</li>
     </ul>
     <h3> CONSTRAINTS: </h3>
     10.1&nbsp;&nbsp;&nbsp; The Car can be at only one position at a
@@ -3135,60 +3085,86 @@
         text-align: start; text-indent: 0px; text-transform: none;
         white-space: normal; widows: 2; word-spacing: 0px;
         -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;
-        display: inline !important; float: none; ">Completed by: Rajeev Sharma (rdsharma)<br>
+        display: inline !important; float: none; ">Completed by: Rajeev
+        Sharma (rdsharma)<br>
       </span></p>
     <table style="text-align: left;" border="1" cellpadding="2"
       cellspacing="2" height="233">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);"><br></td>
+            204, 204);"><br>
+          </td>
           <td colspan="3" rowspan="1" style="vertical-align: top;
-            background-color: rgb(204, 204, 204);">Requirements<br></td>
+            background-color: rgb(204, 204, 204);">Requirements<br>
+          </td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);"><span style="font-weight: bold;">States</span><br></td>
+            204, 204);"><span style="font-weight: bold;">States</span><br>
+          </td>
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);">BR10.4<br></td>
+            204, 204);">BR10.4<br>
+          </td>
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);">BR10.5<br></td>
-          <td valign="top" bgcolor="#cccccc">BR10.6<br></td>
+            204, 204);">BR10.5<br>
+          </td>
+          <td bgcolor="#cccccc" valign="top">BR10.6<br>
+          </td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);">State DISPLAY_FLOOR<br></td>
+            204, 204);">State DISPLAY_FLOOR<br>
+          </td>
           <td style="vertical-align: top;">X</td>
-          <td style="vertical-align: top;"><br></td>
-          <td valign="top"><br></td>
+          <td style="vertical-align: top;"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);">State DISPLAY_COMMIT_POINT<br></td>
-          <td style="vertical-align: top;"><br></td>
-          <td style="vertical-align: top;">X<br></td>
-          <td valign="top">X<br></td>
+            204, 204);">State DISPLAY_COMMIT_POINT<br>
+          </td>
+          <td style="vertical-align: top;"><br>
+          </td>
+          <td style="vertical-align: top;">X<br>
+          </td>
+          <td valign="top">X<br>
+          </td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);"><span style="font-weight: bold;">Transitions</span><br></td>
-          <td style="vertical-align: top;" bgcolor="#cccccc"><br></td>
-          <td style="vertical-align: top;" bgcolor="#cccccc"><br></td>
-          <td valign="top" bgcolor="#cccccc"><br></td>
+            204, 204);"><span style="font-weight: bold;">Transitions</span><br>
+          </td>
+          <td style="vertical-align: top;" bgcolor="#cccccc"><br>
+          </td>
+          <td style="vertical-align: top;" bgcolor="#cccccc"><br>
+          </td>
+          <td bgcolor="#cccccc" valign="top"><br>
+          </td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);">T10.1<br></td>
-          <td style="vertical-align: top;"><br></td>
-          <td style="vertical-align: top;">X<br></td>
-          <td valign="top">X<br></td>
+            204, 204);">T10.1<br>
+          </td>
+          <td style="vertical-align: top;"><br>
+          </td>
+          <td style="vertical-align: top;">X<br>
+          </td>
+          <td valign="top">X<br>
+          </td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
-            204, 204);">T10.2<br></td>
-          <td style="vertical-align: top;">X<br></td>
-          <td style="vertical-align: top;"><br></td>
-          <td valign="top"><br></td>
+            204, 204);">T10.2<br>
+          </td>
+          <td style="vertical-align: top;">X<br>
+          </td>
+          <td style="vertical-align: top;"><br>
+          </td>
+          <td valign="top"><br>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -3322,8 +3298,8 @@
       finished servicing all calls in the DOWN direction, then
       TargetFloor shall be set to the nearest floor below CommitPoint.<br>
       11.11 &nbsp;&nbsp;&nbsp;If CurrentFloor != None and no
-      mCarCall[f,b] == True and no mHallCall[f,b,d] == True, then mDesiredFloor
-      shall be set to (CurrentFloor, None, Stop). <br>
+      mCarCall[f,b] == True and no mHallCall[f,b,d] == True, then
+      mDesiredFloor shall be set to (CurrentFloor, None, Stop). <br>
       11.12 &nbsp;&nbsp;&nbsp;If all mAtFloor[f, b] are False and any
       mDoorClosed[b, r] is False (which means doors are not closed
       between floors!), then<br>
@@ -3355,7 +3331,8 @@
         <tr>
           <td valign="top">T11.2<br>
           </td>
-          <td valign="top">any HallCall[f,b,d] == true || any CarCall[f,b] == true</td>
+          <td valign="top">any HallCall[f,b,d] == true || any
+            CarCall[f,b] == true</td>
         </tr>
         <tr>
           <td valign="top">T11.3<br>

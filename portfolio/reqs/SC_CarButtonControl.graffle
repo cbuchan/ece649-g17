@@ -7,14 +7,14 @@
 	<key>ApplicationVersion</key>
 	<array>
 		<string>com.omnigroup.OmniGrafflePro</string>
-		<string>139.16.0.171715</string>
+		<string>138.33.0.157554</string>
 	</array>
 	<key>AutoAdjust</key>
 	<true/>
 	<key>BackgroundGraphic</key>
 	<dict>
 		<key>Bounds</key>
-		<string>{{0, 0}, {756, 553.00002479553223}}</string>
+		<string>{{0, 0}, {756, 553}}</string>
 		<key>Class</key>
 		<string>SolidGraphic</string>
 		<key>ID</key>
@@ -33,8 +33,6 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>BaseZoom</key>
-	<integer>0</integer>
 	<key>CanvasOrigin</key>
 	<string>{0, 0}</string>
 	<key>ColumnAlign</key>
@@ -68,7 +66,7 @@
 			<key>Points</key>
 			<array>
 				<string>{21, 15}</string>
-				<string>{45.999956559989563, 42}</string>
+				<string>{45.999954, 42}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -76,8 +74,6 @@
 				<dict>
 					<key>HeadArrow</key>
 					<string>FilledArrow</string>
-					<key>Legacy</key>
-					<true/>
 					<key>TailArrow</key>
 					<string>0</string>
 					<key>TailScale</key>
@@ -87,7 +83,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{182.8239995408353, 168}, {35, 24}}</string>
+			<string>{{182.82401, 168}, {35, 24}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -147,7 +143,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{303.78052053309284, 74}, {35, 24}}</string>
+			<string>{{303.78052, 74}, {35, 24}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -234,8 +230,6 @@
 				<dict>
 					<key>HeadArrow</key>
 					<string>FilledArrow</string>
-					<key>Legacy</key>
-					<true/>
 					<key>LineType</key>
 					<integer>2</integer>
 					<key>TailArrow</key>
@@ -271,7 +265,7 @@
 			<key>Points</key>
 			<array>
 				<string>{227, 86}</string>
-				<string>{371.5, 136.00001055999999}</string>
+				<string>{371.5, 136.00002}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -279,8 +273,6 @@
 				<dict>
 					<key>HeadArrow</key>
 					<string>FilledArrow</string>
-					<key>Legacy</key>
-					<true/>
 					<key>LineType</key>
 					<integer>2</integer>
 					<key>TailArrow</key>
@@ -302,12 +294,12 @@
 			<integer>4</integer>
 			<key>Magnets</key>
 			<array>
-				<string>{0, -0.49999988000000001}</string>
+				<string>{0, -0.49999988}</string>
 				<string>{0, 0.5}</string>
 				<string>{-0.5, 0}</string>
 				<string>{0.5, 0}</string>
 				<string>{0.5, -0.5}</string>
-				<string>{-0.50000012000000005, -0.49999988000000001}</string>
+				<string>{-0.50000012, -0.49999988}</string>
 			</array>
 			<key>Shape</key>
 			<string>Rectangle</string>
@@ -322,7 +314,6 @@
 \f0\fs24 \cf0 State LIGHT_OFF\
 \
 CarLight[f,b]=Off\
-mCarLight[f,b]=CarLight[f,b]\
 mCarCall[f,b]=CarCall[f,b]}</string>
 			</dict>
 		</dict>
@@ -335,7 +326,7 @@ mCarCall[f,b]=CarCall[f,b]}</string>
 			<integer>12</integer>
 			<key>Magnets</key>
 			<array>
-				<string>{0, -0.49999988000000001}</string>
+				<string>{0, -0.49999988}</string>
 				<string>{0, 0.5}</string>
 				<string>{-0.5, 0}</string>
 				<string>{0.5, 0}</string>
@@ -353,7 +344,6 @@ mCarCall[f,b]=CarCall[f,b]}</string>
 \f0\fs24 \cf0 State LIGHT_ON\
 \
 CarLight[f,b]=On\
-mCarLight[f,b]=CarLight[f,b]\
 mCarCall[f,b]=CarCall[f,b]}</string>
 			</dict>
 		</dict>
@@ -405,9 +395,9 @@ mCarCall[f,b]=CarCall[f,b]}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2012-10-11 21:07:28 +0000</string>
+	<string>2012-11-10 01:52:47 +0000</string>
 	<key>Modifier</key>
-	<string>Collin Buchan</string>
+	<string>Jessica Tiu</string>
 	<key>NotesVisible</key>
 	<string>NO</string>
 	<key>Orientation</key>
@@ -435,13 +425,13 @@ mCarCall[f,b]=CarCall[f,b]}</string>
 		</array>
 		<key>NSOrientation</key>
 		<array>
-			<string>coded</string>
-			<string>BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU051bWJlcgCEhAdOU1ZhbHVlAISECE5TT2JqZWN0AIWEASqEhAFxlwGG</string>
+			<string>int</string>
+			<string>1</string>
 		</array>
 		<key>NSPaperSize</key>
 		<array>
-			<string>size</string>
-			<string>{792, 612.00002479553223}</string>
+			<string>coded</string>
+			<string>BAtzdHJlYW10eXBlZIHoA4QBQISEhAdOU1ZhbHVlAISECE5TT2JqZWN0AIWEASqEhAx7X05TU2l6ZT1mZn2WgRgDgWQChg==</string>
 		</array>
 		<key>NSPrintReverseOrientation</key>
 		<array>
@@ -505,7 +495,7 @@ mCarCall[f,b]=CarCall[f,b]}</string>
 		<key>SidebarWidth</key>
 		<integer>120</integer>
 		<key>VisibleRegion</key>
-		<string>{{-43, -40}, {841, 635}}</string>
+		<string>{{-43, -33}, {841, 619}}</string>
 		<key>Zoom</key>
 		<real>1</real>
 		<key>ZoomValues</key>
@@ -517,5 +507,7 @@ mCarCall[f,b]=CarCall[f,b]}</string>
 			</array>
 		</array>
 	</dict>
+	<key>saveQuickLookFiles</key>
+	<string>YES</string>
 </dict>
 </plist>
