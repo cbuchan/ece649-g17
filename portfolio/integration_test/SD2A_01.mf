@@ -36,7 +36,7 @@
 
 ;check that 1c. CarCall is asserted true (CarButtonControl)
 ;arc 1c
-+0.21s	A N CAR_CALL_[5][FRONT]_CAN_ID Boolean : getValue == true
++0.21s	A N CAR_CALL_[5][FRONT]_CAN_ID TinyBoolean : getValue == true
 
 ;========================================================================
 ;2. The car call button for [g,c] lights up.

@@ -17,14 +17,14 @@
 ;initialize
 ;========================================================================
 
-+0s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = false
++0s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID TinyBoolean = false
 +0s	I WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 0
 +0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
 +0s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
 
 +0s	I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
 
-+0s I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[2][BACK][UP]_CAN_ID Boolean = true
++0s I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[2][BACK][UP]_CAN_ID TinyBoolean = true
 
 ;All doors start off closed
 +0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
@@ -67,7 +67,7 @@
 ; 5. Emergency brake is activated (@3.5)
 ;========================================================================
 ;arc 5a, 5b
-+0.5s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = true
++0.5s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID TinyBoolean = true
 
 ;========================================================================
 ; 6. Drive is set to Stop (@4.0)

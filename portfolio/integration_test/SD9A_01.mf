@@ -35,7 +35,7 @@
 +0.5s A F CarLantern UP : lighted == true
 +0s   A F CarLantern DOWN : lighted == false
 
-+0s  I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[2][BACK][UP]_CAN_ID Boolean = true
++0s  I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[2][BACK][UP]_CAN_ID TinyBoolean = true
 
 ;========================================================================
 ; 2. Door[b,r] starts to open.
@@ -56,8 +56,8 @@
 ; 3. Dispatcher computes next desired floor.
 ;========================================================================
 ;Target set to f=4
-+0.5s I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[2][BACK][UP]_CAN_ID Boolean = false
-+0s   I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[4][FRONT][UP]_CAN_ID Boolean = true
++0.5s I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[2][BACK][UP]_CAN_ID TinyBoolean = false
++0s   I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[4][FRONT][UP]_CAN_ID TinyBoolean = true
 
 ;arc 4. check network message desired floor is sent by dispatcher
 
