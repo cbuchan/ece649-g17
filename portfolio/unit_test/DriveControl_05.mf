@@ -25,6 +25,11 @@
 ; check to see that drive stays in stop when emergency brake on
 ;==================================1.0=======================================
 
+
+;set the level sensors immediately to prevent transition
++0.0s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
++0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
+
 ;#state 'STATE_DRIVE_STOPPED'
 ;check that state is DRIVE_STOPPED initially
 +0.5s	A S DriveControl : STATE == STATE_DRIVE_STOPPED

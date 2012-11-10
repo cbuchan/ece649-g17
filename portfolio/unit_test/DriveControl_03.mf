@@ -26,7 +26,9 @@
 ;#transition 'T6.3'
 ;#transition 'T6.7'
 
-
+;set the level sensors to prevent transition
++0.0s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
++0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
 ;====1.0s=====================================================================
 ;#state 'STATE_DRIVE_STOPPED'
 ;check that state is DRIVE_STOPPED initially
@@ -47,8 +49,8 @@
 ;#transition 'T6.3'
 
 ;reset the leveling sensors
-+0.5s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = false
-+0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = false
++0.5s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
++0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
 ;all doors closed
 +0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
 +0s	I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
@@ -93,13 +95,13 @@
 ;+0.0s I DRIVE_CONTROL_PERIOD N DRIVE_COMMAND_CAN_ID DriveCommand = STOP STOP
 
 ;all doors closed
-;+0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
++0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
 
 
 ;====15.0s=====================================================================
 ;#state 'STATE_DRIVE_LEVEL_STOPPED'
 
-+0.5s	A S DriveControl : STATE == STATE_DRIVE_STOPPED
++0.6s	A S DriveControl : STATE == STATE_DRIVE_STOPPED
 +0s	A F Drive : speed == STOP
 +0s	A F Drive : direction == STOP
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == STOP

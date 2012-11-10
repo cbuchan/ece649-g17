@@ -1054,7 +1054,7 @@
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
       word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
-      cellspacing="2">
+      cellspacing="2" height="388" width="1143">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -1857,7 +1857,7 @@
       width="1023"><br>
     <br>
     <table style="text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="306" width="952">
+      cellspacing="2" height="306" width="1013">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -1887,8 +1887,9 @@
         <tr>
           <td style="vertical-align: top;">T6.4</td>
           <td style="vertical-align: top;">DriveDir == Stop &amp;&amp;
-            mLevel[*] ~= True || mCarWeight(x) &gt;= MaxCarCapacity
-            &amp;&amp; mEmergencyBrake[b] == False</td>
+            mLevel[*] ~= True &amp;&amp; mEmergencyBrake[b] == False ||
+            mCarWeight(x) &gt;= MaxCarCapacity <br>
+          </td>
         </tr>
         <tr>
           <td style="vertical-align: top;">T6.5</td>
@@ -1899,8 +1900,9 @@
         <tr>
           <td style="vertical-align: top;">T6.6</td>
           <td style="vertical-align: top;">DriveDir ~= Stop &amp;&amp;
-            CommitPoint[f] == Reached &amp;&amp; mDesiredFloor.f == f ||
-            mCarWeight(x) &gt;= MaxCarCapacity</td>
+            CommitPoint[f] == Reached &amp;&amp; mDesiredFloor.f == f
+            &amp;&amp; mEmergencyBrake[b] == False <br>
+            || mCarWeight(x) &gt;= MaxCarCapacity</td>
         </tr>
         <tr>
           <td valign="top">T6.7<br>
