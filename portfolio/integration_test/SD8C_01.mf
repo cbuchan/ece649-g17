@@ -22,7 +22,7 @@
 
 ;desired direction not stop
 +0s I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
-+0s I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[6][FRONT][UP]_CAN_ID Boolean = true
++0s I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[6][FRONT][UP]_CAN_ID TinyBoolean = true
 
 ;door closed true
 +0s I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
@@ -31,7 +31,7 @@
 +0s I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
 
 ;emergency brake false
-+0s I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID Boolean = false
++0s I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID TinyBoolean = false
 
 +0s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID   Leveling UP = true
 +0s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
@@ -48,7 +48,7 @@
 +0s  I  HALL_BUTTON_CONTROL_PERIOD F HallCall 6 FRONT UP = true
 
 ;arc 1c. hallcall network message check
-+0.5s A N HALL_CALL_[6][FRONT][UP]_CAN_ID Boolean : getValue == true
++0.5s A N HALL_CALL_[6][FRONT][UP]_CAN_ID TinyBoolean : getValue == true
 
 ;========================================================================
 ; 2. The hall call button for h,e lights up.

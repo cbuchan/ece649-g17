@@ -51,8 +51,8 @@
 ;========================================================================
 ;3. CarLight[f,b] turns off and mCarCall[f,b] is set to false.
 ;========================================================================
-+0.21s A N CAR_CALL_[4][FRONT]_CAN_ID Boolean : getValue == false
-+0s    A N CAR_LIGHT_[4][FRONT]_CAN_ID Boolean : getValue == false
++0.21s A N CAR_CALL_[4][FRONT]_CAN_ID TinyBoolean : getValue == false
++0s    A N CAR_LIGHT_[4][FRONT]_CAN_ID TinyBoolean : getValue == false
 
 ;========================================================================
 ;4. DriveControl sets drive speed to Level and Car reaches a level state.

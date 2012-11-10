@@ -49,7 +49,7 @@
 ;========================================================================
 ;arc 4
 +0.21s  A  F HallLight 4 FRONT DOWN : lighted == true
-+0s     A  N HALL_LIGHT_[4][FRONT][DOWN]_CAN_ID Boolean : getValue == true
++0s     A  N HALL_LIGHT_[4][FRONT][DOWN]_CAN_ID TinyBoolean : getValue == true
 
 
 ;========================================================================
@@ -78,7 +78,7 @@
 
 ;arc 6a, 6b
 +1s     A  F HallLight 4 FRONT DOWN : lighted == false
-+0s     A  N HALL_LIGHT_[4][FRONT][DOWN]_CAN_ID Boolean : getValue == false
++0s     A  N HALL_LIGHT_[4][FRONT][DOWN]_CAN_ID TinyBoolean : getValue == false
 
 ;========================================================================
 ;7. Doors open.

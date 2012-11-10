@@ -34,4 +34,4 @@
 ;========================================================================
 ;Arc 2a and 2b
 +0.21s  A  F HallLight 4 FRONT DOWN : lighted == true
-+0s  A N HALL_LIGHT_[4][FRONT][DOWN]_CAN_ID Boolean : getValue == true
++0s  A N HALL_LIGHT_[4][FRONT][DOWN]_CAN_ID TinyBoolean : getValue == true

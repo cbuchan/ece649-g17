@@ -46,7 +46,7 @@
 ;Need to set a starting AtFloor so that DriveControl can compute DesiredDir and transition to DRIVE_SLOW
 +0s    I  AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
 
-+0.10s  I  HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[4][FRONT][UP]_CAN_ID Boolean = true
++0.10s  I  HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[4][FRONT][UP]_CAN_ID TinyBoolean = true
 
 ; wait for Dispatcher to set direction
 

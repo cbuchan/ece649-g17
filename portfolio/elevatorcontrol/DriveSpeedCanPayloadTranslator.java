@@ -8,12 +8,12 @@
 
 package simulator.elevatorcontrol;
 
-import java.util.BitSet;
 import simulator.framework.Direction;
-import simulator.framework.Speed;
 import simulator.payloads.CanMailbox.ReadableCanMailbox;
 import simulator.payloads.CanMailbox.WriteableCanMailbox;
 import simulator.payloads.translators.CanPayloadTranslator;
+
+import java.util.BitSet;
 
 /**
  * Can payload translator for the DriveSpeed command, which includes a speed value and a direction.

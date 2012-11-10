@@ -35,7 +35,7 @@ public class DoorMotorCommandCanPayloadTranslator extends CanPayloadTranslator {
      * @param side  replication index
      */
     public DoorMotorCommandCanPayloadTranslator(WriteableCanMailbox payload, Hallway hallway, Side side) {
-        super(payload, 2, MessageDictionary.DOOR_MOTOR_COMMAND_BASE_CAN_ID + ReplicationComputer.computeReplicationId(hallway, side));
+        super(payload, 1, MessageDictionary.DOOR_MOTOR_COMMAND_BASE_CAN_ID + ReplicationComputer.computeReplicationId(hallway, side));
         this.hallway = hallway;
         this.side = side;
     }
@@ -47,7 +47,7 @@ public class DoorMotorCommandCanPayloadTranslator extends CanPayloadTranslator {
      * @param side  replication index
      */
     public DoorMotorCommandCanPayloadTranslator(ReadableCanMailbox payload, Hallway hallway, Side side) {
-        super(payload, 2, MessageDictionary.DOOR_MOTOR_COMMAND_BASE_CAN_ID + ReplicationComputer.computeReplicationId(hallway, side));
+        super(payload, 1, MessageDictionary.DOOR_MOTOR_COMMAND_BASE_CAN_ID + ReplicationComputer.computeReplicationId(hallway, side));
         this.hallway = hallway;
         this.side = side;
     }
@@ -74,7 +74,7 @@ public class DoorMotorCommandCanPayloadTranslator extends CanPayloadTranslator {
      */
     public void set(DoorCommand command) {
         BitSet b = getMessagePayload();
-        addIntToBitset(b, command.ordinal(), 0, 16);
+        addIntToBitset(b, command.ordinal(), 0, 8);
         setMessagePayload(b, getByteSize());
     }
     
@@ -83,7 +83,7 @@ public class DoorMotorCommandCanPayloadTranslator extends CanPayloadTranslator {
      * @return DoorCommand currently set
      */
     public DoorCommand getCommand() {
-        int val = getIntFromBitset(getMessagePayload(), 0, 16);
+        int val = getIntFromBitset(getMessagePayload(), 0, 8);
         for (DoorCommand command : DoorCommand.values()) {
             if (val == command.ordinal()) {
                 return command;

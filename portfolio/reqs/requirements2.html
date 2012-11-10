@@ -2595,7 +2595,6 @@
     <h3> Output Interface: </h3>
     <ul>
       <li>HallLight[f, b, d] </li>
-      <li>mHallLight[f, b, d] </li>
       <li>mHallCall[f, b, d] </li>
     </ul>
     <h3> State: </h3>
@@ -2609,13 +2608,11 @@
     <h3>TIME-TRIGGERED BEHAVIORS: </h3>
     <p>8.1 If any HallCall[f,b,d]=Pressed<br>
       &nbsp;&nbsp; 8.1.1 HallLight[f,b,d] shall be set to On.<br>
-      &nbsp;&nbsp; 8.1.2 mHallLight[f,b,d] shall be set to True.<br>
-      &nbsp;&nbsp; 8.1.3 mHallCall[f,b,d] shall be set to True.<br>
+      &nbsp;&nbsp; 8.1.2 mHallCall[f,b,d] shall be set to True.<br>
       8.2 If mAtFloor[f,b] = true and mDesiredFloor.f=f and either
       mDesiredDirection.d = d or mDesiredDirection.d = Stop<br>
       &nbsp;&nbsp; 8.2.1 HallLight[f,b,d] shall be set to Off.<br>
-      &nbsp;&nbsp; 8.2.2 mHallLight[f,b,d] shall be set to False.<br>
-      &nbsp;&nbsp; 8.2.3 mHallCall[f,b,d] shall be set to False.<br>
+      &nbsp;&nbsp; 8.2.2 mHallCall[f,b,d] shall be set to False.<br>
     </p>
     <meta charset="utf-8">
     <h3 style="color: rgb(0, 0, 0); font-family: Times; font-style:
@@ -2696,7 +2693,7 @@
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204); "><br>
           </td>
-          <td colspan="8" rowspan="1" style="vertical-align: top;
+          <td colspan="6" rowspan="1" style="vertical-align: top;
             background-color: rgb(204, 204, 204); ">Requirements<br>
           </td>
         </tr>
@@ -2712,13 +2709,10 @@
           </td>
           <td bgcolor="#cccccc" valign="top">BR8.1.2<br>
           </td>
-          <td bgcolor="#cccccc" valign="top">BR8.1.3</td>
           <td bgcolor="#cccccc" valign="top">BR8.2<br>
           </td>
           <td bgcolor="#cccccc" valign="top">BR8.2.1</td>
           <td bgcolor="#cccccc" valign="top">BR8.2.2<br>
-          </td>
-          <td bgcolor="#cccccc" valign="top">BR8.2.3<br>
           </td>
         </tr>
         <tr>
@@ -2735,10 +2729,6 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
           <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle">X<br>
@@ -2754,10 +2744,6 @@
           <td align="center" valign="middle">X<br>
           </td>
           <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
@@ -2785,10 +2771,6 @@
           </td>
           <td align="center" bgcolor="#cccccc" valign="middle"><br>
           </td>
-          <td align="center" bgcolor="#cccccc" valign="middle"><br>
-          </td>
-          <td align="center" bgcolor="#cccccc" valign="middle"><br>
-          </td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
@@ -2798,10 +2780,6 @@
           </td>
           <td style="vertical-align: top; " align="center"
             valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
-          </td>
-          <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
@@ -2824,11 +2802,7 @@
           </td>
           <td align="center" valign="middle"><br>
           </td>
-          <td align="center" valign="middle"><br>
-          </td>
           <td align="center" valign="middle">X<br>
-          </td>
-          <td align="center" valign="middle"><br>
           </td>
           <td align="center" valign="middle"><br>
           </td>
@@ -2863,7 +2837,6 @@
     <h3> Output Interface: </h3>
     <ul>
       <li>CarLight[f, b] </li>
-      <li>mCarLight[f, b] </li>
       <li>mCarCall[f, b] </li>
     </ul>
     <h3> State: </h3>
@@ -2878,18 +2851,14 @@
     <p>9.1 If CarCall[<b>f</b>,<b>b</b>]=true:<br>
       &nbsp;&nbsp;&nbsp; 9.1.1 CarLight[<b>f</b>,<b>b</b>] shall be set
       to On.<br>
-      &nbsp;&nbsp;&nbsp; 9.1.2 mCarLight[<b>f</b>,<b>b</b>] shall be set
-      to true.<br>
-      &nbsp;&nbsp;&nbsp; 9.1.3 mCarCall[<b>f</b>,<b>b</b>] shall be set
+      &nbsp;&nbsp;&nbsp; 9.1.2 mCarCall[<b>f</b>,<b>b</b>] shall be set
       to true. <br>
       9.2 If mAtFloor[<b>f,b</b>] is true and mDesiredFloor.f = <b>f</b>
       and either mDesiredFloor.b = <b>b</b> or mDesiredFloor.b = BOTH:
       <br>
       &nbsp;&nbsp;&nbsp; 9.2.1 CarLight[<b>f</b>,<b>b</b>] shall be set
       to Off.<br>
-      &nbsp;&nbsp;&nbsp; 9.2.2 mCarLight[<b>f</b>,<b>b</b>] shall be set
-      to false.<br>
-      &nbsp;&nbsp;&nbsp; 9.2.3 mCarCall[<b>f</b>,<b>b</b>] shall be set
+      &nbsp;&nbsp;&nbsp; 9.2.2 mCarCall[<b>f</b>,<b>b</b>] shall be set
       to false.</p>
     <h3>STATECHART: </h3>
     <img alt="SC_CarButtonControl" src="SC_CarButtonControl.png">
@@ -2938,7 +2907,7 @@
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);"><br>
           </td>
-          <td colspan="6" rowspan="1" style="vertical-align: top;
+          <td colspan="4" rowspan="1" style="vertical-align: top;
             background-color: rgb(204, 204, 204);">Requirements<br>
           </td>
         </tr>
@@ -2952,13 +2921,9 @@
           <td style="vertical-align: top; background-color: rgb(204,
             204, 204);">BR9.1.2<br>
           </td>
-          <td bgcolor="#cccccc" valign="top">BR9.1.3<br>
-          </td>
           <td bgcolor="#cccccc" valign="top">BR9.2.1<br>
           </td>
           <td bgcolor="#cccccc" valign="top">BR9.2.2<br>
-          </td>
-          <td bgcolor="#cccccc" valign="top">BR9.2.3<br>
           </td>
         </tr>
         <tr>
@@ -2968,10 +2933,6 @@
           <td style="vertical-align: top;"><br>
           </td>
           <td style="vertical-align: top;"><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top">X<br>
           </td>
           <td valign="top">X<br>
           </td>
@@ -2985,10 +2946,6 @@
           <td style="vertical-align: top;">X<br>
           </td>
           <td style="vertical-align: top;">X<br>
-          </td>
-          <td valign="top">X<br>
-          </td>
-          <td valign="top"><br>
           </td>
           <td valign="top"><br>
           </td>
@@ -3007,10 +2964,6 @@
           </td>
           <td bgcolor="#cccccc" valign="top"><br>
           </td>
-          <td bgcolor="#cccccc" valign="top"><br>
-          </td>
-          <td bgcolor="#cccccc" valign="top"><br>
-          </td>
         </tr>
         <tr>
           <td style="vertical-align: top; background-color: rgb(204,
@@ -3019,10 +2972,6 @@
           <td style="vertical-align: top;">X<br>
           </td>
           <td style="vertical-align: top;">X<br>
-          </td>
-          <td valign="top">X<br>
-          </td>
-          <td valign="top"><br>
           </td>
           <td valign="top"><br>
           </td>
@@ -3036,10 +2985,6 @@
           <td style="vertical-align: top;"><br>
           </td>
           <td style="vertical-align: top;"><br>
-          </td>
-          <td valign="top"><br>
-          </td>
-          <td valign="top">X<br>
           </td>
           <td valign="top">X<br>
           </td>
