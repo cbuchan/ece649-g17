@@ -444,7 +444,7 @@ public class Utility {
                 }
             }
             // Failed to find a floor. Try to return the nearest floor
-            return (int) Math.round(mCarLevelPosition.getPosition() / Elevator.DISTANCE_BETWEEN_FLOORS) + 1;
+            return (int) Math.round(mCarLevelPosition.getPosition() / (Elevator.DISTANCE_BETWEEN_FLOORS * 1000)) + 1;
         }
     }
 }

@@ -312,7 +312,6 @@ public class DriveControl extends Controller {
             log("remains in state: ", state);
         } else {
             log("Transition:", state, "->", newState);
-            System.out.println("Transition:" + state + "->" + newState);
         }
 
         //update the state variable
