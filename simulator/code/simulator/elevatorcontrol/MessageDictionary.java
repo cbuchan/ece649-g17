@@ -35,12 +35,12 @@ public class MessageDictionary {
     public final static SimTime DRIVE_CONTROL_PERIOD = new SimTime(10, SimTimeUnit.MILLISECOND);
 
     //controller message IDs
-    public final static int DRIVE_SPEED_CAN_ID =                0x0AE4B500;
-    public final static int DRIVE_COMMAND_CAN_ID =              0x0AE5B500;
+    public final static int DRIVE_SPEED_CAN_ID =                0x0C4CB500;
+    public final static int DRIVE_COMMAND_CAN_ID =              0x0CB0B500;
     public final static int DESIRED_DWELL_BASE_CAN_ID =         0x0F08B600;
     public final static int DESIRED_FLOOR_CAN_ID =              0x0F09B600;
     public final static int CAR_POSITION_CAN_ID =               0x0E403C00;
-    public final static int DOOR_MOTOR_COMMAND_BASE_CAN_ID =    0x0AE6B800;
+    public final static int DOOR_MOTOR_COMMAND_BASE_CAN_ID =    0x0D14B800;
     public final static int HALL_CALL_BASE_CAN_ID =             0x0F0BB900;
     public final static int HALL_LIGHT_BASE_CAN_ID =            0x0F10B900;
     public final static int CAR_CALL_BASE_CAN_ID =              0x0F0CBA00;
@@ -54,7 +54,7 @@ public class MessageDictionary {
     public final static int CAR_WEIGHT_ALARM_CAN_ID =           0x0F0E8C00;
     public final static int DOOR_OPEN_SENSOR_BASE_CAN_ID =      0x0F09A000;
     public final static int DOOR_CLOSED_SENSOR_BASE_CAN_ID =    0x0F0A5000;
-    public final static int DOOR_REVERSAL_SENSOR_BASE_CAN_ID =  0x0AE76400;
+    public final static int DOOR_REVERSAL_SENSOR_BASE_CAN_ID =  0x0BE86400;
     public final static int HOISTWAY_LIMIT_BASE_CAN_ID =        0x0CB0B400;
     public final static int EMERGENCY_BRAKE_CAN_ID =            0x0D781400;
     public final static int LEVELING_BASE_CAN_ID =              0x0AE81400;
