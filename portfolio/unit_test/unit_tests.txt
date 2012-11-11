@@ -17,7 +17,6 @@ DriveControl DriveControl.cf DriveControl_02.mf
 DriveControl DriveControl.cf DriveControl_03.mf
 DriveControl DriveControl.cf DriveControl_04.mf
 DriveControl DriveControl.cf DriveControl_05.mf
-;DriveControl DriveControl.cf DriveControl_all.mf
 HallButtonControl HallButtonControl.cf HallButtonControl_01.mf
 LanternControl LanternControl.cf LanternControl_01.mf
 CarPositionControl CarPositionControl.cf CarPositionControl_01.mf

@@ -25,8 +25,8 @@
 ;test path
 ;#transition 'T6.3'
 ;#transition 'T6.5'
-;#transition 'T6.6'		-- branch (0 0 0 1 tested) 		
-;#transition 'T6.4'		-- branch (0 0 1 tested)		
+;#transition 'T6.6'		-- branch (0 0 0 0 1 tested) 		
+;#transition 'T6.4'		-- branch (0 0 0 1 tested)		
 ;#transition 'T6.2'		-- branch (0 0 1 tested again)
 
 
