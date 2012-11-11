@@ -75,7 +75,7 @@
 +0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = false
 
 ;#state 'COMPUTE_NEXT'
-+0.20s  A S Dispatcher : STATE == STATE_COMPUTE_NEXT
++0.5s  A S Dispatcher : STATE == STATE_COMPUTE_NEXT
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 3
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == FRONT
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == UP
@@ -104,7 +104,7 @@
 +0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = false
 
 ;#state 'IDLE'
-+0.20s  A S Dispatcher : STATE == STATE_IDLE
++0.5s  A S Dispatcher : STATE == STATE_IDLE
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 3
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == NONE
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP

@@ -16,20 +16,862 @@
     <hr style="width: 100%; height: 2px;">
     <h2>CAN Message Dictionary<br>
     </h2>
-    Add a summary here<br>
+    mHallLight and mCarLight have been removed from the original spec. CAN IDs were assigned based on deadlines.<br>
     <br>
-    Add you message dictionary table here<br>
+    <table dir="ltr" border="2" cellpadding="2" cellspacing="2" id="tblMain">
+      <thead>
+        <tr dir="ltr" style="font-weight:bold">
+          <td dir="ltr">Sender Node Name</td>
+          <td dir="ltr">Message Name</td>
+          <td dir="ltr">Deadline (ms)</td>
+          <td dir="ltr">Message ID</td>
+          <td dir="ltr">Sender Node Type</td>
+          <td dir="ltr">Replication Type</td>
+          <td dir="ltr">Base CAN ID</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr dir="ltr">
+          <td dir="ltr">Level Sensor</td>
+          <td dir="ltr">Level</td>
+          <td>10</td>
+          <td>744</td>
+          <td>20</td>
+          <td dir="ltr">Direction</td>
+          <td dir="ltr">0x0AE81400</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">Door Reversal Sensor</td>
+          <td dir="ltr">Door Reversal</td>
+          <td>10</td>
+          <td>1000</td>
+          <td>100</td>
+          <td dir="ltr">Hall, Side</td>
+          <td dir="ltr">0x0BE86400</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">DriveControl</td>
+          <td dir="ltr">Drive_Speed</td>
+          <td>10</td>
+          <td>1100</td>
+          <td>181</td>
+          <td dir="ltr">None</td>
+          <td dir="ltr">0x0C4CB500</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">DriveControl</td>
+          <td dir="ltr">Drive_Command</td>
+          <td>10</td>
+          <td>1200</td>
+          <td>181</td>
+          <td dir="ltr">None</td>
+          <td dir="ltr">0x0CB0B500</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">DoorControl</td>
+          <td dir="ltr">Door_Motor_Command</td>
+          <td>10</td>
+          <td>1300</td>
+          <td>184</td>
+          <td dir="ltr">Hall, Side</td>
+          <td dir="ltr">0x0D14B800</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">Safety Sensor</td>
+          <td dir="ltr">Emergency Brake</td>
+          <td>50</td>
+          <td>1400</td>
+          <td>20</td>
+          <td dir="ltr">None</td>
+          <td dir="ltr">0x0D781400</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">At Floor Sensor</td>
+          <td dir="ltr">AtFloor</td>
+          <td>50</td>
+          <td>1500</td>
+          <td>40</td>
+          <td dir="ltr">Floor, Hall</td>
+          <td dir="ltr">0x0DDC2800</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">CarPositionControl</td>
+          <td dir="ltr">Car_Position</td>
+          <td>50</td>
+          <td>1600</td>
+          <td>60</td>
+          <td dir="ltr">None</td>
+          <td dir="ltr">0x0E403C00</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">Car Level Position Sensor</td>
+          <td dir="ltr">Car Level Position</td>
+          <td>50</td>
+          <td>1700</td>
+          <td>60</td>
+          <td dir="ltr">None</td>
+          <td dir="ltr">0x0EA43C00</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">Dispatcher</td>
+          <td dir="ltr">Desired_Dwell</td>
+          <td>50</td>
+          <td>1800</td>
+          <td>182</td>
+          <td dir="ltr">Hallway</td>
+          <td dir="ltr">0x0F08B600</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">Dispatcher</td>
+          <td dir="ltr">Desired_Floor</td>
+          <td>50</td>
+          <td>1801</td>
+          <td>182</td>
+          <td dir="ltr">None</td>
+          <td dir="ltr">0x0F09B600</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">HallButtonControl</td>
+          <td dir="ltr">Hall_Call</td>
+          <td>100</td>
+          <td>1803</td>
+          <td>185</td>
+          <td dir="ltr">Floor, Hall, Direction</td>
+          <td dir="ltr">0x0F0BB900</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">Door Closed Sensor</td>
+          <td dir="ltr">Door Closed</td>
+          <td>100</td>
+          <td>1802</td>
+          <td>80</td>
+          <td dir="ltr">Hall, Side</td>
+          <td dir="ltr">0x0F0A5000</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">CarButtonControl</td>
+          <td dir="ltr">Car_Call</td>
+          <td>100</td>
+          <td>1804</td>
+          <td>186</td>
+          <td dir="ltr">Floor, Hall</td>
+          <td dir="ltr">0x0F0CBA00</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">Car Weight Sensor</td>
+          <td dir="ltr">Car Weight</td>
+          <td>200</td>
+          <td>1805</td>
+          <td>120</td>
+          <td dir="ltr">None</td>
+          <td dir="ltr">0x0F0D7800</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">Car Weight Alarm Sensor</td>
+          <td dir="ltr">Car Weight Alarm</td>
+          <td>200</td>
+          <td>1806</td>
+          <td>140</td>
+          <td dir="ltr">None</td>
+          <td dir="ltr">0x0F0E8C00</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">Door Opened Sensor</td>
+          <td dir="ltr">Door Opened</td>
+          <td>200</td>
+          <td>1807</td>
+          <td>160</td>
+          <td dir="ltr">Hall, Side</td>
+          <td dir="ltr">0x0F0EA000</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">Hoistway Limit Sensor</td>
+          <td dir="ltr">Hoistway Limit</td>
+          <td>200</td>
+          <td>1808</td>
+          <td>180</td>
+          <td dir="ltr">Direction</td>
+          <td dir="ltr">0x0F0DB400</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">LanternControl</td>
+          <td dir="ltr">Car_Lantern</td>
+          <td>200</td>
+          <td>1809</td>
+          <td>187</td>
+          <td dir="ltr">Direction</td>
+          <td dir="ltr">0x0F0FBB00</td>
+        </tr>
+      </tbody>
+    </table>
     <br>
-    <h2>Network Schedule Analaysis</h2>
     <br>
-    Add a summary here<br>
+    <h2>Network Schedule Analysis</h2>
     <br>
-    Add your network schedule analysis<br>
+    Boolean types were reduced to one bit payloads. Enumerations were reduced to four bit payloads. mHallLight and mCarLight were removed. CAN IDs were assigned based on deadlines.<br>
     <br>
-    Add a link to your Excel schedule file here.<br>
+    <table dir="ltr" border="2" cellpadding="2" cellspacing="2" id="tblMain2">
+      <thead style="font-weight:bold">
+        <tr dir="ltr">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td colspan="4" dir="ltr">Field 1</td>
+          <td colspan="4" dir="ltr">Field 2</td>
+          <td colspan="4" dir="ltr">Field 3</td>
+          <td rowspan="2" dir="ltr">Total Payload Bit Len</td>
+          <td rowspan="2" dir="ltr">Total Payload Byte Len</td>
+          <td rowspan="2" dir="ltr">Best Case Msg Len</td>
+          <td rowspan="2" dir="ltr">Worst Case Msg Len</td>
+          <td rowspan="2" dir="ltr">Best Case BW (bits/sec)</td>
+          <td rowspan="2" dir="ltr">Worst Case BW (bits/sec)</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">Sender Node Name</td>
+          <td dir="ltr">Message Name</td>
+          <td dir="ltr">Base CAN ID</td>
+          <td dir="ltr">Replication Count</td>
+          <td dir="ltr">Deadline (ms)</td>
+          <td dir="ltr">Desc</td>
+          <td dir="ltr">Type</td>
+          <td dir="ltr">Range</td>
+          <td dir="ltr">Bit Len</td>
+          <td dir="ltr">Desc</td>
+          <td dir="ltr">Type</td>
+          <td dir="ltr">Range</td>
+          <td dir="ltr">Bit Len</td>
+          <td dir="ltr">Desc</td>
+          <td dir="ltr">Type</td>
+          <td dir="ltr">Range</td>
+          <td dir="ltr">Bit Len</td>
+        </tr>      
+      </thead>
+      <tbody>
+        <tr dir="ltr">
+          <td dir="ltr">Level Sensor</td>
+          <td dir="ltr">mLevel</td>
+          <td dir="ltr">0x0AE81400</td>
+          <td>2</td>
+          <td>10</td>
+          <td dir="ltr">level</td>
+          <td dir="ltr">boolean</td>
+          <td>2</td>
+          <td>1</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td>1</td>
+          <td>1</td>
+          <td>75</td>
+          <td>90</td>
+          <td>15000</td>
+          <td>18000</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">Door Reversal Sensor</td>
+          <td dir="ltr">mDoorReversal</td>
+          <td dir="ltr">0x0BE86400</td>
+          <td>4</td>
+          <td>10</td>
+          <td dir="ltr">door_reverse</td>
+          <td dir="ltr">boolean</td>
+          <td>2</td>
+          <td>1</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td>1</td>
+          <td>1</td>
+          <td>75</td>
+          <td>90</td>
+          <td>30000</td>
+          <td>36000</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">DriveControl</td>
+          <td dir="ltr">mDriveSpeed</td>
+          <td dir="ltr">0x0C4CB500</td>
+          <td>1</td>
+          <td>10</td>
+          <td dir="ltr">speed</td>
+          <td dir="ltr">integer (mm/s)</td>
+          <td>16384</td>
+          <td>14</td>
+          <td dir="ltr">direction</td>
+          <td dir="ltr">enum</td>
+          <td>3</td>
+          <td>2</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td>16</td>
+          <td>2</td>
+          <td>83</td>
+          <td>100</td>
+          <td>8300</td>
+          <td>10000</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">DriveControl</td>
+          <td dir="ltr">mDrive</td>
+          <td dir="ltr">0x0CB0B500</td>
+          <td>1</td>
+          <td>10</td>
+          <td dir="ltr">speed_cmd</td>
+          <td dir="ltr">enum</td>
+          <td>4</td>
+          <td>2</td>
+          <td dir="ltr">direction</td>
+          <td dir="ltr">enum</td>
+          <td>3</td>
+          <td>2</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td>4</td>
+          <td>1</td>
+          <td>75</td>
+          <td>90</td>
+          <td>7500</td>
+          <td>9000</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">DoorControl</td>
+          <td dir="ltr">mDoorMotor</td>
+          <td dir="ltr">0x0D14B800</td>
+          <td>4</td>
+          <td>10</td>
+          <td dir="ltr">door_cmd</td>
+          <td dir="ltr">enum</td>
+          <td>4</td>
+          <td>2</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td>2</td>
+          <td>1</td>
+          <td>75</td>
+          <td>90</td>
+          <td>30000</td>
+          <td>36000</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">Safety Sensor</td>
+          <td dir="ltr">mEmergencyBrake</td>
+          <td dir="ltr">0x0D781400</td>
+          <td>1</td>
+          <td>50</td>
+          <td dir="ltr">ebrake</td>
+          <td dir="ltr">boolean</td>
+          <td>2</td>
+          <td>1</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td>1</td>
+          <td>1</td>
+          <td>75</td>
+          <td>90</td>
+          <td>1500</td>
+          <td>1800</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">At Floor Sensor</td>
+          <td dir="ltr">mAtFloor</td>
+          <td dir="ltr">0x0DDC2800</td>
+          <td>10</td>
+          <td>50</td>
+          <td dir="ltr">at_floor</td>
+          <td dir="ltr">boolean</td>
+          <td>2</td>
+          <td>1</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td>1</td>
+          <td>1</td>
+          <td>75</td>
+          <td>90</td>
+          <td>15000</td>
+          <td>18000</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">CarPositionControl</td>
+          <td dir="ltr">mCarPositionIndicator</td>
+          <td dir="ltr">0x0E403C00</td>
+          <td>1</td>
+          <td>50</td>
+          <td dir="ltr">car_position</td>
+          <td dir="ltr">integer (floor num)</td>
+          <td>8</td>
+          <td>3</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td>3</td>
+          <td>1</td>
+          <td>75</td>
+          <td>90</td>
+          <td>1500</td>
+          <td>1800</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">Car Level Position Sensor</td>
+          <td dir="ltr">mCarLevelPosition</td>
+          <td dir="ltr">0x0EA43C00</td>
+          <td>1</td>
+          <td>50</td>
+          <td dir="ltr">car_level</td>
+          <td dir="ltr">integer (mm)</td>
+          <td>4294967296</td>
+          <td>32</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td>32</td>
+          <td>4</td>
+          <td>99</td>
+          <td>120</td>
+          <td>1980</td>
+          <td>2400</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">Dispatcher</td>
+          <td dir="ltr">mDesiredDwell</td>
+          <td dir="ltr">0x0F08B600</td>
+          <td>2</td>
+          <td>50</td>
+          <td dir="ltr">dwell</td>
+          <td dir="ltr">integer (s)</td>
+          <td>10</td>
+          <td>4</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td>4</td>
+          <td>1</td>
+          <td>75</td>
+          <td>90</td>
+          <td>3000</td>
+          <td>3600</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">Dispatcher</td>
+          <td dir="ltr">mDesiredFloor</td>
+          <td dir="ltr">0x0F09B600</td>
+          <td>1</td>
+          <td>50</td>
+          <td dir="ltr">floor</td>
+          <td dir="ltr">integer (floor num)</td>
+          <td>8</td>
+          <td>3</td>
+          <td dir="ltr">hallway</td>
+          <td dir="ltr">enum</td>
+          <td>4</td>
+          <td>2</td>
+          <td dir="ltr">direction</td>
+          <td dir="ltr">enum</td>
+          <td>3</td>
+          <td>2</td>
+          <td>5</td>
+          <td>1</td>
+          <td>75</td>
+          <td>90</td>
+          <td>1500</td>
+          <td>1800</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">Door Closed Sensor</td>
+          <td dir="ltr">mDoorClosed</td>
+          <td dir="ltr">0x0F0A5000</td>
+          <td>4</td>
+          <td>100</td>
+          <td dir="ltr">door_closed</td>
+          <td dir="ltr">boolean</td>
+          <td>2</td>
+          <td>1</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td>1</td>
+          <td>1</td>
+          <td>75</td>
+          <td>90</td>
+          <td>3000</td>
+          <td>3600</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">HallButtonControl</td>
+          <td dir="ltr">mHallCall</td>
+          <td dir="ltr">0x0F0BB900</td>
+          <td>20</td>
+          <td>100</td>
+          <td dir="ltr">hall_call</td>
+          <td dir="ltr">boolean</td>
+          <td>2</td>
+          <td>1</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td>1</td>
+          <td>1</td>
+          <td>75</td>
+          <td>90</td>
+          <td>15000</td>
+          <td>18000</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">CarButtonControl</td>
+          <td dir="ltr">mCarCall</td>
+          <td dir="ltr">0x0F0CBA00</td>
+          <td>10</td>
+          <td>100</td>
+          <td dir="ltr">car_call</td>
+          <td dir="ltr">boolean</td>
+          <td>2</td>
+          <td>1</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td>1</td>
+          <td>1</td>
+          <td>75</td>
+          <td>90</td>
+          <td>7500</td>
+          <td>9000</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">Car Weight Sensor</td>
+          <td dir="ltr">mCarWeight</td>
+          <td dir="ltr">0x0F0D7800</td>
+          <td>1</td>
+          <td>200</td>
+          <td dir="ltr">weight</td>
+          <td dir="ltr">integer (lbs)</td>
+          <td>65536</td>
+          <td>16</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td>16</td>
+          <td>2</td>
+          <td>83</td>
+          <td>100</td>
+          <td>415</td>
+          <td>500</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">Car Weight Alarm Sensor</td>
+          <td dir="ltr">mCarWeightAlarm</td>
+          <td dir="ltr">0x0F0E8C00</td>
+          <td>1</td>
+          <td>200</td>
+          <td dir="ltr">weight_alarm</td>
+          <td dir="ltr">boolean</td>
+          <td>2</td>
+          <td>1</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td>1</td>
+          <td>1</td>
+          <td>75</td>
+          <td>90</td>
+          <td>375</td>
+          <td>450</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">Door Opened Sensor</td>
+          <td dir="ltr">mDoorOpened</td>
+          <td dir="ltr">0x0F0EA000</td>
+          <td>4</td>
+          <td>200</td>
+          <td dir="ltr">door_open</td>
+          <td dir="ltr">boolean</td>
+          <td>2</td>
+          <td>1</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td>1</td>
+          <td>1</td>
+          <td>75</td>
+          <td>90</td>
+          <td>1500</td>
+          <td>1800</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">Hoistway Limit Sensor</td>
+          <td dir="ltr">mHoistwayLimit</td>
+          <td dir="ltr">0x0F0DB400</td>
+          <td>2</td>
+          <td>200</td>
+          <td dir="ltr">h_limit</td>
+          <td dir="ltr">boolean</td>
+          <td>2</td>
+          <td>1</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td>1</td>
+          <td>1</td>
+          <td>75</td>
+          <td>90</td>
+          <td>750</td>
+          <td>900</td>
+        </tr>
+        <tr dir="ltr">
+          <td dir="ltr">LanternControl</td>
+          <td dir="ltr">mCarLantern</td>
+          <td dir="ltr">0x0F0FBB00</td>
+          <td>2</td>
+          <td>200</td>
+          <td dir="ltr">lantern</td>
+          <td dir="ltr">boolean</td>
+          <td>2</td>
+          <td>1</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>0</td>
+          <td>1</td>
+          <td>1</td>
+          <td>75</td>
+          <td>90</td>
+          <td>750</td>
+          <td>900</td>
+        </tr>
+        <tr dir="ltr">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td dir="ltr">Total bw</td>
+          <td>144570</td>
+          <td>173550</td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+    Network Schedule Excel File:  <a href="network_schedule.xls">network_schedule.xls</a><br>
     <br>
     <h2>Simulation Analysis</h2>
     <br>
-    Compare theoretical and simulated results.<br>
+    Running the simulation with bandwidth of 60kbps, we obtain the results listed below.  
+    Multiplying the network bandwidth by the utilization gives us the actual bandwidth used:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;200 * 0.7512 = 150.24kbps<br>
+    This is between the best- and worst-case values predicted by our analysis.<br>
+    <br>
+    <code><pre>18649 Fall 2012 - Group 17
+Jesse Salazar (jessesal)
+Jessica Tiu (jtiu)
+Collin Buchan (cbuchan)
+Rajeev Sharma (rdsharma)
+
+Simulator Parameters:
+Command line = -head headerfile -b 200 -pf proj7acceptance1.pass
+RandomSeed = 1352596460562
+CanNetworkBitTime = 5000 ns
+Effective Can Bitrate = 199999.99999999997
+Run Time = null
+Real time rate = null
+Acceptance Test File = proj7acceptance1.pass
+
+STATISTICS FOR ELEVATOR SIMULATION PASSENGER DELIVERY
+-----------------------------------------------------
+
+
+These passengers were delivered:
+Passenger 0: INJECTED AT 600.0s and DELIVERED in 60.537s
+  Satisfaction score: 81.0
+    @657.577000000: 0.90 Repeated car call press
+    @658.077000000: 0.90 Repeated car call press
+Passenger 1: INJECTED AT 905.7s and DELIVERED in 45.856s
+  Satisfaction score: 81.0
+    @948.876000000: 0.90 Repeated car call press
+    @949.376000000: 0.90 Repeated car call press
+Passenger 2: INJECTED AT 974.6s and DELIVERED in 55.242s
+  Satisfaction score: 81.0
+    @1026.922000000: 0.90 Repeated car call press
+    @1027.422000000: 0.90 Repeated car call press
+Passenger 3: INJECTED AT 1531.4s and DELIVERED in 15.708s
+  Satisfaction score: 100.0
+Passenger 4: INJECTED AT 2082.0s and DELIVERED in 38.34s
+  Satisfaction score: 81.0
+    @2117.020000000: 0.90 Repeated car call press
+    @2117.520000000: 0.90 Repeated car call press
+Passenger 5: INJECTED AT 2217.5s and DELIVERED in 54.067s
+  Satisfaction score: 81.0
+    @2267.847000000: 0.90 Repeated car call press
+    @2268.347000000: 0.90 Repeated car call press
+Passenger 6: INJECTED AT 2805.4s and DELIVERED in 28.732s
+  Satisfaction score: 81.0
+    @2830.372000000: 0.90 Repeated car call press
+    @2830.872000000: 0.90 Repeated car call press
+Passenger 7: INJECTED AT 3269.2s and DELIVERED in 52.934s
+  Satisfaction score: 81.0
+    @3319.214000000: 0.90 Repeated car call press
+    @3319.714000000: 0.90 Repeated car call press
+Passenger 8: INJECTED AT 3705.3s and DELIVERED in 66.454s
+  Satisfaction score: 81.0
+    @3768.234000000: 0.90 Repeated car call press
+    @3768.734000000: 0.90 Repeated car call press
+Passenger 9: INJECTED AT 4204.2s and DELIVERED in 27.459s
+  Satisfaction score: 50.0
+    @4229.499000000: 0.50 Failed to exit at 7, FRONT even though the doors opened.
+Passenger 10: INJECTED AT 4487.2s and DELIVERED in 49.046s
+  Satisfaction score: 81.0
+    @4533.046000000: 0.90 Repeated car call press
+    @4533.546000000: 0.90 Repeated car call press
+Passenger 11: INJECTED AT 4917.5s and DELIVERED in 56.509s
+  Satisfaction score: 81.0
+    @4970.369000000: 0.90 Repeated car call press
+    @4970.869000000: 0.90 Repeated car call press
+Passenger 12: INJECTED AT 5104.0s and DELIVERED in 45.848s
+  Satisfaction score: 81.0
+    @5147.048000000: 0.90 Repeated car call press
+    @5147.548000000: 0.90 Repeated car call press
+Passenger 13: INJECTED AT 5553.4s and DELIVERED in 51.456s
+  Satisfaction score: 81.0
+    @5601.336000000: 0.90 Repeated car call press
+    @5601.836000000: 0.90 Repeated car call press
+Passenger 14: INJECTED AT 5713.7s and DELIVERED in 33.433s
+  Satisfaction score: 50.0
+    @5744.393000000: 0.50 Failed to exit at 7, BACK even though the doors opened.
+Passenger 15: INJECTED AT 6184.5s and DELIVERED in 66.486s
+  Satisfaction score: 81.0
+    @6247.546000000: 0.90 Repeated car call press
+    @6248.046000000: 0.90 Repeated car call press
+Passenger 16: INJECTED AT 6407.5s and DELIVERED in 70.826s
+  Satisfaction score: 81.0
+    @6475.326000000: 0.90 Repeated car call press
+    @6475.826000000: 0.90 Repeated car call press
+Passenger 17: INJECTED AT 6866.1s and DELIVERED in 47.708s
+  Satisfaction score: 81.0
+    @6910.928000000: 0.90 Repeated car call press
+    @6911.428000000: 0.90 Repeated car call press
+
+Passenger Delivery Summary
+Delivered: 18
+Stranded: 0
+Total: 18
+
+Deliver Stats (lower is better):
+Average_delivery_time: 48.147
+Maximum_delivery_time:  70.826
+Delivery_performance_score:  263.413
+
+Satisfaction Stats (higher is better):
+Average_satisfaction_score: 78.611
+Min_satisfaction_score:  50.000
+Satisfaction_performance_score:  364.444
+
+
+
+
+Network Utilization Summary:
+Recent: 75.12 % Max: 75.12 %  Overall:  75.12 %
+
+    </pre></code>
   </body>
 </html>
