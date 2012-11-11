@@ -5,10 +5,10 @@ Collin Buchan (cbuchan)
 Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
-Command line = -seed 8675309 -monitor Proj7RuntimeMonitor -head headerfile -pf basicpass.pass
+Command line = -gui -b 200 -seed 8675309 -monitor Proj7RuntimeMonitor -head headerfile -pf basicpass.pass
 RandomSeed = 8675309
-CanNetworkBitTime = 0 ns
-Effective Can Bitrate = Infinity
+CanNetworkBitTime = 5000 ns
+Effective Can Bitrate = 199999.99999999997
 Run Time = null
 Real time rate = null
 Acceptance Test File = basicpass.pass
@@ -19,10 +19,10 @@ STATISTICS FOR ELEVATOR SIMULATION PASSENGER DELIVERY
 
 
 These passengers were delivered:
-Passenger 0: INJECTED AT 1.0s and DELIVERED in 513.102s
+Passenger 0: INJECTED AT 1.0s and DELIVERED in 85.462s
   Satisfaction score: 81.0
-    @511.660000000: 0.90 Repeated car call press
-    @512.160000000: 0.90 Repeated car call press
+    @84.062000000: 0.90 Repeated car call press
+    @84.562000000: 0.90 Repeated car call press
 
 Passenger Delivery Summary
 Delivered: 1
@@ -30,9 +30,9 @@ Stranded: 0
 Total: 1
 
 Deliver Stats (lower is better):
-Average_delivery_time: 513.102
-Maximum_delivery_time:  513.102
-Delivery_performance_score:  2565.510
+Average_delivery_time: 85.462
+Maximum_delivery_time:  85.462
+Delivery_performance_score:  427.310
 
 Satisfaction Stats (higher is better):
 Average_satisfaction_score: 81.000
@@ -42,11 +42,14 @@ Satisfaction_performance_score:  405.000
 
 
 
+Network Utilization Summary:
+Recent: 75.12 % Max: 75.12 %  Overall:  75.12 %
+
 Monitors Warning Results: 
 RuntimeMonitor generated 0 warnings.
 
 Monitors Summmary Results: 
 Overweight count = 0
-Wasted openings count = 9
+Wasted openings count = 1
 Time dealing with door reversals = 0.0s
 
