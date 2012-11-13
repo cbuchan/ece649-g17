@@ -10,16 +10,18 @@ package simulator.elevatorcontrol;
 import jSimPack.SimTime;
 import simulator.framework.*;
 import simulator.payloads.AtFloorPayload.ReadableAtFloorPayload;
+import simulator.payloads.CarCallPayload.ReadableCarCallPayload;
 import simulator.payloads.CarWeightPayload.ReadableCarWeightPayload;
 import simulator.payloads.DoorClosedPayload.ReadableDoorClosedPayload;
 import simulator.payloads.DoorMotorPayload.ReadableDoorMotorPayload;
 import simulator.payloads.DoorOpenPayload.ReadableDoorOpenPayload;
 import simulator.payloads.DoorReversalPayload.ReadableDoorReversalPayload;
 import simulator.payloads.DriveSpeedPayload.ReadableDriveSpeedPayload;
+import simulator.payloads.HallCallPayload.ReadableHallCallPayload;
 
 /**
  * Runtime monitor for project 7.  Based on SamplePerformanceMonitor.
- * 
+ *
  * @author Rajeev Sharma (rdsharma)
  */
 public class Proj11RuntimeMonitor extends RuntimeMonitor {
@@ -30,6 +32,9 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
     DoorStateMachine doorState = new DoorStateMachine();
     WeightStateMachine weightState = new WeightStateMachine();
     Stopwatch doorReversalStopwatch = new Stopwatch();
+
+    RequirementT6StateMachine rT6 = new RequirementT6StateMachine();
+
     boolean hasMoved = false;
     boolean wasOverweight = false;
     int overWeightCount = 0;
@@ -60,6 +65,7 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
      **************************************************************************/
     /**
      * Called once when the door starts opening
+     *
      * @param hallway which door the event pertains to
      */
     private void doorOpening(Hallway hallway) {
@@ -87,6 +93,7 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
 
     /**
      * Called once when the door starts closing
+     *
      * @param hallway which door the event pertains to
      */
     private void doorClosing(Hallway hallway) {
@@ -96,6 +103,7 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
     /**
      * Called once if the door starts opening after it started closing but before
      * it was fully closed.
+     *
      * @param hallway which door the event pertains to
      */
     private void doorReopening(Hallway hallway) {
@@ -104,6 +112,7 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
 
     /**
      * Called once when the doors close completely
+     *
      * @param hallway which door the event pertains to
      */
     private void doorClosed(Hallway hallway) {
@@ -125,6 +134,7 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
 
     /**
      * Called once when the doors are fully open
+     *
      * @param hallway which door the event pertains to
      */
     private void doorOpened(Hallway hallway) {
@@ -133,6 +143,7 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
 
     /**
      * Called when the car weight changes
+     *
      * @param newWeight an incoming weight sensor value
      */
     private void weightChanged(int newWeight) {
@@ -144,8 +155,9 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
 
     /**
      * Called when a new door reversal occurs
+     *
      * @param hallway which door the event pertains to
-     * @param side which door the event pertains to
+     * @param side    which door the event pertains to
      */
     private void doorReversalStarted(Hallway hallway, Side side) {
         // System.out.println(hallway.toString() + " " + side.toString()
@@ -158,19 +170,22 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
 
     /**
      * Called when a new door reversal ends
+     *
      * @param hallway which door the event pertains to
-     * @param side which door the event pertains to
+     * @param side    which door the event pertains to
      */
     private void doorReversalEnded(Hallway hallway, Side side) {
         // System.out.println(hallway.toString() + " " + side.toString()
         //         + " Door Reversal Ended");
     }
 
-    /**************************************************************************
+    /**
+     * ***********************************************************************
      * low level message receiving methods
-     * 
+     * <p/>
      * These mostly forward messages to the appropriate state machines
-     **************************************************************************/
+     * ************************************************************************
+     */
     @Override
     public void receive(ReadableAtFloorPayload msg) {
         atFloorState.receive(msg);
@@ -202,17 +217,58 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
     }
 
     @Override
+    public void receive(ReadableHallCallPayload msg) {
+        rT6.receive(msg);
+    }
+
+    @Override
+    public void receive(ReadableCarCallPayload msg) {
+
+    }
+
+    @Override
     public void receive(ReadableDriveSpeedPayload msg) {
         if (msg.speed() > 0) {
             hasMoved = true;
         }
+        if (hasMoved) {
+            rT6.receive(msg);
+        }
+    }
+
+    /**
+     * HIGH LEVEL REQUIREMENTS STATE CHARTS **
+     */
+
+    /* R-T6: The Car shall only stop at Floors for which there are pending calls. */
+    private class RequirementT6StateMachine {
+
+        // Java initializes boolean values to false
+        private boolean[] pendingCalls = new boolean[Elevator.numFloors];
+
+        public void receive(ReadableDriveSpeedPayload msg) {
+
+        }
+
+        public void receive(ReadableHallCallPayload msg) {
+            pendingCalls[msg.getFloor() - 1] = true;
+        }
+
+        public void receive(ReadableCarCallPayload msg) {
+            pendingCalls[msg.getFloor() - 1] = true;
+        }
+
+    }
+
+    private class PendingCallsStateMachine {
+
     }
 
     /**
      * Utility class for keeping track of the state of AtFloor.  Provides
      * external methods that can be queried to determine the floor and hallway
      * the elevator is currently at.
-     *
+     * <p/>
      * Currently only updates internal state and does not call any state change
      * handler functions.
      */
@@ -226,21 +282,21 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
             if (msg.getFloor() == oldFloor) {
                 // Additional door opening
                 if (msg.getValue() == true) {
-                    if ( ( oldHallway == Hallway.FRONT &&
-                            msg.getHallway() == Hallway.BACK )
-                            || ( oldHallway == Hallway.BACK &&
-                            msg.getHallway() == Hallway.FRONT ) ) {
+                    if ((oldHallway == Hallway.FRONT &&
+                            msg.getHallway() == Hallway.BACK)
+                            || (oldHallway == Hallway.BACK &&
+                            msg.getHallway() == Hallway.FRONT)) {
                         oldHallway = Hallway.BOTH;
                     } else {
                         oldHallway = msg.getHallway();
                     }
-                // Leaving floor
+                    // Leaving floor
                 } else {
                     // Simple case
                     if (msg.getHallway() == oldHallway) {
                         oldHallway = Hallway.NONE;
                         oldFloor = MessageDictionary.NONE;
-                    // Handle weirder cases
+                        // Handle weirder cases
                     } else if (oldHallway == Hallway.BOTH) {
                         if (msg.getHallway() == Hallway.FRONT) {
                             oldHallway = Hallway.BACK;
@@ -252,7 +308,7 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
                         }
                     }
                 }
-            // Arriving at new floor
+                // Arriving at new floor
             } else if (msg.getValue() == true) {
                 oldFloor = msg.getFloor();
                 oldHallway = msg.getHallway();
@@ -309,7 +365,7 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
             if (msg.isReversing() == true && state[h][s] == false) {
                 state[h][s] = true;
                 doorReversalStarted(hall, side);
-            // Reversal ending
+                // Reversal ending
             } else if (msg.isReversing() == false && state[h][s] == true) {
                 state[h][s] = false;
                 doorReversalEnded(hall, side);
@@ -324,7 +380,7 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
 
     /**
      * Utility class for keeping track of the door state.
-     * 
+     * <p/>
      * Also provides external methods that can be queried to determine the
      * current door state.
      */
@@ -539,6 +595,7 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
         /**
          * subclasses should overload this to make something happen when the event
          * occurs.
+         *
          * @param newState
          */
         public abstract void eventOccurred(boolean newState);
