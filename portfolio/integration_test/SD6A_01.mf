@@ -20,14 +20,16 @@
 ;Car is at hallway [f, b].
 ;All elevator doors are closed.
 
-0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
-0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
-0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
-0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
++0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
++0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
++0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
++0s  I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
 
-;elevator is approaching desired floor
-0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 5 FRONT STOP
-0s  I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT = 1
+;elevator is stopped at floor f
++0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 4 FRONT STOP
++0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
++0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
++0.0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 15000
 
 ;========================================================================
 ;1. mAtFloor[f,b] is set to True.
@@ -39,8 +41,12 @@
 ;2. CarPositionControl indicates a car position at floor f.
 ;========================================================================
 ;arc 2.
-+0.1s A N CAR_POSITION_CAN_ID Integer : getValue == 4
-+0.1s A F CarPositionIndicator : floor == 4
+
++0.5s A F CarPositionIndicator : floor == 4
++0.1s A N CAR_POSITION_CAN_ID CarPositionIndicator : getFloor == 4
+
++0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 5 FRONT STOP
++0s  I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT = 1
 
 ;========================================================================
 ;3. Car begins moving towards floor g at speed Slow.
@@ -55,65 +61,62 @@
 ;arc 4a, 4b.
 +0.1s	I  AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = false
 
-;arc 5a.
-+0.0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 4301
+;========================================================================
+;5. Drive begins accelerating to Fast speed.
+;========================================================================
++0.0s I DRIVE_PERIOD F DriveSpeed = UP 0.22
 
-;========================================================================
-;5. CarPositionControl calculates a new commit point g and sets CarPositionIndicator.
-;========================================================================
 ;arc 3b.
-;+0.0s I DRIVE_PERIOD F DriveSpeed = UP 0.22
-
-;arc 5a.
-;+0.0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 4801
-
-;arc 5b.
-+0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed > 0.05
-+0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed <= 0.25
-
-;arc 5c.
-+0.1s A N CAR_POSITION_CAN_ID Integer : getValue == 5
-+0.1s A F CarPositionIndicator : floor == 5
-
-;========================================================================
-;6. Drive begins accelerating to Fast speed.
-;========================================================================
 +0s I DRIVE_PERIOD F DriveSpeed = UP 0.25
 
-;arc 6.
-+0.41s  A  F Drive : speed == FAST
-+0s     A  F Drive : direction == UP
+;arc 5.
++0.8s  A  F Drive : speed == FAST
++0s    A  F Drive : direction == UP
 
 ;========================================================================
-;7. Drive reaches FastSpeed (** may not ever reach MaxSpeed before needing to slow down **).
+;6. Drive reaches FastSpeed (** may not ever reach MaxSpeed before needing to slow down **).
 ;========================================================================
-;arc 7.
+;arc 6.
 +0s I DRIVE_PERIOD F DriveSpeed = UP 1.0
 
 ;========================================================================
-;8. DriveControl determines the commit point for floor g has been reached using the values of mCarLevelPosition and DriveSpeed.
+;7. DriveControl determines the commit point for floor g has been reached using the values of mCarLevelPosition and DriveSpeed.
 ;========================================================================
-;arc 8.
-+0.1s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 4501
+;arc 7a, 7b.
++0.1s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 19190
 
 ;========================================================================
-;9. DriveControl decelerates by commanding Drive to Slow.
+;8. DriveControl decelerates by commanding Drive to Slow.
 ;========================================================================
-;arc 9.
+;arc 8.
 +0.41s  A  F Drive : speed == SLOW
 +0s     A  F Drive : direction == UP
+
+;========================================================================
+;9. CarPositionControl calculates a new commit point g and sets CarPositionIndicator.
+;========================================================================
+;arc 9a.
++0.5s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed > 0.05
++0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed <= 1.0
+
+;arc 9b.
++0.1s A N CAR_POSITION_CAN_ID CarPositionIndicator : getFloor == 5
++0.1s A F CarPositionIndicator : floor == 5
 
 ;========================================================================
 ;10. Car reaches floor g and mAtFloor[g,c] is set to True.
 ;========================================================================
 ;arc 10a, 10b.
 +0.1s	I  AT_FLOOR_PERIOD N AT_FLOOR_[5][FRONT]_CAN_ID AtFloor 5 FRONT = true
+;elevator is stopped at floor g
++0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 5 FRONT STOP
++0s I DRIVE_PERIOD F DriveSpeed = STOP 0.0
 
 ;========================================================================
 ;11. CarPositionControl indicates a car position at floor g.
 ;========================================================================
 ;arc 11.
-+0.1s   A   N CAR_POSITION_CAN_ID Integer : getValue == 5
++0.1s   A   N CAR_POSITION_CAN_ID CarPositionIndicator : getFloor == 5
 +0.1s A F CarPositionIndicator : floor == 5
 
 ;========================================================================
@@ -132,7 +135,6 @@
 +0.21s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
 +0s     I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
 
-+0s	    I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 1 BOTH STOP
 +0s     I DOOR_CONTROL_PERIOD N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT = 1
 
 ;arc 13b.

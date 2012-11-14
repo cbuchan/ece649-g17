@@ -67,12 +67,20 @@ href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scena
 href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">
               - </a><a
 href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">R-T6;
+
+
+
+
             </a><a
 href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">R-T7</a></li>
           <li><a href="#scenario8c">Scenario 8C </a><a
 href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">-
             </a><a
 href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">R-T6;
+
+
+
+
             </a><a
 href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">R-T7</a>
           </li>
@@ -384,9 +392,13 @@ href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scena
       <a href="sd4a.png">
         <div align="center">
           <hr align="center" size="2" width="100%"> </div>
-        <p>&nbsp;  </p>
+        <p>&nbsp; </p>
       </a>
       <h2><a href="sd4a.png"> </a><a name="usecase5" id="usecase5"></a>Use
+
+
+
+
 
 
 
@@ -406,6 +418,10 @@ href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scena
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to enter and is nudged by Door[<b>b</b>,<b>r</b>],
+
+
+
+
 
 
 
@@ -451,6 +467,10 @@ triggering
 
 
 
+
+
+
+
           the door reversal sensors.</li>
         <li>A door reversal occurs for Door[<b>b</b>,<b>r</b>].</li>
         <li>Door[<b>b</b>,<b>r</b>] finishes opening.</li>
@@ -489,32 +509,27 @@ triggering
       </ul>
       <h3> Scenario: </h3>
       <ol>
-        <li>mAtFloor[<b>f,b</b>] is set to True.</li>
-        <li>CarPositionControl indicates a car position at floor <b>f</b>.</li>
-        <li>Car begins moving towards floor <b>g </b>at speed Slow.</li>
-        <li>AtFloor[<b>f,b</b>] is set to False as it passes hallway
+      </ol>
+      <ol>
+        <li> mAtFloor[<b>f,b</b>] is set to True.</li>
+        <li> CarPositionControl indicates a car position at floor <b>f</b>.</li>
+        <li> Car begins moving towards floor <b>g </b>at speed Slow.</li>
+        <li> AtFloor[<b>f,b</b>] is set to False as it passes hallway
           [f,b].</li>
-        <li>CarPositionControl calculates a new commit point <b>g</b>
-          and sets CarPositionIndicator.<br>
-        </li>
-        <li>Drive begins accelerating to Fast speed.</li>
-        <li>Drive reaches FastSpeed (** may not ever reach MaxSpeed
-          before needing to slow down **).<br>
-        </li>
-        <li>DriveControl determines the commit point for floor <b>g</b>
+        <li> Drive begins accelerating to Fast speed.</li>
+        <li> Drive reaches FastSpeed (** may not ever reach MaxSpeed
+          before needing to slow down **).</li>
+        <li> DriveControl determines the commit point for floor <b>g</b>
           has been reached using the values of mCarLevelPosition and
-          DriveSpeed.<br>
-        </li>
-        <li>DriveControl decelerates by commanding Drive to Slow. <br>
-        </li>
-        <li>Car reaches floor <b>g</b> and mAtFloor[<b>g,c]</b> is set
+          DriveSpeed.</li>
+        <li> DriveControl decelerates by commanding Drive to Slow. </li>
+        <li> CarPositionControl calculates a new commit point <b>g</b>
+          and sets CarPositionIndicator.</li>
+        <li> Car reaches floor <b>g</b> and mAtFloor[<b>g,c]</b> is set
           to True.</li>
-        <li>CarPositionControl indicates a car position at floor <b>g</b>.<br>
-        </li>
-        <li>Car levels to prepare for stop.<br>
-        </li>
-        <li>Car stops. <br>
-        </li>
+        <li> CarPositionControl indicates a car position at floor <b>g</b>.</li>
+        <li> Car levels to prepare for stop.</li>
+        <li> Car stops. </li>
       </ol>
       <h3> Post-Conditions: </h3>
     </div>
@@ -525,10 +540,10 @@ triggering
     </ul>
     <div class="Section1">
       <h3> Sequence Diagram: </h3>
-      <img alt="sd6a" src="sd6a.png" height="685" width="1176"><br>
+      <img alt="sd6a" src="sd6a.png" height="571" width="980"><br>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
-      <p>&nbsp;  </p>
+      <p>&nbsp; </p>
       <h2> <a name="usecase7" id="usecase7"></a>Use Case 7: Determine
         Car Direction </h2>
       <h3> <a name="scenario7a" id="scenario7a"></a>Scenario 7A:
@@ -627,7 +642,7 @@ triggering
       <img alt="sd7c" src="sd7c.png"><br>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
-      <p>&nbsp;  </p>
+      <p>&nbsp; </p>
       <h2> <a name="usecase8" id="usecase8"></a>Use Case 8: Move Car to
         Next Floor </h2>
       <h3> <a name="scenario8a"></a>Scenario 8A: Elevator moves from
@@ -744,7 +759,7 @@ triggering
       <br>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
-      <p>&nbsp;  </p>
+      <p>&nbsp; </p>
       <h2> <a name="usecase9" id="usecase9"></a>Use Case 9: Cycle Doors
       </h2>
       <h3> </h3>
@@ -762,8 +777,8 @@ triggering
       </ul>
       <h3> Scenario: </h3>
       <ol>
-        <li>CarLantern[d] turns on before new direction is computed.</li>
         <li>Door[<b>b</b>,<b>*</b>] starts to open.</li>
+        <li>CarLantern[d] turns on before new direction is computed.</li>
         <li>Dispatcher computes next desired floor.</li>
         <li>Dispatcher computes desired dwell.<br>
         </li>
