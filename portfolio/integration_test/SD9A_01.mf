@@ -22,29 +22,27 @@
 
 ;DoorControl in closed state
 ;Dispatcher in RESET state
-+0s	I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
+0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
+0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
+0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
+0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
+0s     I DRIVE_PERIOD N DRIVE_SPEED_CAN_ID DriveSpeed = 0.0 STOP
+0s     I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 0
+0s     I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
 
-+0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
-+0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
-+0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
-+0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
++0.25s  I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[2][BACK][UP]_CAN_ID TinyBoolean = true
++0s  I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[3][FRONT][UP]_CAN_ID TinyBoolean = true
+
++0.10s  I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = false
++0.10s  I AT_FLOOR_PERIOD N AT_FLOOR_[2][BACK]_CAN_ID AtFloor 2 BACK = true
++0s     I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 5000
+
++0.10s  I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[2][BACK][UP]_CAN_ID TinyBoolean = false
 
 ;========================================================================
-; 1. CarLantern[d] turns on before new direction is computed.
+; 1. Door[b,r] starts to open.
 ;========================================================================
-+0.5s A F CarLantern UP : lighted == true
-+0s   A F CarLantern DOWN : lighted == false
-
-+0s  I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[2][BACK][UP]_CAN_ID TinyBoolean = true
-
-;========================================================================
-; 2. Door[b,r] starts to open.
-;========================================================================
-;Elevator travels up to f=2
-+0.25s  I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = false
-+0.25s  I AT_FLOOR_PERIOD N AT_FLOOR_[2][BACK]_CAN_ID AtFloor 2 BACK = true
-
-;arc 2. check door motor open <-- DoorControl
+;arc 1. check door motor open <-- DoorControl
 +0.5s A S DoorControl[BACK][RIGHT] : STATE == STATE_DOOR_OPENING
 +0s   A F DoorMotor BACK RIGHT : command == OPEN
 
@@ -53,15 +51,22 @@
 +0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = false
 
 ;========================================================================
+; 2. CarLantern[d] turns on before new direction is computed.
+;========================================================================
+;arc 2.
++0.5s A F CarLantern UP : lighted == true
++0s   A F CarLantern DOWN : lighted == false
+
+;========================================================================
 ; 3. Dispatcher computes next desired floor.
 ;========================================================================
-;Target set to f=4
+;Target set to f=3
 +0.5s I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[2][BACK][UP]_CAN_ID TinyBoolean = false
-+0s   I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[4][FRONT][UP]_CAN_ID TinyBoolean = true
++0s   I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[3][FRONT][UP]_CAN_ID TinyBoolean = true
 
 ;arc 4. check network message desired floor is sent by dispatcher
 
-+0.5s A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 4
++0.5s A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 3
 +0s	  A	N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == UP
 +0s	  A	N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == FRONT
 
@@ -110,7 +115,7 @@
 +0s I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
 
 ;arc 11. check framework message door motor close from DoorControl
-+0s   A F DoorMotor BACK RIGHT : command == STOP
++0.5s   A F DoorMotor BACK RIGHT : command == STOP
 +0s   A N DOOR_MOTOR_COMMAND_[BACK][RIGHT]_CAN_ID DoorMotorCommand BACK RIGHT : getCommand == STOP
 +0s   A F DoorMotor BACK LEFT : command == STOP
 +0s   A N DOOR_MOTOR_COMMAND_[BACK][LEFT]_CAN_ID DoorMotorCommand BACK LEFT : getCommand == STOP
@@ -118,6 +123,7 @@
 ;arc 12. car lantern turns off
 +0.5s A F CarLantern UP : lighted == false
 +0s   A F CarLantern DOWN : lighted == false
+
 
 ;========================================================================
 ;Post Conditions
