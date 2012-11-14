@@ -176,7 +176,7 @@ public class HallButtonControl extends Controller {
 
                 //transitions -- note that transition conditions are mutually exclusive
                 //#transition 'T8.2'
-                if (networkDoorClosed.getAllClosed() == false && mAtFloor.getValue() == true && mDesiredFloor.getFloor() == floor &&
+                if (mAtFloor.getValue() == true && mDesiredFloor.getFloor() == floor &&
                         (mDesiredFloor.getDirection() == Direction.STOP || mDesiredFloor.getDirection() == direction)) {
                     newState = State.STATE_HALL_CALL_OFF;
                 } else {

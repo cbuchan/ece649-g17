@@ -47,10 +47,9 @@
 ;========================================================================
 ;4. Hall button lights up.
 ;========================================================================
-;arc 4
+;arc 4a, 4b
 +0.21s  A  F HallLight 4 FRONT DOWN : lighted == true
-+0s     A  N HALL_LIGHT_[4][FRONT][DOWN]_CAN_ID TinyBoolean : getValue == true
-
++0s	    A  N HALL_CALL_[4][FRONT][DOWN]_CAN_ID TinyBoolean : getValue == true
 
 ;========================================================================
 ;5. Dispatcher updates mDesiredFloor to f, b, d. 
@@ -74,11 +73,12 @@
 ;========================================================================
 ;6. Hall button turns off.
 ;========================================================================
-+0.1s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
-
 ;arc 6a, 6b
-+1s     A  F HallLight 4 FRONT DOWN : lighted == false
-+0s     A  N HALL_LIGHT_[4][FRONT][DOWN]_CAN_ID TinyBoolean : getValue == false
++0.5s     A  F HallLight 4 FRONT DOWN : lighted == false
++0s	    A  N HALL_CALL_[4][FRONT][DOWN]_CAN_ID TinyBoolean : getValue == false
+
++0.1s   I  DRIVE_PERIOD N DRIVE_SPEED_CAN_ID DriveSpeed = 0.0 STOP
+
 
 ;========================================================================
 ;7. Doors open.
@@ -86,7 +86,8 @@
 
 ;arc 7a, 7b, 7c
 +0.41s  A  F DoorMotor FRONT LEFT : command == OPEN
-+0.1s  I  DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
++0.1s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
++0.1s   I  DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
 +0.41s  A  F DoorMotor FRONT LEFT : command == STOP
 
 ;========================================================================

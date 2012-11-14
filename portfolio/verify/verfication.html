@@ -15,10 +15,34 @@
     Jessica Tiu (jtiu)<br>
     Rajeev Sharma (rdsharma)
     <hr style="width: 100%; height: 2px;">
-    <h2>Verification Framework Description<br>
-    </h2>
-    Add description of verification approach here<br>
+  <h2>Verification Framework Description</h2>
+  <p>High Level Requirements<br>
+    <strong>R-T6: The Car shall only stop at Floors for which there are pending
+  calls.</strong><br>
+State Chart </p>
+  <p>&nbsp;</p>
+  <p><img src="SC_R_T6.png" width="657" height="346" alt="R-T6"><br>
+      R-T7: The Car shall only open Doors at Hallways for which there are
+      pending calls.<br>
+      R-T8: The Car Lanterns shall be use in a way that does not confuse
+  passengers. </p>
+  <ul>
+      <li>R-T8.1: If any door is open at a hallway and there are any
+        pending calls at any other floor(s), a Car Lantern shall turn
+    on.</li>
+      <li>R-T8.2: If one of the car lanterns is lit, the direction
+        indicated shall not change while the doors are open.</li>
+      <li>R-T8.3: If one of the car lanterns is lit, the car shall
+        service any calls in that direction first.</li>
+  </ul>
+  <p>R-T9: The Drive shall be commanded to fast speed to the maximum
+    degree practicable.<br>
+R-T10: For each stop at a floor, at least one door reversal shall
+  have occured before the doors are commanded to nudge.</p>
+  <p>&nbsp;</p>
+  <p> Add description of verification approach here<br>
     <br>
+  </p>
     <h2>Verification Instructions</h2>
     <br>
     Add instructions here<br>

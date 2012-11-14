@@ -47,7 +47,6 @@
 ;========================================================================
 ;arc 4
 +0.21s  A  F HallLight 4 FRONT DOWN : lighted == true
-+0s     A  N HALL_LIGHT_[4][FRONT][DOWN]_CAN_ID TinyBoolean : getValue == true
 
 ;========================================================================
 ;5. Doors complete closing.
