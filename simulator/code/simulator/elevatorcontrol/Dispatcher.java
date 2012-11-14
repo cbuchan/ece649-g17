@@ -242,7 +242,7 @@ public class Dispatcher extends Controller {
                 targetFloor = computeNextFloor(commitPoint, direction);
 
                 //set the target Hallway to be as many floors as are called for
-                targetHallway = getLitHallways(targetFloor, direction);
+                targetHallway = getHallways(targetFloor, Direction.STOP);
 
                 mDesiredFloor.setFloor(targetFloor);
                 mDesiredFloor.setHallway(targetHallway);
@@ -253,9 +253,6 @@ public class Dispatcher extends Controller {
 
 
                 //#transition 'T11.3'
-//                if (networkAtFloorArray.getCurrentFloor() == targetFloor) {
-//                    newState = State.STATE_SERVICE_CALL;
-//                }
                 if (commitPoint == targetFloor) {
                     newState = State.STATE_SERVICE_CALL;
                 }
@@ -298,10 +295,6 @@ public class Dispatcher extends Controller {
             default:
                 throw new RuntimeException("State " + state + " was not recognized.");
         }
-
-//        System.out.println("CommitPoint: " + commitPoint);
-//        System.out.println(
-//                "State: " + state + " " + mDesiredFloor.getFloor() + " " + mDesiredFloor.getHallway() + " " + mDesiredFloor.getDirection());
 
         //log the results of this iteration
         if (state == newState) {
@@ -513,6 +506,14 @@ public class Dispatcher extends Controller {
         return floor <= maxFloor && floor >= 1;
     }
 
+    private Hallway getHallways(int targetFloor, Direction direction) {
+        if (getLitHallways(targetFloor, direction) == Hallway.NONE) {
+            return getLitHallways(targetFloor, Direction.STOP);
+        } else {
+            return getLitHallways(targetFloor, direction);
+        }
+    }
+
     /*
     * For a given floor, returns all hallways for which a valid call has been lit.
     */
@@ -545,12 +546,12 @@ public class Dispatcher extends Controller {
         } else {
             desiredHallway = Hallway.NONE;
         }
-
         return desiredHallway;
     }
 
+
     private int computeCommitPoint() {
-        if (networkAtFloorArray.getCurrentFloor() != MessageDictionary.NONE) {
+        if (networkAtFloorArray.getCurrentFloor() != MessageDictionary.NONE && mDriveSpeed.getSpeed() <= 0.05) {
             return networkAtFloorArray.getCurrentFloor();
         } else {
             return commitPointCalculator.nextReachableFloor(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());

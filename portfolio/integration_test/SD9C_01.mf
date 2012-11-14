@@ -68,7 +68,9 @@
 +0.25s  A S Dispatcher : STATE == STATE_SERVICE_CALL
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 7
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == BOTH
-+0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == UP
++0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
+
++0.5s	I DRIVE_PERIOD N DRIVE_SPEED_CAN_ID DriveSpeed = 0 STOP
 
 ;========================================================================
 ;3. Both doors open.
