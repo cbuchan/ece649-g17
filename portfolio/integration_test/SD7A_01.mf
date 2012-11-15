@@ -25,10 +25,11 @@
 ; drive in STOP
 +0s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID   Leveling UP = true
 +0s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
-+0s	I DISPATCHER_PERIOD   N DESIRED_FLOOR_CAN_ID       DesiredFloor = 2 BACK STOP 
 
 ;f=2, b=BACK
 +0s I AT_FLOOR_PERIOD N AT_FLOOR_[2][BACK]_CAN_ID AtFloor 2 BACK = true
++0s   I  DRIVE_PERIOD N DRIVE_SPEED_CAN_ID DriveSpeed = 0.0 STOP
+
 
 ; doors all closed
 +0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
@@ -46,6 +47,10 @@
 ;========================================================================
 ; hall call at f,b,d = 2,BACK,UP
 +0s	I HALL_BUTTON_CONTROL_PERIOD F HallCall 2 BACK UP = true
++0s	I HALL_BUTTON_CONTROL_PERIOD F HallCall 4 FRONT UP = true
+
++0s	I DISPATCHER_PERIOD   N DESIRED_FLOOR_CAN_ID       DesiredFloor = 2 BACK UP
+
 
 ; arc 1a. check door motor opening <-- DoorControl
 +0.5s A S DoorControl[BACK][LEFT] : STATE == STATE_DOOR_OPENING

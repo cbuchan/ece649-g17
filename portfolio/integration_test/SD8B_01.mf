@@ -22,7 +22,7 @@
 
 ;desired direction not stop
 +0s I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
-+0s I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[6][FRONT][UP]_CAN_ID TinyBoolean = true
++0s I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[5][FRONT][UP]_CAN_ID TinyBoolean = true
 
 ;door closed true
 +0s I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
@@ -36,8 +36,10 @@
 +0s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID   Leveling UP = true
 +0s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
 
++0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 11000
+
 ; drive in SLOW
-+0.5s A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 6
++0.5s A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 5
 +0s  A S DriveControl : STATE == STATE_DRIVE_SLOW
 
 ;========================================================================
@@ -45,57 +47,64 @@
 ;    button for direction d.
 ;========================================================================
 ;arc 1a, 1b. hallcall framework message insertion
-+0s  I  HALL_BUTTON_CONTROL_PERIOD F HallCall 6 FRONT UP = true
++0s  I  HALL_BUTTON_CONTROL_PERIOD F HallCall 4 FRONT UP = true
++0.1s  I  HALL_BUTTON_CONTROL_PERIOD F HallCall 4 FRONT UP = false
+
 
 ;arc 1c. hallcall network message check
-+0.5s A N HALL_CALL_[6][FRONT][UP]_CAN_ID TinyBoolean : getValue == true
++0.5s A N HALL_CALL_[4][FRONT][UP]_CAN_ID TinyBoolean : getValue == true
 
 ;========================================================================
 ; 2. The hall call button for h,e lights up.
 ;========================================================================
 ;arc 2. hallLight framework message check
-+0.5s  A F HallLight 6 FRONT UP : lighted == true
++0.5s  A F HallLight 4 FRONT UP : lighted == true
 
 ;========================================================================
 ; 3. Dispatcher calculates the commit point for (h,e) and determines that
 ;   the car is able to stop in time to service the hall call.
 ;========================================================================
 ;arc 3a. send car position within commit point
-;position corresponds to x=24m, or f=5.8 (commit point is at f=6, or x=25m)
+;position corresponds to x=20m, or f=4.8 (commit point is at f=5, or x=20m)
 +0.5s I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = false
-+0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 24000
++0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 11500
 
 ;insert framework drivespeed for the commit point calculation in drivecontrol
 +0s I DRIVE_PERIOD F DriveSpeed = UP 1.0
 
 ;arc 3b. check mdrivespeed is >level, d
 +0.5s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed >= 0.25
-+0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == FAST
++0s	    A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == FAST
 
 ;========================================================================
 ; 4. The Dispatcher revises mDesiredFloor to be (h,e,d).
 ;========================================================================
 ;arc 4. check mdesiredfloor
-+0s A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 6
++0s A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 4
 
 ;========================================================================
 ; 5. Drive begins decelerating to Slow speed. *only if Drive was
 ;    initially Fast.
 ;========================================================================
 ;arc 5. check drivecontrol sends framework drive message
-+0s	A F Drive : speed == SLOW
++0.1s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 14000
+
++0.1s	A F Drive : speed == SLOW
+
++0.1s I DRIVE_PERIOD F DriveSpeed = UP 0.25
+
 
 ;========================================================================
 ; 6. The car reaches floor (h,e). AtFloor[h,e] is set to TRUE.
 ;========================================================================
 ;arc 6a, 6b, 6c. insert atfloor true
-+0s I AT_FLOOR_PERIOD N AT_FLOOR_[6][FRONT]_CAN_ID AtFloor 6 FRONT = true
++0.1s I AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
 
 ;========================================================================
 ; 7. The hall call button for h,e turns off.
 ;========================================================================
 ;arc 7. check hallLight turns off
-+0.5s  A F HallLight 6 FRONT UP : lighted == false
++0.5s  A F HallLight 4 FRONT UP : lighted == false
 
 ;========================================================================
 ; 8. DriveControl levels the car.
@@ -107,6 +116,8 @@
 +0.5s  A S DriveControl : STATE == STATE_DRIVE_LEVEL
 +0s  A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == LEVEL
 
++0.1s I DRIVE_PERIOD F DriveSpeed = UP 0.05
+
 ;arc 8b. level sensors both true
 +0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
 +0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
@@ -114,6 +125,9 @@
 ;arc 8c. check drivecontrol framework drive message -> stop
 +0.5s  A S DriveControl : STATE == STATE_DRIVE_STOPPED
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == STOP
+
++0.1s I DRIVE_PERIOD F DriveSpeed = STOP 0
+
 
 ;========================================================================
 ; 9. The doors open.
