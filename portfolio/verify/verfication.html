@@ -15,34 +15,450 @@
     Jessica Tiu (jtiu)<br>
     Rajeev Sharma (rdsharma)
     <hr style="width: 100%; height: 2px;">
-  <h2>Verification Framework Description</h2>
-  <p>High Level Requirements<br>
-    <strong>R-T6: The Car shall only stop at Floors for which there are pending
-  calls.</strong><br>
-State Chart </p>
-  <p>&nbsp;</p>
-  <p><img src="SC_R_T6.png" width="657" height="346" alt="R-T6"><br>
-      R-T7: The Car shall only open Doors at Hallways for which there are
+    <h2>Verification Framework Description</h2>
+    <p><b>High Level Requirements</b>: <br>
+      R-T6: The Car shall only stop at Floors for which there are
       pending calls.<br>
+      R-T7: The Car shall only open Doors at Hallways for which there
+      are pending calls.<br>
       R-T8: The Car Lanterns shall be use in a way that does not confuse
-  passengers. </p>
-  <ul>
+      passengers. </p>
+    <ul>
       <li>R-T8.1: If any door is open at a hallway and there are any
         pending calls at any other floor(s), a Car Lantern shall turn
-    on.</li>
+        on.</li>
       <li>R-T8.2: If one of the car lanterns is lit, the direction
         indicated shall not change while the doors are open.</li>
       <li>R-T8.3: If one of the car lanterns is lit, the car shall
         service any calls in that direction first.</li>
-  </ul>
-  <p>R-T9: The Drive shall be commanded to fast speed to the maximum
-    degree practicable.<br>
-R-T10: For each stop at a floor, at least one door reversal shall
-  have occured before the doors are commanded to nudge.</p>
-  <p>&nbsp;</p>
-  <p> Add description of verification approach here<br>
+    </ul>
+    <p>R-T9: The Drive shall be commanded to fast speed to the maximum
+      degree practicable.<br>
+      R-T10: For each stop at a floor, at least one door reversal shall
+      have occured before the doors are commanded to nudge.</p>
+    <p><br>
+      <br>
+    </p>
+    <p><big><strong>R-T6: The Car shall only stop at Floors for which
+          there are pending calls.</strong></big><br>
+      <big>Runtime Monitor State Chart:</big></p>
+    <p>&nbsp;</p>
+    <p><img src="SC_R_T6.png" alt="R-T6" height="346" width="657"><br>
+    </p>
+    <table style="font-family: Times; letter-spacing: normal; orphans:
+      2; text-indent: 0px; text-transform: none; widows: 2;
+      word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="160" width="1144">
+      <tbody>
+        <tr>
+          <td style="vertical-align: top; font-weight: bold;
+            background-color: rgb(204, 204, 204); ">Transition<br>
+          </td>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); "><span style="font-weight: bold; ">Condition</span><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T-R6.1<br>
+          </td>
+          <td style="vertical-align: top; ">mDriveSpeed != Stop<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T-R6.2 </td>
+          <td style="vertical-align: top; ">mDriveSpeed == Stop
+            &amp;&amp; floor == mDesiredFloor.f<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T-R6.3 </td>
+          <td style="vertical-align: top; ">mDriveSpeed == Stop
+            &amp;&amp; floor != mDesiredFloor.f<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T-R6.4 </td>
+          <td style="vertical-align: top; ">mDriveSpeed != Stop<br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p><br>
+    </p>
+    <meta charset="utf-8">
+    <p><big><strong>R-T7: The Car shall only open Doors at Hallways for
+          which there are pending calls.</strong></big><br>
+      <big>Runtime Monitor State Chart: </big> </p>
+    <p>&nbsp;</p>
+    <p><img src="SC_R_T7.png" alt="R-T6" height="297" width="564"><br>
+      Note: <br>
+      &nbsp;&nbsp;&nbsp; - Network message mDesiredFloor is updated by
+      Dispatcher to service the nearest pending call.<br>
+      &nbsp;&nbsp;&nbsp; - Transition to the invalid state also requires
+      mAtFloor[f,b]==True, given that this would otherwise generate a
+      fault. <br>
+    </p>
+    <table style="font-family: Times; letter-spacing: normal; orphans:
+      2; text-indent: 0px; text-transform: none; widows: 2;
+      word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="160" width="1144">
+      <tbody>
+        <tr>
+          <td style="vertical-align: top; font-weight: bold;
+            background-color: rgb(204, 204, 204); ">Transition<br>
+          </td>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); "><span style="font-weight: bold; ">Condition</span><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T-R7.1<br>
+          </td>
+          <td style="vertical-align: top; ">(any mDoorMotor[b,r]==Open)
+            &amp;&amp; (mAtFloor[f,b]==True &amp;&amp;
+            mDesiredFloor.f==f) &amp;&amp; (mDesiredFloor.h==b ||
+            mDesiredFloor.h==BOTH)</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T-R7.2 </td>
+          <td style="vertical-align: top; ">
+            <meta charset="utf-8">
+            <span style="color: rgb(0, 0, 0); font-family: Times;
+              font-size: medium; font-style: normal; font-variant:
+              normal; font-weight: normal; letter-spacing: normal;
+              line-height: normal; orphans: 2; text-align: left;
+              text-indent: 0px; text-transform: none; white-space:
+              normal; widows: 2; word-spacing: 0px;
+              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
+              0px; display: inline !important; float: none;">mDoorOpened[b,r]==True</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T-R7.3 </td>
+          <td style="vertical-align: top; ">(any mDoorMotor[b,r]==Open)
+            &amp;&amp; (mAtFloor[f,b]==True) &amp;&amp; [
+            (mDesiredFloor.f!=f) || (mDesiredFloor.h!=b &amp;&amp;
+            mDesiredFloor.h!=BOTH) ] </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T-R7.4 </td>
+          <td style="vertical-align: top; "><span style="color: rgb(0,
+              0, 0); font-family: Times; font-size: medium; font-style:
+              normal; font-variant: normal; font-weight: normal;
+              letter-spacing: normal; line-height: normal; orphans: 2;
+              text-align: left; text-indent: 0px; text-transform: none;
+              white-space: normal; widows: 2; word-spacing: 0px;
+              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
+              0px; display: inline !important; float: none;">mDoorOpened[b,r]==True</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p><br>
+    </p>
+    <p><big><strong>R-T8: </strong></big><big><strong></strong></big><big><strong>The
+          Car Lanterns shall be use in a way that does not confuse
+          passengers</strong></big><big><strong>.<br>
+          &nbsp;&nbsp;&nbsp; R-T8.1: If any door is open at a hallway
+          and there are any pending calls at any other floor(s), a Car
+          Lantern shall turn on.</strong></big><br>
+    </p>
+    <p> <big>Runtime Monitor State Chart:</big> <br>
+    </p>
+    <p><img src="SC_R_T8_1.png" alt="R-T6" height="285" width="486"><br>
+      Note: <br>
+      &nbsp;&nbsp;&nbsp; - The invalid state occurs when all
+      CarLantern[d] fail to turn on when the conditions of R-T8.1 are
+      asserted.<br>
+    </p>
+    <table style="font-family: Times; letter-spacing: normal; orphans:
+      2; text-indent: 0px; text-transform: none; widows: 2;
+      word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="160" width="1144">
+      <tbody>
+        <tr>
+          <td style="vertical-align: top; font-weight: bold;
+            background-color: rgb(204, 204, 204); ">Transition<br>
+          </td>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); "><span style="font-weight: bold; ">Condition</span><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T-R8.1.1<br>
+          </td>
+          <td style="vertical-align: top; ">
+            <meta charset="utf-8">
+            <span style="color: rgb(0, 0, 0); font-family: Times;
+              font-size: medium; font-style: normal; font-variant:
+              normal; font-weight: normal; letter-spacing: normal;
+              line-height: normal; orphans: 2; text-align: left;
+              text-indent: 0px; text-transform: none; white-space:
+              normal; widows: 2; word-spacing: 0px;
+              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
+              0px; display: inline !important; float: none;">(CarLantern[d]==ON)
+              &amp;&amp; (mAtFloor[f,b] == true) &amp;&amp;
+              (mDesiredFloor.f == f) &amp;&amp;<span
+                class="Apple-converted-space"> </span></span><span
+              style="color: rgb(0, 0, 0); font-family: Times; font-size:
+              medium; font-style: normal; font-variant: normal;
+              font-weight: normal; letter-spacing: normal; line-height:
+              normal; orphans: 2; text-align: left; text-indent: 0px;
+              text-transform: none; white-space: normal; widows: 2;
+              word-spacing: 0px; -webkit-text-size-adjust: auto;
+              -webkit-text-stroke-width: 0px; display: inline
+              !important; float: none;">(mDesiredFloor.d == d)
+              &amp;&amp; (any mDoorClosed[b,r] == false)</span></td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T-R8.1.2 </td>
+          <td style="vertical-align: top; ">
+            <meta charset="utf-8">
+            <span style="color: rgb(0, 0, 0); font-family: Times;
+              font-size: medium; font-style: normal; font-variant:
+              normal; font-weight: normal; letter-spacing: normal;
+              line-height: normal; orphans: 2; text-align: left;
+              text-indent: 0px; text-transform: none; white-space:
+              normal; widows: 2; word-spacing: 0px;
+              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
+              0px; display: inline !important; float: none;">(mDesiredFloor.d
+              != d) || (all mDoorClosed[b,r] == true)</span></td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T-R8.1.3 </td>
+          <td style="vertical-align: top; "><span style="color: rgb(0,
+              0, 0); font-family: Times; font-size: medium; font-style:
+              normal; font-variant: normal; font-weight: normal;
+              letter-spacing: normal; line-height: normal; orphans: 2;
+              text-align: left; text-indent: 0px; text-transform: none;
+              white-space: normal; widows: 2; word-spacing: 0px;
+              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
+              0px; display: inline !important; float: none;">(CarLantern[d]==OFF)
+              &amp;&amp; (mAtFloor[f,b] == true) &amp;&amp;
+              (mDesiredFloor.f == f) &amp;&amp;<span
+                class="Apple-converted-space"> </span></span><span
+              style="color: rgb(0, 0, 0); font-family: Times; font-size:
+              medium; font-style: normal; font-variant: normal;
+              font-weight: normal; letter-spacing: normal; line-height:
+              normal; orphans: 2; text-align: left; text-indent: 0px;
+              text-transform: none; white-space: normal; widows: 2;
+              word-spacing: 0px; -webkit-text-size-adjust: auto;
+              -webkit-text-stroke-width: 0px; display: inline
+              !important; float: none;">(mDesiredFloor.d == d)
+              &amp;&amp; (any mDoorClosed[b,r] == false);</span></td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T-R8.1.4 </td>
+          <td style="vertical-align: top; "><span style="color: rgb(0,
+              0, 0); font-family: Times; font-size: medium; font-style:
+              normal; font-variant: normal; font-weight: normal;
+              letter-spacing: normal; line-height: normal; orphans: 2;
+              text-align: left; text-indent: 0px; text-transform: none;
+              white-space: normal; widows: 2; word-spacing: 0px;
+              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
+              0px; display: inline !important; float: none;">(mDesiredFloor.d
+              != d) || (all mDoorClosed[b,r] == true)</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p><br>
+    </p>
+    <p><big><strong>R-T8: </strong></big><big><strong></strong></big><big><strong>The
+          Car Lanterns shall be use in a way that does not confuse
+          passengers</strong></big><big><strong>.<br>
+          &nbsp;&nbsp;&nbsp; R-T8.2: </strong></big><big><strong>If one
+          of the car lanterns is lit, the direction indicated shall not
+          change while the doors are open.</strong></big><br>
+    </p>
+    <p> <big>Runtime Monitor State Chart:</big> <br>
+    </p>
+    <p><img src="SC_R_T8_2.png" alt="R-T6" height="276" width="467"><br>
+      Note: <br>
+      &nbsp;&nbsp;&nbsp; - PUT ANY NOTES HERE
+      ************************************************<br>
+    </p>
+    <table style="font-family: Times; letter-spacing: normal; orphans:
+      2; text-indent: 0px; text-transform: none; widows: 2;
+      word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="160" width="1144">
+      <tbody>
+        <tr>
+          <td style="vertical-align: top; font-weight: bold;
+            background-color: rgb(204, 204, 204); ">Transition<br>
+          </td>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); "><span style="font-weight: bold; ">Condition</span><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T-R8.2.1<br>
+          </td>
+          <td style="vertical-align: top; "><span style="color: rgb(0,
+              0, 0); font-family: Times; font-size: medium; font-style:
+              normal; font-variant: normal; font-weight: normal;
+              letter-spacing: normal; line-height: normal; orphans: 2;
+              text-align: left; text-indent: 0px; text-transform: none;
+              white-space: normal; widows: 2; word-spacing: 0px;
+              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
+              0px; display: inline !important; float: none;">(any
+              CarLantern[d]==ON) &amp;&amp; (mAtFloor[f,b]==true)
+              &amp;&amp; (mDesiredFloor.f==f) &amp;&amp;<span
+                class="Apple-converted-space"> </span></span><span
+              style="color: rgb(0, 0, 0); font-family: Times; font-size:
+              medium; font-style: normal; font-variant: normal;
+              font-weight: normal; letter-spacing: normal; line-height:
+              normal; orphans: 2; text-align: left; text-indent: 0px;
+              text-transform: none; white-space: normal; widows: 2;
+              word-spacing: 0px; -webkit-text-size-adjust: auto;
+              -webkit-text-stroke-width: 0px; display: inline
+              !important; float: none;">(mDesiredFloor.d==d) &amp;&amp;
+              (any mDoorClosed[b,r]==false)</span></td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T-R8.2.2 </td>
+          <td style="vertical-align: top; "><span style="color: rgb(0,
+              0, 0); font-family: Times; font-size: medium; font-style:
+              normal; font-variant: normal; font-weight: normal;
+              letter-spacing: normal; line-height: normal; orphans: 2;
+              text-align: left; text-indent: 0px; text-transform: none;
+              white-space: normal; widows: 2; word-spacing: 0px;
+              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
+              0px; display: inline !important; float: none;">(mDesiredFloor.d
+              != d) || (all mDoorClosed[b,r]==true)</span></td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T-R8.2.3 </td>
+          <td style="vertical-align: top; "><span style="color: rgb(0,
+              0, 0); font-family: Times; font-size: medium; font-style:
+              normal; font-variant: normal; font-weight: normal;
+              letter-spacing: normal; line-height: normal; orphans: 2;
+              text-align: left; text-indent: 0px; text-transform: none;
+              white-space: normal; widows: 2; word-spacing: 0px;
+              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
+              0px; display: inline !important; float: none;">(all
+              CarLantern[d]==OFF) &amp;&amp; </span>(any
+            mDoorClosed[b,r]==false)<br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T-R8.2.4 </td>
+          <td style="vertical-align: top; "><span style="color: rgb(0,
+              0, 0); font-family: Times; font-size: medium; font-style:
+              normal; font-variant: normal; font-weight: normal;
+              letter-spacing: normal; line-height: normal; orphans: 2;
+              text-align: left; text-indent: 0px; text-transform: none;
+              white-space: normal; widows: 2; word-spacing: 0px;
+              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
+              0px; display: inline !important; float: none;">(all
+              mDoorClosed[b,r]==true)</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p><br>
+      <br>
+    </p>
+    <p><big><strong>R-T10: </strong></big><big><strong>For each stop at
+          a floor, at least one door reversal shall have occurred before
+          the doors are commanded to nudge.</strong></big><br>
+      <big>Runtime Monitor State Chart: </big> </p>
+    <p><img alt="R-T6" src="SC_R_T10.png" height="464" width="531"><br>
+      Note: <br>
+      &nbsp;&nbsp;&nbsp; - T-R10.3 corresponds directly with T5.10 and
+      T5.11 in the DoorControl transition table of requirements2.html<br>
+    </p>
+    <table style="font-family: Times; letter-spacing: normal; orphans:
+      2; text-indent: 0px; text-transform: none; widows: 2;
+      word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="160" width="1144">
+      <tbody>
+        <tr>
+          <td style="vertical-align: top; font-weight: bold;
+            background-color: rgb(204, 204, 204); ">Transition<br>
+          </td>
+          <td style="vertical-align: top; background-color: rgb(204,
+            204, 204); "><span style="font-weight: bold; ">Condition</span><br>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T-R10.1<br>
+          </td>
+          <td style="vertical-align: top; ">Elevator.hasLanding(f, b)
+            &amp;&amp; mDriveSpeed.s==Stop &amp;&amp;
+            mDoorReversal==True &amp;&amp; mDoorOpened[b,r]==False</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T-R10.2 </td>
+          <td style="vertical-align: top; "><span style="color: rgb(0,
+              0, 0); font-family: Times; font-size: medium; font-style:
+              normal; font-variant: normal; font-weight: normal;
+              letter-spacing: normal; line-height: normal; orphans: 2;
+              text-align: left; text-indent: 0px; text-transform: none;
+              white-space: normal; widows: 2; word-spacing: 0px;
+              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
+              0px; display: inline !important; float: none;">any
+              mDoorMotor[b,r]==Nudge</span> </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T-R10.3 </td>
+          <td style="vertical-align: top; ">(mDoorClosed[b,r]==True) ||
+            <span style="color: rgb(0, 0, 0); font-family: Times;
+              font-size: medium; font-style: normal; font-variant:
+              normal; font-weight: normal; letter-spacing: normal;
+              line-height: normal; orphans: 2; text-align: left;
+              text-indent: 0px; text-transform: none; white-space:
+              normal; widows: 2; word-spacing: 0px;
+              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
+              0px; display: inline !important; float: none;"><br>
+              [&nbsp; Elevator.hasLanding(f, b) &amp;&amp; mDriveSpeed.s
+              == Stop &amp;&amp; [ ((mAtFloor[f,b]==True &amp;&amp;
+              mDesiredFloor.f==f) &amp;&amp; (mDesiredFloor.h==b ||
+              mDesiredFloor.h==BOTH)) || (mCarWeight(g) &gt;=
+              MaxCarCapacity &amp;&amp; mDoorOpened[b,r]==False)]&nbsp;
+              ]<br>
+            </span></td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T-R10.4 </td>
+          <td style="vertical-align: top; "><span style="color: rgb(0,
+              0, 0); font-family: Times; font-size: medium; font-style:
+              normal; font-variant: normal; font-weight: normal;
+              letter-spacing: normal; line-height: normal; orphans: 2;
+              text-align: left; text-indent: 0px; text-transform: none;
+              white-space: normal; widows: 2; word-spacing: 0px;
+              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
+              0px; display: inline !important; float: none;">any
+              mDoorMotor[b,r]==Nudge</span></td>
+        </tr>
+        <tr>
+          <td valign="top">T-R10.5<br>
+          </td>
+          <td valign="top">(mDoorClosed[b,r]==True) || <span
+              style="color: rgb(0, 0, 0); font-family: Times; font-size:
+              medium; font-style: normal; font-variant: normal;
+              font-weight: normal; letter-spacing: normal; line-height:
+              normal; orphans: 2; text-align: left; text-indent: 0px;
+              text-transform: none; white-space: normal; widows: 2;
+              word-spacing: 0px; -webkit-text-size-adjust: auto;
+              -webkit-text-stroke-width: 0px; display: inline
+              !important; float: none;"><br>
+              [&nbsp; Elevator.hasLanding(f, b) &amp;&amp; mDriveSpeed.s
+              == Stop &amp;&amp; [ ((mAtFloor[f,b]==True &amp;&amp;
+              mDesiredFloor.f==f) &amp;&amp; (mDesiredFloor.h==b ||
+              mDesiredFloor.h==BOTH)) || (mCarWeight(g) &gt;=
+              MaxCarCapacity &amp;&amp; mDoorOpened[b,r]==False)]&nbsp;
+              ]</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p><br>
+    </p>
+    <p><br>
+      <br>
+    </p>
     <br>
-  </p>
+    <p>&nbsp;</p>
+    <p> Add description of verification approach here<br>
+      <br>
+    </p>
     <h2>Verification Instructions</h2>
     <br>
     Add instructions here<br>
@@ -57,6 +473,8 @@ R-T10: For each stop at a floor, at least one door reversal shall
             Test Name<br>
           </td>
           <td style="vertical-align: top; font-weight: bold;">Verification
+
+
             Status<br>
           </td>
           <td style="vertical-align: top; font-weight: bold;">Link to
@@ -74,12 +492,10 @@ R-T10: For each stop at a floor, at least one door reversal shall
               href="p5-1_verification.out">p5-1_verification.out</a><br>
           </td>
           <td style="vertical-align: top;">If failed, identify the
-            specific
-            source of the failure, such as requirement (list requirement
-            numbers),
-            implementation (cite line file and line numbers), monitor
-            (cite line
-            file and line numbers), etc.<br>
+            specific source of the failure, such as requirement (list
+            requirement numbers), implementation (cite line file and
+            line numbers), monitor (cite line file and line numbers),
+            etc.<br>
           </td>
         </tr>
         <tr>

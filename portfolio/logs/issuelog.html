@@ -892,8 +892,7 @@
           </td>
           <td valign="top">11/10/2012<br>
           </td>
-          <td valign="top"><b>[open issue]</b><br>
-          </td>
+          <td valign="top"><b>OPEN</b></td>
           <td valign="top">jessesal<br>
           </td>
           <td valign="top">proj7acceptance1.pass;<br>
@@ -918,8 +917,7 @@
           </td>
           <td valign="top">11/10/2012<br>
           </td>
-          <td valign="top"><b>[open issue]</b><br>
-          </td>
+          <td valign="top"><b>OPEN</b></td>
           <td valign="top">jessesal<br>
           </td>
           <td valign="top">proj7acceptance2.pass;</td>
@@ -940,8 +938,7 @@
           </td>
           <td valign="top">11/10/2012<br>
           </td>
-          <td valign="top"><b>[open issue]</b><br>
-          </td>
+          <td valign="top"><b>OPEN</b></td>
           <td valign="top">jessesal<br>
           </td>
           <td valign="top">proj7acceptance3.pass;</td>
@@ -963,8 +960,8 @@
           </td>
           <td valign="top">11/10/2012<br>
           </td>
-          <td valign="top"><b>[open issue]</b><br>
-          </td>
+          <td valign="top"><b>OPEN</b><b><br>
+            </b> </td>
           <td valign="top">jessesal<br>
           </td>
           <td valign="top">proj10acceptance1.pass;<br>
@@ -987,8 +984,8 @@
           </td>
           <td valign="top">11/10/2012<br>
           </td>
-          <td valign="top"><b>[open issue]</b><br>
-          </td>
+          <td valign="top"><b>OPEN</b><b><br>
+            </b> </td>
           <td valign="top">jessesal<br>
           </td>
           <td valign="top">proj10acceptance2.pass<br>
@@ -1010,8 +1007,8 @@
           </td>
           <td valign="top">11/10/2012<br>
           </td>
-          <td valign="top"><b>[open issue]</b><br>
-          </td>
+          <td valign="top"><b>OPEN</b><b><br>
+            </b> </td>
           <td valign="top">jessesal<br>
           </td>
           <td valign="top">proj10acceptance3.pass<br>
@@ -1028,6 +1025,108 @@
             Time dealing with door reversals=N/A</td>
           <td valign="top">DriveControl.java;<br>
             DoorControl.java;</td>
+        </tr>
+        <tr>
+          <td valign="top">44<br>
+          </td>
+          <td valign="top">11/13/2012<br>
+          </td>
+          <td valign="top">11/13/2012<br>
+          </td>
+          <td valign="top">cbuchan<br>
+          </td>
+          <td valign="top">DriveControl<br>
+          </td>
+          <td valign="top">Implementation error: "if" instead of "if
+            else" for DRIVE_SLOW state transition</td>
+          <td valign="top"> Corrected to "if else"</td>
+          <td valign="top">DriveControl.java<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">45<br>
+          </td>
+          <td valign="top">11/13/2012<br>
+          </td>
+          <td valign="top"><b>OPEN</b><br>
+          </td>
+          <td valign="top">cbuchan<br>
+          </td>
+          <td valign="top">DriveControl<br>
+          </td>
+          <td valign="top">Elevator does not exhibit proper leveling
+            behavior<br>
+          </td>
+          <td valign="top">Fixed leveling behavior so car will level
+            even when overweight,<br>
+            <b>need to propagate to rest of portfolio</b><br>
+          </td>
+          <td valign="top">DriveControl.java<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">46<br>
+          </td>
+          <td valign="top">11/13/2012<br>
+          </td>
+          <td valign="top"><b>OPEN</b><br>
+          </td>
+          <td valign="top">cbuchan<br>
+          </td>
+          <td valign="top">HallButtonControl, CarButtonControl<br>
+          </td>
+          <td valign="top">Calls turn off before doors open, causing the
+            elevator to think it has serviced the call prematurely
+            before the doors open, triggered emergency brake<br>
+          </td>
+          <td valign="top">Remove pending call only after the doors have
+            opened, <b>add to portfolio</b><br>
+          </td>
+          <td valign="top">HallButtonControl.java, CarButtonControl.java<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">47<br>
+          </td>
+          <td valign="top">11/13/2012<br>
+          </td>
+          <td valign="top"><b>OPEN</b><br>
+          </td>
+          <td valign="top">cbuchan<br>
+          </td>
+          <td valign="top">DriveControl<br>
+          </td>
+          <td valign="top">Needed a transition from SLOW to STOP state<br>
+          </td>
+          <td valign="top"><b>add to portfolio</b><br>
+          </td>
+          <td valign="top">DriveControl.java<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">48<br>
+          </td>
+          <td valign="top">11/13/2012<br>
+          </td>
+          <td valign="top">11/13/2012<br>
+          </td>
+          <td valign="top">cbuchan, jtiu<br>
+          </td>
+          <td valign="top">Integration test 1B, 2B, 3B, 5A, 5B, 6A, 7A,
+            7B, 8B, 8C, 9A, 9C<br>
+          </td>
+          <td valign="top">Some integration tests fail after updating
+            the sequence diagrams to reflect the new fast elevator, and
+            the new network message dictionary.<br>
+          </td>
+          <td valign="top">Remove obsolete messages and use the new
+            translators for int and boolean, fix transitions.<br>
+          </td>
+          <td valign="top">Integration test 1B, 2B, 3B, 5A, 5B, 6A, 7A,
+            7B, 8B, 8C, 9A, 9C,<br>
+            <br>
+            SD 6A, SD9A<br>
+          </td>
         </tr>
       </tbody>
     </table>
