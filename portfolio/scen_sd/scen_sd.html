@@ -71,12 +71,14 @@ href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scena
 
 
 
+
             </a><a
 href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">R-T7</a></li>
           <li><a href="#scenario8c">Scenario 8C </a><a
 href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">-
             </a><a
 href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">R-T6;
+
 
 
 
@@ -146,10 +148,11 @@ href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scena
           enter. </li>
         <li>Hall button lights up. </li>
         <li>Dispatcher updates mDesiredFloor to <b>f, b, d </b>(same <b>d</b>
-          as before).&nbsp;</li>
-        <li>Hall button turns off. <br>
+          as before). <br>
         </li>
-        <li>Doors open.<br>
+        <li>Doors open completely.<br>
+        </li>
+        <li>Hall button turns off. <br>
         </li>
       </ol>
       <h3> Post-Conditions: </h3>
@@ -160,7 +163,7 @@ href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scena
         </li>
       </ul>
       <h3> Sequence Diagram: </h3>
-      <p> <a href="sd1b.png"><img src="sd1b.png" alt="1B"></a> </p>
+      <img alt="sd1b" src="sd1b.png" height="421" width="865">
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <h3> <a name="scenario1c" id="scenario1c"></a>Scenario 1C:
@@ -370,8 +373,6 @@ href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scena
         <li>The car arrives at floor <b>f</b>.</li>
         <li>The floor, hallway, and direction desired by the Dispatcher
           are <b>f, b, </b>and <b>d</b> respectively.</li>
-        <li>CarLight[f,b] turns off and mCarCall[f,b] is set to false.<br>
-        </li>
         <li>DriveControl sets drive speed to <b>Level</b> and Car
           reaches a level state.<br>
         </li>
@@ -379,6 +380,7 @@ href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scena
         </li>
         <li>Door[<b>b</b>,<b>r</b>] starts to open.</li>
         <li>Door[<b>b</b>,<b>r</b>] finishes opening.</li>
+        <li>CarLight[f,b] turns off and mCarCall[f,b] is set to false.</li>
         <li>The passenger exits the car.</li>
       </ol>
       <h3> Post-Conditions: </h3>
@@ -388,13 +390,14 @@ href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scena
         <li>At least one Door[<b>b</b>,<b>r</b>] is open.</li>
       </ul>
       <h3> Sequence Diagram: </h3>
-      <p> <a href="sd4a.png"><img src="sd4a.png"></a></p>
-      <a href="sd4a.png">
+      <img alt="sd4a" src="sd4a.png" height="418" width="1128"> <a
+        href="sd4a.png">
         <div align="center">
           <hr align="center" size="2" width="100%"> </div>
         <p>&nbsp; </p>
       </a>
       <h2><a href="sd4a.png"> </a><a name="usecase5" id="usecase5"></a>Use
+
 
 
 
@@ -418,6 +421,7 @@ href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scena
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to enter and is nudged by Door[<b>b</b>,<b>r</b>],
+
 
 
 
@@ -463,6 +467,7 @@ href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scena
 
 
 triggering
+
 
 
 
@@ -702,11 +707,10 @@ triggering
           initially Fast.<br>
         </li>
         <li>The car reaches floor (h,e). AtFloor[<b>h,e</b>] is set to
-          TRUE. </li>
-        <li>The hall call button for h,e turns off.<br>
-        </li>
+          TRUE.</li>
         <li>DriveControl levels the car.</li>
-        <li>The doors open.</li>
+        <li>The doors open completely.</li>
+        <li>The hall call button for h,e turns off.</li>
         <li>The passenger enters the car.</li>
       </ol>
       <h3> Post-Conditions: </h3>

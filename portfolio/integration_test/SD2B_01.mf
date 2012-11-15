@@ -85,11 +85,14 @@
 +0.21s  A  S DoorControl[FRONT][RIGHT] : STATE == STATE_DOOR_OPENING
 +0s     A  F DoorMotor FRONT RIGHT : command == OPEN
 
++0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
++0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = false
+
 ;========================================================================
 ;5. The car light turns off and the car call button for [f,b] stops reporting a call.
 ;========================================================================
 ;arc 5a, 5b
-+0.21s  A   N CAR_CALL_[4][FRONT]_CAN_ID TinyBoolean : getValue == false
++0.3s  A   N CAR_CALL_[4][FRONT]_CAN_ID TinyBoolean : getValue == false
 
 ;========================================================================
 ;6. The door finishes opening.

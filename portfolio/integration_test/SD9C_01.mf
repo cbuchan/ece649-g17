@@ -65,7 +65,6 @@
 ;2. Dispatcher notifies DoorControl that Both doors should be opened.
 ;========================================================================
 ;arc2. assert desired floor.b=both <-- Dispatcher
-+0.25s  A S Dispatcher : STATE == STATE_SERVICE_CALL
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 7
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == BOTH
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
@@ -76,6 +75,7 @@
 ;3. Both doors open.
 ;========================================================================
 ;arc 3. assert DoorMotor[b,*]=open <-- DoorControl
++0.25s  A S Dispatcher : STATE == STATE_SERVICE_CALL
 +0.5s A F DoorMotor FRONT RIGHT : command == OPEN
 +0s   A F DoorMotor FRONT LEFT : command == OPEN
 +0s   A F DoorMotor BACK RIGHT : command == OPEN

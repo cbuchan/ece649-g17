@@ -314,7 +314,7 @@
 \f0\fs24 \cf0 State LIGHT_OFF\
 \
 CarLight[f,b]=Off\
-mCarCall[f,b]=CarCall[f,b]}</string>
+mCarCall[f,b]=False}</string>
 			</dict>
 		</dict>
 		<dict>
@@ -344,7 +344,7 @@ mCarCall[f,b]=CarCall[f,b]}</string>
 \f0\fs24 \cf0 State LIGHT_ON\
 \
 CarLight[f,b]=On\
-mCarCall[f,b]=CarCall[f,b]}</string>
+mCarCall[f,b]=True}</string>
 			</dict>
 		</dict>
 	</array>
@@ -395,7 +395,7 @@ mCarCall[f,b]=CarCall[f,b]}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2012-11-10 01:52:47 +0000</string>
+	<string>2012-11-15 22:32:52 +0000</string>
 	<key>Modifier</key>
 	<string>Jessica Tiu</string>
 	<key>NotesVisible</key>

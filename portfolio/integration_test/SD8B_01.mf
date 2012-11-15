@@ -93,7 +93,6 @@
 
 +0.1s I DRIVE_PERIOD F DriveSpeed = UP 0.25
 
-
 ;========================================================================
 ; 6. The car reaches floor (h,e). AtFloor[h,e] is set to TRUE.
 ;========================================================================
@@ -101,49 +100,49 @@
 +0.1s I AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
 
 ;========================================================================
-; 7. The hall call button for h,e turns off.
-;========================================================================
-;arc 7. check hallLight turns off
-+0.5s  A F HallLight 4 FRONT UP : lighted == false
-
-;========================================================================
-; 8. DriveControl levels the car.
+; 7. DriveControl levels the car.
 ;========================================================================
 +0s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = false
 +0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
 
-;arc 8a. check drivecontrol framework drive message -> level
+;arc 7a. check drivecontrol framework drive message -> level
 +0.5s  A S DriveControl : STATE == STATE_DRIVE_LEVEL
 +0s  A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == LEVEL
 
 +0.1s I DRIVE_PERIOD F DriveSpeed = UP 0.05
 
-;arc 8b. level sensors both true
+;arc 7b. level sensors both true
 +0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
 +0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
 
-;arc 8c. check drivecontrol framework drive message -> stop
+;arc 7c. check drivecontrol framework drive message -> stop
 +0.5s  A S DriveControl : STATE == STATE_DRIVE_STOPPED
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == STOP
 
 +0.1s I DRIVE_PERIOD F DriveSpeed = STOP 0
 
-
 ;========================================================================
-; 9. The doors open.
+; 8. The doors open.
 ;========================================================================
-;arc 9a. check network drive speed -> stop, stop
+;arc 8a. check network drive speed -> stop, stop
 +0.5s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed == 0.0
 +0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == STOP
 
-;arc 9b. check framework door open sent
+;arc 8b. check framework door open sent
 +0.5s    A F DoorMotor FRONT LEFT : command == OPEN
 
-;arc 9c. door opened true
+;arc 8c. door opened true
 +0s    I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
++0s    I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
 
-;arc 9d. check framework door stop sent
+;arc 8d. check framework door stop sent
 +0.5s    A F DoorMotor FRONT LEFT : command == STOP
+
+;========================================================================
+; 9. The hall call button for h,e turns off.
+;========================================================================
+;arc 9. check hallLight turns off
++0.5s  A F HallLight 4 FRONT UP : lighted == false
 
 ;========================================================================
 ; 10. The passenger enters the car.

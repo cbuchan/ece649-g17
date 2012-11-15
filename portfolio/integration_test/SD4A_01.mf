@@ -49,45 +49,48 @@
 +0s    I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = false
 
 ;========================================================================
-;3. CarLight[f,b] turns off and mCarCall[f,b] is set to false.
-;========================================================================
-+0.21s A N CAR_CALL_[4][FRONT]_CAN_ID TinyBoolean : getValue == false
-+0s    A N CAR_LIGHT_[4][FRONT]_CAN_ID TinyBoolean : getValue == false
-
-;========================================================================
-;4. DriveControl sets drive speed to Level and Car reaches a level state.
+;2. The floor, hallway, and direction desired by the Dispatcher are f, b, and d respectively.
+;3. DriveControl sets drive speed to Level and Car reaches a level state.
 ;========================================================================
 ;check state level
-;arc 4a
+;arc 3a
 +0.21s A F Drive : speed == LEVEL
 +0s    A F Drive : direction == DOWN
 
-;arc 4b
+;arc 3b
 +0.21s  I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
 
 ;========================================================================
-;5. DriveControl sets drive speed to Stop.
+;4. DriveControl sets drive speed to Stop.
 ;========================================================================
-;arc 5a, 5b
+;arc 4a, 4b
 +0.21s A F Drive : speed == STOP
 +0s    A F Drive : direction == STOP
 
 ;========================================================================
-;6. Door[b,r] starts to open.
+;5. Door[b,r] starts to open.
 ;========================================================================
-;arc 6a, 6b
+;arc 5a, 5b
 +0.21s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPENING
 +0s    A F DoorMotor FRONT LEFT : command == OPEN
 
 ;========================================================================
-;7. Door[b,r] finishes opening.
+;6. Door[b,r] finishes opening.
 ;========================================================================
-;arc 7a
+;arc 6a
 +0s I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
++0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
 
 ;check 5. DoorMotor=Stop results (DoorControl)
-;arc 7b
+;arc 6b
 +0.41s A F DoorMotor FRONT LEFT : command == STOP
+
+;========================================================================
+;7. CarLight[f,b] turns off and mCarCall[f,b] is set to false.
+;========================================================================
+;arc 7a, 7b
++0.3s A N CAR_CALL_[4][FRONT]_CAN_ID TinyBoolean : getValue == false
++0s    A N CAR_LIGHT_[4][FRONT]_CAN_ID TinyBoolean : getValue == false
 
 ;========================================================================
 ;8. The passenger exits the car.

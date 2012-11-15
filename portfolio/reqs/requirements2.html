@@ -2879,9 +2879,10 @@
         </tr>
         <tr>
           <td style="vertical-align: top;">T9.2</td>
-          <td style="vertical-align: top;">mAtFloor[f,b]==true
-            &amp;&amp; mDesiredFloor.f == f &amp;&amp; (mDesiredFloor.b
-            == b || mDesiredFloor.b = BOTH)<br>
+          <td style="vertical-align: top;">~(all mDoorClosed[f,b]==true)
+            &amp;&amp; mAtFloor[f,b]==true &amp;&amp; mDesiredFloor.f ==
+            f &amp;&amp; (mDesiredFloor.b == b || mDesiredFloor.b =
+            BOTH)<br>
           </td>
         </tr>
       </tbody>
