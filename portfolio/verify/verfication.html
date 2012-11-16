@@ -375,12 +375,10 @@
     </p>
     <p> <big>Runtime Monitor State Chart:</big> <br>
     </p>
-    <p><img
-src="file:///Users/jessesalazar/ece649-g17/portfolio/verify/SC_R_T8_2.png"
-        alt="R-T6" height="276" width="467"><br>
+    <p><img src="SC_R_T8_3.png" alt="R-T6" height="276" width="467"><br>
       Note: <br>
-      &nbsp;&nbsp;&nbsp; - These transitions are based on BR7.2, and
-      hence T7.1<br>
+      &nbsp;&nbsp;&nbsp; - These transitions are based on BR11.10.1 and
+      BR11.10.2, and hence T11.4 and T11.3<br>
     </p>
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
@@ -396,19 +394,30 @@ src="file:///Users/jessesalazar/ece649-g17/portfolio/verify/SC_R_T8_2.png"
           </td>
         </tr>
         <tr>
-          <td style="vertical-align: top; ">T-R8.2.1<br>
+          <td style="vertical-align: top; ">T-R8.3.1<br>
           </td>
-          <td style="vertical-align: top; "><span style="color: rgb(0,
-              0, 0); font-family: Times; font-size: medium; font-style:
-              normal; font-variant: normal; font-weight: normal;
-              letter-spacing: normal; line-height: normal; orphans: 2;
-              text-align: left; text-indent: 0px; text-transform: none;
-              white-space: normal; widows: 2; word-spacing: 0px;
+          <td style="vertical-align: top; ">
+            <meta charset="utf-8">
+            <meta charset="utf-8">
+            <span style="color: rgb(0, 0, 0); font-family: Times;
+              font-size: medium; font-style: normal; font-variant:
+              normal; font-weight: normal; letter-spacing: normal;
+              line-height: normal; orphans: 2; text-align: left;
+              text-indent: 0px; text-transform: none; white-space:
+              normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">(any
-              CarLantern[d]==ON) &amp;&amp; (mAtFloor[f,b]==true)
-              &amp;&amp; (mDesiredFloor.f==f) &amp;&amp;<span
-                class="Apple-converted-space"> </span></span><span
+              0px; display: inline !important; float: none;">[mDesiredFloor.d==UP
+              &amp;&amp; CarLantern(UP)==ON &amp;&amp;
+              anyUpCall(CurrentFloor) &amp;&amp; (any
+              mDoorClosed[b,r]==false) ] || </span><br>
+            <span style="color: rgb(0, 0, 0); font-family: Times;
+              font-size: medium; font-style: normal; font-variant:
+              normal; font-weight: normal; letter-spacing: normal;
+              line-height: normal; orphans: 2; text-align: left;
+              text-indent: 0px; text-transform: none; white-space:
+              normal; widows: 2; word-spacing: 0px;
+              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
+              0px; display: inline !important; float: none;">[</span><span
               style="color: rgb(0, 0, 0); font-family: Times; font-size:
               medium; font-style: normal; font-variant: normal;
               font-weight: normal; letter-spacing: normal; line-height:
@@ -416,11 +425,36 @@ src="file:///Users/jessesalazar/ece649-g17/portfolio/verify/SC_R_T8_2.png"
               text-transform: none; white-space: normal; widows: 2;
               word-spacing: 0px; -webkit-text-size-adjust: auto;
               -webkit-text-stroke-width: 0px; display: inline
-              !important; float: none;">(mDesiredFloor.d==d) &amp;&amp;
-              (any mDoorClosed[b,r]==false)</span></td>
+              !important; float: none;"><span style="color: rgb(0, 0,
+                0); font-family: Times; font-size: medium; font-style:
+                normal; font-variant: normal; font-weight: normal;
+                letter-spacing: normal; line-height: normal; orphans: 2;
+                text-align: left; text-indent: 0px; text-transform:
+                none; white-space: normal; widows: 2; word-spacing: 0px;
+                -webkit-text-size-adjust: auto;
+                -webkit-text-stroke-width: 0px; display: inline
+                !important; float: none;">mDesiredFloor.d==DOWN
+                &amp;&amp; </span>CarLantern(DOWN)==ON &amp;&amp;
+              anyDownCall(CurrentFloor) &amp;&amp; (any
+              mDoorClosed[b,r]==false) ]<br>
+            </span></td>
         </tr>
         <tr>
-          <td style="vertical-align: top; ">T-R8.2.2 </td>
+          <td style="vertical-align: top; ">T-R8.3.2 </td>
+          <td style="vertical-align: top; ">
+            <meta charset="utf-8">
+            <span style="color: rgb(0, 0, 0); font-family: Times;
+              font-size: medium; font-style: normal; font-variant:
+              normal; font-weight: normal; letter-spacing: normal;
+              line-height: normal; orphans: 2; text-align: left;
+              text-indent: 0px; text-transform: none; white-space:
+              normal; widows: 2; word-spacing: 0px;
+              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
+              0px; display: inline !important; float: none;">CurrentFloor
+              == TargetFloor</span></td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T-R8.3.3 </td>
           <td style="vertical-align: top; "><span style="color: rgb(0,
               0, 0); font-family: Times; font-size: medium; font-style:
               normal; font-variant: normal; font-weight: normal;
@@ -428,35 +462,52 @@ src="file:///Users/jessesalazar/ece649-g17/portfolio/verify/SC_R_T8_2.png"
               text-align: left; text-indent: 0px; text-transform: none;
               white-space: normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">(mDesiredFloor.d
+              0px; display: inline !important; float: none;">[mDesiredFloor.d==DOWN
 
-              != d) || (all mDoorClosed[b,r]==true)</span></td>
+              &amp;&amp; CarLantern(UP)==ON &amp;&amp;
+              anyUpCall(CurrentFloor) &amp;&amp; (any
+              mDoorClosed[b,r]==false) ] || </span><br>
+            <span style="color: rgb(0, 0, 0); font-family: Times;
+              font-size: medium; font-style: normal; font-variant:
+              normal; font-weight: normal; letter-spacing: normal;
+              line-height: normal; orphans: 2; text-align: left;
+              text-indent: 0px; text-transform: none; white-space:
+              normal; widows: 2; word-spacing: 0px;
+              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
+              0px; display: inline !important; float: none;">[</span><span
+              style="color: rgb(0, 0, 0); font-family: Times; font-size:
+              medium; font-style: normal; font-variant: normal;
+              font-weight: normal; letter-spacing: normal; line-height:
+              normal; orphans: 2; text-align: left; text-indent: 0px;
+              text-transform: none; white-space: normal; widows: 2;
+              word-spacing: 0px; -webkit-text-size-adjust: auto;
+              -webkit-text-stroke-width: 0px; display: inline
+              !important; float: none;"><span style="color: rgb(0, 0,
+                0); font-family: Times; font-size: medium; font-style:
+                normal; font-variant: normal; font-weight: normal;
+                letter-spacing: normal; line-height: normal; orphans: 2;
+                text-align: left; text-indent: 0px; text-transform:
+                none; white-space: normal; widows: 2; word-spacing: 0px;
+                -webkit-text-size-adjust: auto;
+                -webkit-text-stroke-width: 0px; display: inline
+                !important; float: none;">mDesiredFloor.d==UP &amp;&amp;
+              </span>CarLantern(DOWN)==ON &amp;&amp;
+              anyDownCall(CurrentFloor) &amp;&amp; (any
+              mDoorClosed[b,r]==false) ]</span></td>
         </tr>
         <tr>
-          <td style="vertical-align: top; ">T-R8.2.3 </td>
-          <td style="vertical-align: top; "><span style="color: rgb(0,
-              0, 0); font-family: Times; font-size: medium; font-style:
-              normal; font-variant: normal; font-weight: normal;
-              letter-spacing: normal; line-height: normal; orphans: 2;
-              text-align: left; text-indent: 0px; text-transform: none;
-              white-space: normal; widows: 2; word-spacing: 0px;
+          <td style="vertical-align: top; ">T-R8.3.4 </td>
+          <td style="vertical-align: top; ">
+            <meta charset="utf-8">
+            <span style="color: rgb(0, 0, 0); font-family: Times;
+              font-size: medium; font-style: normal; font-variant:
+              normal; font-weight: normal; letter-spacing: normal;
+              line-height: normal; orphans: 2; text-align: left;
+              text-indent: 0px; text-transform: none; white-space:
+              normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">(all
-              CarLantern[d]==OFF) &amp;&amp; </span>(any
-            mDoorClosed[b,r]==false)<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; ">T-R8.2.4 </td>
-          <td style="vertical-align: top; "><span style="color: rgb(0,
-              0, 0); font-family: Times; font-size: medium; font-style:
-              normal; font-variant: normal; font-weight: normal;
-              letter-spacing: normal; line-height: normal; orphans: 2;
-              text-align: left; text-indent: 0px; text-transform: none;
-              white-space: normal; widows: 2; word-spacing: 0px;
-              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">(all
-              mDoorClosed[b,r]==true)</span></td>
+              0px; display: inline !important; float: none;">CurrentFloor
+              == TargetFloor</span></td>
         </tr>
       </tbody>
     </table>
