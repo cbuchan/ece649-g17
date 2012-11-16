@@ -1,0 +1,36 @@
+18649 Fall 2012 - Group 17
+Jesse Salazar (jessesal)
+Jessica Tiu (jtiu)
+Collin Buchan (cbuchan)
+Rajeev Sharma (rdsharma)
+
+Simulator Parameters:
+Command line = -head headerfile -cf SD4A.cf -mf SD4A_01.mf
+RandomSeed = 1353026931676
+CanNetworkBitTime = 0 ns
+Effective Can Bitrate = Infinity
+Run Time = null
+Real time rate = null
+Message File = SD4A_01.mf
+Controller File = SD4A.cf
+
+Assertion Results:
+@1.12s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@151a64ed :: getFloor ?== 4 PASSED
+@1.12s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@99b5393 :: getHallway ?== FRONT PASSED
+@1.12s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@4a4e79f1 :: getDirection ?== STOP PASSED
+@1.75s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@450e790c :: speed ?== LEVEL PASSED
+@1.75s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@432a0f6c :: direction ?== DOWN PASSED
+@2.17s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@73d6776d :: speed ?== STOP PASSED
+@2.17s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@584fce71 :: direction ?== STOP PASSED
+@2.38s:  PASSED DoorControl[FRONT][LEFT]::checkState(STATE) ?== STATE_DOOR_OPENING PASSED
+@2.38s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@2fdb7df8 :: command ?== OPEN PASSED
+@2.79s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@7a3570b0 :: command ?== STOP PASSED
+@3.09s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@692a3722 :: getValue ?== false PASSED
+@3.09s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@557ce4e7 :: getValue ?== false PASSED
+
+
+******************Summary******************
+Passed:  12
+Failed:  0
+Total :  12
+

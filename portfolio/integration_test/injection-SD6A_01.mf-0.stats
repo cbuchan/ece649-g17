@@ -1,0 +1,42 @@
+18649 Fall 2012 - Group 17
+Jesse Salazar (jessesal)
+Jessica Tiu (jtiu)
+Collin Buchan (cbuchan)
+Rajeev Sharma (rdsharma)
+
+Simulator Parameters:
+Command line = -head headerfile -cf SD6A.cf -mf SD6A_01.mf
+RandomSeed = 1353026934653
+CanNetworkBitTime = 0 ns
+Effective Can Bitrate = Infinity
+Run Time = null
+Real time rate = null
+Message File = SD6A_01.mf
+Controller File = SD6A.cf
+
+Assertion Results:
+@0.5s:  PASSED simulator.payloads.CarPositionIndicatorPayload$ReadableCarPositionIndicatorPayload@6b4da8f4 :: floor ?== 4 PASSED
+@0.6s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2c641e9a :: getFloor ?== 4 PASSED
+@1.01s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@33c282a1 :: speed ?== SLOW PASSED
+@1.01s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@151a64ed :: direction ?== UP PASSED
+@1.91s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@4a4e79f1 :: speed ?== FAST PASSED
+@1.91s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@44bd928a :: direction ?== UP PASSED
+@2.42s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@392d263f :: speed ?== SLOW PASSED
+@2.42s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@7e5a9de6 :: direction ?== UP PASSED
+@2.92s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@732b3d53 :: getSpeed ?> 0.05 PASSED
+@2.92s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@3a21b220 :: getSpeed ?<= 1.0 PASSED
+@3.02s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@6b0a2d64 :: getFloor ?== 5 PASSED
+@3.12s:  PASSED simulator.payloads.CarPositionIndicatorPayload$ReadableCarPositionIndicatorPayload@5289cf1e :: floor ?== 5 PASSED
+@3.32s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@7a982589 :: getFloor ?== 5 PASSED
+@3.42s:  PASSED simulator.payloads.CarPositionIndicatorPayload$ReadableCarPositionIndicatorPayload@4ca31e1b :: floor ?== 5 PASSED
+@4.04s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@46e45076 :: speed ?== LEVEL PASSED
+@4.04s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@2321ab80 :: direction ?== DOWN PASSED
+@4.46s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@4ee91f5d :: speed ?== STOP PASSED
+@4.46s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@2cb0ce8f :: direction ?== STOP PASSED
+
+
+******************Summary******************
+Passed:  18
+Failed:  0
+Total :  18
+

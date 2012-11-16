@@ -1,0 +1,35 @@
+18649 Fall 2012 - Group 17
+Jesse Salazar (jessesal)
+Jessica Tiu (jtiu)
+Collin Buchan (cbuchan)
+Rajeev Sharma (rdsharma)
+
+Simulator Parameters:
+Command line = -head headerfile -cf SD7B.cf -mf SD7B_01.mf
+RandomSeed = 1353026936520
+CanNetworkBitTime = 0 ns
+Effective Can Bitrate = Infinity
+Run Time = null
+Real time rate = null
+Message File = SD7B_01.mf
+Controller File = SD7B.cf
+
+Assertion Results:
+@0.5s:  PASSED LanternControl[UP]::checkState(STATE) ?== STATE_CAR_LANTERN_OFF PASSED
+@0.5s:  PASSED simulator.payloads.CarLanternPayload$ReadableCarLanternPayload@39d85f79 :: lighted ?== false PASSED
+@0.5s:  PASSED simulator.payloads.CarLanternPayload$ReadableCarLanternPayload@6115273a :: lighted ?== false PASSED
+@1.0s:  PASSED DoorControl[BACK][LEFT]::checkState(STATE) ?== STATE_DOOR_OPENING PASSED
+@1.0s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@151a64ed :: command ?== OPEN PASSED
+@1.0s:  PASSED simulator.payloads.HallCallPayload$ReadableHallCallPayload@99b5393 :: pressed ?== true PASSED
+@2.6s:  PASSED simulator.payloads.CarLanternPayload$ReadableCarLanternPayload@2911a3a4 :: lighted ?== false PASSED
+@2.6s:  PASSED simulator.payloads.CarLanternPayload$ReadableCarLanternPayload@392d263f :: lighted ?== false PASSED
+@3.1s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@69f78ef1 :: lighted ?== false PASSED
+@4.1s:  PASSED DoorControl[BACK][LEFT]::checkState(STATE) ?== STATE_DOOR_OPEN PASSED
+@4.1s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@7a3570b0 :: command ?== STOP PASSED
+
+
+******************Summary******************
+Passed:  11
+Failed:  0
+Total :  11
+

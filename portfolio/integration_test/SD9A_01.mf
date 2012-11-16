@@ -54,7 +54,7 @@
 ; 2. CarLantern[d] turns on before new direction is computed.
 ;========================================================================
 ;arc 2.
-+0.5s A F CarLantern UP : lighted == true
++0.6s A F CarLantern UP : lighted == true
 +0s   A F CarLantern DOWN : lighted == false
 
 ;========================================================================

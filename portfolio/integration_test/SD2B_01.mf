@@ -92,7 +92,7 @@
 ;5. The car light turns off and the car call button for [f,b] stops reporting a call.
 ;========================================================================
 ;arc 5a, 5b
-+0.3s  A   N CAR_CALL_[4][FRONT]_CAN_ID TinyBoolean : getValue == false
++0.5s  A   N CAR_CALL_[4][FRONT]_CAN_ID TinyBoolean : getValue == false
 
 ;========================================================================
 ;6. The door finishes opening.
