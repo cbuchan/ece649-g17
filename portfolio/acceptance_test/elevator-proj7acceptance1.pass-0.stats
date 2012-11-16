@@ -1,0 +1,103 @@
+18649 Fall 2012 - Group 17
+Jesse Salazar (jessesal)
+Jessica Tiu (jtiu)
+Collin Buchan (cbuchan)
+Rajeev Sharma (rdsharma)
+
+Simulator Parameters:
+Command line = -b 200 -seed 8675309 -monitor Proj11RuntimeMonitor -head headerfile -pf proj7acceptance1.pass
+RandomSeed = 8675309
+CanNetworkBitTime = 5000 ns
+Effective Can Bitrate = 199999.99999999997
+Run Time = null
+Real time rate = null
+Acceptance Test File = proj7acceptance1.pass
+Monitors: Proj11RuntimeMonitor  
+
+STATISTICS FOR ELEVATOR SIMULATION PASSENGER DELIVERY
+-----------------------------------------------------
+
+
+These passengers were delivered:
+Passenger 1: INJECTED AT 905.7s and DELIVERED in 78.951s
+  Satisfaction score: 100.0
+Passenger 0: INJECTED AT 600.0s and DELIVERED in 414.062s
+  Satisfaction score: 11.425495125196804
+    @625.182000000: 0.80 Car lantern changed from DOWN to STOP after entering the car.
+    @637.545000000: 0.90 Repeated hall call press
+    @691.902000000: 0.80 Car lantern changed from DOWN to STOP after entering the car.
+    @692.002000000: 0.90 Repeated car call press
+    @704.265000000: 0.90 Repeated hall call press
+    @758.902000000: 0.80 Car lantern changed from DOWN to STOP after entering the car.
+    @759.002000000: 0.90 Repeated car call press
+    @771.265000000: 0.90 Repeated hall call press
+    @825.662000000: 0.80 Car lantern changed from DOWN to STOP after entering the car.
+    @825.762000000: 0.90 Repeated car call press
+    @838.025000000: 0.90 Repeated hall call press
+    @892.462000000: 0.80 Car lantern changed from DOWN to STOP after entering the car.
+    @892.562000000: 0.90 Repeated car call press
+    @905.025000000: 0.90 Repeated hall call press
+    @961.062000000: 0.90 Repeated car call press
+Passenger 2: INJECTED AT 974.6s and DELIVERED in 117.055s
+  Satisfaction score: 100.0
+Passenger 3: INJECTED AT 1531.4s and DELIVERED in 16.066s
+  Satisfaction score: 100.0
+Passenger 4: INJECTED AT 2082.0s and DELIVERED in 38.672s
+  Satisfaction score: 100.0
+Passenger 5: INJECTED AT 2217.5s and DELIVERED in 67.137s
+  Satisfaction score: 72.0
+    @2237.957000000: 0.80 Car lantern changed from UP to STOP after entering the car.
+    @2250.095000000: 0.90 Repeated hall call press
+Passenger 6: INJECTED AT 2805.4s and DELIVERED in 28.1s
+  Satisfaction score: 100.0
+Passenger 7: INJECTED AT 3269.2s and DELIVERED in 53.487s
+  Satisfaction score: 100.0
+Passenger 8: INJECTED AT 3705.3s and DELIVERED in 66.45s
+  Satisfaction score: 100.0
+Passenger 9: INJECTED AT 4204.2s and DELIVERED in 28.637s
+  Satisfaction score: 50.0
+    @4230.077000000: 0.50 Failed to exit at 7, FRONT even though the doors opened.
+Passenger 10: INJECTED AT 4487.2s and DELIVERED in 48.869s
+  Satisfaction score: 100.0
+Passenger 11: INJECTED AT 4917.5s and DELIVERED in 56.736s
+  Satisfaction score: 100.0
+Passenger 12: INJECTED AT 5104.0s and DELIVERED in 45.515s
+  Satisfaction score: 100.0
+Passenger 13: INJECTED AT 5553.4s and DELIVERED in 51.246s
+  Satisfaction score: 100.0
+Passenger 14: INJECTED AT 5713.7s and DELIVERED in 34.3s
+  Satisfaction score: 50.0
+    @5744.800000000: 0.50 Failed to exit at 7, BACK even though the doors opened.
+Passenger 15: INJECTED AT 6184.5s and DELIVERED in 66.27s
+  Satisfaction score: 100.0
+Passenger 16: INJECTED AT 6407.5s and DELIVERED in 70.845s
+  Satisfaction score: 100.0
+Passenger 17: INJECTED AT 6866.1s and DELIVERED in 47.176s
+  Satisfaction score: 100.0
+
+Passenger Delivery Summary
+Delivered: 18
+Stranded: 0
+Total: 18
+
+Deliver Stats (lower is better):
+Average_delivery_time: 73.865
+Maximum_delivery_time:  414.062
+Delivery_performance_score:  709.523
+
+Satisfaction Stats (higher is better):
+Average_satisfaction_score: 87.968
+Min_satisfaction_score:  11.425
+Satisfaction_performance_score:  363.298
+
+
+
+
+Network Utilization Summary:
+Recent: 75.12 % Max: 75.12 %  Overall:  75.12 %
+
+Monitors Warning Results: 
+RuntimeMonitor generated 0 warnings.
+
+Monitors Summmary Results: 
+
