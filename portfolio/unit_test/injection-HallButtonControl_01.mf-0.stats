@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf HallButtonControl.cf -mf HallButtonControl_01.mf
-RandomSeed = 1352862239275
+RandomSeed = 1353032045069
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -16,17 +16,17 @@ Controller File = HallButtonControl.cf
 
 Assertion Results:
 @0.21s:  PASSED HallButtonControl[4][FRONT][DOWN]::checkState(STATE) ?== STATE_HALL_CALL_OFF PASSED
-@0.21s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@21f3aa07 :: lighted ?== false PASSED
-@0.21s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@4139eeda :: getValue ?== false PASSED
+@0.21s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@55d15445 :: lighted ?== false PASSED
+@0.21s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@41fc2fb :: getValue ?== false PASSED
 @1.21s:  PASSED HallButtonControl[4][FRONT][DOWN]::checkState(STATE) ?== STATE_HALL_CALL_ON PASSED
-@1.21s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@65b4fad5 :: lighted ?== true PASSED
-@1.21s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@4ba33d48 :: getValue ?== true PASSED
+@1.21s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@5a77a7f9 :: lighted ?== true PASSED
+@1.21s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@4cbfea1d :: getValue ?== true PASSED
 @1.71s:  PASSED HallButtonControl[4][FRONT][DOWN]::checkState(STATE) ?== STATE_HALL_CALL_OFF PASSED
-@1.71s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@522a4983 :: lighted ?== false PASSED
-@1.71s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@1cc7b00c :: getValue ?== false PASSED
+@1.71s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@74b2002f :: lighted ?== false PASSED
+@1.71s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@56406199 :: getValue ?== false PASSED
 @2.71s:  PASSED HallButtonControl[4][FRONT][DOWN]::checkState(STATE) ?== STATE_HALL_CALL_ON PASSED
-@2.71s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@7ddf5a8f :: lighted ?== true PASSED
-@2.71s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@4de13d52 :: getValue ?== true PASSED
+@2.71s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@43b09468 :: lighted ?== true PASSED
+@2.71s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@52b2a2d8 :: getValue ?== true PASSED
 @3.41s:  PASSED HallButtonControl[4][FRONT][DOWN]::checkState(STATE) ?== STATE_HALL_CALL_OFF PASSED
 @3.41s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@2996c1b0 :: lighted ?== false PASSED
 @3.41s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@3d66aa18 :: getValue ?== false PASSED
