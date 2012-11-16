@@ -1,0 +1,25 @@
+18649 Fall 2012 - Group 17
+Jesse Salazar (jessesal)
+Jessica Tiu (jtiu)
+Collin Buchan (cbuchan)
+Rajeev Sharma (rdsharma)
+
+Simulator Parameters:
+Command line = -head headerfile -cf SD1A.cf -mf SD1A_01.mf
+RandomSeed = 1353026924504
+CanNetworkBitTime = 0 ns
+Effective Can Bitrate = Infinity
+Run Time = null
+Real time rate = null
+Message File = SD1A_01.mf
+Controller File = SD1A.cf
+
+Assertion Results:
+@0.92s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@48d19bc8 :: lighted ?== true PASSED
+
+
+******************Summary******************
+Passed:  1
+Failed:  0
+Total :  1
+

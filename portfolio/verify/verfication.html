@@ -97,7 +97,8 @@
       &nbsp;&nbsp;&nbsp; - Transition to the invalid state also requires
       mAtFloor[f,b]==True, given that this would otherwise generate a
       fault. <br>
-    </p>
+      &nbsp;&nbsp;&nbsp; - These transitions are based on BR5.7 and
+      BR5.8, and hence T5.2 and T5.11 </p>
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
       word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
@@ -156,6 +157,7 @@
     <p><br>
     </p>
     <p><big><strong>R-T8: </strong></big><big><strong></strong></big><big><strong>The
+
           Car Lanterns shall be use in a way that does not confuse
           passengers</strong></big><big><strong>.<br>
           &nbsp;&nbsp;&nbsp; R-T8.1: If any door is open at a hallway
@@ -169,6 +171,8 @@
       &nbsp;&nbsp;&nbsp; - The invalid state occurs when all
       CarLantern[d] fail to turn on when the conditions of R-T8.1 are
       asserted.<br>
+      &nbsp;&nbsp;&nbsp; - These transitions are based on BR7.2, and
+      hence T7.1<br>
     </p>
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
@@ -196,6 +200,7 @@
               normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">(CarLantern[d]==ON)
+
               &amp;&amp; (mAtFloor[f,b] == true) &amp;&amp;
               (mDesiredFloor.f == f) &amp;&amp;<span
                 class="Apple-converted-space"> </span></span><span
@@ -221,6 +226,7 @@
               normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">(mDesiredFloor.d
+
               != d) || (all mDoorClosed[b,r] == true)</span></td>
         </tr>
         <tr>
@@ -233,6 +239,7 @@
               white-space: normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">(CarLantern[d]==OFF)
+
               &amp;&amp; (mAtFloor[f,b] == true) &amp;&amp;
               (mDesiredFloor.f == f) &amp;&amp;<span
                 class="Apple-converted-space"> </span></span><span
@@ -256,6 +263,7 @@
               white-space: normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">(mDesiredFloor.d
+
               != d) || (all mDoorClosed[b,r] == true)</span></td>
         </tr>
       </tbody>
@@ -263,6 +271,7 @@
     <p><br>
     </p>
     <p><big><strong>R-T8: </strong></big><big><strong></strong></big><big><strong>The
+
           Car Lanterns shall be use in a way that does not confuse
           passengers</strong></big><big><strong>.<br>
           &nbsp;&nbsp;&nbsp; R-T8.2: </strong></big><big><strong>If one
@@ -273,8 +282,8 @@
     </p>
     <p><img src="SC_R_T8_2.png" alt="R-T6" height="276" width="467"><br>
       Note: <br>
-      &nbsp;&nbsp;&nbsp; - PUT ANY NOTES HERE
-      ************************************************<br>
+      &nbsp;&nbsp;&nbsp; - These transitions are based on BR7.2, and
+      hence T7.1<br>
     </p>
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
@@ -323,6 +332,7 @@
               white-space: normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">(mDesiredFloor.d
+
               != d) || (all mDoorClosed[b,r]==true)</span></td>
         </tr>
         <tr>
@@ -362,9 +372,11 @@
       <big>Runtime Monitor State Chart: </big> </p>
     <p><img alt="R-T6" src="SC_R_T10.png" height="464" width="531"><br>
       Note: <br>
+      &nbsp;&nbsp;&nbsp; - These transitions are based on BR5.15.2, and
+      hence T5.9 <br>
       &nbsp;&nbsp;&nbsp; - T-R10.3 corresponds directly with T5.10 and
       T5.11 in the DoorControl transition table of requirements2.html<br>
-    </p>
+      &nbsp;&nbsp;&nbsp;&nbsp; </p>
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
       word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
@@ -473,6 +485,7 @@
             Test Name<br>
           </td>
           <td style="vertical-align: top; font-weight: bold;">Verification
+
 
 
             Status<br>
