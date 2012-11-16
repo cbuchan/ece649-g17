@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf CarPositionControl.cf -mf CarPositionControl_01.mf
-RandomSeed = 1352862240368
+RandomSeed = 1353032046291
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -16,17 +16,17 @@ Controller File = CarPositionControl.cf
 
 Assertion Results:
 @0.11s:  PASSED CarPositionControl::checkState(STATE) ?== STATE_DISPLAY_FLOOR PASSED
-@0.11s:  PASSED simulator.payloads.CarPositionIndicatorPayload$ReadableCarPositionIndicatorPayload@2897a560 :: floor ?== 1 PASSED
-@0.11s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@55d15445 :: getFloor ?== 1 PASSED
+@0.11s:  PASSED simulator.payloads.CarPositionIndicatorPayload$ReadableCarPositionIndicatorPayload@6686fe26 :: floor ?== 1 PASSED
+@0.11s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@7bea5671 :: getFloor ?== 1 PASSED
 @0.31s:  PASSED CarPositionControl::checkState(STATE) ?== STATE_DISPLAY_COMMIT_POINT PASSED
-@0.31s:  PASSED simulator.payloads.CarPositionIndicatorPayload$ReadableCarPositionIndicatorPayload@4139eeda :: floor ?== 1 PASSED
-@0.31s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@5a77a7f9 :: getFloor ?== 1 PASSED
+@0.31s:  PASSED simulator.payloads.CarPositionIndicatorPayload$ReadableCarPositionIndicatorPayload@41fc2fb :: floor ?== 1 PASSED
+@0.31s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@42704baa :: getFloor ?== 1 PASSED
 @0.51s:  PASSED CarPositionControl::checkState(STATE) ?== STATE_DISPLAY_COMMIT_POINT PASSED
-@0.51s:  PASSED simulator.payloads.CarPositionIndicatorPayload$ReadableCarPositionIndicatorPayload@4ba33d48 :: floor ?== 2 PASSED
-@0.51s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@74b2002f :: getFloor ?== 2 PASSED
+@0.51s:  PASSED simulator.payloads.CarPositionIndicatorPayload$ReadableCarPositionIndicatorPayload@4cbfea1d :: floor ?== 2 PASSED
+@0.51s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@4a0c68c3 :: getFloor ?== 2 PASSED
 @0.71s:  PASSED CarPositionControl::checkState(STATE) ?== STATE_DISPLAY_FLOOR PASSED
-@0.71s:  PASSED simulator.payloads.CarPositionIndicatorPayload$ReadableCarPositionIndicatorPayload@1cc7b00c :: floor ?== 2 PASSED
-@0.71s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@43b09468 :: getFloor ?== 2 PASSED
+@0.71s:  PASSED simulator.payloads.CarPositionIndicatorPayload$ReadableCarPositionIndicatorPayload@56406199 :: floor ?== 2 PASSED
+@0.71s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@79f6f296 :: getFloor ?== 2 PASSED
 
 
 ******************Summary******************

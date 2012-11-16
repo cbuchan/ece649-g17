@@ -5,14 +5,14 @@ Collin Buchan (cbuchan)
 Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
-Command line = -b 200 -seed 8675309 -monitor Proj7RuntimeMonitor -head headerfile -pf proj8group17acceptance1.pass
+Command line = -b 200 -seed 8675309 -monitor Proj11RuntimeMonitor -head headerfile -pf proj8group17acceptance1.pass
 RandomSeed = 8675309
 CanNetworkBitTime = 5000 ns
 Effective Can Bitrate = 199999.99999999997
 Run Time = null
 Real time rate = null
 Acceptance Test File = proj8group17acceptance1.pass
-Monitors: Proj7RuntimeMonitor  
+Monitors: Proj11RuntimeMonitor  
 
 STATISTICS FOR ELEVATOR SIMULATION PASSENGER DELIVERY
 -----------------------------------------------------
@@ -87,7 +87,4 @@ Monitors Warning Results:
 RuntimeMonitor generated 0 warnings.
 
 Monitors Summmary Results: 
-Overweight count = 0
-Wasted openings count = 26
-Time dealing with door reversals = 0.0s
 
