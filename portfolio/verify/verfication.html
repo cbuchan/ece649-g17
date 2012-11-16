@@ -467,12 +467,10 @@ src="file:///Users/jessesalazar/ece649-g17/portfolio/verify/SC_R_T8_2.png"
     </p>
     <p> <big>Runtime Monitor State Chart:</big> <br>
     </p>
-    <p><img
-src="file:///Users/jessesalazar/ece649-g17/portfolio/verify/SC_R_T8_2.png"
-        alt="R-T6" height="276" width="467"><br>
+    <p><img src="SC_R_T9.png" alt="R-T6" height="276" width="467"><br>
       Note: <br>
-      &nbsp;&nbsp;&nbsp; - These transitions are based on BR7.2, and
-      hence T7.1<br>
+      &nbsp;&nbsp;&nbsp; - These transitions are based on BR6.9.2, and
+      hence T6.5 and T6.6<br>
     </p>
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
@@ -488,58 +486,61 @@ src="file:///Users/jessesalazar/ece649-g17/portfolio/verify/SC_R_T8_2.png"
           </td>
         </tr>
         <tr>
-          <td style="vertical-align: top; ">T-R8.2.1<br>
+          <td style="vertical-align: top; ">T-R9.1<br>
           </td>
-          <td style="vertical-align: top; "><span style="color: rgb(0,
-              0, 0); font-family: Times; font-size: medium; font-style:
-              normal; font-variant: normal; font-weight: normal;
-              letter-spacing: normal; line-height: normal; orphans: 2;
-              text-align: left; text-indent: 0px; text-transform: none;
-              white-space: normal; widows: 2; word-spacing: 0px;
+          <td style="vertical-align: top; ">
+            <meta charset="utf-8">
+            <span style="color: rgb(0, 0, 0); font-family: Times;
+              font-size: medium; font-style: normal; font-variant:
+              normal; font-weight: normal; letter-spacing: normal;
+              line-height: normal; orphans: 2; text-align: left;
+              text-indent: 0px; text-transform: none; white-space:
+              normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">(any
-              CarLantern[d]==ON) &amp;&amp; (mAtFloor[f,b]==true)
-              &amp;&amp; (mDesiredFloor.f==f) &amp;&amp;<span
-                class="Apple-converted-space"> </span></span><span
+              0px; display: inline !important; float: none;">(mDriveSpeed
+              == fast) &amp;&amp; (DriveSpeed.s == SlowSpeed &amp;&amp;
+              DriveDir ~= Stop &amp;&amp; CommitPoint[f] == NotReached
+              &amp;&amp; mDesiredFloor.f == f)</span>
+            <meta charset="utf-8">
+            <meta charset="utf-8">
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T-R9.2 </td>
+          <td style="vertical-align: top; ">(mDriveSpeed != fast)
+            &amp;&amp; <br>
+            <meta charset="utf-8">
+            <span style="color: rgb(0, 0, 0); font-family: Times;
+              font-size: medium; font-style: normal; font-variant:
+              normal; font-weight: normal; letter-spacing: normal;
+              line-height: normal; orphans: 2; text-align: left;
+              text-indent: 0px; text-transform: none; white-space:
+              normal; widows: 2; word-spacing: 0px;
+              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
+              0px; display: inline !important; float: none;">[ (DriveDir
+              ~= Stop &amp;&amp; CommitPoint[f] == Reached &amp;&amp;
+              mDesiredFloor.f == f &amp;&amp; mEmergencyBrake[b] ==
+              False<span class="Apple-converted-space">) </span></span><br
               style="color: rgb(0, 0, 0); font-family: Times; font-size:
               medium; font-style: normal; font-variant: normal;
               font-weight: normal; letter-spacing: normal; line-height:
               normal; orphans: 2; text-align: left; text-indent: 0px;
               text-transform: none; white-space: normal; widows: 2;
               word-spacing: 0px; -webkit-text-size-adjust: auto;
-              -webkit-text-stroke-width: 0px; display: inline
-              !important; float: none;">(mDesiredFloor.d==d) &amp;&amp;
-              (any mDoorClosed[b,r]==false)</span></td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; ">T-R8.2.2 </td>
-          <td style="vertical-align: top; "><span style="color: rgb(0,
-              0, 0); font-family: Times; font-size: medium; font-style:
-              normal; font-variant: normal; font-weight: normal;
-              letter-spacing: normal; line-height: normal; orphans: 2;
-              text-align: left; text-indent: 0px; text-transform: none;
-              white-space: normal; widows: 2; word-spacing: 0px;
+              -webkit-text-stroke-width: 0px;">
+            <span style="color: rgb(0, 0, 0); font-family: Times;
+              font-size: medium; font-style: normal; font-variant:
+              normal; font-weight: normal; letter-spacing: normal;
+              line-height: normal; orphans: 2; text-align: left;
+              text-indent: 0px; text-transform: none; white-space:
+              normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">(mDesiredFloor.d
-
-              != d) || (all mDoorClosed[b,r]==true)</span></td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; ">T-R8.2.3 </td>
-          <td style="vertical-align: top; "><span style="color: rgb(0,
-              0, 0); font-family: Times; font-size: medium; font-style:
-              normal; font-variant: normal; font-weight: normal;
-              letter-spacing: normal; line-height: normal; orphans: 2;
-              text-align: left; text-indent: 0px; text-transform: none;
-              white-space: normal; widows: 2; word-spacing: 0px;
-              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">(all
-              CarLantern[d]==OFF) &amp;&amp; </span>(any
-            mDoorClosed[b,r]==false)<br>
+              0px; display: inline !important; float: none;">||
+              (mCarWeight(x) &gt;= MaxCarCapacity)</span> ]<br>
           </td>
         </tr>
         <tr>
-          <td style="vertical-align: top; ">T-R8.2.4 </td>
+          <td style="vertical-align: top; ">T-R9.3 </td>
           <td style="vertical-align: top; "><span style="color: rgb(0,
               0, 0); font-family: Times; font-size: medium; font-style:
               normal; font-variant: normal; font-weight: normal;
@@ -547,8 +548,56 @@ src="file:///Users/jessesalazar/ece649-g17/portfolio/verify/SC_R_T8_2.png"
               text-align: left; text-indent: 0px; text-transform: none;
               white-space: normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">(all
-              mDoorClosed[b,r]==true)</span></td>
+              0px; display: inline !important; float: none;">(mDriveSpeed
+              != fast) &amp;&amp; (DriveSpeed.s == SlowSpeed &amp;&amp;
+              DriveDir ~= Stop &amp;&amp; CommitPoint[f] == NotReached
+              &amp;&amp; mDesiredFloor.f == f)</span> </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; ">T-R9.4 </td>
+          <td style="vertical-align: top; ">(mDriveSpeed != fast)
+            &amp;&amp; <br>
+            <span style="color: rgb(0, 0, 0); font-family: Times;
+              font-size: medium; font-style: normal; font-variant:
+              normal; font-weight: normal; letter-spacing: normal;
+              line-height: normal; orphans: 2; text-align: left;
+              text-indent: 0px; text-transform: none; white-space:
+              normal; widows: 2; word-spacing: 0px;
+              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
+              0px; display: inline !important; float: none;">[ (DriveDir
+              ~= Stop &amp;&amp; CommitPoint[f] == Reached &amp;&amp;
+              mDesiredFloor.f == f &amp;&amp; mEmergencyBrake[b] ==
+              False<span class="Apple-converted-space">) </span></span><br
+              style="color: rgb(0, 0, 0); font-family: Times; font-size:
+              medium; font-style: normal; font-variant: normal;
+              font-weight: normal; letter-spacing: normal; line-height:
+              normal; orphans: 2; text-align: left; text-indent: 0px;
+              text-transform: none; white-space: normal; widows: 2;
+              word-spacing: 0px; -webkit-text-size-adjust: auto;
+              -webkit-text-stroke-width: 0px;">
+            <span style="color: rgb(0, 0, 0); font-family: Times;
+              font-size: medium; font-style: normal; font-variant:
+              normal; font-weight: normal; letter-spacing: normal;
+              line-height: normal; orphans: 2; text-align: left;
+              text-indent: 0px; text-transform: none; white-space:
+              normal; widows: 2; word-spacing: 0px;
+              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
+              0px; display: inline !important; float: none;">||
+              (mCarWeight(x) &gt;= MaxCarCapacity)</span> ]</td>
+        </tr>
+        <tr>
+          <td valign="top">T-R9.5 </td>
+          <td valign="top"><span style="color: rgb(0, 0, 0);
+              font-family: Times; font-size: medium; font-style: normal;
+              font-variant: normal; font-weight: normal; letter-spacing:
+              normal; line-height: normal; orphans: 2; text-align: left;
+              text-indent: 0px; text-transform: none; white-space:
+              normal; widows: 2; word-spacing: 0px;
+              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
+              0px; display: inline !important; float: none;">(mDriveSpeed
+              != fast) &amp;&amp; (DriveSpeed.s == SlowSpeed &amp;&amp;
+              DriveDir ~= Stop &amp;&amp; CommitPoint[f] == NotReached
+              &amp;&amp; mDesiredFloor.f == f)</span> </td>
         </tr>
       </tbody>
     </table>
