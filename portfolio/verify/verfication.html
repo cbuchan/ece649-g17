@@ -503,6 +503,47 @@
               0px; display: inline !important; float: none;">CurrentFloor
               == TargetFloor</span></td>
         </tr>
+        <tr>
+          <td style="vertical-align: top; ">T-R8.3.5</td>
+          <td style="vertical-align: top; "><span style="color: rgb(0,
+              0, 0); font-family: Times; font-size: medium; font-style:
+              normal; font-variant: normal; font-weight: normal;
+              letter-spacing: normal; line-height: normal; orphans: 2;
+              text-align: left; text-indent: 0px; text-transform: none;
+              white-space: normal; widows: 2; word-spacing: 0px;
+              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
+              0px; display: inline !important; float: none;">[mDesiredFloor.d==DOWN
+
+              &amp;&amp; CarLantern(UP)==ON &amp;&amp;
+              anyUpCall(CurrentFloor) &amp;&amp; (any
+              mDoorClosed[b,r]==false) ] || </span><br>
+              <span style="color: rgb(0, 0, 0); font-family: Times;
+              font-size: medium; font-style: normal; font-variant:
+              normal; font-weight: normal; letter-spacing: normal;
+              line-height: normal; orphans: 2; text-align: left;
+              text-indent: 0px; text-transform: none; white-space:
+              normal; widows: 2; word-spacing: 0px;
+              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
+              0px; display: inline !important; float: none;">[</span><span
+              style="color: rgb(0, 0, 0); font-family: Times; font-size:
+              medium; font-style: normal; font-variant: normal;
+              font-weight: normal; letter-spacing: normal; line-height:
+              normal; orphans: 2; text-align: left; text-indent: 0px;
+              text-transform: none; white-space: normal; widows: 2;
+              word-spacing: 0px; -webkit-text-size-adjust: auto;
+              -webkit-text-stroke-width: 0px; display: inline
+              !important; float: none;"><span style="color: rgb(0, 0,
+                0); font-family: Times; font-size: medium; font-style:
+                normal; font-variant: normal; font-weight: normal;
+                letter-spacing: normal; line-height: normal; orphans: 2;
+                text-align: left; text-indent: 0px; text-transform:
+                none; white-space: normal; widows: 2; word-spacing: 0px;
+                -webkit-text-size-adjust: auto;
+                -webkit-text-stroke-width: 0px; display: inline
+                !important; float: none;">mDesiredFloor.d==UP &amp;&amp; </span>CarLantern(DOWN)==ON &amp;&amp;
+              anyDownCall(CurrentFloor) &amp;&amp; (any
+          mDoorClosed[b,r]==false) ]</span></td>
+        </tr>
       </tbody>
     </table>
     <br>
@@ -749,54 +790,104 @@
     <br>
     Add instructions here<br>
     <br>
-    <h2>Verification Results</h2>
-    <br>
-    <table style="text-align: left; width: 100%;" border="1"
-      cellpadding="2" cellspacing="2">
-      <tbody>
+  <h2>Verification Results</h2>
+  <table border="1" cellpadding="2" cellspacing="2" width="100%">
+    <tbody>
         <tr>
-          <td style="vertical-align: top; font-weight: bold;">Acceptance
-            Test Name<br>
-          </td>
-          <td style="vertical-align: top; font-weight: bold;">Verification
+          <td style="vertical-align: top;"><span style="vertical-align: top; font-weight: bold;">Acceptance
+          Test Name</span><br></td>
+          <td style="vertical-align: top;"><span style="vertical-align: top; font-weight: bold;">Verification
 
 
 
-            Status<br>
-          </td>
-          <td style="vertical-align: top; font-weight: bold;">Link to
-            Verification Results<br>
-          </td>
-          <td style="vertical-align: top; font-weight: bold;">Notes<br>
-          </td>
+          Status</span><br></td>
+          <td style="vertical-align: top;"><span style="vertical-align: top; font-weight: bold;">Link to
+          Verification Results</span><br></td>
+          <td style="vertical-align: top;"><span style="vertical-align: top; font-weight: bold;">Notes</span><br></td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">proj5acceptance1.pass<br>
-          </td>
-          <td style="vertical-align: top;">pass / fail<br>
-          </td>
-          <td style="vertical-align: top;"><a
-              href="p5-1_verification.out">p5-1_verification.out</a><br>
-          </td>
-          <td style="vertical-align: top;">If failed, identify the
-            specific source of the failure, such as requirement (list
-            requirement numbers), implementation (cite line file and
-            line numbers), monitor (cite line file and line numbers),
-            etc.<br>
-          </td>
+          <td valign="top"><a
+href="file:///Users/Collin/Workspace/ece649-g17/portfolio/acceptance_test/basicpass.pass">basicpass.pass</a></td>
+          <td valign="top">Pass</td>
+          <td valign="top"><a
+href="file:///Users/Collin/Workspace/ece649-g17/portfolio/acceptance_test/elevator-basicpass.pass-0.stats">elevator-basicpass.pass-0.stats</a></td>
+          <td valign="top">Passed<br></td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">....<br>
-          </td>
-          <td style="vertical-align: top;"><br>
-          </td>
-          <td style="vertical-align: top;"><br>
-          </td>
-          <td style="vertical-align: top;"><br>
-          </td>
+          <td valign="top"><a href="proj7acceptance1.pass">proj7acceptance1.pass</a><br></td>
+          <td valign="top">Pass</td>
+          <td valign="top"><p><a href="elevator-proj7acceptance1.pass-0.stats">elevator-proj7acceptance1.pass-0.stats</a><br>
+          </p></td>
+          <td valign="top">Passed<br></td>
+        </tr>
+        <tr>
+          <td valign="top"><a href="proj7acceptance2.pass">proj7acceptance2.pass</a><br></td>
+          <td valign="top">Pass</td>
+          <td valign="top"><p><a href="elevator-proj7acceptance2.pass-0.stats">elevator-proj7acceptance2.pass-0.stats</a><br>
+          </p></td>
+          <td valign="top">Passed<br></td>
+        </tr>
+        <tr>
+          <td valign="top"><a href="proj7acceptance3.pass">proj7acceptance3.pass</a><br></td>
+          <td valign="top">Pass</td>
+          <td valign="top"><p><a href="elevator-proj7acceptance3.pass-0.stats">elevator-proj7acceptance3.pass-0.stats</a><br>
+          </p></td>
+          <td valign="top">Passed<br></td>
+        </tr>
+        <tr>
+          <td valign="top"><a href="proj8group17acceptance1.pass">proj8group17acceptance1.pass</a><br></td>
+          <td valign="top">Pass</td>
+          <td valign="top"><p><a href="elevator-proj8group17acceptance1.pass-0.stats">elevator-proj8group17acceptance1.pass-0.stats</a><br>
+          </p></td>
+          <td valign="top">Passed<br></td>
+        </tr>
+        <tr>
+          <td valign="top"><a href="proj10acceptance1.pass">proj10acceptance1.pass</a></td>
+          <td valign="top">Pass</td>
+          <td valign="top"><p><a
+                href="elevator-proj10acceptance1.pass-0.stats">elevator-proj10acceptance1.pass-0.stats</a></p></td>
+          <td valign="top">Passed</td>
+        </tr>
+        <tr>
+          <td valign="top"><a href="proj10acceptance2.pass">proj10acceptance2.pass</a><a
+              href="proj7acceptance3.pass"></a></td>
+          <td valign="top">Pass</td>
+          <td valign="top"><p><a href="elevator-proj10acceptance2.pass-0.stats">elevator-proj10acceptance2.pass-0.stats</a></p></td>
+          <td valign="top">Passed</td>
+        </tr>
+        <tr>
+          <td valign="top"><a href="proj10acceptance3.pass">proj10acceptance3.pass</a><a
+              href="proj7acceptance3.pass"></a></td>
+          <td valign="top">Pass</td>
+          <td valign="top"><p><a
+                href="elevator-proj10acceptance3.pass-0.stats">elevator-proj10acceptance3.pass-0.stats</a></p></td>
+          <td valign="top">Passed</td>
+        </tr>
+        <tr>
+          <td valign="top"><a href="proj11acceptance1.pass">proj11acceptance1.pass</a><br></td>
+          <td valign="top">Fail</td>
+          <td valign="top"><p>No stats file produced.</p>
+            <p>Placeholder: <a
+                href="elevator-proj10acceptance3.pass-0.stats">elevator-proj11acceptance1.pass-0.stats</a><br>
+            </p></td>
+          <td valign="top">@4060.480000000: EMERGENCY BRAKE ENGAGED! Drive command not adjacent to DriveSpeed: Commanded to LEVEL,UPwhile moving in the direction DOWN<br></td>
+        </tr>
+        <tr>
+          <td valign="top"><a href="proj11acceptance2.pass">proj11acceptance2.pass</a><br></td>
+          <td valign="top">Pass</td>
+          <td valign="top"><a
+                href="elevator-proj10acceptance3.pass-0.stats">elevator-proj11acceptance2.pass-0.stats</a><br></td>
+          <td valign="top">Passed<br></td>
+        </tr>
+        <tr>
+          <td valign="top"><a href="proj11acceptance3.pass">proj11acceptance3.pass</a><br></td>
+          <td valign="top">Pass</td>
+          <td valign="top"><a
+                href="elevator-proj10acceptance3.pass-0.stats">elevator-proj11acceptance3.pass-0.stats</a><br></td>
+          <td valign="top">Passed<br></td>
         </tr>
       </tbody>
     </table>
-    <br>
+    <p>&nbsp;</p>
   </body>
 </html>
