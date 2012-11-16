@@ -157,7 +157,7 @@ public class CarButtonControl extends Controller {
 
                 //transitions -- transition conditions are mutually exclusive
                 //#transition 'T9.2'
-                if (mAtFloor.getValue() == true && mDesiredFloor.getFloor() == floor &&
+                if (!networkDoorClosedHallwayArray.getAllClosed() && mAtFloor.getValue() == true && mDesiredFloor.getFloor() == floor &&
                         (mDesiredFloor.getHallway() == hallway || mDesiredFloor.getHallway() == Hallway.BOTH)) {
                     newState = State.STATE_LIGHT_OFF;
                 } else {
