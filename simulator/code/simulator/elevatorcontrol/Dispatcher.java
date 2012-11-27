@@ -336,10 +336,17 @@ public class Dispatcher extends Controller {
     */
     private int nextUpCall(int commitPoint) {
         for (int floor = commitPoint; floor <= numFloors; floor++) {
-            if (networkHallCallArray.getValue(floor, Hallway.FRONT, Direction.UP) ||
-                    networkHallCallArray.getValue(floor, Hallway.BACK, Direction.UP) ||
-                    networkCarCallArrayFront.getValueForFloor(floor) ||
-                    networkCarCallArrayBack.getValueForFloor(floor)) {
+            if ((carUnderCapacity() && anyHallCall(floor, Direction.UP))
+                    || anyCarCall(floor)) {
+                return floor;
+            }
+        }
+        return MessageDictionary.NONE;
+    }
+
+    private int nextCallAbove(int commitPoint) {
+        for (int floor = commitPoint; floor <= numFloors; floor++) {
+            if (anyHallCall(floor, Direction.UP) || anyHallCall(floor, Direction.DOWN) || anyCarCall(floor)) {
                 return floor;
             }
         }
@@ -361,10 +368,17 @@ public class Dispatcher extends Controller {
 
     private int nextDownCall(int commitPoint) {
         for (int floor = commitPoint; floor >= 1; floor--) {
-            if (networkHallCallArray.getValue(floor, Hallway.FRONT, Direction.DOWN) ||
-                    networkHallCallArray.getValue(floor, Hallway.BACK, Direction.DOWN) ||
-                    networkCarCallArrayFront.getValueForFloor(floor) ||
-                    networkCarCallArrayBack.getValueForFloor(floor)) {
+            if ((carUnderCapacity() && anyHallCall(floor, Direction.DOWN)) ||
+                    anyCarCall(floor)) {
+                return floor;
+            }
+        }
+        return MessageDictionary.NONE;
+    }
+
+    private int nextCallBelow(int commitPoint) {
+        for (int floor = commitPoint; floor >= 1; floor--) {
+            if (anyHallCall(floor, Direction.UP) || anyHallCall(floor, Direction.DOWN) || anyCarCall(floor)) {
                 return floor;
             }
         }
@@ -384,6 +398,18 @@ public class Dispatcher extends Controller {
         }
     }
 
+    private boolean anyCarCall(int floor) {
+        return networkCarCallArrayFront.getValueForFloor(floor) || networkCarCallArrayBack.getValueForFloor(floor);
+    }
+
+    private boolean anyHallCall(int floor, Direction dir) {
+        return networkHallCallArray.getValue(floor, Hallway.FRONT, dir) || networkHallCallArray.getValue(floor, Hallway.BACK, dir);
+    }
+
+    private boolean carUnderCapacity() {
+        return mCarWeight.getWeight() < 13500;
+    }
+
 
     private int computeNextFloor(int commitPoint, Direction dir) {
         //Car moving, DON'T CHANGE DIRECTION
@@ -391,13 +417,13 @@ public class Dispatcher extends Controller {
             if (nextUpCall(commitPoint) != MessageDictionary.NONE) {
                 return nextUpCall(commitPoint);
             } else {
-                return closestCall(commitPoint, numFloors);
+                return nextCallAbove(commitPoint);
             }
         } else if (mDriveSpeed.getDirection() == Direction.DOWN) {
             if (nextDownCall(commitPoint) != MessageDictionary.NONE) {
                 return nextDownCall(commitPoint);
             } else {
-                return closestCall(commitPoint, numFloors);
+                return nextCallBelow(commitPoint);
             }
         }
         //Car stopped, use desired direction
