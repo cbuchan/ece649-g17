@@ -393,7 +393,7 @@ public class Utility {
 
             // let's set the error threshold to 10cm (to compensate for the level position sensor updating)
             //double error = 0.1;
-            double error = 1.0;
+            double error = 1.8;
             if (dir == 1) {
                 if (commitPt < fPos - error) return false; //not reached
             } else if (dir == -1) {

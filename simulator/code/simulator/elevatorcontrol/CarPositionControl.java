@@ -11,6 +11,7 @@ package simulator.elevatorcontrol;
 import jSimPack.SimTime;
 import simulator.elevatorcontrol.Utility.AtFloorArray;
 import simulator.framework.Controller;
+import simulator.framework.Direction;
 import simulator.payloads.CanMailbox;
 import simulator.payloads.CanMailbox.ReadableCanMailbox;
 import simulator.payloads.CanMailbox.WriteableCanMailbox;
@@ -136,10 +137,7 @@ public class CarPositionControl extends Controller {
             case STATE_DISPLAY_FLOOR:
                 //state actions for 'DISPLAY_FLOOR'
                 currentFloor = networkAtFloorArray.getCurrentFloor();
-                commitedFloor =
-                        networkCommitPointCalculator.getCommitedFloor(
-                                mDriveSpeed.getDirection(),
-                                mDriveSpeed.getSpeed());
+                commitedFloor = getCommittedFloor(commitedFloor);
 
                 // Make sure we don't set an illegal mCarPositionIndicator
                 if (currentFloor != MessageDictionary.NONE) {
@@ -158,10 +156,7 @@ public class CarPositionControl extends Controller {
             case STATE_DISPLAY_COMMIT_POINT:
                 //state actions for 'DISPLAY_COMMIT_POINT'
                 currentFloor = networkAtFloorArray.getCurrentFloor();
-                commitedFloor =
-                        networkCommitPointCalculator.getCommitedFloor(
-                                mDriveSpeed.getDirection(),
-                                mDriveSpeed.getSpeed());
+                commitedFloor = getCommittedFloor(commitedFloor);
 
                 mCarPositionIndicator.set(commitedFloor);
                 localCarPositionIndicator.set(commitedFloor);
@@ -195,5 +190,15 @@ public class CarPositionControl extends Controller {
         //you must do this at the end of the timer callback in order to restart
         //the timer
         timer.start(period);
+    }
+
+    int getCommittedFloor(int oldFloor) {
+        int newFloor = networkCommitPointCalculator.getCommitedFloor(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
+        if (mDriveSpeed.getDirection() == Direction.UP && newFloor > oldFloor) {
+            return newFloor;
+        } else if (mDriveSpeed.getDirection() == Direction.DOWN && newFloor < oldFloor) {
+            return newFloor;
+        }
+        return oldFloor;
     }
 }

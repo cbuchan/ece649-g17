@@ -222,7 +222,7 @@ public class DriveControl extends Controller {
                 mDriveSpeed.set(localDriveSpeed.speed(), localDriveSpeed.direction());
 
                 //#transition 'T6.2'
-                if (driveDir == Direction.STOP && mLevelUp.getValue() && mLevelDown.getValue()
+                if (levelDir == Direction.STOP && mLevelUp.getValue() && mLevelDown.getValue()
                         && localDriveSpeed.speed() <= 0.05 || mEmergencyBrake.getValue()) {
                     newState = State.STATE_DRIVE_STOPPED;
                 } else newState = state;
