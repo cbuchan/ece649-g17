@@ -41,16 +41,22 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
     DoorReversalStateMachine doorReversalState = new DoorReversalStateMachine();
     DoorStateMachine doorState = new DoorStateMachine();
     WeightStateMachine weightState = new WeightStateMachine();
+
+    /* state machines testing the high level requirements */
 	DriveStateMachine driveState = new DriveStateMachine();
-	
+    DoorReversalStateMachine desiredReversalState = new DoorReversalStateMachine();
+    DesiredDoorStateMachine desiredDoorState = new DesiredDoorStateMachine();
+
     Stopwatch doorReversalStopwatch = new Stopwatch();
 	
     boolean hasMoved = false;
     boolean wasOverweight = false;
     int overWeightCount = 0;
     int wastedOpeningsCount = 0;
-	int stoppedUndesiredCount = 0;
-	
+	int stoppedUndesiredCount = 0;      // count for elevator stopping at a floor with no calls
+    int undesiredOpeningsCount = 0;     // count for elevator opening doors at floor with no calls
+    int nudgeBeforeReversalCount = 0;   // count for nudges happening before a door reversal
+
     protected int currentFloor = MessageDictionary.NONE;
 	protected int desiredFloorFl = MessageDictionary.NONE;
 	protected Direction desiredFloorDir = Direction.STOP;
@@ -67,12 +73,14 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
 	/* MODIFY: THE SUMMARIZE FUNCTION BELOW NEEDS TO BE UPDATED */
 	@Override
     protected String[] summarize() {
-        String[] arr = new String[4];
+        String[] arr = new String[6];
         arr[0] = "Overweight count = " + overWeightCount;
         arr[1] = "Wasted openings count = " + wastedOpeningsCount;
         arr[2] = "Time dealing with door reversals = "
 		+ doorReversalStopwatch.getAccumulatedTime().toString();
-        arr[1] = "Undesired stop count = " + stoppedUndesiredCount;
+        arr[3] = "R-T6: Stopped at floor with no calls = " + stoppedUndesiredCount;
+        arr[4] = "R-T7: Doors opened at floor with no calls = " + undesiredOpeningsCount;
+        arr[5] = "R-T10: Doors commanded to nudge before a reversal = " + nudgeBeforeReversalCount;
 		return arr;
     }
 	
@@ -324,7 +332,8 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
         STOPPED_UNDESIRED
     }
 	/**
-     * Utility class to detect stops at undesired floors.
+     * Utility class for testing the high level requirement:
+     * R-T6: The Car shall only stop at Floors for which there are pending calls.
      */
     private class DriveStateMachine {
 
@@ -337,7 +346,10 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
         public void receive(ReadableDriveSpeedPayload msg) {
             updateState(msg.speed());
         }
-		
+
+        /**
+         * @param spd
+         */
 		private void updateState(double spd) {
             DriveState prevState = driveState;
 			
@@ -345,18 +357,22 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
 			
 			switch (prevState) {
 				case STOPPED:
+                    // R-T6.1
 					if (spd != DriveObject.StopSpeed){
 						newState = DriveState.MOVING;
 					}
 					break;
 				case MOVING:
+                    // R-T6.2
 					if (spd == DriveObject.StopSpeed && mDesiredFloor.getFloor() == currentFloor){
 						newState = DriveState.STOPPED;
+                    // R-T6.3
 					} else if (spd == DriveObject.StopSpeed && mDesiredFloor.getFloor() != currentFloor) {
 						newState = DriveState.STOPPED_UNDESIRED;
 					}
 					break;
 				case STOPPED_UNDESIRED:
+                    // R-T6.4
 					if (spd != DriveObject.StopSpeed){
 						newState = DriveState.MOVING;
 					}
@@ -372,7 +388,7 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
 					case MOVING:
 						break;
 					case STOPPED_UNDESIRED:
-						message("Stopped at Undesired Floor");
+						message("Stopped at floor with no calls");
 						stoppedUndesiredCount++;
 						break;
 					default:
@@ -445,14 +461,14 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
             return oldHallway;
         }
     }
-	
+
     /**
      * Utility class to detect weight changes
      */
     private class WeightStateMachine {
-		
+
         int oldWeight = 0;
-		
+
         public void receive(ReadableCarWeightPayload msg) {
             if (oldWeight != msg.weight()) {
                 weightChanged(msg.weight());
@@ -460,53 +476,234 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
             oldWeight = msg.weight();
         }
     }
-	
+
+
+    private static enum DoorReversalState {
+
+        DOOR_NOT_REVERSED,
+        DOOR_REVERSE,
+        DOOR_NUDGE_VALID,
+        DOOR_NUDGE_INVALID
+    }
     /**
-     * Utility class to detect door reversal changes
+     * Utility class for testing the high level requirement:
+     * R-T10: For each stop at a floor, at least one door reversal shall have occurred before the doors are
+     * commanded to nudge.
      */
     private class DoorReversalStateMachine {
-		
+
+        DoorReversalState doorReversalState;
+
+        public DoorReversalStateMachine(){
+            doorReversalState = DoorReversalState.DOOR_NOT_REVERSED;
+        }
+
         // Java initializes boolean values to false
         boolean state[][] = new boolean[2][2];
-		
+
         public void receive(ReadableDoorReversalPayload msg) {
             Hallway hall = msg.getHallway();
             Side side = msg.getSide();
             int h = hall.ordinal();
             int s = side.ordinal();
-			
+
             // New reversal
             if (msg.isReversing() == true && state[h][s] == false) {
                 state[h][s] = true;
                 doorReversalStarted(hall, side);
-				// Reversal ending
+            // Reversal ending
             } else if (msg.isReversing() == false && state[h][s] == true) {
-                state[h][s] = false;
+            state[h][s] = false;
                 doorReversalEnded(hall, side);
             }
-			
+
+            updateDoorReversalState(msg.isReversing(), msg.getHallway());
+
         }
-		
+
         public boolean hasReversal() {
             return state[0][0] || state[0][1] || state[1][0] || state[1][1];
         }
+
+        private void updateDoorReversalState(Boolean reversing, Hallway h) {
+            DoorReversalState prevState = doorReversalState;
+            DoorReversalState newState = prevState;
+
+            switch (newState) {
+
+                case DOOR_NOT_REVERSED:
+                    // T-R10.1
+                    if (/* Elevator.hasLanding(f,b) && */
+                        /* mDriveSpeed.s==Stop && */
+                        reversing &&
+                        !doorState.anyDoorOpen(h))
+                    {
+                        newState = DoorReversalState.DOOR_REVERSE;
+                    // T-R10.4
+                    } else if (/* any mDoorMotor[b,r]==Nudge */
+                            false){
+                        newState = DoorReversalState.DOOR_NUDGE_INVALID;
+                    }
+                    break;
+
+                case DOOR_REVERSE:
+                    // T-R10.2
+                    if (/* any mDoorMotor[b,r]==Nudge */
+                            false){
+                        newState = DoorReversalState.DOOR_NUDGE_VALID;
+                    }
+                    break;
+
+                case DOOR_NUDGE_VALID:
+                    // T-R10.3
+                    /**
+                     * (mDoorClosed[b,r]==True) ||
+                     * [  Elevator.hasLanding(f, b) && mDriveSpeed.s == Stop &&
+                     *      [
+                     *          (
+                     *          (mAtFloor[f,b]==True && mDesiredFloor.f==f) &&
+                     *          (mDesiredFloor.h==b || mDesiredFloor.h==BOTH)
+                     *          ) ||
+                     *          (mCarWeight(g) >= MaxCarCapacity && mDoorOpened[b,r]==False)
+                     *      ]
+                     * ]
+                     */
+                    if (doorState.allDoorsClosed(h) ||
+                            (/* Elevator.hasLanding(f, b) && mDriveSpeed.s == Stop && */
+                            (atFloorState.getFloor()==desiredFloorFl) // &&
+                            /* (mDesiredFloor.h==b || mDesiredFloor.h==BOTH)) || */
+                            /* (mCarWeight(g) >= MaxCarCapacity && mDoorOpened[b,r]==False)) */ )){
+                        newState = DoorReversalState.DOOR_NOT_REVERSED;
+                    }
+                    break;
+
+                case DOOR_NUDGE_INVALID:
+                    // T-R10.5
+                    if (doorState.allDoorsClosed(h) ||
+                            (/* Elevator.hasLanding(f, b) && mDriveSpeed.s == Stop && */
+                            (atFloorState.getFloor()==desiredFloorFl) // &&
+                            /* (mDesiredFloor.h==b || mDesiredFloor.h==BOTH)) || */
+                            /* (mCarWeight(g) >= MaxCarCapacity && mDoorOpened[b,r]==False)) */ )){
+                        newState = DoorReversalState.DOOR_NOT_REVERSED;
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+
+            if (newState != prevState) {
+                switch (newState) {
+                    case DOOR_NOT_REVERSED:
+                        break;
+                    case DOOR_REVERSE:
+                        break;
+                    case DOOR_NUDGE_VALID:
+                        break;
+                    case DOOR_NUDGE_INVALID:
+                        message("Doors commanded to nudge before a reversal");
+                        nudgeBeforeReversalCount++;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            doorReversalState = newState;
+
+        }
     }
-	
-	
-	
+
+
+    private static enum DesiredDoorState {
+
+        DOOR_NOT_OPENING,
+        DOOR_OPENING_DESIRED,
+        DOOR_OPENING_UNDESIRED
+    }
+    /**
+     * Utility class for testing the high level requirement:
+     * R-T7: The Car shall only open Doors at Hallways for which there are pending calls.
+     */
+    private class DesiredDoorStateMachine {
+
+        DesiredDoorState desiredDoorState;
+        public DesiredDoorStateMachine() {
+            desiredDoorState = DesiredDoorState.DOOR_NOT_OPENING;
+        }
+
+        public void receive(ReadableAtFloorPayload msg){
+            updateDesiredDoorState(msg.getHallway());
+        }
+
+        private void updateDesiredDoorState(Hallway h) {
+            DesiredDoorState prevState = desiredDoorState;
+            DesiredDoorState newState = prevState;
+
+            switch (newState) {
+
+                case DOOR_NOT_OPENING:
+                    // T-R7.1
+                    if (doorState.anyDoorMotorOpening(h) &&
+                            atFloorState.getFloor() == mDesiredFloor.getFloor() &&
+                            (atFloorState.getHallway() == mDesiredFloor.getHallway() ||
+                                    mDesiredFloor.getHallway()==Hallway.BOTH)){
+                        newState = DesiredDoorState.DOOR_OPENING_DESIRED;
+                        // T-R7.3
+                    } else if (doorState.anyDoorMotorOpening(h) &&
+                            atFloorState.getFloor() != mDesiredFloor.getFloor() ||
+                            (mDesiredFloor.getHallway()==atFloorState.getHallway() ||
+                                    mDesiredFloor.getHallway()==Hallway.BOTH)){
+                        newState = DesiredDoorState.DOOR_OPENING_UNDESIRED;
+                    }
+                    break;
+
+                case DOOR_OPENING_DESIRED:
+                    // T-R7.2
+                    if (doorState.anyDoorOpen()){
+                        newState = DesiredDoorState.DOOR_NOT_OPENING;
+                    }
+                    break;
+
+                case DOOR_OPENING_UNDESIRED:
+                    // T-R7.4
+                    if (doorState.anyDoorOpen()){
+                        newState = DesiredDoorState.DOOR_NOT_OPENING;
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+
+            if (newState != prevState) {
+                switch (newState) {
+                    case DOOR_NOT_OPENING:
+                        break;
+                    case DOOR_OPENING_DESIRED:
+                        break;
+                    case DOOR_OPENING_UNDESIRED:
+                        message("Doors opened at floor with no calls");
+                        undesiredOpeningsCount++;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            desiredDoorState = newState;
+
+        }
+    }
+
 	private static enum DoorState {
-		
+
         CLOSED,
         OPENING,
         OPEN,
         CLOSING
     }
-	private static enum DesiredDoorState {
-		
-        DOOR_NOT_OPENING,
-        DOOR_OPENING_DESIRED,
-        DOOR_OPENING_UNDESIRED
-    }
+
     /**
      * Utility class for keeping track of the door state.
      * 
@@ -516,35 +713,28 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
     private class DoorStateMachine {
 		
         DoorState state[] = new DoorState[2];
-		DesiredDoorState desiredDoorState;
-		
-		
+
         public DoorStateMachine() {
             state[Hallway.FRONT.ordinal()] = DoorState.CLOSED;
             state[Hallway.BACK.ordinal()] = DoorState.CLOSED;
-			desiredDoorState = DesiredDoorState.DOOR_NOT_OPENING;
         }
-		
+
         public void receive(ReadableDoorClosedPayload msg) {
             updateDoorState(msg.getHallway());
-			updateDesiredDoorState(msg.getHallway());
         }
-		
+
         public void receive(ReadableDoorOpenPayload msg) {
             updateDoorState(msg.getHallway());
-			updateDesiredDoorState(msg.getHallway());
         }
-		
+
         public void receive(ReadableDoorMotorPayload msg) {
             updateDoorState(msg.getHallway());
-			updateDesiredDoorState(msg.getHallway());
         }
-		
+
         private void updateDoorState(Hallway h) {
             DoorState previousState = state[h.ordinal()];
-			
             DoorState newState = previousState;
-			
+
             if (allDoorsClosed(h) && allDoorMotorsStopped(h)) {
                 newState = DoorState.CLOSED;
             } else if (allDoorsCompletelyOpen(h) && allDoorMotorsStopped(h)) {
@@ -555,7 +745,7 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
             } else if (anyDoorMotorOpening(h)) {
                 newState = DoorState.OPENING;
             }
-			
+
             if (newState != previousState) {
                 switch (newState) {
                     case CLOSED:
@@ -579,98 +769,8 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
             //set the newState
             state[h.ordinal()] = newState;
         }
-		
-		private void updateDesiredDoorState(Hallway h) {
-            DesiredDoorState prevState = desiredDoorState;
-            DesiredDoorState newState = prevState;
-			
-			/* NEED: utility function to check that all open doors correspond
-			 * to desired hallways.
-			 * NEED: difference between atFloorState.getFloor and currentFloor
-			 */
-			switch (prevState) {
-				case DOOR_NOT_OPENING:
-					if (doorState.anyDoorOpen() && 
-						atFloorState.getHallway()==h &&
-						atFloorState.getFloor()==mDesiredFloor.getFloor() &&
-						mDesiredFloor.getFloor() == currentFloor &&
-						(mDesiredFloor.getHallway()==atFloorState.getHallway()||
-						 mDesiredFloor.getHallway()==Hallway.BOTH)){
-						
-						newState = DesiredDoorState.DOOR_OPENING_DESIRED;
-					}
-					break;
-				//case DOOR_OPENING_DESIRED:
-//					if (spd == DriveObject.StopSpeed && mDesiredFloor.getFloor() == currentFloor){
-//						newState = DriveState.STOPPED;
-//					} else if (spd == DriveObject.StopSpeed && mDesiredFloor.getFloor() != currentFloor) {
-//						newState = DriveState.STOPPED_UNDESIRED;
-//					}
-//					break;
-//				case DOOR_OPENING_UNDESIRED:
-//					if (spd != DriveObject.StopSpeed){
-//						newState = DriveState.MOVING;
-//					}
-//					break;
-				default:
-					break;
-			}
-			
-			//if (newState != prevState) {
-//				switch (newState) {
-//					case STOPPED:
-//						break;
-//					case MOVING:
-//						break;
-//					case STOPPED_UNDESIRED:
-//						message("Stopped at Undesired Floor");
-//						stoppedUndesiredCount++;
-//						break;
-//					default:
-//						break;
-//				}
-//			}
-			desiredDoorState = newState;
-			
-        }
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+
         //door utility methods
         public boolean allDoorsCompletelyOpen(Hallway h) {
             return doorOpeneds[h.ordinal()][Side.LEFT.ordinal()].isOpen()
