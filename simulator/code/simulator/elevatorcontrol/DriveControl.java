@@ -239,14 +239,8 @@ public class DriveControl extends Controller {
                 mDriveSpeed.set(localDriveSpeed.speed(), localDriveSpeed.direction());
 
                 //transitions
-                //#transition 'NEW'
-                if (driveDir == Direction.STOP && mLevelUp.getValue() && mLevelDown.getValue() &&
-                        localDriveSpeed.speed() < DriveObject.SlowSpeed) {
-                    newState = State.STATE_DRIVE_STOPPED;
-                }
-
                 //#transition 'T6.4'
-                else if (localDriveSpeed.speed() <= 0.25 && ((driveDir == Direction.STOP && (!mLevelUp.getValue() || !mLevelDown.getValue())
+                if (localDriveSpeed.speed() <= 0.25 && ((driveDir == Direction.STOP && (!mLevelUp.getValue() || !mLevelDown.getValue())
                         && !mEmergencyBrake.getValue()) || mCarWeight.getWeight() >= Elevator.MaxCarCapacity)) {
                     newState = State.STATE_DRIVE_LEVEL;
                 }
@@ -260,7 +254,8 @@ public class DriveControl extends Controller {
                 }
 
                 //#transition 'T6.7'
-                else if (mEmergencyBrake.getValue()) {
+                else if (mEmergencyBrake.getValue() || (driveDir == Direction.STOP && mLevelUp.getValue() && mLevelDown.getValue() &&
+                        localDriveSpeed.speed() < DriveObject.SlowSpeed)) {
                     newState = State.STATE_DRIVE_STOPPED;
                 } else newState = state;
 

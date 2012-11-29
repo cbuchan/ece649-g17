@@ -1888,8 +1888,7 @@
           <td style="vertical-align: top;">T6.4</td>
           <td style="vertical-align: top;">DriveDir == Stop &amp;&amp;
             mLevel[*] ~= True &amp;&amp; mEmergencyBrake[b] == False ||
-            mCarWeight(x) &gt;= MaxCarCapacity <br>
-          </td>
+            mCarWeight(x) &gt;= MaxCarCapacity </td>
         </tr>
         <tr>
           <td style="vertical-align: top;">T6.5</td>
@@ -1907,7 +1906,7 @@
         <tr>
           <td valign="top">T6.7<br>
           </td>
-          <td valign="top">mEmergencyBrake[b] == True</td>
+          <td valign="top">mEmergencyBrake[b] == True || (DriveDir == STOP &amp;&amp; mLevel[*] == True            &amp;&amp; DriveSpeed.s &lt; SlowSpeed)</td>
         </tr>
         <tr>
           <td valign="top">T6.8<br>
@@ -2326,7 +2325,7 @@
           </td>
           <td valign="top"><br>
           </td>
-          <td valign="top"><br>
+          <td valign="top">x<br>
           </td>
           <td valign="top"><br>
           </td>
@@ -2609,7 +2608,7 @@
     <p>8.1 If any HallCall[f,b,d]=Pressed<br>
       &nbsp;&nbsp; 8.1.1 HallLight[f,b,d] shall be set to On.<br>
       &nbsp;&nbsp; 8.1.2 mHallCall[f,b,d] shall be set to True.<br>
-      8.2 If mAtFloor[f,b] = true and mDesiredFloor.f=f and either
+      8.2 If any mDoorClosed[b,r] == false and mAtFloor[f,b] = true and mDesiredFloor.f=f and either
       mDesiredDirection.d = d or mDesiredDirection.d = Stop<br>
       &nbsp;&nbsp; 8.2.1 HallLight[f,b,d] shall be set to Off.<br>
       &nbsp;&nbsp; 8.2.2 mHallCall[f,b,d] shall be set to False.<br>
@@ -2853,7 +2852,7 @@
       to On.<br>
       &nbsp;&nbsp;&nbsp; 9.1.2 mCarCall[<b>f</b>,<b>b</b>] shall be set
       to true. <br>
-      9.2 If mAtFloor[<b>f,b</b>] is true and mDesiredFloor.f = <b>f</b>
+      9.2 If any mDoorClosed[b,r] = false and mAtFloor[<b>f,b</b>] is true and mDesiredFloor.f = <b>f</b>
       and either mDesiredFloor.b = <b>b</b> or mDesiredFloor.b = BOTH:
       <br>
       &nbsp;&nbsp;&nbsp; 9.2.1 CarLight[<b>f</b>,<b>b</b>] shall be set
@@ -2879,8 +2878,7 @@
         </tr>
         <tr>
           <td style="vertical-align: top;">T9.2</td>
-          <td style="vertical-align: top;">~(all mDoorClosed[f,b]==true)
-            &amp;&amp; mAtFloor[f,b]==true &amp;&amp; mDesiredFloor.f ==
+          <td style="vertical-align: top;"> mDoorClosed[f,b]==false &amp;&amp; mAtFloor[f,b]==true &amp;&amp; mDesiredFloor.f ==
             f &amp;&amp; (mDesiredFloor.b == b || mDesiredFloor.b =
             BOTH)<br>
           </td>
