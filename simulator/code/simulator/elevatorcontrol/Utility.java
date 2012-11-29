@@ -369,10 +369,12 @@ public class Utility {
 
             double decel = DriveObject.Deceleration;    // in m/s^2
             double slow = DriveObject.SlowSpeed;        // in m/s
+            double level = DriveObject.LevelingSpeed;   // in m/s
             double stop = DriveObject.StopSpeed;        // in m/s
 
-            if ((dir == 1 && fPos <= pos) ||
-                    (dir == -1 && fPos >= pos)) return true; // reached for f 'less' than curr floor (direction dependent)
+            if ((dir == 1 && fPos <= pos) || (dir == -1 && fPos >= pos)) {
+                return true; // reached for f 'less' than curr floor (direction dependent)
+            }
 
             if (speed > slow) {
                 commitPt += dir * (1 / decel) *
@@ -402,29 +404,54 @@ public class Utility {
             return true; //reached
         }
 
+//        public int nextReachableFloor(Direction driveSpeed_d, double driveSpeed_s) {
+//            // Returns the lowest "Not Reached" floor
+//            int delta = 5; //mm
+//
+//            if (driveSpeed_d == Direction.UP) {
+//                for (int i = 1; i < Elevator.numFloors; i++) {
+//                    if (commitPoint(i, driveSpeed_d, driveSpeed_s) == false) {
+//                        return i; //Found the closest "Not Reached"
+//                    }
+//                }
+//                return (int) Math.ceil(((mCarLevelPosition.getPosition() + delta) / (Elevator.DISTANCE_BETWEEN_FLOORS * 1000))) + 1;
+//            }
+//            // Returns the highest "Not Reached" floor
+//            else if (driveSpeed_d == Direction.DOWN) {
+//                for (int i = Elevator.numFloors; i >= 1; i--) {
+//                    if (commitPoint(i, driveSpeed_d, driveSpeed_s) == false) {
+//                        return i; //Found the closest "Not Reached"
+//                    }
+//                }
+//                return (int) Math.floor(((mCarLevelPosition.getPosition() - delta) / (Elevator.DISTANCE_BETWEEN_FLOORS * 1000))) + 1;
+//            }
+//
+//            // Failed to find a floor. Try to return the nearest floor
+//            return (int) Math.round(mCarLevelPosition.getPosition() / (Elevator.DISTANCE_BETWEEN_FLOORS * 1000)) + 1;
+//        }
+
         public int nextReachableFloor(Direction driveSpeed_d, double driveSpeed_s) {
             // Returns the lowest "Not Reached" floor
+            int delta = 5; //mm
+
+            int nextFloor;
+
             if (driveSpeed_d == Direction.UP) {
-                for (int i = 1; i < Elevator.numFloors; i++) {
-                    if (commitPoint(i, driveSpeed_d, driveSpeed_s) == false) {
-                        return i; //Found the closest "Not Reached"
-                    }
-                }
-                return (int) Math.ceil((mCarLevelPosition.getPosition() / (Elevator.DISTANCE_BETWEEN_FLOORS * 1000))) + 1;
+                nextFloor =
+                        (int) Math.ceil(((mCarLevelPosition.getPosition() + delta) / (Elevator.DISTANCE_BETWEEN_FLOORS * 1000))) + 1;
             }
             // Returns the highest "Not Reached" floor
             else if (driveSpeed_d == Direction.DOWN) {
-                for (int i = Elevator.numFloors; i >= 1; i--) {
-                    if (commitPoint(i, driveSpeed_d, driveSpeed_s) == false) {
-                        return i; //Found the closest "Not Reached"
-                    }
-                }
-                return (int) Math.floor((mCarLevelPosition.getPosition() / (Elevator.DISTANCE_BETWEEN_FLOORS * 1000))) + 1;
+                nextFloor =
+                        (int) Math.floor(((mCarLevelPosition.getPosition() - delta) / (Elevator.DISTANCE_BETWEEN_FLOORS * 1000))) + 1;
+            } else {
+                // Failed to find a floor. Try to return the nearest floor
+                nextFloor = (int) Math.round(mCarLevelPosition.getPosition() / (Elevator.DISTANCE_BETWEEN_FLOORS * 1000)) + 1;
             }
 
-            // Failed to find a floor. Try to return the nearest floor
-            return (int) Math.round(mCarLevelPosition.getPosition() / (Elevator.DISTANCE_BETWEEN_FLOORS * 1000)) + 1;
+            return nextFloor;
         }
+
 
         public int getCommitedFloor(Direction driveSpeed_d, double driveSpeed_s) {
             // Returns the highest "reached" floor

@@ -1,0 +1,21 @@
+;=============================================================
+;INTEGRATION TESTS
+;=============================================================
+;18649 Fall 2012
+;Group17
+;Collin Buchan (cbuchan)
+;Rajeev Sharma (rdsharma)
+;Jesse Salazar (jessesal)
+;Jessica Tiu   (jtiu)
+;=============================================================
+basicpass basicpass.pass Proj11RuntimeMonitor
+proj7acceptance1 proj7acceptance1.pass Proj11RuntimeMonitor
+proj7acceptance2 proj7acceptance2.pass Proj11RuntimeMonitor
+proj7acceptance3 proj7acceptance3.pass Proj11RuntimeMonitor
+proj8group17acceptance1 proj8group17acceptance1.pass Proj11RuntimeMonitor
+proj10acceptance1 proj10acceptance1.pass Proj11RuntimeMonitor
+proj10acceptance2 proj10acceptance2.pass Proj11RuntimeMonitor
+proj10acceptance3 proj10acceptance3.pass Proj11RuntimeMonitor
+proj11acceptance1 proj11acceptance1.pass Proj11RuntimeMonitor
+proj11acceptance2 proj11acceptance2.pass Proj11RuntimeMonitor
+proj11acceptance3 proj11acceptance3.pass Proj11RuntimeMonitor
