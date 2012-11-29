@@ -5,21 +5,20 @@ Collin Buchan (cbuchan)
 Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
-Command line = -b 200 -seed 8675309 -monitor Proj11RuntimeMonitor -head headerfile -pf basicpass.pass
-RandomSeed = 8675309
+Command line = -fs 5.0 -b 200 -head headerfile -pf basicpass.pass
+RandomSeed = 1354146739724
 CanNetworkBitTime = 5000 ns
 Effective Can Bitrate = 199999.99999999997
 Run Time = null
 Real time rate = null
 Acceptance Test File = basicpass.pass
-Monitors: Proj11RuntimeMonitor  
 
 STATISTICS FOR ELEVATOR SIMULATION PASSENGER DELIVERY
 -----------------------------------------------------
 
 
 These passengers were delivered:
-Passenger 0: INJECTED AT 1.0s and DELIVERED in 85.462s
+Passenger 0: INJECTED AT 1.0s and DELIVERED in 47.44s
   Satisfaction score: 100.0
 
 Passenger Delivery Summary
@@ -28,9 +27,9 @@ Stranded: 0
 Total: 1
 
 Deliver Stats (lower is better):
-Average_delivery_time: 85.462
-Maximum_delivery_time:  85.462
-Delivery_performance_score:  427.310
+Average_delivery_time: 47.440
+Maximum_delivery_time:  47.440
+Delivery_performance_score:  237.200
 
 Satisfaction Stats (higher is better):
 Average_satisfaction_score: 100.000
@@ -42,9 +41,4 @@ Satisfaction_performance_score:  500.000
 
 Network Utilization Summary:
 Recent: 75.12 % Max: 75.12 %  Overall:  75.12 %
-
-Monitors Warning Results: 
-RuntimeMonitor generated 0 warnings.
-
-Monitors Summmary Results: 
 
