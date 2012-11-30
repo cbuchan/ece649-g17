@@ -237,7 +237,6 @@ public class Dispatcher extends Controller {
 
                 commitPoint = nextReachableFloor(commitPoint);
 
-
                 //state actions for STATE_COMPUTE_NEXT
                 targetFloor = computeNextFloor(commitPoint, direction);
 
@@ -620,7 +619,7 @@ public class Dispatcher extends Controller {
 
     private int nextReachableFloor(int oldFloor) {
 
-        int nextReachable = commitPointCalculator.nextReachableFloor(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
+        int nextReachable = commitPointCalculator.nextReachableFloorDelta(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
         int computePoint = commitPointCalculator.getCommitedFloor(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
 
         if (!(mDriveSpeed.getDirection() == Direction.DOWN && computePoint < oldFloor) &&

@@ -1,0 +1,303 @@
+Using verbose output
+Running tests 5 times
+=================================
+Iteration: 0
+=================================
+basicpass(1354248194639): 
+  Delivery: 1 delivered, 0 stranded, 1 total
+  Delivery Perf: 47.793 avg, 47.793 max, 238.965 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 48.793s (2.619s real)
+proj7acceptance1(1354248197694): 
+  Delivery: 18 delivered, 0 stranded, 18 total
+  Delivery Perf: 36.039 avg, 43.869 max, 188.026 score
+  Satisfaction: 94.444 avg, 50.000 min, 427.778 score
+  Time: 6899.537s (88.064s real)
+proj7acceptance2(1354248286616): 
+  Delivery: 51 delivered, 0 stranded, 51 total
+  Delivery Perf: 117.570 avg, 265.983 max, 736.262 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 953.788s (12.650s real)
+proj7acceptance3(1354248299564): 
+  Delivery: 51 delivered, 0 stranded, 51 total
+  Delivery Perf: 139.678 avg, 328.630 max, 887.343 score
+  Satisfaction: 99.020 avg, 50.000 min, 446.078 score
+  Time: 976.33s (12.281s real)
+proj8group17acceptance1(1354248312143): 
+  Delivery: 21 delivered, 0 stranded, 21 total
+  Delivery Perf: 158.378 avg, 281.338 max, 914.849 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 651.338s (10.585s real)
+proj10acceptance1(1354248323070): 
+  Delivery: 17 delivered, 0 stranded, 17 total
+  Delivery Perf: 159.019 avg, 404.176 max, 1040.253 score
+  Satisfaction: 98.824 avg, 90.000 min, 485.294 score
+  Time: 408.176s (6.658s real)
+proj10acceptance2(1354248330415): 
+  Delivery: 27 delivered, 0 stranded, 27 total
+  Delivery Perf: 238.334 avg, 503.467 max, 1456.805 score
+  Satisfaction: 99.259 avg, 80.000 min, 477.037 score
+  Time: 548.577s (10.009s real)
+proj10acceptance3(1354248342012): 
+  Delivery: 61 delivered, 0 stranded, 61 total
+  Delivery Perf: 301.715 avg, 684.967 max, 1891.825 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 854.548s (12.564s real)
+proj11acceptance1(1354248355465): FAILED @ 1469.660000000
+	EMERGENCY BRAKE ENGAGED! Drive command not adjacent to DriveSpeed: Commanded to SLOW,DOWNwhile moving in the direction UP
+proj11acceptance2(1354248374550): 
+  Delivery: 56 delivered, 0 stranded, 56 total
+  Delivery Perf: 171.903 avg, 563.547 max, 1251.159 score
+  Satisfaction: 96.680 avg, 1.563 min, 388.281 score
+  Time: 743.525s (10.593s real)
+proj11acceptance3(1354248385507): 
+  Delivery: 56 delivered, 0 stranded, 56 total
+  Delivery Perf: 198.740 avg, 419.446 max, 1214.405 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 834.64s (11.563s real)
+
+Iteration time: 177.586s
+=================================
+Iteration: 1
+=================================
+basicpass(1354248397404): 
+  Delivery: 1 delivered, 0 stranded, 1 total
+  Delivery Perf: 47.465 avg, 47.465 max, 237.325 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 48.465s (1.730s real)
+proj7acceptance1(1354248399455): 
+  Delivery: 18 delivered, 0 stranded, 18 total
+  Delivery Perf: 35.835 avg, 43.835 max, 187.176 score
+  Satisfaction: 94.444 avg, 50.000 min, 427.778 score
+  Time: 6898.944s (76.738s real)
+proj7acceptance2(1354248476486): 
+  Delivery: 51 delivered, 0 stranded, 51 total
+  Delivery Perf: 118.432 avg, 265.685 max, 739.414 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 953.334s (11.937s real)
+proj7acceptance3(1354248488700): 
+  Delivery: 51 delivered, 0 stranded, 51 total
+  Delivery Perf: 129.855 avg, 315.613 max, 835.035 score
+  Satisfaction: 99.020 avg, 50.000 min, 446.078 score
+  Time: 941.522s (13.275s real)
+proj8group17acceptance1(1354248502597): 
+  Delivery: 21 delivered, 0 stranded, 21 total
+  Delivery Perf: 159.594 avg, 295.975 max, 934.351 score
+  Satisfaction: 98.667 avg, 72.000 min, 466.667 score
+  Time: 665.975s (11.014s real)
+proj10acceptance1(1354248514675): 
+  Delivery: 17 delivered, 0 stranded, 17 total
+  Delivery Perf: 203.766 avg, 449.607 max, 1264.669 score
+  Satisfaction: 98.824 avg, 90.000 min, 485.294 score
+  Time: 452.607s (6.874s real)
+proj10acceptance2(1354248521857): 
+  Delivery: 27 delivered, 0 stranded, 27 total
+  Delivery Perf: 227.179 avg, 453.111 max, 1361.826 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 522.615s (7.265s real)
+proj10acceptance3(1354248529672): 
+  Delivery: 61 delivered, 0 stranded, 61 total
+  Delivery Perf: 290.439 avg, 634.606 max, 1796.363 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 761.042s (9.874s real)
+proj11acceptance1(1354248539837): 
+  Delivery: 150 delivered, 0 stranded, 150 total
+  Delivery Perf: 124.539 avg, 460.782 max, 958.938 score
+  Satisfaction: 96.063 avg, 1.563 min, 385.815 score
+  Time: 4870.602s (55.116s real)
+proj11acceptance2(1354248595328): 
+  Delivery: 56 delivered, 0 stranded, 56 total
+  Delivery Perf: 172.566 avg, 564.189 max, 1254.453 score
+  Satisfaction: 96.680 avg, 1.563 min, 388.281 score
+  Time: 744.322s (9.374s real)
+proj11acceptance3(1354248604986): 
+  Delivery: 56 delivered, 0 stranded, 56 total
+  Delivery Perf: 200.190 avg, 420.333 max, 1221.095 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 837.02s (10.895s real)
+
+Iteration time: 214.092s
+=================================
+Iteration: 2
+=================================
+basicpass(1354248616177): 
+  Delivery: 1 delivered, 0 stranded, 1 total
+  Delivery Perf: 46.956 avg, 46.956 max, 234.780 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 47.956s (2.098s real)
+proj7acceptance1(1354248618877): 
+  Delivery: 18 delivered, 0 stranded, 18 total
+  Delivery Perf: 35.788 avg, 44.391 max, 187.542 score
+  Satisfaction: 94.444 avg, 50.000 min, 427.778 score
+  Time: 6899.833s (82.268s real)
+proj7acceptance2(1354248701433): 
+  Delivery: 51 delivered, 0 stranded, 51 total
+  Delivery Perf: 115.815 avg, 262.557 max, 725.819 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 951.875s (14.671s real)
+proj7acceptance3(1354248717237): 
+  Delivery: 51 delivered, 0 stranded, 51 total
+  Delivery Perf: 127.980 avg, 314.292 max, 826.212 score
+  Satisfaction: 99.020 avg, 50.000 min, 446.078 score
+  Time: 939.586s (15.225s real)
+proj8group17acceptance1(1354248733386): 
+  Delivery: 21 delivered, 0 stranded, 21 total
+  Delivery Perf: 158.941 avg, 281.664 max, 917.429 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 651.664s (9.227s real)
+proj10acceptance1(1354248742853): 
+  Delivery: 17 delivered, 0 stranded, 17 total
+  Delivery Perf: 204.535 avg, 451.192 max, 1269.331 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 458.192s (6.834s real)
+proj10acceptance2(1354248749982): 
+  Delivery: 27 delivered, 0 stranded, 27 total
+  Delivery Perf: 225.931 avg, 450.945 max, 1354.670 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 519.129s (7.680s real)
+proj10acceptance3(1354248757991): 
+  Delivery: 61 delivered, 0 stranded, 61 total
+  Delivery Perf: 291.632 avg, 658.556 max, 1825.084 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 806.639s (10.315s real)
+proj11acceptance1(1354248768623): 
+  Delivery: 150 delivered, 0 stranded, 150 total
+  Delivery Perf: 122.999 avg, 462.448 max, 954.445 score
+  Satisfaction: 96.291 avg, 1.563 min, 386.727 score
+  Time: 4873.897s (51.739s real)
+proj11acceptance2(1354248820667): 
+  Delivery: 56 delivered, 0 stranded, 56 total
+  Delivery Perf: 166.783 avg, 564.378 max, 1231.509 score
+  Satisfaction: 98.242 avg, 1.563 min, 394.531 score
+  Time: 691.118s (8.693s real)
+proj11acceptance3(1354248829670): 
+  Delivery: 56 delivered, 0 stranded, 56 total
+  Delivery Perf: 199.097 avg, 423.379 max, 1219.766 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 834.552s (11.241s real)
+
+Iteration time: 219.991s
+=================================
+Iteration: 3
+=================================
+basicpass(1354248841313): 
+  Delivery: 1 delivered, 0 stranded, 1 total
+  Delivery Perf: 48.183 avg, 48.183 max, 240.915 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 49.183s (1.960s real)
+proj7acceptance1(1354248843576): 
+  Delivery: 18 delivered, 0 stranded, 18 total
+  Delivery Perf: 35.946 avg, 43.883 max, 187.666 score
+  Satisfaction: 94.444 avg, 50.000 min, 427.778 score
+  Time: 6898.988s (79.314s real)
+proj7acceptance2(1354248923204): 
+  Delivery: 51 delivered, 0 stranded, 51 total
+  Delivery Perf: 118.887 avg, 283.688 max, 759.236 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 951.464s (12.224s real)
+proj7acceptance3(1354248935704): 
+  Delivery: 51 delivered, 0 stranded, 51 total
+  Delivery Perf: 129.854 avg, 313.114 max, 832.528 score
+  Satisfaction: 99.020 avg, 50.000 min, 446.078 score
+  Time: 942.203s (12.118s real)
+proj8group17acceptance1(1354248948129): 
+  Delivery: 21 delivered, 0 stranded, 21 total
+  Delivery Perf: 158.407 avg, 281.265 max, 914.891 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 651.265s (9.371s real)
+proj10acceptance1(1354248957807): 
+  Delivery: 17 delivered, 0 stranded, 17 total
+  Delivery Perf: 203.210 avg, 459.020 max, 1271.860 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 460.02s (6.714s real)
+proj10acceptance2(1354248964843): 
+  Delivery: 27 delivered, 0 stranded, 27 total
+  Delivery Perf: 219.380 avg, 425.077 max, 1302.596 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 493.907s (6.964s real)
+proj10acceptance3(1354248972130): 
+  Delivery: 61 delivered, 0 stranded, 61 total
+  Delivery Perf: 287.717 avg, 719.070 max, 1869.939 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 776.062s (10.774s real)
+proj11acceptance1(1354248983291): 
+  Delivery: 150 delivered, 0 stranded, 150 total
+  Delivery Perf: 118.525 avg, 311.171 max, 785.271 score
+  Satisfaction: 96.587 avg, 25.000 min, 411.347 score
+  Time: 4874.553s (52.900s real)
+proj11acceptance2(1354249036464): 
+  Delivery: 56 delivered, 0 stranded, 56 total
+  Delivery Perf: 167.001 avg, 563.633 max, 1231.637 score
+  Satisfaction: 98.064 avg, 1.563 min, 393.817 score
+  Time: 715.75s (9.107s real)
+proj11acceptance3(1354249045880): 
+  Delivery: 56 delivered, 0 stranded, 56 total
+  Delivery Perf: 200.564 avg, 423.612 max, 1225.867 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 837.71s (13.207s real)
+
+Iteration time: 214.653s
+=================================
+Iteration: 4
+=================================
+basicpass(1354249059393): 
+  Delivery: 1 delivered, 0 stranded, 1 total
+  Delivery Perf: 47.507 avg, 47.507 max, 237.535 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 48.507s (2.255s real)
+proj7acceptance1(1354249061996): 
+  Delivery: 18 delivered, 0 stranded, 18 total
+  Delivery Perf: 35.913 avg, 44.049 max, 187.703 score
+  Satisfaction: 94.444 avg, 50.000 min, 427.778 score
+  Time: 6898.786s (80.836s real)
+proj7acceptance2(1354249143165): 
+  Delivery: 51 delivered, 0 stranded, 51 total
+  Delivery Perf: 118.396 avg, 265.128 max, 738.711 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 953.367s (12.394s real)
+proj7acceptance3(1354249155997): 
+  Delivery: 51 delivered, 0 stranded, 51 total
+  Delivery Perf: 130.469 avg, 313.027 max, 834.904 score
+  Satisfaction: 99.020 avg, 50.000 min, 446.078 score
+  Time: 941.06s (12.106s real)
+proj8group17acceptance1(1354249168367): 
+  Delivery: 21 delivered, 0 stranded, 21 total
+  Delivery Perf: 158.745 avg, 295.055 max, 930.034 score
+  Satisfaction: 98.667 avg, 72.000 min, 466.667 score
+  Time: 665.055s (8.906s real)
+proj10acceptance1(1354249177554): 
+  Delivery: 17 delivered, 0 stranded, 17 total
+  Delivery Perf: 194.878 avg, 430.418 max, 1209.932 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 436.418s (6.522s real)
+proj10acceptance2(1354249184447): 
+  Delivery: 27 delivered, 0 stranded, 27 total
+  Delivery Perf: 225.605 avg, 447.107 max, 1349.525 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 517.316s (7.003s real)
+proj10acceptance3(1354249191730): 
+  Delivery: 61 delivered, 0 stranded, 61 total
+  Delivery Perf: 301.315 avg, 610.001 max, 1815.261 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 850.282s (10.936s real)
+proj11acceptance1(1354249202939): 
+  Delivery: 150 delivered, 0 stranded, 150 total
+  Delivery Perf: 120.945 avg, 308.745 max, 792.526 score
+  Satisfaction: 97.042 avg, 25.000 min, 413.169 score
+  Time: 4837.881s (57.082s real)
+proj11acceptance2(1354249260372): 
+  Delivery: 56 delivered, 0 stranded, 56 total
+  Delivery Perf: 166.411 avg, 564.055 max, 1229.698 score
+  Satisfaction: 98.242 avg, 1.563 min, 394.531 score
+  Time: 692.372s (11.786s real)
+proj11acceptance3(1354249272518): 
+  Delivery: 56 delivered, 0 stranded, 56 total
+  Delivery Perf: 199.868 avg, 420.761 max, 1220.231 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 835.712s (14.432s real)
+
+Iteration time: 224.258s
+=================================
+Total Time: 1050.58s
+Average Time: 210.116s
+=================================
