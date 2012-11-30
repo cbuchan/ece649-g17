@@ -1,0 +1,62 @@
+Using verbose output
+=================================
+Iteration: 0
+=================================
+basicpass(1354237920932): 
+  Delivery: 1 delivered, 0 stranded, 1 total
+  Delivery Perf: 46.900 avg, 46.900 max, 234.500 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 47.9s (1.812s real)
+proj7acceptance1(1354237923073): 
+  Delivery: 18 delivered, 0 stranded, 18 total
+  Delivery Perf: 36.008 avg, 43.827 max, 187.858 score
+  Satisfaction: 94.444 avg, 50.000 min, 427.778 score
+  Time: 6899.358s (79.535s real)
+proj7acceptance2(1354238003058): 
+  Delivery: 51 delivered, 0 stranded, 51 total
+  Delivery Perf: 118.926 avg, 283.071 max, 758.775 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 951.456s (14.440s real)
+proj7acceptance3(1354238017778): 
+  Delivery: 51 delivered, 0 stranded, 51 total
+  Delivery Perf: 129.231 avg, 313.578 max, 830.503 score
+  Satisfaction: 99.020 avg, 50.000 min, 446.078 score
+  Time: 940.267s (13.707s real)
+proj8group17acceptance1(1354238031835): 
+  Delivery: 21 delivered, 0 stranded, 21 total
+  Delivery Perf: 159.867 avg, 296.906 max, 936.375 score
+  Satisfaction: 98.667 avg, 72.000 min, 466.667 score
+  Time: 666.906s (9.078s real)
+proj10acceptance1(1354238041228): 
+  Delivery: 17 delivered, 0 stranded, 17 total
+  Delivery Perf: 211.459 avg, 479.066 max, 1324.902 score
+  Satisfaction: 98.824 avg, 90.000 min, 485.294 score
+  Time: 480.066s (6.472s real)
+proj10acceptance2(1354238048022): FAILED @ 366.800000000
+	EMERGENCY BRAKE ENGAGED! FRONT Door Reversal not canceled
+proj10acceptance3(1354238053733): 
+  Delivery: 61 delivered, 0 stranded, 61 total
+  Delivery Perf: 277.916 avg, 658.612 max, 1770.275 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 777.201s (9.549s real)
+proj11acceptance1(1354238063601): 
+  Delivery: 150 delivered, 0 stranded, 150 total
+  Delivery Perf: 130.686 avg, 461.333 max, 984.075 score
+  Satisfaction: 97.317 avg, 1.563 min, 390.831 score
+  Time: 4894.735s (53.617s real)
+proj11acceptance2(1354238117534): 
+  Delivery: 56 delivered, 0 stranded, 56 total
+  Delivery Perf: 171.518 avg, 562.400 max, 1248.473 score
+  Satisfaction: 96.680 avg, 1.563 min, 388.281 score
+  Time: 743.133s (9.600s real)
+proj11acceptance3(1354238127477): 
+  Delivery: 56 delivered, 0 stranded, 56 total
+  Delivery Perf: 200.076 avg, 420.780 max, 1221.086 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 836.175s (10.432s real)
+
+Iteration time: 208.242s
+=================================
+Total Time: 208.242s
+Average Time: 208.242s
+=================================

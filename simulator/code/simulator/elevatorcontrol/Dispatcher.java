@@ -235,7 +235,7 @@ public class Dispatcher extends Controller {
 
             case STATE_COMPUTE_NEXT:
 
-                commitPoint = nextReachableFloor();
+                commitPoint = nextReachableFloor(commitPoint);
 
 
                 //state actions for STATE_COMPUTE_NEXT
@@ -618,7 +618,22 @@ public class Dispatcher extends Controller {
         }
     }
 
-    private int nextReachableFloor() {
-        return commitPointCalculator.nextReachableFloor(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
+    private int nextReachableFloor(int oldFloor) {
+
+        int nextReachable = commitPointCalculator.nextReachableFloor(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
+        int computePoint = commitPointCalculator.getCommitedFloor(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
+
+        if (!(mDriveSpeed.getDirection() == Direction.DOWN && computePoint < oldFloor) &&
+                !(mDriveSpeed.getDirection() == Direction.UP && computePoint > oldFloor)) {
+            computePoint = oldFloor;
+        }
+
+        if (mDriveSpeed.getDirection() == Direction.UP) {
+            return Math.max(nextReachable, computePoint);
+        } else if (mDriveSpeed.getDirection() == Direction.DOWN) {
+            return Math.min(nextReachable, computePoint);
+        } else {
+            return nextReachable;
+        }
     }
 }
