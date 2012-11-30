@@ -193,7 +193,7 @@ public class CarPositionControl extends Controller {
     }
 
     int getCommittedFloor(int oldFloor) {
-        int newFloor = networkCommitPointCalculator.getCommitedFloor(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
+        int newFloor = networkCommitPointCalculator.getCommittedFloor(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
         if (mDriveSpeed.getDirection() == Direction.UP && newFloor > oldFloor) {
             return newFloor;
         } else if (mDriveSpeed.getDirection() == Direction.DOWN && newFloor < oldFloor) {

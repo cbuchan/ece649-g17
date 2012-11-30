@@ -137,7 +137,7 @@ public class CarPositionControl extends Controller {
                 //state actions for 'DISPLAY_FLOOR'
                 currentFloor = networkAtFloorArray.getCurrentFloor();
                 commitedFloor =
-                        networkCommitPointCalculator.getCommitedFloor(
+                        networkCommitPointCalculator.getCommittedFloor(
                                 mDriveSpeed.getDirection(),
                                 mDriveSpeed.getSpeed());
 
@@ -159,7 +159,7 @@ public class CarPositionControl extends Controller {
                 //state actions for 'DISPLAY_COMMIT_POINT'
                 currentFloor = networkAtFloorArray.getCurrentFloor();
                 commitedFloor =
-                        networkCommitPointCalculator.getCommitedFloor(
+                        networkCommitPointCalculator.getCommittedFloor(
                                 mDriveSpeed.getDirection(),
                                 mDriveSpeed.getSpeed());
 

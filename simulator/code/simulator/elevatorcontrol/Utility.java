@@ -480,7 +480,7 @@ public class Utility {
             return nextFloor;
         }
 
-        public int getCommitedFloor(Direction driveSpeed_d, double driveSpeed_s) {
+        public int getCommittedFloor(Direction driveSpeed_d, double driveSpeed_s) {
             // Returns the highest "reached" floor
             if (driveSpeed_d == Direction.UP) {
                 for (int i = Elevator.numFloors; i >= 1; i--) {
@@ -494,6 +494,27 @@ public class Utility {
                 for (int i = 1; i < Elevator.numFloors; i++) {
                     if (commitPoint(i, driveSpeed_d, driveSpeed_s) == true) {
                         return i; //Found the lowest "reached"
+                    }
+                }
+            }
+            // Failed to find a floor. Try to return the nearest floor
+            return (int) Math.round(mCarLevelPosition.getPosition() / (Elevator.DISTANCE_BETWEEN_FLOORS * 1000)) + 1;
+        }
+
+        public int getCommittedFloorDispatcher(Direction driveSpeed_d, double driveSpeed_s) {
+            // Returns the highest "reached" floor
+            if (driveSpeed_d == Direction.UP) {
+                for (int i = Elevator.numFloors; i >= 1; i--) {
+                    if (commitPoint(i, driveSpeed_d, driveSpeed_s) == true) {
+                        return Math.min(i + 1, Elevator.numFloors); //Found the highest "reached"
+                    }
+                }
+            }
+            // Returns the lowest "reached" floor
+            else if (driveSpeed_d == Direction.DOWN) {
+                for (int i = 1; i < Elevator.numFloors; i++) {
+                    if (commitPoint(i, driveSpeed_d, driveSpeed_s) == true) {
+                        return Math.max(i - 1, 1); //Found the lowest "reached"
                     }
                 }
             }

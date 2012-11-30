@@ -304,8 +304,8 @@ public class Dispatcher extends Controller {
             log("Transition:", state, "->", newState);
         }
 
-//        System.out.println(
-//                "State: " + state + " " + mDesiredFloor.getFloor() + " " + mDesiredFloor.getHallway() + " " + mDesiredFloor.getDirection());
+        System.out.println(
+                "State: " + state + " " + mDesiredFloor.getFloor() + " " + mDesiredFloor.getHallway() + " " + mDesiredFloor.getDirection());
 
         //update the state variable
         state = newState;
@@ -416,6 +416,8 @@ public class Dispatcher extends Controller {
 
 
     private int computeNextFloor(int commitPoint, Direction dir) {
+
+        System.out.println("CommitPoint: " + commitPoint + " Drive: " + mDriveSpeed.getDirection() + " " + mDriveSpeed.getDirection());
         //Car moving, DON'T CHANGE DIRECTION
         if (mDriveSpeed.getDirection() == Direction.UP) {
             if (nextUpCall(commitPoint) != MessageDictionary.NONE) {
@@ -458,6 +460,7 @@ public class Dispatcher extends Controller {
             }
             // Stopped
             else if (closestCall(commitPoint, numFloors) != MessageDictionary.NONE) {
+                direction = directionOfClosestCall(commitPoint, numFloors);
                 return closestCall(commitPoint, numFloors);
             } else {
                 return MessageDictionary.NONE;
@@ -508,6 +511,7 @@ public class Dispatcher extends Controller {
     private Direction directionOfClosestCall(int floor, int maxFloor) {
 
         int closestCall = closestCall(floor, maxFloor);
+
         if (closestCall == MessageDictionary.NONE || closestCall == floor) {
             return Direction.STOP;
         } else if (floor <= closestCall) {
@@ -620,16 +624,16 @@ public class Dispatcher extends Controller {
     private int nextReachableFloor(int oldFloor) {
 
         int nextReachable = commitPointCalculator.nextReachableFloorDelta(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
-        int computePoint = commitPointCalculator.getCommitedFloor(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
+        int computePoint = commitPointCalculator.getCommittedFloorDispatcher(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
 
         if (!(mDriveSpeed.getDirection() == Direction.DOWN && computePoint < oldFloor) &&
                 !(mDriveSpeed.getDirection() == Direction.UP && computePoint > oldFloor)) {
             computePoint = oldFloor;
         }
 
-        if (mDriveSpeed.getDirection() == Direction.UP) {
+        if (mDriveSpeed.getDirection() == Direction.UP || anyHallCall(oldFloor, Direction.UP)) {
             return Math.max(nextReachable, computePoint);
-        } else if (mDriveSpeed.getDirection() == Direction.DOWN) {
+        } else if (mDriveSpeed.getDirection() == Direction.DOWN || anyHallCall(oldFloor, Direction.DOWN)) {
             return Math.min(nextReachable, computePoint);
         } else {
             return nextReachable;
