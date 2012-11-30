@@ -57,8 +57,10 @@ public class DoorControl extends Controller {
     private ReadableCanMailbox networkDoorOpened;
     private DoorOpenedCanPayloadTranslator mDoorOpened;
 
-    private ReadableCanMailbox networkDoorReversal;
-    private DoorReversalCanPayloadTranslator mDoorReversal;
+    private ReadableCanMailbox networkDoorReversalLeft;
+    private ReadableCanMailbox networkDoorReversalRight;
+    private DoorReversalCanPayloadTranslator mDoorReversalLeft;
+    private DoorReversalCanPayloadTranslator mDoorReversalRight;
 
     private Utility.CarCallArray networkCarCallArray;
 
@@ -159,12 +161,19 @@ public class DoorControl extends Controller {
                 networkDoorOpened, hallway, side);
         canInterface.registerTimeTriggered(networkDoorOpened);
 
-        networkDoorReversal = CanMailbox.getReadableCanMailbox(
+        networkDoorReversalLeft = CanMailbox.getReadableCanMailbox(
                 MessageDictionary.DOOR_REVERSAL_SENSOR_BASE_CAN_ID +
-                        ReplicationComputer.computeReplicationId(hallway, side));
-        mDoorReversal = new DoorReversalCanPayloadTranslator(
-                networkDoorReversal, hallway, side);
-        canInterface.registerTimeTriggered(networkDoorReversal);
+                        ReplicationComputer.computeReplicationId(hallway, Side.LEFT));
+        mDoorReversalLeft = new DoorReversalCanPayloadTranslator(
+                networkDoorReversalLeft, hallway, Side.LEFT);
+        canInterface.registerTimeTriggered(networkDoorReversalLeft);
+
+        networkDoorReversalRight = CanMailbox.getReadableCanMailbox(
+                MessageDictionary.DOOR_REVERSAL_SENSOR_BASE_CAN_ID +
+                        ReplicationComputer.computeReplicationId(hallway, Side.RIGHT));
+        mDoorReversalRight = new DoorReversalCanPayloadTranslator(
+                networkDoorReversalRight, hallway, Side.RIGHT);
+        canInterface.registerTimeTriggered(networkDoorReversalRight);
 
         networkCarCallArray = new Utility.CarCallArray(hallway, canInterface);
 
@@ -378,7 +387,7 @@ public class DoorControl extends Controller {
     }
 
     private Boolean isDoorReversal() {
-        return mDoorReversal.getValue() == true;
+        return mDoorReversalLeft.getValue() || mDoorReversalRight.getValue();
     }
 
     private Boolean isDesiredFloor() {

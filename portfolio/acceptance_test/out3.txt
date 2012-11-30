@@ -1,0 +1,65 @@
+Using verbose output
+=================================
+Iteration: 0
+=================================
+basicpass(1354239950740): 
+  Delivery: 1 delivered, 0 stranded, 1 total
+  Delivery Perf: 47.792 avg, 47.792 max, 238.960 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 48.792s (1.754s real)
+proj7acceptance1(1354239952798): 
+  Delivery: 18 delivered, 0 stranded, 18 total
+  Delivery Perf: 36.070 avg, 44.084 max, 188.366 score
+  Satisfaction: 94.444 avg, 50.000 min, 427.778 score
+  Time: 6899.155s (75.049s real)
+proj7acceptance2(1354240028144): 
+  Delivery: 51 delivered, 0 stranded, 51 total
+  Delivery Perf: 115.745 avg, 263.897 max, 726.877 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 952.278s (11.603s real)
+proj7acceptance3(1354240040060): 
+  Delivery: 51 delivered, 0 stranded, 51 total
+  Delivery Perf: 130.151 avg, 315.120 max, 835.724 score
+  Satisfaction: 99.020 avg, 50.000 min, 446.078 score
+  Time: 941.524s (11.714s real)
+proj8group17acceptance1(1354240052097): 
+  Delivery: 21 delivered, 0 stranded, 21 total
+  Delivery Perf: 159.057 avg, 282.281 max, 918.511 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 652.281s (8.402s real)
+proj10acceptance1(1354240060800): 
+  Delivery: 17 delivered, 0 stranded, 17 total
+  Delivery Perf: 203.969 avg, 468.437 max, 1284.312 score
+  Satisfaction: 98.824 avg, 90.000 min, 485.294 score
+  Time: 469.437s (6.410s real)
+proj10acceptance2(1354240067510): 
+  Delivery: 27 delivered, 0 stranded, 27 total
+  Delivery Perf: 219.343 avg, 430.859 max, 1308.230 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 494.859s (6.702s real)
+proj10acceptance3(1354240074515): 
+  Delivery: 61 delivered, 0 stranded, 61 total
+  Delivery Perf: 283.366 avg, 608.803 max, 1742.268 score
+  Satisfaction: 99.541 avg, 72.000 min, 470.164 score
+  Time: 786.306s (9.898s real)
+proj11acceptance1(1354240084697): 
+  Delivery: 150 delivered, 0 stranded, 150 total
+  Delivery Perf: 119.393 avg, 306.575 max, 784.146 score
+  Satisfaction: 96.972 avg, 25.000 min, 412.889 score
+  Time: 4849.97s (55.142s real)
+proj11acceptance2(1354240140460): 
+  Delivery: 56 delivered, 0 stranded, 56 total
+  Delivery Perf: 166.620 avg, 563.993 max, 1230.471 score
+  Satisfaction: 98.242 avg, 1.563 min, 394.531 score
+  Time: 692.588s (9.889s real)
+proj11acceptance3(1354240150642): 
+  Delivery: 56 delivered, 0 stranded, 56 total
+  Delivery Perf: 199.844 avg, 422.272 max, 1221.649 score
+  Satisfaction: 100.000 avg, 100.000 min, 500.000 score
+  Time: 836.339s (11.039s real)
+
+Iteration time: 207.602s
+=================================
+Total Time: 207.602s
+Average Time: 207.602s
+=================================
