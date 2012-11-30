@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf SD6A.cf -mf SD6A_01.mf
-RandomSeed = 1353026934653
+RandomSeed = 1354319354933
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -31,8 +31,8 @@ Assertion Results:
 @3.42s:  PASSED simulator.payloads.CarPositionIndicatorPayload$ReadableCarPositionIndicatorPayload@4ca31e1b :: floor ?== 5 PASSED
 @4.04s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@46e45076 :: speed ?== LEVEL PASSED
 @4.04s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@2321ab80 :: direction ?== DOWN PASSED
-@4.46s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@4ee91f5d :: speed ?== STOP PASSED
-@4.46s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@2cb0ce8f :: direction ?== STOP PASSED
+@4.46s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@2cb0ce8f :: speed ?== STOP PASSED
+@4.46s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@42a9c09e :: direction ?== STOP PASSED
 
 
 ******************Summary******************

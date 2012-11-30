@@ -64,7 +64,7 @@
 ;Dispatcher calculates new desired floor
 +0.5s	A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 4
 +0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == FRONT
-+0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
++0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == UP
 
 +0.1s  I  DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = false
 +0.1s   I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = false
@@ -82,16 +82,12 @@
 +0.41s  A  F DoorMotor FRONT LEFT : command == STOP
 
 ;========================================================================
-;7. Hall button turns off.
-;========================================================================
-;arc 7a, 7b
-+0.5s     A  F HallLight 4 FRONT DOWN : lighted == false
-+0s	    A  N HALL_CALL_[4][FRONT][DOWN]_CAN_ID TinyBoolean : getValue == false
-
-;========================================================================
 ;Post Conditions
 ;========================================================================
 ;Elevator is at the passenger's floor.
 ;Door is closed.
 ;Hall button light for passenger's desired direction is on.
+
++0.5s     A  F HallLight 4 FRONT DOWN : lighted == true
++0s	    A  N HALL_CALL_[4][FRONT][DOWN]_CAN_ID TinyBoolean : getValue == true
 

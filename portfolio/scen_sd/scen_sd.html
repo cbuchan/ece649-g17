@@ -24,37 +24,31 @@
       <ul>
         <li><a href="#usecase1">1. Passenger Makes a Hall Call</a> </li>
         <ul>
-          <li><a href="#scenario1a">Scenario 1A</a> </li>
-          <li><a href="#scenario1b">Scenario 1B - R-T7</a> </li>
+          <li><a href="#scenario1a">Scenario 1A</a></li>
+          <li><a href="#scenario1b">Scenario 1B - R-T7</a></li>
           <li><a href="#scenario1c">Scenario 1C</a></li>
         </ul>
-        <li><a href="#usecase2">2. Passenger Makes a Car Call</a> </li>
+        <li><a href="#usecase2">2. Passenger Makes a Car Call</a></li>
         <ul>
-          <li><a href="#scenario2a">Scenario 2A</a> </li>
-          <li><a href="#scenario2b">Scenario 2B </a><a
-href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">-
-              R-T7</a></li>
+          <li><a href="#scenario2a">Scenario 2A</a></li>
+          <li><a href="#scenario2b">Scenario 2B - R-T7</a></li>
         </ul>
         <li><a href="#usecase3">3. Passenger Enters Car</a></li>
         <ul>
-          <li><a href="#scenario3a">Scenario 3A </a><a
-href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">-
-              R-T6; R-T7</a> </li>
+          <li><a href="#scenario3a">Scenario 3A - RT6; R-T7</a></li>
           <li><a href="#scenario3b">Scenario 3B</a></li>
         </ul>
-        <li><a href="#usecase4">4. Passenger Exits Car </a><a
-href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">-
-            R-T7</a> </li>
+        <li><a href="#usecase4">4. Passenger Exits Car - R-T7</a></li>
         <li><a href="#usecase5">5. Passenger Triggers Door Reversal</a>
         </li>
         <ul>
-          <li><a href="#scenario5a">Scenario 5A - R-T10</a> </li>
+          <li><a href="#scenario5a">Scenario 5A - R-T10</a></li>
           <li><a href="#scenario5b">Scenario 5B - R-T10<br>
             </a></li>
         </ul>
         <li><a href="#usecase6">6. Determine Car Position - R-T6; R-T9</a>
         </li>
-        <li><a href="#usecase7">7. Determine Car Direction</a> </li>
+        <li><a href="#usecase7">7. Determine Car Direction</a></li>
         <ul>
           <li><a href="#scenario7a">Scenario 7A - R-T8.1;R-T8.2</a> </li>
           <li><a href="#scenario7b">Scenario 7B</a>&nbsp;</li>
@@ -63,29 +57,8 @@ href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scena
         <li><a href="#usecase8">8. Move Car to Next Floor</a></li>
         <ul>
           <li><a href="#scenario8a">Scenario 8A</a> </li>
-          <li><a href="#scenario8b">Scenario 8B</a><a
-href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">
-              - </a><a
-href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">R-T6;
-
-
-
-
-
-            </a><a
-href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">R-T7</a></li>
-          <li><a href="#scenario8c">Scenario 8C </a><a
-href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">-
-            </a><a
-href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">R-T6;
-
-
-
-
-
-            </a><a
-href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scenario1b">R-T7</a>
-          </li>
+          <li><a href="#scenario8b">Scenario 8B - R-T6; R-T7</a></li>
+          <li><a href="#scenario8c">Scenario 8C - R-T6; R-T7</a> </li>
         </ul>
         <li><a href="#usecase9">9. Cycle Doors</a></li>
         <ul>
@@ -405,6 +378,8 @@ href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scena
 
 
 
+
+
         Case 5: Passenger Triggers Door Reversal </h2>
       <h3> <a name="scenario5a" id="scenario5a"></a>Scenario 5A:
         Passenger attempts to enter the car as the doors begin to close.
@@ -421,6 +396,8 @@ href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scena
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to enter and is nudged by Door[<b>b</b>,<b>r</b>],
+
+
 
 
 
@@ -467,6 +444,8 @@ href="file:///Users/jessesalazar/ece649-g17/portfolio/scen_sd/scen_sd.html#scena
 
 
 triggering
+
+
 
 
 
@@ -721,7 +700,6 @@ triggering
       </ul>
       <h3>Sequence Diagram: </h3>
       <img alt="sd8b" src="sd8b.png" height="588" width="1412"><br>
-      <p></p>
       <h3> <a name="scenario8c"></a>Scenario 8C: Elevator is moving
         from {floor f, hallway b} to {floor g, hallway c} in direction d
         when it receives a non-serviceable hall call for {floor h,
@@ -742,8 +720,8 @@ triggering
         <li>The hall call button for h,e lights up.<br>
         </li>
         <li>Dispatcher calculates the commit point for (h,e) and
-          determines that the car is <b>not</b><b></b> able to stop in
-          time to service the hall call.</li>
+          determines that the car is <b>not</b> able to stop in time to
+          service the hall call.</li>
         <li>Drive begins decelerating to Slow speed. *only if Drive was
           initially Fast.<br>
         </li>
@@ -801,7 +779,6 @@ triggering
       </ul>
       <h3>Sequence Diagram: </h3>
       <p> <a href="sd9a.png"><img src="sd9a.png"></a></p>
-      <p></p>
       <ul>
         <div align="center">
           <hr align="center" size="2" width="100%"> </div>

@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf SD3A.cf -mf SD3A_01.mf
-RandomSeed = 1353026929048
+RandomSeed = 1354319348096
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -15,15 +15,15 @@ Message File = SD3A_01.mf
 Controller File = SD3A.cf
 
 Assertion Results:
-@1.42s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@65faba46 :: getFloor ?== 4 PASSED
-@1.42s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@732b3d53 :: getHallway ?== FRONT PASSED
-@1.42s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@3a21b220 :: getDirection ?== STOP PASSED
+@1.42s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@5f7a8a02 :: getFloor ?== 4 PASSED
+@1.42s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2fdb7df8 :: getHallway ?== FRONT PASSED
+@1.42s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@1bc74f37 :: getDirection ?== UP PASSED
 @2.63s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@5ae80842 :: lighted ?== false PASSED
 @3.83s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@24a4e2e3 :: speed ?== LEVEL PASSED
 @3.83s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@3934f69a :: direction ?== UP PASSED
 @4.92s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@16aa37a6 :: speed ?== STOP PASSED
 @5.13s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@314c194d :: command ?== OPEN PASSED
-@6.92s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@37bd2664 :: command ?== STOP PASSED
+@6.92s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@5f989f84 :: command ?== STOP PASSED
 
 
 ******************Summary******************

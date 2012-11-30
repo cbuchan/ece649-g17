@@ -216,6 +216,7 @@
     <h3>&nbsp;</h3>
     <h3><big><strong>R-T8: </strong></big><big><strong></strong></big><big><strong>The
 
+
           Car Lanterns shall be use in a way that does not confuse
           passengers</strong></big><big><strong>.<br>
           &nbsp;&nbsp;&nbsp; R-T8.1: If any door is open at a hallway
@@ -260,6 +261,7 @@
               0px; display: inline !important; float: none;">(CarLantern[d]==ON)
 
 
+
               &amp;&amp; (mAtFloor[f,b] == true) &amp;&amp;
               (mDesiredFloor.f == f) &amp;&amp;<span
                 class="Apple-converted-space"> </span></span><span
@@ -287,6 +289,7 @@
               0px; display: inline !important; float: none;">(mDesiredFloor.d
 
 
+
               != d) || (all mDoorClosed[b,r] == true)</span></td>
         </tr>
         <tr>
@@ -299,6 +302,7 @@
               white-space: normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">(CarLantern[d]==OFF)
+
 
 
               &amp;&amp; (mAtFloor[f,b] == true) &amp;&amp;
@@ -326,12 +330,14 @@
               0px; display: inline !important; float: none;">(mDesiredFloor.d
 
 
+
               != d) || (all mDoorClosed[b,r] == true)</span></td>
         </tr>
       </tbody>
     </table>
     <h3>&nbsp;</h3>
     <h3><big><strong>R-T8: </strong></big><big><strong></strong></big><big><strong>The
+
 
           Car Lanterns shall be use in a way that does not confuse
           passengers</strong></big><big><strong>.<br>
@@ -395,6 +401,7 @@
               0px; display: inline !important; float: none;">(mDesiredFloor.d
 
 
+
               != d) || (all mDoorClosed[b,r]==true)</span></td>
         </tr>
         <tr>
@@ -428,9 +435,11 @@
     <h3><big><strong>R-T8: </strong></big><big><strong></strong></big><big><strong>The
 
 
+
           Car Lanterns shall be use in a way that does not confuse
           passengers</strong></big><big><strong>.<br>
           &nbsp;&nbsp;&nbsp; R-T8.3: </strong></big><big><strong></strong></big><big><strong>If
+
 
           one of the car lanterns is lit, the car shall service any
           calls in that direction first.</strong></big></h3>
@@ -468,6 +477,7 @@
               normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">[mDesiredFloor.d==UP
+
 
               &amp;&amp; CarLantern(UP)==ON &amp;&amp;
               anyUpCall(CurrentFloor) &amp;&amp; (any
@@ -514,6 +524,7 @@
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">CurrentFloor
 
+
               == TargetFloor</span></td>
         </tr>
         <tr>
@@ -526,6 +537,7 @@
               white-space: normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">[mDesiredFloor.d==DOWN
+
 
 
               &amp;&amp; CarLantern(UP)==ON &amp;&amp;
@@ -572,6 +584,7 @@
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">CurrentFloor
 
+
               == TargetFloor</span></td>
         </tr>
         <tr>
@@ -584,6 +597,7 @@
               white-space: normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">[mDesiredFloor.d==DOWN
+
 
 
               &amp;&amp; CarLantern(UP)==ON &amp;&amp;
@@ -623,6 +637,7 @@
     <h3>&nbsp;</h3>
     <h3><big><strong>R-T9: </strong></big><big><strong></strong></big><big><strong>The
 
+
           Drive shall be commanded to fast speed to the maximum degree
           practicable.</strong></big></h3>
     <p> <big>Runtime Monitor State Chart:</big> <br>
@@ -658,6 +673,7 @@
               normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">(mDriveSpeed
+
 
               == fast) &amp;&amp; (DriveSpeed.s == SlowSpeed &amp;&amp;
               DriveDir ~= Stop &amp;&amp; CommitPoint[f] == NotReached
@@ -711,6 +727,7 @@
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">(mDriveSpeed
 
+
               != fast) &amp;&amp; (DriveSpeed.s == SlowSpeed &amp;&amp;
               DriveDir ~= Stop &amp;&amp; CommitPoint[f] == NotReached
               &amp;&amp; mDesiredFloor.f == f)</span> </td>
@@ -757,6 +774,7 @@
               normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">(mDriveSpeed
+
 
               != fast) &amp;&amp; (DriveSpeed.s == SlowSpeed &amp;&amp;
               DriveDir ~= Stop &amp;&amp; CommitPoint[f] == NotReached
@@ -881,115 +899,127 @@
           </td>
         </tr>
         <tr>
-          <td valign="top"><a
-href="file:///Users/Collin/Workspace/ece649-g17/portfolio/acceptance_test/basicpass.pass">basicpass.pass</a></td>
+          <td valign="top"><a href="../acceptance_test/basicpass.pass">basicpass.pass</a></td>
           <td valign="top">Pass</td>
           <td valign="top"><a
-href="file:///Users/Collin/Workspace/ece649-g17/portfolio/acceptance_test/elevator-basicpass.pass-0.stats">elevator-basicpass.pass-0.stats</a></td>
+              href="../acceptance_test/elevator-basicpass.pass-0.stats">elevator-basicpass.pass-0.stats</a></td>
           <td valign="top">Passed<br>
           </td>
         </tr>
         <tr>
-          <td valign="top"><a href="proj7acceptance1.pass">proj7acceptance1.pass</a><br>
+          <td valign="top"><a
+              href="../acceptance_test/proj7acceptance1.pass">proj7acceptance1.pass</a><br>
           </td>
           <td valign="top">Pass</td>
           <td valign="top">
-            <p><a href="elevator-proj7acceptance1.pass-0.stats">elevator-proj7acceptance1.pass-0.stats</a><br>
+            <p><a
+                href="../acceptance_test/elevator-proj7acceptance1.pass-0.stats">elevator-proj7acceptance1.pass-0.stats</a><br>
             </p>
           </td>
           <td valign="top">Passed<br>
           </td>
         </tr>
         <tr>
-          <td valign="top"><a href="proj7acceptance2.pass">proj7acceptance2.pass</a><br>
+          <td valign="top"><a
+              href="../acceptance_test/proj7acceptance2.pass">proj7acceptance2.pass</a><br>
           </td>
           <td valign="top">Pass</td>
           <td valign="top">
-            <p><a href="elevator-proj7acceptance2.pass-0.stats">elevator-proj7acceptance2.pass-0.stats</a><br>
+            <p><a
+                href="../acceptance_test/elevator-proj7acceptance2.pass-0.stats">elevator-proj7acceptance2.pass-0.stats</a><br>
             </p>
           </td>
           <td valign="top">Passed<br>
           </td>
         </tr>
         <tr>
-          <td valign="top"><a href="proj7acceptance3.pass">proj7acceptance3.pass</a><br>
+          <td valign="top"><a
+              href="../acceptance_test/proj7acceptance3.pass">proj7acceptance3.pass</a><br>
           </td>
           <td valign="top">Pass</td>
           <td valign="top">
-            <p><a href="elevator-proj7acceptance3.pass-0.stats">elevator-proj7acceptance3.pass-0.stats</a><br>
+            <p><a
+                href="../acceptance_test/elevator-proj7acceptance3.pass-0.stats">elevator-proj7acceptance3.pass-0.stats</a><br>
             </p>
           </td>
           <td valign="top">Passed<br>
           </td>
         </tr>
         <tr>
-          <td valign="top"><a href="proj8group17acceptance1.pass">proj8group17acceptance1.pass</a><br>
+          <td valign="top"><a
+              href="../acceptance_test/proj8group17acceptance1.pass">proj8group17acceptance1.pass</a><br>
           </td>
           <td valign="top">Pass</td>
           <td valign="top">
-            <p><a href="elevator-proj8group17acceptance1.pass-0.stats">elevator-proj8group17acceptance1.pass-0.stats</a><br>
+            <p><a
+                href="../acceptance_test/elevator-proj8group17acceptance1.pass-0.stats">elevator-proj8group17acceptance1.pass-0.stats</a><br>
             </p>
           </td>
           <td valign="top">Passed<br>
           </td>
         </tr>
         <tr>
-          <td valign="top"><a href="proj10acceptance1.pass">proj10acceptance1.pass</a></td>
+          <td valign="top"><a
+              href="../acceptance_test/proj10acceptance1.pass">proj10acceptance1.pass</a></td>
           <td valign="top">Pass</td>
           <td valign="top">
-            <p><a href="elevator-proj10acceptance1.pass-0.stats">elevator-proj10acceptance1.pass-0.stats</a></p>
+            <p><a
+                href="../acceptance_test/elevator-proj10acceptance1.pass-0.stats">elevator-proj10acceptance1.pass-0.stats</a></p>
           </td>
           <td valign="top">Passed</td>
         </tr>
         <tr>
-          <td valign="top"><a href="proj10acceptance2.pass">proj10acceptance2.pass</a><a
+          <td valign="top"><a
+              href="../acceptance_test/proj10acceptance2.pass">proj10acceptance2.pass</a><a
               href="proj7acceptance3.pass"></a></td>
           <td valign="top">Pass</td>
           <td valign="top">
-            <p><a href="elevator-proj10acceptance2.pass-0.stats">elevator-proj10acceptance2.pass-0.stats</a></p>
+            <p><a
+                href="../acceptance_test/elevator-proj10acceptance2.pass-0.stats">elevator-proj10acceptance2.pass-0.stats</a></p>
           </td>
           <td valign="top">Passed</td>
         </tr>
         <tr>
-          <td valign="top"><a href="proj10acceptance3.pass">proj10acceptance3.pass</a><a
+          <td valign="top"><a
+              href="../acceptance_test/proj10acceptance3.pass">proj10acceptance3.pass</a><a
               href="proj7acceptance3.pass"></a></td>
           <td valign="top">Pass</td>
           <td valign="top">
-            <p><a href="elevator-proj10acceptance3.pass-0.stats">elevator-proj10acceptance3.pass-0.stats</a></p>
+            <p><a
+                href="../acceptance_test/elevator-proj10acceptance3.pass-0.stats">elevator-proj10acceptance3.pass-0.stats</a></p>
           </td>
           <td valign="top">Passed</td>
         </tr>
         <tr>
-          <td valign="top"><a href="proj11acceptance1.pass">proj11acceptance1.pass</a><br>
-          </td>
-          <td valign="top">Fail</td>
-          <td valign="top">
-            <p>No stats file produced.</p>
-            <p>Placeholder: <a
-                href="elevator-proj10acceptance3.pass-0.stats">elevator-proj11acceptance1.pass-0.stats</a><br>
-            </p>
-          </td>
-          <td valign="top">@4060.480000000: EMERGENCY BRAKE ENGAGED!
-            Drive command not adjacent to DriveSpeed: Commanded to
-            LEVEL,UPwhile moving in the direction DOWN<br>
-          </td>
-        </tr>
-        <tr>
-          <td valign="top"><a href="proj11acceptance2.pass">proj11acceptance2.pass</a><br>
-          </td>
-          <td valign="top">Pass</td>
           <td valign="top"><a
-              href="elevator-proj10acceptance3.pass-0.stats">elevator-proj11acceptance2.pass-0.stats</a><br>
+              href="../acceptance_test/proj11acceptance1.pass">proj11acceptance1.pass</a><br>
+          </td>
+          <td valign="top">Pass<br>
+          </td>
+          <td valign="top"><a
+              href="../acceptance_test/elevator-proj10acceptance3.pass-0.stats">elevator-proj11acceptance1.pass-0.stats</a>
           </td>
           <td valign="top">Passed<br>
           </td>
         </tr>
         <tr>
-          <td valign="top"><a href="proj11acceptance3.pass">proj11acceptance3.pass</a><br>
+          <td valign="top"><a
+              href="../acceptance_test/proj11acceptance2.pass">proj11acceptance2.pass</a><br>
           </td>
           <td valign="top">Pass</td>
           <td valign="top"><a
-              href="elevator-proj10acceptance3.pass-0.stats">elevator-proj11acceptance3.pass-0.stats</a><br>
+              href="../acceptance_test/elevator-proj11acceptance2.pass-0.stats">elevator-proj11acceptance2.pass-0.stats</a><br>
+          </td>
+          <td valign="top">Passed<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><a
+              href="../acceptance_test/proj11acceptance3.pass">proj11acceptance3.pass</a><br>
+          </td>
+          <td valign="top">Pass</td>
+          <td valign="top"><a
+              href="../acceptance_test/elevator-proj11acceptance3.pass-0.stats">elevator-proj11acceptance3.pass-0.stats</a><br>
           </td>
           <td valign="top">Passed<br>
           </td>

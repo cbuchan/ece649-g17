@@ -76,7 +76,8 @@
 ;arc 3a
 +0.5s	A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 4
 +0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == FRONT
-+0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
+; direction should be the same as the previous calculated direction
++0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == UP
 
 ;========================================================================
 ;4. The door starts opening.

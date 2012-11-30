@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf SD3B.cf -mf SD3B_01.mf
-RandomSeed = 1353026930442
+RandomSeed = 1354319349911
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -16,13 +16,13 @@ Controller File = SD3B.cf
 
 Assertion Results:
 @1.1s:  PASSED DoorControl[BACK][RIGHT]::checkState(STATE) ?== STATE_DOOR_OPENING PASSED
-@1.1s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@26544ec1 :: command ?== OPEN PASSED
+@1.1s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@19968e23 :: command ?== OPEN PASSED
 @2.39s:  PASSED DriveControl::checkState(STATE) ?== STATE_DRIVE_STOPPED PASSED
-@2.39s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@584fce71 :: speed ?== STOP PASSED
-@2.39s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@65faba46 :: direction ?== STOP PASSED
-@2.39s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@732b3d53 :: getSpeed ?== STOP PASSED
-@2.39s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@3a21b220 :: getDirection ?== STOP PASSED
-@2.39s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@4a79717e :: getSpeed ?== 0.0 PASSED
+@2.39s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@432a0f6c :: speed ?== STOP PASSED
+@2.39s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@6f34a7d8 :: direction ?== STOP PASSED
+@2.39s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@7bc9a690 :: getSpeed ?== STOP PASSED
+@2.39s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@53ad085 :: getDirection ?== STOP PASSED
+@2.39s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@5f7a8a02 :: getSpeed ?== 0.0 PASSED
 
 
 ******************Summary******************

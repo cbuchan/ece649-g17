@@ -67,7 +67,8 @@
 ;arc2. assert desired floor.b=both <-- Dispatcher
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 7
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == BOTH
-+0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
+; direction is previously calculated direction
++0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == UP
 
 +0.5s	I DRIVE_PERIOD N DRIVE_SPEED_CAN_ID DriveSpeed = 0 STOP
 
@@ -75,7 +76,7 @@
 ;3. Both doors open.
 ;========================================================================
 ;arc 3. assert DoorMotor[b,*]=open <-- DoorControl
-+0.25s  A S Dispatcher : STATE == STATE_SERVICE_CALL
++0.25s  A S Dispatcher : STATE == STATE_COMPUTE_NEXT
 +0.5s A F DoorMotor FRONT RIGHT : command == OPEN
 +0s   A F DoorMotor FRONT LEFT : command == OPEN
 +0s   A F DoorMotor BACK RIGHT : command == OPEN
