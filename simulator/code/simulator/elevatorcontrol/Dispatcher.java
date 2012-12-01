@@ -322,13 +322,6 @@ public class Dispatcher extends Controller {
      * ************************************************************************
      */
 
-    /*
-    * returns True if any calls are found at or above the commitPoint.
-    * returns False otherwise.
-    */
-    private boolean allCallsOff() {
-        return networkHallCallArray.getAllOff() && networkCarCallArrayBack.getAllOff() && networkCarCallArrayFront.getAllOff();
-    }
 
     /*
     * returns True if any calls are found at or above the commitPoint.
@@ -354,19 +347,6 @@ public class Dispatcher extends Controller {
         return MessageDictionary.NONE;
     }
 
-    /*
-    * returns True if any calls are found at or above the commitPoint.
-    * Only UP hall calls are checked.
-    * returns False otherwise.
-    */
-    private boolean anyUpCall(int commitPoint) {
-        if (nextUpCall(commitPoint) != MessageDictionary.NONE) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     private int nextDownCall(int commitPoint) {
         for (int floor = commitPoint; floor >= 1; floor--) {
             if ((carUnderCapacity() && anyHallCall(floor, Direction.DOWN)) ||
@@ -385,32 +365,6 @@ public class Dispatcher extends Controller {
         }
         return MessageDictionary.NONE;
     }
-
-    /*
-    * returns True if any calls are found at or below the commitPoint.
-    * Only DOWN hall calls are checked
-    * returns False otherwise.
-    */
-    private boolean anyDownCall(int commitPoint) {
-        if (nextDownCall(commitPoint) != MessageDictionary.NONE) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private boolean anyCarCall(int floor) {
-        return networkCarCallArrayFront.getValueForFloor(floor) || networkCarCallArrayBack.getValueForFloor(floor);
-    }
-
-    private boolean anyHallCall(int floor, Direction dir) {
-        return networkHallCallArray.getValue(floor, Hallway.FRONT, dir) || networkHallCallArray.getValue(floor, Hallway.BACK, dir);
-    }
-
-    private boolean carUnderCapacity() {
-        return mCarWeight.getWeight() < 13500;
-    }
-
 
     private int computeNextFloor(int commitPoint, Direction dir) {
 
@@ -543,15 +497,6 @@ public class Dispatcher extends Controller {
         return MessageDictionary.NONE;
     }
 
-
-    /*
-    * Returns True if the given floor is between 1 and maxFloor
-    * Returns False otherwise.
-    */
-    private boolean validFloor(int floor, int maxFloor) {
-        return floor <= maxFloor && floor >= 1;
-    }
-
     private Hallway getHallways(int targetFloor, Direction direction) {
 
         Hallway litHallway;
@@ -601,7 +546,6 @@ public class Dispatcher extends Controller {
         return desiredHallway;
     }
 
-
     private int computeCommitPoint(int oldFloor) {
         if (networkAtFloorArray.getCurrentFloor() != MessageDictionary.NONE && mDriveSpeed.getSpeed() <= 0.05) {
             return networkAtFloorArray.getCurrentFloor();
@@ -634,5 +578,33 @@ public class Dispatcher extends Controller {
         } else {
             return nextReachable;
         }
+    }
+
+    /*
+    * Returns True if the given floor is between 1 and maxFloor
+    * Returns False otherwise.
+    */
+    private boolean validFloor(int floor, int maxFloor) {
+        return floor <= maxFloor && floor >= 1;
+    }
+
+    /*
+    * returns True if any calls are found at or above the commitPoint.
+    * returns False otherwise.
+    */
+    private boolean allCallsOff() {
+        return networkHallCallArray.getAllOff() && networkCarCallArrayBack.getAllOff() && networkCarCallArrayFront.getAllOff();
+    }
+
+    private boolean anyCarCall(int floor) {
+        return networkCarCallArrayFront.getValueForFloor(floor) || networkCarCallArrayBack.getValueForFloor(floor);
+    }
+
+    private boolean anyHallCall(int floor, Direction dir) {
+        return networkHallCallArray.getValue(floor, Hallway.FRONT, dir) || networkHallCallArray.getValue(floor, Hallway.BACK, dir);
+    }
+
+    private boolean carUnderCapacity() {
+        return mCarWeight.getWeight() < 13500;
     }
 }
