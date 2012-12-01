@@ -235,13 +235,13 @@ public class Dispatcher extends Controller {
 
             case STATE_COMPUTE_NEXT:
 
-                commitPoint = nextReachableFloor(commitPoint);
+                commitPoint = computeCommitPointDeparting(commitPoint);
 
                 //state actions for STATE_COMPUTE_NEXT
                 targetFloor = computeNextFloor(commitPoint, direction);
 
                 //set the target Hallway to be as many floors as are called for
-                targetHallway = getLitHallways(targetFloor, direction);
+                targetHallway = getHallways(targetFloor, direction);
 
                 mDesiredFloor.setFloor(targetFloor);
                 mDesiredFloor.setHallway(targetHallway);
@@ -267,10 +267,10 @@ public class Dispatcher extends Controller {
 
             case STATE_SERVICE_CALL:
 
-                commitPoint = computeCommitPoint(commitPoint);
+                //state actions for STATE_SERVICE_CALL
+                commitPoint = computeCommitPointArriving(commitPoint);
                 direction = computeDirection(direction, commitPoint);
 
-                //state actions for STATE_SERVICE_CALL
                 mDesiredFloor.setFloor(targetFloor);
                 mDesiredFloor.setHallway(targetHallway);
                 mDesiredFloor.setDirection(direction);
@@ -544,7 +544,7 @@ public class Dispatcher extends Controller {
         return desiredHallway;
     }
 
-    private int computeCommitPoint(int oldFloor) {
+    private int computeCommitPointArriving(int oldFloor) {
         if (networkAtFloorArray.getCurrentFloor() != MessageDictionary.NONE && mDriveSpeed.getSpeed() <= 0.05) {
             return networkAtFloorArray.getCurrentFloor();
         } else {
@@ -559,7 +559,7 @@ public class Dispatcher extends Controller {
         }
     }
 
-    private int nextReachableFloor(int oldFloor) {
+    private int computeCommitPointDeparting(int oldFloor) {
 
         int nextReachable = commitPointCalculator.nextReachableFloorDelta(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
         int computePoint = commitPointCalculator.getCommittedFloorDispatcher(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
