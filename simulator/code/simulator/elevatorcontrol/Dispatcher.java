@@ -304,9 +304,6 @@ public class Dispatcher extends Controller {
             log("Transition:", state, "->", newState);
         }
 
-        System.out.println(
-                "State: " + state + " " + mDesiredFloor.getFloor() + " " + mDesiredFloor.getHallway() + " " + mDesiredFloor.getDirection());
-
         //update the state variable
         state = newState;
 
@@ -417,7 +414,6 @@ public class Dispatcher extends Controller {
 
     private int computeNextFloor(int commitPoint, Direction dir) {
 
-        System.out.println("CommitPoint: " + commitPoint + " Drive: " + mDriveSpeed.getDirection() + " " + mDriveSpeed.getDirection());
         //Car moving, DON'T CHANGE DIRECTION
         if (mDriveSpeed.getDirection() == Direction.UP) {
             if (nextUpCall(commitPoint) != MessageDictionary.NONE) {
