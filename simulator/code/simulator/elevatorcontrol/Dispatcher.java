@@ -241,9 +241,7 @@ public class Dispatcher extends Controller {
                 targetFloor = computeNextFloor(commitPoint, direction);
 
                 //set the target Hallway to be as many floors as are called for
-//                targetHallway = getHallways(targetFloor, Direction.STOP);
-
-//                targetHallway = getLitHallways(targetFloor, direction);
+                targetHallway = getLitHallways(targetFloor, direction);
 
                 mDesiredFloor.setFloor(targetFloor);
                 mDesiredFloor.setHallway(targetHallway);
@@ -271,7 +269,6 @@ public class Dispatcher extends Controller {
 
                 commitPoint = computeCommitPoint(commitPoint);
                 direction = computeDirection(direction, commitPoint);
-                targetHallway = getLitHallways(targetFloor, direction);
 
                 //state actions for STATE_SERVICE_CALL
                 mDesiredFloor.setFloor(targetFloor);
@@ -496,6 +493,20 @@ public class Dispatcher extends Controller {
             }
         }
         return MessageDictionary.NONE;
+    }
+
+    private Hallway getHallways(int targetFloor, Direction direction) {
+
+        Hallway litHallway;
+
+        if (getLitHallways(targetFloor, direction) == Hallway.NONE) {
+            litHallway = getLitHallways(targetFloor, Direction.STOP);
+        } else {
+            litHallway = getLitHallways(targetFloor, direction);
+        }
+
+        return litHallway;
+
     }
 
     /*
