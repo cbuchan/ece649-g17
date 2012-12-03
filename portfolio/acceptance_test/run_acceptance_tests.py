@@ -188,7 +188,41 @@ for i in range(runCount):
         realtime_m = re.search('(\d+\.\d*)\s*real seconds', output)
         if (realtime_m != None):
             realtime = realtime_m.group(1)
+            
+            
+        ##################
+        # RUNTIME MONITOR
+        ##################
+        
+        # get total passenger count
+        warnings_m = re.search('generated\s*(\d+)\s*warnings', output)
+        if (warnings_m != None):
+            warnings = warnings_m.group(1)
 
+        overweight_m = re.search('Overweight\scount\s=\s*(\d+)', output)
+        if (overweight_m != None):
+            overweight = overweight_m.group(1)
+        
+        wasted_opening_m = re.search('Wasted\sopenings\scount\s=\s*(\d+)', output)
+        if (wasted_opening_m != None):
+            wasted_opening = wasted_opening_m.group(1)
+            
+        door_reversal_m = re.search('door\sreversals\s=\s*(\d+\.\d*)', output)
+        if (door_reversal_m != None):
+            door_reversal = door_reversal_m.group(1)   
+            
+        stop_no_calls_m = re.search('Stopped at floor with no calls =\s*(\d+)', output)
+        if (stop_no_calls_m != None):
+            stop_no_calls = stop_no_calls_m.group(1)
+                
+        open_no_calls_m = re.search('Doors opened at floor with no calls =\s*(\d+)', output)
+        if (open_no_calls_m != None):
+            open_no_calls = open_no_calls_m.group(1)
+            
+        nudge_reverse_m = re.search('before a reversal =\s*(\d+)', output)
+        if (nudge_reverse_m != None):
+            nudge_reverse = nudge_reverse_m.group(1)   
+            
         ################
         # PRINT RESULTS
         ################
@@ -198,11 +232,15 @@ for i in range(runCount):
             print "  Delivery: " + delivered + " delivered, " + stranded + " stranded, " + total + " total"
             print "  Delivery Perf: " + avg_time + " avg, " + max_time + " max, " + del_score + " score"
             print "  Satisfaction: " + avg_satis + " avg, " + min_satis + " min, " + satis_score + " score"
+            print "  Warnings: " + warnings + " w, " + overweight + " ow, " + wasted_opening +  \
+                    " wo, " + door_reversal + " dr, " + stop_no_calls + " snc, " + open_no_calls + \
+                    " onc, "+ nudge_reverse + " nr"
             print "  Time: " + simtime + " (" + realtime + "s real)" 
+
         else:
             # print result
             print ''.join([tokens[0], "(" + randomseed + ")", ": ", delivered, " delivered, ", 
-                    stranded, " stranded, ", total, " total"])
+                    stranded, " stranded, ", total, " total, ", warnings, " warnings"])
                     
         time[i] += float(realtime)
 
