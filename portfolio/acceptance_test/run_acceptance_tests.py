@@ -198,18 +198,6 @@ for i in range(runCount):
         warnings_m = re.search('generated\s*(\d+)\s*warnings', output)
         if (warnings_m != None):
             warnings = warnings_m.group(1)
-
-        overweight_m = re.search('Overweight\scount\s=\s*(\d+)', output)
-        if (overweight_m != None):
-            overweight = overweight_m.group(1)
-        
-        wasted_opening_m = re.search('Wasted\sopenings\scount\s=\s*(\d+)', output)
-        if (wasted_opening_m != None):
-            wasted_opening = wasted_opening_m.group(1)
-            
-        door_reversal_m = re.search('door\sreversals\s=\s*(\d+\.\d*)', output)
-        if (door_reversal_m != None):
-            door_reversal = door_reversal_m.group(1)   
             
         stop_no_calls_m = re.search('Stopped at floor with no calls =\s*(\d+)', output)
         if (stop_no_calls_m != None):
@@ -219,7 +207,23 @@ for i in range(runCount):
         if (open_no_calls_m != None):
             open_no_calls = open_no_calls_m.group(1)
             
-        nudge_reverse_m = re.search('before a reversal =\s*(\d+)', output)
+        lantern_not_lit_m = re.search('another floor =\s*(\d+)', output)
+        if (lantern_not_lit_m != None):
+            lantern_not_lit = lantern_not_lit_m.group(1)
+        
+        lantern_change_m = re.search('doors open =\s*(\d+)', output)
+        if (lantern_change_m != None):
+            lantern_change = lantern_change_m.group(1)
+            
+        service_wrong_dir_m = re.search('than lantern =\s*(\d+)', output)
+        if (service_wrong_dir_m != None):
+            service_wrong_dir = service_wrong_dir_m.group(1)
+                    
+        no_fast_speed_m = re.search('fast speed =\s*(\d+)', output)
+        if (no_fast_speed_m != None):
+            no_fast_speed = no_fast_speed_m.group(1)
+            
+        nudge_reverse_m = re.search('before reversal =\s*(\d+)', output)
         if (nudge_reverse_m != None):
             nudge_reverse = nudge_reverse_m.group(1)   
             
@@ -232,9 +236,10 @@ for i in range(runCount):
             print "  Delivery: " + delivered + " delivered, " + stranded + " stranded, " + total + " total"
             print "  Delivery Perf: " + avg_time + " avg, " + max_time + " max, " + del_score + " score"
             print "  Satisfaction: " + avg_satis + " avg, " + min_satis + " min, " + satis_score + " score"
-            print "  Warnings: " + warnings + " w, " + overweight + " ow, " + wasted_opening +  \
-                    " wo, " + door_reversal + " dr, " + stop_no_calls + " snc, " + open_no_calls + \
-                    " onc, "+ nudge_reverse + " nr"
+            print "  Warnings: " + warnings + " w, " + stop_no_calls + " snc, " + open_no_calls + " onc, " \
+                    + lantern_not_lit + " lantern no lit, " + lantern_change + " lantern change dir, " \
+                    + service_wrong_dir + " service wrong dir, " + no_fast_speed + " no fast speed, " \
+                    + nudge_reverse + " nr"
             print "  Time: " + simtime + " (" + realtime + "s real)" 
 
         else:
