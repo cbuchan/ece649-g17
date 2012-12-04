@@ -19,3 +19,6 @@ proj10acceptance3 proj10acceptance3.pass Proj11RuntimeMonitor
 proj11acceptance1 proj11acceptance1.pass Proj11RuntimeMonitor
 proj11acceptance2 proj11acceptance2.pass Proj11RuntimeMonitor
 proj11acceptance3 proj11acceptance3.pass Proj11RuntimeMonitor
+uppeak_final uppeak_final.pass Proj11RuntimeMonitor
+downpeak_final downpeak_final.pass Proj11RuntimeMonitor
+normal_final normal_final.pass Proj11RuntimeMonitor
