@@ -89,7 +89,7 @@ public class Dispatcher extends Controller {
     }
 
     //state variable initialized to the initial state STATE_INIT
-    private int CONST_DWELL = 10;
+    private int CONST_DWELL = 3;
     private State state = State.STATE_RESET;
     private int targetFloor;
     private Hallway targetHallway;

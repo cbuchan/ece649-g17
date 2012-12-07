@@ -237,8 +237,8 @@ for i in range(runCount):
             print "  Delivery Perf: " + avg_time + " avg, " + max_time + " max, " + del_score + " score"
             print "  Satisfaction: " + avg_satis + " avg, " + min_satis + " min, " + satis_score + " score"
             print "  Warnings: " + warnings + " w, " + stop_no_calls + " snc, " + open_no_calls + " onc, " \
-                    + lantern_not_lit + " lantern no lit, " + lantern_change + " lantern change dir, " \
-                    + service_wrong_dir + " service wrong dir, " + no_fast_speed + " no fast speed, " \
+                    + lantern_not_lit + " lantern no lit, " + lantern_change + " lantern change dir, "
+            print "    " + service_wrong_dir + " service wrong dir, " + no_fast_speed + " no fast speed, " \
                     + nudge_reverse + " nr"
             print "  Time: " + simtime + " (" + realtime + "s real)" 
 
