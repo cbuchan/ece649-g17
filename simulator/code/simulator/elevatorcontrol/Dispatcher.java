@@ -363,8 +363,8 @@ public class Dispatcher extends Controller {
             log("Transition:", state, "->", newState);
         }
 
-//        System.out.println(
-//                "State: " + state + " " + mDesiredFloor.getFloor() + " " + mDesiredFloor.getHallway() + " " + mDesiredFloor.getDirection());
+        System.out.println(
+                "State: " + state + " " + mDesiredFloor.getFloor() + " " + mDesiredFloor.getHallway() + " " + mDesiredFloor.getDirection());
 
         //update the state variable
         state = newState;
@@ -504,9 +504,9 @@ public class Dispatcher extends Controller {
         }
         // Previous direction STOP
         else {
-            if (anyHallCall(currentFloor, Direction.UP)) {
+            if (anyHallCall(currentFloor, Direction.UP) || nextCallAbove(currentFloor) != MessageDictionary.NONE) {
                 return Direction.UP;
-            } else if (anyHallCall(currentFloor, Direction.DOWN)) {
+            } else if (anyHallCall(currentFloor, Direction.DOWN) || nextCallBelow(currentFloor) != MessageDictionary.NONE) {
                 return Direction.DOWN;
             } else if (!allCallsOff()) {
                 return directionOfClosestCall(currentFloor, numFloors);

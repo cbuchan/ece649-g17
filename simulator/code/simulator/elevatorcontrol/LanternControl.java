@@ -129,8 +129,9 @@ public class LanternControl extends Controller {
 
                 //transitions -- note that transition conditions are mutually exclusive
                 //#transition 'T7.1'
-                if ((networkAtFloorArray.getCurrentFloor() == desiredFloor) && (mDesiredFloor.getDirection() == direction) &&
-                        !networkDoorClosedArray.getAllClosed()) {
+
+                //(networkAtFloorArray.getCurrentFloor() == desiredFloor) &&
+                if ((mDesiredFloor.getDirection() == direction) && !networkDoorClosedArray.getAllClosed()) {
                     newState = State.STATE_CAR_LANTERN_ON;
                 } else {
                     newState = state;
