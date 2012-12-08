@@ -48,6 +48,8 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
 
     protected int currentFloor = MessageDictionary.NONE;
     protected int lastStoppedFloor = MessageDictionary.NONE;
+    protected boolean lastLantern[] = {false,false};    // state of lantern(d) last time drive stopped
+    protected boolean hadCalls[] = {true,true};         // if serviced floor(h) had calls
     protected boolean fastSpeedReached = false;
 
     public Proj11RuntimeMonitor() {
@@ -243,7 +245,7 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
                 case MOVING:
                     // T-R6.2
                     if (spd == DriveObject.StopSpeed && (mDesiredFloor.getFloor() == currentFloor) ||
-                            !hasCall(1, Direction.UP)) {
+                            !(hasCall(1, Direction.UP) || hasCall(Elevator.numFloors, Direction.DOWN))) {
                         newState = DriveState.STOPPED;
                     }
                     // T-R6.3
@@ -264,13 +266,18 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
             if (newState != prevState) {
                 switch (newState) {
                     case STOPPED:
+                        lastLantern[Direction.UP.ordinal()] = carLanterns[Direction.UP.ordinal()].lighted();
+                        lastLantern[Direction.DOWN.ordinal()] = carLanterns[Direction.DOWN.ordinal()].lighted();
                         break;
                     case MOVING:
+                        rt7State.updateCalls();
                         rt83State.updateState(d);    // update R-T8.3
                         break;
                     case STOPPED_UNDESIRED:
                         warning("Stopped at floor with no calls");
                         undesiredStopCount++;
+                        lastLantern[Direction.UP.ordinal()] = carLanterns[Direction.UP.ordinal()].lighted();
+                        lastLantern[Direction.DOWN.ordinal()] = carLanterns[Direction.DOWN.ordinal()].lighted();
                         break;
                     default:
                         break;
@@ -280,6 +287,7 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
 
         }
 
+        // return true if there is any call in direction d from floor f
         public boolean hasCall(int f, Direction d) {
             if (d == Direction.UP) {
                 for (int i = f; i <= Elevator.numFloors; i++) {
@@ -305,9 +313,9 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
 
     private static enum RT7State {
 
-        DOOR_NOT_OPENING,
-        DOOR_OPENING_DESIRED,
-        DOOR_OPENING_UNDESIRED
+        DOOR_OPEN,
+        DOOR_OPEN_DESIRED,
+        DOOR_OPEN_UNDESIRED
     }
 
     /**
@@ -319,44 +327,50 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
         RT7State rt7State;
 
         public RT7StateMachine() {
-            rt7State = rt7State.DOOR_NOT_OPENING;
+            rt7State = rt7State.DOOR_OPEN;
         }
 
-        // this method gets called every time doorState enters the OPENING state
+        // called before drive stops
+        private void updateCalls() {
+            hadCalls[Hallway.BACK.ordinal()] =
+                    carCalls[mDesiredFloor.getFloor()-1][Hallway.BACK.ordinal()].isPressed() ||
+                    hallCalls[mDesiredFloor.getFloor()-1][Hallway.BACK.ordinal()][Direction.UP.ordinal()].pressed() ||
+                    hallCalls[mDesiredFloor.getFloor()-1][Hallway.BACK.ordinal()][Direction.DOWN.ordinal()].pressed();
+            hadCalls[Hallway.FRONT.ordinal()] =
+                    carCalls[mDesiredFloor.getFloor()-1][Hallway.FRONT.ordinal()].isPressed() ||
+                    hallCalls[mDesiredFloor.getFloor()-1][Hallway.FRONT.ordinal()][Direction.UP.ordinal()].pressed() ||
+                    hallCalls[mDesiredFloor.getFloor()-1][Hallway.FRONT.ordinal()][Direction.DOWN.ordinal()].pressed();
+        }
+
+        // this method gets called every time doorState enters the OPEN state
         private void updateState(Hallway hallway) {
             RT7State prevState = rt7State;
             RT7State newState = prevState;
 
             switch (newState) {
 
-                case DOOR_NOT_OPENING:
+                case DOOR_OPEN:
                     // T-R7.1
-                    if (doorState.anyDoorMotorOpening(hallway) &&
-                            (mDesiredFloor.getFloor() == currentFloor &&
-                                    (mDesiredFloor.getHallway().equals(hallway) ||
-                                            mDesiredFloor.getHallway().equals(Hallway.BOTH)))) {
-                        newState = RT7State.DOOR_OPENING_DESIRED;
+                    if (mDesiredFloor.getFloor()==currentFloor && hadCalls[hallway.ordinal()]) {
+                        newState = RT7State.DOOR_OPEN_DESIRED;
                     }
                     // T-R7.3
-                    else if (doorState.anyDoorMotorOpening(hallway) &&
-                            (mDesiredFloor.getFloor() != currentFloor ||
-                                    (!mDesiredFloor.getHallway().equals(hallway) &&
-                                            !mDesiredFloor.getHallway().equals(Hallway.BOTH)))) {
-                        newState = RT7State.DOOR_OPENING_UNDESIRED;
+                    else if (mDesiredFloor.getFloor()==currentFloor && !hadCalls[hallway.ordinal()]) {
+                        newState = RT7State.DOOR_OPEN_UNDESIRED;
                     }
                     break;
 
-                case DOOR_OPENING_DESIRED:
+                case DOOR_OPEN_DESIRED:
                     // T-R7.2
                     if (doorState.anyDoorOpen(hallway)) {
-                        newState = RT7State.DOOR_NOT_OPENING;
+                        newState = RT7State.DOOR_OPEN;
                     }
                     break;
 
-                case DOOR_OPENING_UNDESIRED:
+                case DOOR_OPEN_UNDESIRED:
                     // T-R7.4
                     if (doorState.anyDoorOpen(hallway)) {
-                        newState = RT7State.DOOR_NOT_OPENING;
+                        newState = RT7State.DOOR_OPEN;
                     }
                     break;
 
@@ -366,13 +380,15 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
 
             if (newState != prevState) {
                 switch (newState) {
-                    case DOOR_NOT_OPENING:
+                    case DOOR_OPEN:
                         break;
-                    case DOOR_OPENING_DESIRED:
+                    case DOOR_OPEN_DESIRED:
+                        hadCalls[hallway.ordinal()]=false;   // reset
                         break;
-                    case DOOR_OPENING_UNDESIRED:
-                        //message("Doors opened at floor with no calls");
+                    case DOOR_OPEN_UNDESIRED:
+                        message("Doors opened at floor with no calls");
                         undesiredOpeningsCount++;
+                        hadCalls[hallway.ordinal()]=false;   // reset
                         break;
                     default:
                         break;
@@ -592,14 +608,13 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
             switch (prevState) {
                 case SERVICE_CALL:
                     // T-R8.3.1
-                    if (carLanterns[d.ordinal()].lighted() && mDesiredFloor.getDirection() == d &&
+                    if (lastLantern[d.ordinal()] && !lastLantern[rt82State.otherDirection(d).ordinal()] &&
                             driveState.hasCall(lastStoppedFloor, d)) {
                         newState = RT83State.COMPUTE_NEXT_VALID;
                     }
 
                     // T-R8.3.3
-                    else if (carLanterns[d.ordinal()].lighted()
-                            && mDesiredFloor.getDirection() == rt82State.otherDirection(d) &&
+                    else if (!lastLantern[d.ordinal()] && lastLantern[rt82State.otherDirection(d).ordinal()] &&
                             driveState.hasCall(lastStoppedFloor, d)) {
                         newState = RT83State.COMPUTE_NEXT_INVALID;
                     }
@@ -612,8 +627,7 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
                     }
 
                     // T-R8.3.5
-                    else if (carLanterns[d.ordinal()].lighted()
-                            && mDesiredFloor.getDirection() == rt82State.otherDirection(d) &&
+                    else if (!lastLantern[d.ordinal()] && lastLantern[rt82State.otherDirection(d).ordinal()] &&
                             driveState.hasCall(lastStoppedFloor, d)) {
                         newState = RT83State.COMPUTE_NEXT_INVALID;
                     }
@@ -724,6 +738,7 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
                         doorClosed(h);
                         rt82State.updateState(Direction.UP);        // check req T-R8.2
                         rt82State.updateState(Direction.DOWN);
+                        rt7State.updateState(h);    // check req T-R7
                         hasReversal = false;                          // reset any reversals
                         break;
                     case OPEN:
@@ -739,7 +754,6 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
                         } else {
                             doorOpening(h);
                         }
-                        rt7State.updateState(h);    // check req T-R7
                         break;
                     case CLOSING:
                         doorClosing(h);
