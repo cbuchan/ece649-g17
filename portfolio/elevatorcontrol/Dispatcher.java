@@ -10,6 +10,7 @@
 package simulator.elevatorcontrol;
 
 import jSimPack.SimTime;
+import jSimPack.SimTime.SimTimeUnit;
 import simulator.elevatorcontrol.Utility.*;
 import simulator.elevatormodules.CarLevelPositionCanPayloadTranslator;
 import simulator.elevatormodules.CarWeightCanPayloadTranslator;
@@ -84,16 +85,18 @@ public class Dispatcher extends Controller {
         STATE_IDLE,
         STATE_SERVICE_CALL,
         STATE_COMPUTE_NEXT,
+        STATE_HOLD_DIRECTION,
     }
 
     //state variable initialized to the initial state STATE_INIT
-    private int CONST_DWELL = 10;
+    private int CONST_DWELL = 3;
     private State state = State.STATE_RESET;
     private int targetFloor;
     private Hallway targetHallway;
     private Direction direction;
     private int commitPoint;
 
+    private SimTime countDown = SimTime.ZERO;
 
     /**
      * The arguments listed in the .cf configuration file should match the order and
@@ -197,10 +200,11 @@ public class Dispatcher extends Controller {
                 //state actions for STATE_RESET
                 targetFloor = 1;
                 targetHallway = Hallway.NONE;
+                direction = Direction.STOP;
 
                 mDesiredFloor.setFloor(targetFloor);
                 mDesiredFloor.setHallway(targetHallway);
-                mDesiredFloor.setDirection(Direction.STOP);
+                mDesiredFloor.setDirection(direction);
 
                 mDesiredDwellBack.set(CONST_DWELL);
                 mDesiredDwellFront.set(CONST_DWELL);
@@ -216,8 +220,11 @@ public class Dispatcher extends Controller {
             case STATE_IDLE:
 
                 //state actions for STATE_IDLE
-                direction = Direction.STOP;
                 commitPoint = networkAtFloorArray.getCurrentFloor();
+
+                if (networkDoorClosed.getAllClosed()) {
+                    direction = Direction.STOP;
+                }
 
                 mDesiredFloor.setFloor(networkAtFloorArray.getCurrentFloor());
                 mDesiredFloor.setHallway(Hallway.NONE);
@@ -229,20 +236,20 @@ public class Dispatcher extends Controller {
                 //#transition 'T11.2'
                 if (!allCallsOff()) {
                     newState = State.STATE_COMPUTE_NEXT;
+                } else {
+                    newState = state;
                 }
 
                 break;
 
             case STATE_COMPUTE_NEXT:
 
-                commitPoint = nextReachableFloor(commitPoint);
+                commitPoint = computeCommitPointDeparting(commitPoint);
 
                 //state actions for STATE_COMPUTE_NEXT
                 targetFloor = computeNextFloor(commitPoint, direction);
 
                 //set the target Hallway to be as many floors as are called for
-//                targetHallway = getHallways(targetFloor, Direction.STOP);
-
                 targetHallway = getHallways(targetFloor, direction);
 
                 mDesiredFloor.setFloor(targetFloor);
@@ -267,12 +274,13 @@ public class Dispatcher extends Controller {
 
                 break;
 
-            case STATE_SERVICE_CALL:
+            case STATE_HOLD_DIRECTION:
 
-                commitPoint = computeCommitPoint(commitPoint);
-                direction = computeDirection(direction, commitPoint);
+                //state actions for STATE_HOLD_DIRECTION
 
-                //state actions for STATE_SERVICE_CALL
+                //set the target Hallway to be as many floors as are called for
+                targetHallway = getLitHallways(targetFloor, direction);
+
                 mDesiredFloor.setFloor(targetFloor);
                 mDesiredFloor.setHallway(targetHallway);
                 mDesiredFloor.setDirection(direction);
@@ -280,12 +288,63 @@ public class Dispatcher extends Controller {
                 mDesiredDwellBack.set(CONST_DWELL);
                 mDesiredDwellFront.set(CONST_DWELL);
 
+                if (networkDoorClosed.getAllClosed() && targetHallway == Hallway.NONE) {
+                    countDown = SimTime.subtract(countDown, period);
+                }
+
+                if (countDown.isLessThanOrEqual(SimTime.ZERO)) {
+                    direction = computeDirection(direction, commitPoint);
+                }
+
+                //NEW TRANSITION
+                if (anyCarCall(commitPoint)) {
+                    newState = State.STATE_SERVICE_CALL;
+                }
+                //NEW TRANSITION
+                else if (nextCallInDirection(commitPoint, direction) != MessageDictionary.NONE) {
+                    newState = State.STATE_COMPUTE_NEXT;
+                }
+                //NEW TRANSITION
+                else if (networkAtFloorArray.getCurrentFloor() == MessageDictionary.NONE && !networkDoorClosed.getAllClosed()) {
+                    newState = State.STATE_RESET;
+                } else {
+                    newState = state;
+                }
+
+                break;
+
+            case STATE_SERVICE_CALL:
+
+                countDown = new SimTime(period.getTruncMilliseconds() * 4, SimTimeUnit.MILLISECOND);
+
+                //state actions for STATE_SERVICE_CALL
+                commitPoint = computeCommitPointArriving(commitPoint);
+
+                if (networkDoorClosed.getAllClosed()) {
+                    direction = computeDirection(direction, commitPoint);
+                }
+
+                targetHallway = getLitHallways(targetFloor, direction);
+
+                mDesiredFloor.setFloor(targetFloor);
+                mDesiredFloor.setHallway(targetHallway);
+                mDesiredFloor.setDirection(direction);
+
+                mDesiredDwellBack.set(CONST_DWELL);
+                mDesiredDwellFront.set(CONST_DWELL);
+
+
                 //#transition 'T11.4
                 if (allCallsOff() && !networkDoorClosed.getAllClosed()) {
                     newState = State.STATE_IDLE;
                 }
+                //NEW TRANSITION
+                else if (networkAtFloorArray.getCurrentFloor() == targetFloor && !anyCarCall(commitPoint) &&
+                        direction != Direction.STOP && nextCallInDirection(commitPoint, direction) == MessageDictionary.NONE) {
+                    newState = State.STATE_HOLD_DIRECTION;
+                }
                 //#transition 'T11.5
-                else if (!allCallsOff() && !networkDoorClosed.getAllClosed()) {
+                else if (!networkDoorClosed.getAllClosed() && !allCallsOff() && !anyCarCall(commitPoint)) {
                     newState = State.STATE_COMPUTE_NEXT;
                 } else {
                     newState = state;
@@ -303,6 +362,9 @@ public class Dispatcher extends Controller {
         } else {
             log("Transition:", state, "->", newState);
         }
+
+        System.out.println(
+                "State: " + state + " " + mDesiredFloor.getFloor() + " " + mDesiredFloor.getHallway() + " " + mDesiredFloor.getDirection());
 
         //update the state variable
         state = newState;
@@ -322,12 +384,14 @@ public class Dispatcher extends Controller {
      * ************************************************************************
      */
 
-    /*
-    * returns True if any calls are found at or above the commitPoint.
-    * returns False otherwise.
-    */
-    private boolean allCallsOff() {
-        return networkHallCallArray.getAllOff() && networkCarCallArrayBack.getAllOff() && networkCarCallArrayFront.getAllOff();
+    private int nextCallInDirection(int commitPoint, Direction direction) {
+        if (direction == Direction.UP) {
+            return nextCallAbove(commitPoint);
+        } else if (direction == Direction.DOWN) {
+            return nextCallBelow(commitPoint);
+        } else {
+            return MessageDictionary.NONE;
+        }
     }
 
     /*
@@ -347,30 +411,21 @@ public class Dispatcher extends Controller {
 
     private int nextCallAbove(int commitPoint) {
         for (int floor = commitPoint + 1; floor <= numFloors; floor++) {
-            if (anyHallCall(floor, Direction.UP) || anyHallCall(floor, Direction.DOWN) || anyCarCall(floor)) {
+            if (anyHallCall(floor, Direction.UP) || anyCarCall(floor)) {
+                return floor;
+            }
+        }
+        for (int floor = numFloors; floor >= commitPoint + 1; floor--) {
+            if (anyHallCall(floor, Direction.DOWN)) {
                 return floor;
             }
         }
         return MessageDictionary.NONE;
     }
 
-    /*
-    * returns True if any calls are found at or above the commitPoint.
-    * Only UP hall calls are checked.
-    * returns False otherwise.
-    */
-    private boolean anyUpCall(int commitPoint) {
-        if (nextUpCall(commitPoint) != MessageDictionary.NONE) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     private int nextDownCall(int commitPoint) {
         for (int floor = commitPoint; floor >= 1; floor--) {
-            if ((carUnderCapacity() && anyHallCall(floor, Direction.DOWN)) ||
-                    anyCarCall(floor)) {
+            if ((carUnderCapacity() && anyHallCall(floor, Direction.DOWN)) || anyCarCall(floor)) {
                 return floor;
             }
         }
@@ -379,43 +434,22 @@ public class Dispatcher extends Controller {
 
     private int nextCallBelow(int commitPoint) {
         for (int floor = commitPoint - 1; floor >= 1; floor--) {
-            if (anyHallCall(floor, Direction.UP) || anyHallCall(floor, Direction.DOWN) || anyCarCall(floor)) {
+            if (anyHallCall(floor, Direction.DOWN) || anyCarCall(floor)) {
+                return floor;
+            }
+        }
+        for (int floor = 1; floor <= commitPoint - 1; floor++) {
+            if (anyHallCall(floor, Direction.UP)) {
                 return floor;
             }
         }
         return MessageDictionary.NONE;
     }
 
-    /*
-    * returns True if any calls are found at or below the commitPoint.
-    * Only DOWN hall calls are checked
-    * returns False otherwise.
-    */
-    private boolean anyDownCall(int commitPoint) {
-        if (nextDownCall(commitPoint) != MessageDictionary.NONE) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private boolean anyCarCall(int floor) {
-        return networkCarCallArrayFront.getValueForFloor(floor) || networkCarCallArrayBack.getValueForFloor(floor);
-    }
-
-    private boolean anyHallCall(int floor, Direction dir) {
-        return networkHallCallArray.getValue(floor, Hallway.FRONT, dir) || networkHallCallArray.getValue(floor, Hallway.BACK, dir);
-    }
-
-    private boolean carUnderCapacity() {
-        return mCarWeight.getWeight() < 13500;
-    }
-
-
     private int computeNextFloor(int commitPoint, Direction dir) {
 
         //Car moving, DON'T CHANGE DIRECTION
-        if (mDriveSpeed.getDirection() == Direction.UP) {
+        if (mDriveSpeed.getDirection() == Direction.UP || dir == Direction.UP) {
             if (nextUpCall(commitPoint) != MessageDictionary.NONE) {
                 return nextUpCall(commitPoint);
             } else if (nextCallAbove(commitPoint) != MessageDictionary.NONE) {
@@ -423,7 +457,7 @@ public class Dispatcher extends Controller {
             } else {
                 return commitPoint;
             }
-        } else if (mDriveSpeed.getDirection() == Direction.DOWN) {
+        } else if (mDriveSpeed.getDirection() == Direction.DOWN || dir == Direction.DOWN) {
             if (nextDownCall(commitPoint) != MessageDictionary.NONE) {
                 return nextDownCall(commitPoint);
             } else if (nextCallBelow(commitPoint) != MessageDictionary.NONE) {
@@ -432,35 +466,13 @@ public class Dispatcher extends Controller {
                 return commitPoint;
             }
         }
-        //Car stopped, use desired direction
-        else {
-            // Traveling UP
-            if (dir == Direction.UP) {
-                if (nextUpCall(commitPoint) != MessageDictionary.NONE) {
-                    return nextUpCall(commitPoint);
-                } else if (nextCallAbove(commitPoint) != MessageDictionary.NONE) {
-                    return nextCallAbove(commitPoint);
-                } else {
-                    return MessageDictionary.NONE;
-                }
-            }
-            // Traveling DOWN
-            else if (dir == Direction.DOWN) {
-                if (nextDownCall(commitPoint) != MessageDictionary.NONE) {
-                    return nextDownCall(commitPoint);
-                } else if (nextCallBelow(commitPoint) != MessageDictionary.NONE) {
-                    return nextCallBelow(commitPoint);
-                } else {
-                    return MessageDictionary.NONE;
-                }
-            }
-            // Stopped
-            else if (closestCall(commitPoint, numFloors) != MessageDictionary.NONE) {
-                direction = directionOfClosestCall(commitPoint, numFloors);
-                return closestCall(commitPoint, numFloors);
-            } else {
-                return MessageDictionary.NONE;
-            }
+
+        // Stopped
+        else if (closestCall(commitPoint, numFloors) != MessageDictionary.NONE) {
+            //direction = directionOfClosestCall(commitPoint, numFloors);
+            return closestCall(commitPoint, numFloors);
+        } else {
+            return MessageDictionary.NONE;
         }
     }
 
@@ -474,7 +486,7 @@ public class Dispatcher extends Controller {
         if (oldDir == Direction.UP) {
             if (anyHallCall(currentFloor, Direction.UP) || (nextCallAbove(currentFloor) != MessageDictionary.NONE)) {
                 return Direction.UP;
-            } else if (nextCallBelow(currentFloor) != MessageDictionary.NONE) {
+            } else if (anyHallCall(currentFloor, Direction.DOWN) || nextCallBelow(currentFloor) != MessageDictionary.NONE) {
                 return Direction.DOWN;
             } else {
                 return Direction.STOP;
@@ -484,7 +496,7 @@ public class Dispatcher extends Controller {
         else if (oldDir == Direction.DOWN) {
             if (anyHallCall(currentFloor, Direction.DOWN) || (nextCallBelow(currentFloor) != MessageDictionary.NONE)) {
                 return Direction.DOWN;
-            } else if (nextCallAbove(currentFloor) != MessageDictionary.NONE) {
+            } else if (anyHallCall(currentFloor, Direction.UP) || nextCallAbove(currentFloor) != MessageDictionary.NONE) {
                 return Direction.UP;
             } else {
                 return Direction.STOP;
@@ -492,12 +504,17 @@ public class Dispatcher extends Controller {
         }
         // Previous direction STOP
         else {
-            if (!allCallsOff()) {
+            if (anyHallCall(currentFloor, Direction.UP) || nextCallAbove(currentFloor) != MessageDictionary.NONE) {
+                return Direction.UP;
+            } else if (anyHallCall(currentFloor, Direction.DOWN) || nextCallBelow(currentFloor) != MessageDictionary.NONE) {
+                return Direction.DOWN;
+            } else if (!allCallsOff()) {
                 return directionOfClosestCall(currentFloor, numFloors);
             } else {
                 return Direction.STOP;
             }
         }
+
     }
 
     /*
@@ -541,15 +558,6 @@ public class Dispatcher extends Controller {
             }
         }
         return MessageDictionary.NONE;
-    }
-
-
-    /*
-    * Returns True if the given floor is between 1 and maxFloor
-    * Returns False otherwise.
-    */
-    private boolean validFloor(int floor, int maxFloor) {
-        return floor <= maxFloor && floor >= 1;
     }
 
     private Hallway getHallways(int targetFloor, Direction direction) {
@@ -601,8 +609,7 @@ public class Dispatcher extends Controller {
         return desiredHallway;
     }
 
-
-    private int computeCommitPoint(int oldFloor) {
+    private int computeCommitPointArriving(int oldFloor) {
         if (networkAtFloorArray.getCurrentFloor() != MessageDictionary.NONE && mDriveSpeed.getSpeed() <= 0.05) {
             return networkAtFloorArray.getCurrentFloor();
         } else {
@@ -617,7 +624,7 @@ public class Dispatcher extends Controller {
         }
     }
 
-    private int nextReachableFloor(int oldFloor) {
+    private int computeCommitPointDeparting(int oldFloor) {
 
         int nextReachable = commitPointCalculator.nextReachableFloorDelta(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
         int computePoint = commitPointCalculator.getCommittedFloorDispatcher(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
@@ -634,5 +641,33 @@ public class Dispatcher extends Controller {
         } else {
             return nextReachable;
         }
+    }
+
+    /*
+    * Returns True if the given floor is between 1 and maxFloor
+    * Returns False otherwise.
+    */
+    private boolean validFloor(int floor, int maxFloor) {
+        return floor <= maxFloor && floor >= 1;
+    }
+
+    /*
+    * returns True if any calls are found at or above the commitPoint.
+    * returns False otherwise.
+    */
+    private boolean allCallsOff() {
+        return networkHallCallArray.getAllOff() && networkCarCallArrayBack.getAllOff() && networkCarCallArrayFront.getAllOff();
+    }
+
+    private boolean anyCarCall(int floor) {
+        return networkCarCallArrayFront.getValueForFloor(floor) || networkCarCallArrayBack.getValueForFloor(floor);
+    }
+
+    private boolean anyHallCall(int floor, Direction dir) {
+        return networkHallCallArray.getValue(floor, Hallway.FRONT, dir) || networkHallCallArray.getValue(floor, Hallway.BACK, dir);
+    }
+
+    private boolean carUnderCapacity() {
+        return mCarWeight.getWeight() < 13500;
     }
 }

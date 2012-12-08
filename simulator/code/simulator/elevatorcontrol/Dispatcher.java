@@ -89,7 +89,7 @@ public class Dispatcher extends Controller {
     }
 
     //state variable initialized to the initial state STATE_INIT
-    private int CONST_DWELL = 10;
+    private int CONST_DWELL = 3;
     private State state = State.STATE_RESET;
     private int targetFloor;
     private Hallway targetHallway;
@@ -504,9 +504,9 @@ public class Dispatcher extends Controller {
         }
         // Previous direction STOP
         else {
-            if (anyHallCall(currentFloor, Direction.UP)) {
+            if (anyHallCall(currentFloor, Direction.UP) || nextCallAbove(currentFloor) != MessageDictionary.NONE) {
                 return Direction.UP;
-            } else if (anyHallCall(currentFloor, Direction.DOWN)) {
+            } else if (anyHallCall(currentFloor, Direction.DOWN) || nextCallBelow(currentFloor) != MessageDictionary.NONE) {
                 return Direction.DOWN;
             } else if (!allCallsOff()) {
                 return directionOfClosestCall(currentFloor, numFloors);
