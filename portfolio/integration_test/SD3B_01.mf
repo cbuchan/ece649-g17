@@ -34,17 +34,15 @@
 ;========================================================================
 ;arc 1. passenger enters
 
-;arc 2a-c.
+;========================================================================
+;2. mCarWeight exceeds or is equal to MaxCarCapacity.
+;========================================================================
+;arc 2a, 2b, 2c
 +0.5s I WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 14000
 +0.1s I  LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = false
 
 ;door has started closing
 +0s I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[BACK][RIGHT]_CAN_ID DoorOpened BACK RIGHT = false
-
-;========================================================================
-;2. mCarWeight exceeds or is equal to MaxCarCapacity.
-;========================================================================
-
 
 ;========================================================================
 ;3. Doors are commanded to open.
@@ -57,7 +55,6 @@
 ;4. CarWeightAlarm sounds.
 ;========================================================================
 ;arc 4. car weight alarm true
-
 
 ;========================================================================
 ;5. Drive is commanded to Stop

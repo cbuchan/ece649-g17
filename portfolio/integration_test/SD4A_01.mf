@@ -38,12 +38,14 @@
 ;========================================================================
 ;passenger in car, elevator is approaching desired floor
 ;Dispatcher calculates new desired floor
+
+;arc 2a
 +0.5s	A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 4
 +0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == FRONT
 ; direction is previous calculated direction
 +0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == UP
 
-;arc 1a, 1b
+;arc 1a, 1b, 1c
 +0.21s I AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
 
 +0.21s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true

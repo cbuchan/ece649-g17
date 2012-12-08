@@ -61,7 +61,7 @@
 ; direction is previous calculated direction
 +0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == UP
 
-;arc 1a-c
+;arc 1a, 1b, 1c
 +1.00s I  AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
 
 ;========================================================================

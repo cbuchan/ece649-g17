@@ -29,7 +29,7 @@
 ;========================================================================
 ;1. Door[b,r] starts closing.
 ;========================================================================
-;Arc 1a
+;arc 1a
 +0.21s  A  S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_CLOSING
 +0s     A  F DoorMotor FRONT LEFT : command == CLOSE
 
@@ -62,13 +62,14 @@
 +0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
 
 ;Dispatcher calculates new desired floor
+;arc 5a, 5b
 +0.5s	A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 4
 +0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == FRONT
 +0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == UP
 
 +0.1s  I  DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = false
-+0.1s   I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = false
-+0.1s   I  AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
++0.1s  I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = false
++0.1s  I  AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
 
 ;========================================================================
 ;6. Doors open completely.
@@ -88,6 +89,6 @@
 ;Door is closed.
 ;Hall button light for passenger's desired direction is on.
 
-+0.5s     A  F HallLight 4 FRONT DOWN : lighted == true
++0.5s   A  F HallLight 4 FRONT DOWN : lighted == true
 +0s	    A  N HALL_CALL_[4][FRONT][DOWN]_CAN_ID TinyBoolean : getValue == true
 

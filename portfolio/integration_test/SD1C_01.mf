@@ -27,7 +27,7 @@
 ;========================================================================
 ;1. Door[b,r] starts closing.
 ;========================================================================
-;Arc 1a
+;arc 1a
 +0.21s  A  S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_CLOSING
 +0s     A  F DoorMotor FRONT LEFT : command == CLOSE
 

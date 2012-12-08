@@ -52,22 +52,26 @@
 ;========================================================================
 ;4. Door opened.
 ;========================================================================
+;arc 4a, 4b, 4c
 +0.1s	I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
 +0.09s I DOOR_REVERSAL_NETWORK_PERIOD N DOOR_REVERSAL_SENSOR_[FRONT][LEFT]_CAN_ID DoorReversal FRONT LEFT = false
 
 ;========================================================================
 ;5. The passenger enters the car.
 ;========================================================================
+;arc 5
 ;passenger enters car
 
 ;========================================================================
 ;6. Countdown expires
 ;========================================================================
+;arc 6
 ;countdown expires
 
 ;========================================================================
 ;7. Door nudging.
 ;========================================================================
+;arc 7
 +0.61s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_NUDGING
 +0s    A F DoorMotor FRONT LEFT : command == NUDGE
 +0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == NUDGE

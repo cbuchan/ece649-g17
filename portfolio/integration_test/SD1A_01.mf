@@ -25,12 +25,12 @@
 ;Scenario Step 1
 ;========================================================================
 ;passenger presses button and releases
-;Arcs 1a and 1b
+;arc 1a, 1b
 +0.21s  I  HALL_BUTTON_CONTROL_PERIOD F HallCall 4 FRONT DOWN  = true
 +0.21s  I  HALL_BUTTON_CONTROL_PERIOD F HallCall 4 FRONT DOWN  = false
 
 ;========================================================================
 ;Scenario Step 2
 ;========================================================================
-;Arc 2a and 2b
+;arc 2a, 2b
 +0.5s  A  F HallLight 4 FRONT DOWN : lighted == true

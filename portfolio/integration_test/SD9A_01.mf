@@ -42,11 +42,11 @@
 ;========================================================================
 ; 1. Door[b,r] starts to open.
 ;========================================================================
-;arc 1. check door motor open <-- DoorControl
+;arc 1a. check door motor open <-- DoorControl
 +0.5s A S DoorControl[BACK][RIGHT] : STATE == STATE_DOOR_OPENING
 +0s   A F DoorMotor BACK RIGHT : command == OPEN
 
-;arc 3. network message door closed = false
+;arc 1b. network message door closed = false
 +0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = false
 +0s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = false
 
@@ -64,7 +64,7 @@
 +0.5s I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[2][BACK][UP]_CAN_ID TinyBoolean = false
 +0s   I HALL_BUTTON_CONTROL_PERIOD N HALL_CALL_[3][FRONT][UP]_CAN_ID TinyBoolean = true
 
-;arc 4. check network message desired floor is sent by dispatcher
+;arc 3. check network message desired floor is sent by dispatcher
 
 +0.5s A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 3
 +0s	  A	N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == UP
@@ -73,7 +73,7 @@
 ;========================================================================
 ; 4. Dispatcher computes desired dwell.
 ;========================================================================
-;arc 5. check network message desired dwell is sent by dispatcher
+;arc 4. check network message desired dwell is sent by dispatcher
 
 +0.5s A N DESIRED_DWELL_[BACK]_CAN_ID DesiredDwell BACK : getDwell > 0
 
@@ -81,11 +81,11 @@
 ;========================================================================
 ; 5. Door[b,r] finishes opening.
 ;========================================================================
-;arc 6. network message door opened true
+;arc 5a. network message door opened true
 +0.5s I  DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[BACK][RIGHT]_CAN_ID DoorOpened BACK RIGHT = true
 +0s I  DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[BACK][LEFT]_CAN_ID DoorOpened BACK LEFT = true
 
-;arc 7. framework message door motor is stop
+;arc 5b. framework message door motor is stop
 +0.5s A F DoorMotor BACK RIGHT : command == STOP
 +0s   A F DoorMotor BACK LEFT : command == STOP
 
@@ -93,7 +93,7 @@
 ;========================================================================
 ; 6. Passenger arrives and enters car.
 ;========================================================================
-;arc 8. passenger enter
+;arc 6. passenger enter
 
 ;========================================================================
 ; 7. Passenger realizes that his/her desired floor is already selected.
@@ -103,27 +103,29 @@
 ;========================================================================
 ; 8. Doors[b,r] close after countdown expires.
 ;========================================================================
-;arc 9. check framework message door motor close from DoorControl
+;arc 8a. check framework message door motor close from DoorControl
 +10s A F DoorMotor BACK RIGHT : command == CLOSE
 +0s  A F DoorMotor BACK LEFT : command == CLOSE
 
 ;desired dwell expires
 ;+0s I DISPATCHER_PERIOD N DESIRED_DWELL_[BACK]_CAN_ID DesiredDwell BACK = 0
 
-;arc 10a, 10b, 10c. network message door closed true
+;arc 8b, 8c, 8d. network message door closed true
 +10s I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
 +0s I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
 
-;arc 11. check framework message door motor close from DoorControl
+;arc 8e. check framework message door motor close from DoorControl
 +0.5s   A F DoorMotor BACK RIGHT : command == STOP
 +0s   A N DOOR_MOTOR_COMMAND_[BACK][RIGHT]_CAN_ID DoorMotorCommand BACK RIGHT : getCommand == STOP
 +0s   A F DoorMotor BACK LEFT : command == STOP
 +0s   A N DOOR_MOTOR_COMMAND_[BACK][LEFT]_CAN_ID DoorMotorCommand BACK LEFT : getCommand == STOP
 
-;arc 12. car lantern turns off
+;========================================================================
+; 9. Car lantern[d] turns off.
+;========================================================================
+;arc 9. car lantern turns off
 +0.5s A F CarLantern UP : lighted == false
 +0s   A F CarLantern DOWN : lighted == false
-
 
 ;========================================================================
 ;Post Conditions

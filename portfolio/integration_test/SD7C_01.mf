@@ -46,8 +46,13 @@
 +0.5s I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
 +0s   I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
 
-;arc 2b. check door motor stop <-- DoorControl
+;arc 2b.
 +0.5s A S DoorControl[BACK][LEFT] : STATE == STATE_DOOR_CLOSED
+
+;========================================================================
+;2. Door motor is commanded to Stop.
+;========================================================================
+;arc 3. check door motor stop <-- DoorControl
 +0s   A F DoorMotor BACK LEFT : command == STOP
 
 ;========================================================================

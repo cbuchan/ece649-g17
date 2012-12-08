@@ -1053,8 +1053,8 @@
     <meta charset="utf-8">
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
-      word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="388" width="1143">
+      word-spacing: 0px; text-align: left;" height="388" border="1"
+      cellpadding="2" cellspacing="2" width="1143">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -1856,8 +1856,8 @@
     <img alt="SC_DriveControl" src="SC_DriveControl.png" height="343"
       width="1023"><br>
     <br>
-    <table style="text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="306" width="1013">
+    <table style="text-align: left;" height="306" border="1"
+      cellpadding="2" cellspacing="2" width="1013">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -1906,7 +1906,9 @@
         <tr>
           <td valign="top">T6.7<br>
           </td>
-          <td valign="top">mEmergencyBrake[b] == True || (DriveDir == STOP &amp;&amp; mLevel[*] == True            &amp;&amp; DriveSpeed.s &lt; SlowSpeed)</td>
+          <td valign="top">mEmergencyBrake[b] == True || (DriveDir ==
+            STOP &amp;&amp; mLevel[*] == True &amp;&amp; DriveSpeed.s
+            &lt; SlowSpeed)</td>
         </tr>
         <tr>
           <td valign="top">T6.8<br>
@@ -1916,8 +1918,8 @@
       </tbody>
     </table>
     <p><strong>MACROS</strong>:</p>
-    <table style="text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="378" width="952">
+    <table style="text-align: left;" height="378" border="1"
+      cellpadding="2" cellspacing="2" width="952">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -1987,7 +1989,7 @@
       display: inline !important; float: none; "> </span>
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2; text-align:
-      left;" border="1" cellpadding="2" cellspacing="2" height="562"
+      left;" height="562" border="1" cellpadding="2" cellspacing="2"
       width="793">
       <tbody>
         <tr style="font-weight: bold; ">
@@ -2425,7 +2427,7 @@
     <br>
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2; text-align:
-      left;" border="1" cellpadding="2" cellspacing="2" height="132"
+      left;" height="132" border="1" cellpadding="2" cellspacing="2"
       width="561">
       <tbody>
         <tr>
@@ -2608,8 +2610,9 @@
     <p>8.1 If any HallCall[f,b,d]=Pressed<br>
       &nbsp;&nbsp; 8.1.1 HallLight[f,b,d] shall be set to On.<br>
       &nbsp;&nbsp; 8.1.2 mHallCall[f,b,d] shall be set to True.<br>
-      8.2 If any mDoorClosed[b,r] == false and mAtFloor[f,b] = true and mDesiredFloor.f=f and either
-      mDesiredDirection.d = d or mDesiredDirection.d = Stop<br>
+      8.2 If any mDoorClosed[b,r] == false and mAtFloor[f,b] = true and
+      mDesiredFloor.f=f and either mDesiredDirection.d = d or
+      mDesiredDirection.d = Stop<br>
       &nbsp;&nbsp; 8.2.1 HallLight[f,b,d] shall be set to Off.<br>
       &nbsp;&nbsp; 8.2.2 mHallCall[f,b,d] shall be set to False.<br>
     </p>
@@ -2643,8 +2646,8 @@
       2; text-indent: 0px; text-transform: none; widows: 2;
       word-spacing: 0px; -webkit-text-size-adjust: auto;
       &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD -webkit-text-stroke-width: 0px;
-      text-align: left; " border="1" cellpadding="2" cellspacing="2"
-      height="97" width="525">
+      text-align: left; " height="97" border="1" cellpadding="2"
+      cellspacing="2" width="525">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -2685,8 +2688,8 @@
       2; text-indent: 0px; text-transform: none; widows: 2;
       word-spacing: 0px; -webkit-text-size-adjust: auto;
       &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD -webkit-text-stroke-width: 0px;
-      text-align: left; " border="1" cellpadding="2" cellspacing="2"
-      height="342" width="790">
+      text-align: left; " height="342" border="1" cellpadding="2"
+      cellspacing="2" width="790">
       <tbody>
         <tr style="font-weight: bold; ">
           <td style="vertical-align: top; background-color: rgb(204,
@@ -2852,9 +2855,9 @@
       to On.<br>
       &nbsp;&nbsp;&nbsp; 9.1.2 mCarCall[<b>f</b>,<b>b</b>] shall be set
       to true. <br>
-      9.2 If any mDoorClosed[b,r] = false and mAtFloor[<b>f,b</b>] is true and mDesiredFloor.f = <b>f</b>
-      and either mDesiredFloor.b = <b>b</b> or mDesiredFloor.b = BOTH:
-      <br>
+      9.2 If any mDoorClosed[b,r] = false and mAtFloor[<b>f,b</b>] is
+      true and mDesiredFloor.f = <b>f</b> and either mDesiredFloor.b =
+      <b>b</b> or mDesiredFloor.b = BOTH: <br>
       &nbsp;&nbsp;&nbsp; 9.2.1 CarLight[<b>f</b>,<b>b</b>] shall be set
       to Off.<br>
       &nbsp;&nbsp;&nbsp; 9.2.2 mCarCall[<b>f</b>,<b>b</b>] shall be set
@@ -2878,7 +2881,8 @@
         </tr>
         <tr>
           <td style="vertical-align: top;">T9.2</td>
-          <td style="vertical-align: top;"> mDoorClosed[f,b]==false &amp;&amp; mAtFloor[f,b]==true &amp;&amp; mDesiredFloor.f ==
+          <td style="vertical-align: top;"> mDoorClosed[f,b]==false
+            &amp;&amp; mAtFloor[f,b]==true &amp;&amp; mDesiredFloor.f ==
             f &amp;&amp; (mDesiredFloor.b == b || mDesiredFloor.b =
             BOTH)<br>
           </td>
@@ -2899,8 +2903,8 @@
         Tiu (jtiu), revised by Collin Buchan (cbuchan)<br>
       </span></p>
     <br>
-    <table style="text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="233" width="552">
+    <table style="text-align: left;" height="233" border="1"
+      cellpadding="2" cellspacing="2" width="552">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
@@ -3057,8 +3061,8 @@
     <img alt="SC_CarPositionControl" src="SC_CarPositionControl.png"><br>
     <br>
     <br>
-    <table style="text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="58">
+    <table style="text-align: left;" height="58" border="1"
+      cellpadding="2" cellspacing="2">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -3089,8 +3093,8 @@
         display: inline !important; float: none; ">Completed by: Rajeev
         Sharma (rdsharma)<br>
       </span></p>
-    <table style="text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="233">
+    <table style="text-align: left;" height="233" border="1"
+      cellpadding="2" cellspacing="2">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
@@ -3217,15 +3221,6 @@
       <li>mHallCall[f, b, d]&nbsp;&nbsp; </li>
       <li>mCarCall[f, b]&nbsp;&nbsp;&nbsp; </li>
       <li>mCarWeight </li>
-      <li>
-        <meta charset="utf-8">
-        <span style="color: rgb(0, 0, 0); font-family: Times; font-size:
-          medium; font-style: normal; font-variant: normal; font-weight:
-          normal; letter-spacing: normal; line-height: normal; orphans:
-          2; text-align: left; text-indent: 0px; text-transform: none;
-          white-space: normal; widows: 2; word-spacing: 0px;
-          -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-          0px; display: inline !important; float: none; ">mDriveSpeed</span></li>
       <li><span style="color: rgb(0, 0, 0); font-family: Times;
           font-size: medium; font-style: normal; font-variant: normal;
           font-weight: normal; letter-spacing: normal; line-height:
@@ -3267,15 +3262,16 @@
       11.7 &nbsp;&nbsp;&nbsp;CommitPoint shall be calculated every cycle
       according to the following rules<br>
       &nbsp;&nbsp;&nbsp;11.7.1 &nbsp;&nbsp;&nbsp;If any mAtFloor[f,b] is
-      true, CommitPoint shall be set to f <br>
-      &nbsp;&nbsp;&nbsp;11.7.2 &nbsp;&nbsp;&nbsp;If all mAtFloor[f,b]
-      are false, and DriveSpeed.d == UP, CommitPoint shall be set to the
-      next reachable floor in the upwards direction based on
-      mCarLevelPosition, DriveSpeed.s, and an acceleration profile.<br>
-      &nbsp;&nbsp;&nbsp;11.7.3 &nbsp;&nbsp;&nbsp;If all mAtFloor[f,b]
-      are false, and DriveSpeed.d == DOWN, CommitPoint shall be set to
-      the next reachable floor in the downwards direction based on
-      mCarLevelPosition, DriveSpeed.s, and an acceleration profile. <br>
+      true, and mDriveSpeed.s is at a stopped or leveling speed,
+      CommitPoint shall be set to f.<br>
+      &nbsp;&nbsp;&nbsp;11.7.2 &nbsp;&nbsp;&nbsp;If mDriveSpeed.d == UP,
+      CommitPoint shall be set to the next reachable floor in the
+      upwards direction based on mCarLevelPosition, mDriveSpeed.s, and
+      an acceleration profile.<br>
+      &nbsp;&nbsp;&nbsp;11.7.3 &nbsp;&nbsp;&nbsp;If mDriveSpeed.d ==
+      DOWN, CommitPoint shall be set to the next reachable floor in the
+      downwards direction based on mCarLevelPosition, mDriveSpeed.s, and
+      an acceleration profile. <br>
       11.8 &nbsp;&nbsp;&nbsp;If mDesiredFloor.d is Stop and any
       mCarCall[f,b] = true for f&gt;=CurrentFloor, or mHallCall[f,b,UP]
       = true for f&gt;=CurrentFloor,<br>
@@ -3311,8 +3307,8 @@
       11.13 &nbsp;&nbsp;&nbsp;mDesiredDwell shall always be set to a
       constant appropriate value for door open dwell. &nbsp; &nbsp;</p>
     <h3>STATECHART:</h3>
-    <img alt="SC_Dispatcher" src="SC_Dispatcher.png" height="431"
-      width="840">&nbsp; <br>
+    <img alt="SC_Dispatcher" src="SC_Dispatcher.png" height="595"
+      width="918">&nbsp; <br>
     <table style="text-align: left; width: 800px;" border="1"
       cellpadding="2" cellspacing="2">
       <tbody>
@@ -3332,20 +3328,20 @@
         <tr>
           <td valign="top">T11.2<br>
           </td>
-          <td valign="top">any HallCall[f,b,d] == true || any
-            CarCall[f,b] == true</td>
+          <td valign="top">any mHallCall[f,b,d] == true || any
+            mCarCall[f,b] == true</td>
         </tr>
         <tr>
           <td valign="top">T11.3<br>
           </td>
-          <td valign="top">CurrentFloor == TargetFloor</td>
+          <td valign="top">CommitPt == TargetFloor</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">T11.4</td>
-          <td style="vertical-align: top;">anyUpCall(CurrentFloor) ||
-            anyDownCall(CurrentFloor) &amp;&amp; any mDoorClosed[b,r] ==
-            false<br>
-          </td>
+          <td style="vertical-align: top;">any mDoorClosed[b,r] == false
+            &amp;&amp; (anyUpCall(CurrentFloor) ||
+            anyDownCall(CurrentFloor)) || all mCarCall[CommitPt, b] ==
+            false </td>
         </tr>
         <tr>
           <td style="vertical-align: top;">T11.5</td>
@@ -3357,6 +3353,34 @@
           <td style="vertical-align: top;">T11.6</td>
           <td style="vertical-align: top;">all mAtFloor[b,r] == false
             &amp;&amp; any mDoorClosed[b,r] == false</td>
+        </tr>
+        <tr>
+          <td valign="top">T11.7<br>
+          </td>
+          <td valign="top">all mAtFloor[b,r] == false &amp;&amp; any
+            mDoorClosed[b,r] == false<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">T11.8<br>
+          </td>
+          <td valign="top">CurrentFloor == TargetFloor &amp;&amp; all
+            mCarCall[CommitPt, b] == false &amp;&amp; Direction ~= Stop
+            &amp;&amp; nextCallInDirection(CommitPt, Direction) == None<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">T11.9<br>
+          </td>
+          <td valign="top">any mCarCall[CommitPt, b] == true<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">T11.10<br>
+          </td>
+          <td valign="top">nextCallInDirection(CommitPt, Direction) ~=
+            None<br>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -3401,14 +3425,65 @@
             CarCall[f,b]) where f &lt;= CommitPoint</td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">closestCall</td>
-          <td style="vertical-align: top;">value of f of the nearest
-            floor, arbitrarily biased towards UP in the event of a tie</td>
+          <td style="vertical-align: top;">nextCallInDirection(CommitPoint,
+            Direction)<br>
+          </td>
+          <td style="vertical-align: top;">Returns the closest call for
+            a floor beyond CommitPoint (exclusive), in Direction.<br>
+          </td>
         </tr>
         <tr>
-          <td style="vertical-align: top;">getHalls(TargetFloor)</td>
-          <td style="vertical-align: top;">halls where calls exist on
-            the given floor</td>
+          <td style="vertical-align: top;">getHallways(TargetFloor,
+            Direction)</td>
+          <td style="vertical-align: top;">Returns hallways on
+            TargetFloor for which a valid call has been lit in
+            Direction. If there are no hallways with valid calls in
+            Direction for TargetFloor, returns the hallways for
+            ~Direction.</td>
+        </tr>
+        <tr>
+          <td valign="top">getLitHallways(TargetFloor, Direction)<br>
+          </td>
+          <td valign="top">Returns all hallways on TargetFloor for which
+            a valid call has been lit in Direction. If Direction is
+            STOP, then returns hallways with valid UP and DOWN calls.<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">computeNextFloor(CommitPoint, Direction)<br>
+          </td>
+          <td valign="top">Returns the closest floor with any call in
+            Direction from CommitPoint (inclusive). If there is no call,
+            returns the closest floor with any call beyond CommitPoint
+            (exclusive), where floors with calls in Direction take
+            precedence.<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">computeDirection(Direction, CommitPoint)<br>
+          </td>
+          <td valign="top">Computes a new direction based on CommitPoint
+            and Direction. Will try to keep going in Direction if any
+            calls are yet to be serviced in that direction. Otherwise,
+            it will switch directions or STOP (if no calls are found).<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">computeCommitPointArriving(CommitPoint)<br>
+          </td>
+          <td valign="top">Computes a commit point based on the current
+            CommitPoint. Returns the closest floor to the car level
+            position based on direction of drive speed.<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">computeCommitPointDeparting(CommitPoint)<br>
+          </td>
+          <td valign="top">Computes a commit point based on the current
+            CommitPoint. Returns the closest floor to the car level
+            position based on direction of drive speed, not including
+            the current CommitPoint.<br>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -3422,8 +3497,8 @@
         display: inline !important; float: none; ">Completed by: Jesse
         Salazar (jessesal)<br>
       </span></p>
-    <table style="text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="342" width="790">
+    <table style="text-align: left;" height="342" border="1"
+      cellpadding="2" cellspacing="2" width="790">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
