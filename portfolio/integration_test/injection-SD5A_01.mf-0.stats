@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf SD5A.cf -mf SD5A_01.mf
-RandomSeed = 1354319353135
+RandomSeed = 1355179774846
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null

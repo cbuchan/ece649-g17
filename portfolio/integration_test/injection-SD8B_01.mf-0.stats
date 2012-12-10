@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf SD8B.cf -mf SD8B_01.mf
-RandomSeed = 1354319359746
+RandomSeed = 1355179781005
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -18,7 +18,7 @@ Assertion Results:
 @0.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@53ad085 :: getFloor ?== 5 PASSED
 @0.5s:  PASSED DriveControl::checkState(STATE) ?== STATE_DRIVE_SLOW PASSED
 @1.1s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@4a79717e :: getValue ?== true PASSED
-@1.6s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@557ce4e7 :: lighted ?== true PASSED
+@1.6s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@5289cf1e :: lighted ?== true PASSED
 @2.6s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@58a17083 :: getSpeed ?>= 0.25 PASSED
 @2.6s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@4ca31e1b :: getSpeed ?== FAST PASSED
 @2.6s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@7f081d2e :: getFloor ?== 4 PASSED
@@ -30,8 +30,8 @@ Assertion Results:
 @4.7s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2ca6d51e :: getSpeed ?== 0.0 PASSED
 @4.7s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@624b035d :: getDirection ?== STOP PASSED
 @5.2s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@340d1fa5 :: command ?== OPEN PASSED
-@5.7s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@16aa37a6 :: command ?== STOP PASSED
-@6.2s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@4e99353f :: lighted ?== false PASSED
+@5.7s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@444cee32 :: command ?== STOP PASSED
+@6.2s:  PASSED simulator.payloads.HallLightPayload$ReadableHallLightPayload@12b7eea :: lighted ?== false PASSED
 
 
 ******************Summary******************

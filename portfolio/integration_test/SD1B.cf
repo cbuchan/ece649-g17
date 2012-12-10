@@ -10,5 +10,5 @@
 ;========================================================================
 
 DoorControl FRONT LEFT 10ms FALSE
-HallButtonControl 4 FRONT DOWN 100ms TRUE
+HallButtonControl 1 FRONT UP 100ms TRUE
 Dispatcher 8 50ms TRUE

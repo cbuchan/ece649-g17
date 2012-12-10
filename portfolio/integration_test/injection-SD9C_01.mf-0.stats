@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf SD9C.cf -mf SD9C_01.mf
-RandomSeed = 1354319364678
+RandomSeed = 1355179785181
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -23,18 +23,18 @@ Assertion Results:
 @0.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@5f7a8a02 :: getFloor ?== 1 PASSED
 @0.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2fdb7df8 :: getHallway ?== NONE PASSED
 @0.5s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@1bc74f37 :: getDirection ?== STOP PASSED
-@1.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@35c0e45a :: getFloor ?== 7 PASSED
-@1.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@58a17083 :: getHallway ?== BOTH PASSED
-@1.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@4ca31e1b :: getDirection ?== UP PASSED
+@1.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@6262937c :: getFloor ?== 7 PASSED
+@1.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@acfec48 :: getHallway ?== BOTH PASSED
+@1.0s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@4ee1d5ea :: getDirection ?== STOP PASSED
 @1.75s:  PASSED Dispatcher::checkState(STATE) ?== STATE_COMPUTE_NEXT PASSED
+@2.25s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@46e45076 :: command ?== OPEN PASSED
 @2.25s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@2321ab80 :: command ?== OPEN PASSED
 @2.25s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@152c7568 :: command ?== OPEN PASSED
 @2.25s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@292d15a9 :: command ?== OPEN PASSED
-@2.25s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@2b0a3b24 :: command ?== OPEN PASSED
-@3.0s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@7f5663a2 :: command ?== STOP PASSED
-@3.0s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@6d126b07 :: command ?== STOP PASSED
-@3.0s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@50c931fc :: command ?== STOP PASSED
-@3.0s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@3603820e :: command ?== STOP PASSED
+@3.0s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@9506dc4 :: command ?== STOP PASSED
+@3.0s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@a761fe :: command ?== STOP PASSED
+@3.0s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@5430d082 :: command ?== STOP PASSED
+@3.0s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@48f0c0d3 :: command ?== STOP PASSED
 
 
 ******************Summary******************

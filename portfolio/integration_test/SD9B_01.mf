@@ -37,7 +37,7 @@
 +0s	   A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 2
 +0s	   A N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == BACK
 ; direction is previous calculated direction
-+0s	   A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == UP
++0s	   A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
 
 ;Car begins moving up (@1.0)
 +0.5s   A F Drive : speed == SLOW

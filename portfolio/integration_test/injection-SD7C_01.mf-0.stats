@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf SD7C.cf -mf SD7C_01.mf
-RandomSeed = 1354319357958
+RandomSeed = 1355179779327
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -16,9 +16,9 @@ Controller File = SD7C.cf
 
 Assertion Results:
 @0.5s:  PASSED DoorControl[BACK][LEFT]::checkState(STATE) ?== STATE_DOOR_CLOSING PASSED
-@0.5s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@5a77a7f9 :: command ?== CLOSE PASSED
+@0.5s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@79f6f296 :: command ?== CLOSE PASSED
 @1.5s:  PASSED DoorControl[BACK][LEFT]::checkState(STATE) ?== STATE_DOOR_CLOSED PASSED
-@1.5s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@7ddf5a8f :: command ?== STOP PASSED
+@1.5s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@485329c5 :: command ?== STOP PASSED
 
 
 ******************Summary******************

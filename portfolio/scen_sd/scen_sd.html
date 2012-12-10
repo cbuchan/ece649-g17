@@ -105,8 +105,8 @@
       <h3> Pre-Conditions: </h3>
       <ul type="disc">
         <li>Car is at same floor as passenger. </li>
-        <li>Car is traveling in same direction <b>d</b> as desired by
-          passenger. </li>
+        <li>Car is traveling to [<b>g,c</b>] in same direction <b>d</b>
+          as desired by passenger. </li>
         <li>At least one door[<b>b</b>,<b>r</b>] is open. </li>
         <li>Hall button light [<b>f</b>,<b>b</b>,<b>d</b>] for
           passenger's desired direction is off. </li>
@@ -120,20 +120,20 @@
           closed, but after doors are too fully closed for passenger to
           enter. </li>
         <li>Hall button lights up. </li>
-        <li>Dispatcher updates mDesiredFloor to <b>f, b, d </b>(same <b>d</b>
-          as before). <br>
+        <li>Dispatcher keeps the same mDesiredFloor [<b>g, c, d</b>]. <br>
         </li>
-        <li>Doors open completely.<br>
+        <li>Doors close completely.<br>
         </li>
       </ol>
       <h3> Post-Conditions: </h3>
       <ul type="disc">
         <li>Elevator is at the passenger's floor. </li>
-        <li>Door is open. </li>
-        <li>Hall button light for passenger's desired direction is on. </li>
+        <li>Door is closed. </li>
+        <li>Hall button light [<b>f,b,d</b>] for passenger's desired
+          direction is on. </li>
       </ul>
       <h3> Sequence Diagram: </h3>
-      <img alt="sd1b" src="sd1b.png" height="470" width="968"><br>
+      <img alt="sd1b" src="sd1b.png" height="420" width="865"><br>
       <div align="center">
         <hr align="center" size="2" width="100%"> </div>
       <h3> <a name="scenario1c" id="scenario1c"></a>Scenario 1C:
@@ -380,6 +380,7 @@
 
 
 
+
         Case 5: Passenger Triggers Door Reversal </h2>
       <h3> <a name="scenario5a" id="scenario5a"></a>Scenario 5A:
         Passenger attempts to enter the car as the doors begin to close.
@@ -396,6 +397,7 @@
       <ol>
         <li>Door[<b>b</b>,<b>r</b>] starts to close.</li>
         <li>The passenger attempts to enter and is nudged by Door[<b>b</b>,<b>r</b>],
+
 
 
 
@@ -447,6 +449,7 @@
 
 
 triggering
+
 
 
 

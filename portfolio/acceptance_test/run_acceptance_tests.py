@@ -32,6 +32,8 @@ parser = OptionParser()
 parser.add_option("-v", action="store_true", dest="verbose", help="verbose output")
 parser.add_option("-n", type="int", dest="num", help="Run tests n times")
 parser.add_option("-s", type="int", dest="seed", help="Specify seed")
+parser.add_option("-f", type="string", dest="fault", help="Specify fault tolerance file")
+
 
 (options, args) = parser.parse_args(sys.argv)
 
@@ -93,18 +95,39 @@ for i in range(runCount):
             continue
 
         if(options.seed != None):
-            # run java commmand and save output
-            output = subprocess.Popen([java_path, '-cp', classpath,
-                    'simulator.framework.Elevator', '-head', 'headerfile', '-pf', tokens[1], 
-                    '-monitor', tokens[2], '-fs', '5.0', '-b', '200', 
-                    '-seed', str(options.seed)], 
-                    stdout=subprocess.PIPE, stderr=subprocess.STDOUT).communicate()[0]
+
+            if(options.fault != None):
+                # run java commmand and save output
+                output = subprocess.Popen([java_path, '-cp', classpath,
+                        'simulator.framework.Elevator', '-head', 'headerfile', '-pf', tokens[1],
+                        '-monitor', tokens[2], '-fs', '5.0', '-b', '200',
+                        '-seed', str(options.seed), '-ff', str(options.fault)],
+                        stdout=subprocess.PIPE, stderr=subprocess.STDOUT).communicate()[0]
+
+
+            else:
+                # run java commmand and save output
+                output = subprocess.Popen([java_path, '-cp', classpath,
+                        'simulator.framework.Elevator', '-head', 'headerfile', '-pf', tokens[1],
+                        '-monitor', tokens[2], '-fs', '5.0', '-b', '200',
+                        '-seed', str(options.seed)],
+                        stdout=subprocess.PIPE, stderr=subprocess.STDOUT).communicate()[0]
+
         else:
-            # run java commmand and save output
-            output = subprocess.Popen([java_path, '-cp', classpath,
-                    'simulator.framework.Elevator', '-head', 'headerfile', '-pf', 
-                    tokens[1], '-monitor', tokens[2], '-fs', '5.0', '-b', '200'], 
-                    stdout=subprocess.PIPE, stderr=subprocess.STDOUT).communicate()[0]
+
+            if(options.fault != None):
+                # run java commmand and save output
+                output = subprocess.Popen([java_path, '-cp', classpath,
+                        'simulator.framework.Elevator', '-head', 'headerfile', '-pf',
+                        tokens[1], '-monitor', tokens[2], '-fs', '5.0', '-b', '200', '-ff', str(options.fault)],
+                        stdout=subprocess.PIPE, stderr=subprocess.STDOUT).communicate()[0]
+
+            else:
+                # run java commmand and save output
+                output = subprocess.Popen([java_path, '-cp', classpath,
+                        'simulator.framework.Elevator', '-head', 'headerfile', '-pf',
+                        tokens[1], '-monitor', tokens[2], '-fs', '5.0', '-b', '200'],
+                        stdout=subprocess.PIPE, stderr=subprocess.STDOUT).communicate()[0]
 
 
         #print output
