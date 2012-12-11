@@ -296,15 +296,15 @@ public class Dispatcher extends Controller {
                     direction = computeDirection(direction, commitPoint);
                 }
 
-                //NEW TRANSITION
+                //#transition 'T11.9'
                 if (anyCarCall(commitPoint)) {
                     newState = State.STATE_SERVICE_CALL;
                 }
-                //NEW TRANSITION
+                //#transition 'T11.10'
                 else if (nextCallInDirection(commitPoint, direction) != MessageDictionary.NONE) {
                     newState = State.STATE_COMPUTE_NEXT;
                 }
-                //NEW TRANSITION
+                //#transition 'T11.7'
                 else if (networkAtFloorArray.getCurrentFloor() == MessageDictionary.NONE && !networkDoorClosed.getAllClosed()) {
                     newState = State.STATE_RESET;
                 } else {
@@ -334,16 +334,16 @@ public class Dispatcher extends Controller {
                 mDesiredDwellFront.set(CONST_DWELL);
 
 
-                //#transition 'T11.4
+                //#transition 'T11.5
                 if (allCallsOff() && !networkDoorClosed.getAllClosed()) {
                     newState = State.STATE_IDLE;
                 }
-                //NEW TRANSITION
+                //#transition 'T11.8'
                 else if (networkAtFloorArray.getCurrentFloor() == targetFloor && !anyCarCall(commitPoint) &&
                         direction != Direction.STOP && nextCallInDirection(commitPoint, direction) == MessageDictionary.NONE) {
                     newState = State.STATE_HOLD_DIRECTION;
                 }
-                //#transition 'T11.5
+                //#transition 'T11.4
                 else if (!networkDoorClosed.getAllClosed() && !allCallsOff() && !anyCarCall(commitPoint)) {
                     newState = State.STATE_COMPUTE_NEXT;
                 } else {
@@ -362,9 +362,6 @@ public class Dispatcher extends Controller {
         } else {
             log("Transition:", state, "->", newState);
         }
-
-//        System.out.println(
-//                "State: " + state + " " + mDesiredFloor.getFloor() + " " + mDesiredFloor.getHallway() + " " + mDesiredFloor.getDirection());
 
         //update the state variable
         state = newState;
@@ -586,14 +583,19 @@ public class Dispatcher extends Controller {
         if (dir == Direction.STOP) {
             frontCall =
                     networkHallCallArray.getValue(floor, Hallway.FRONT, Direction.UP) ||
-                            networkHallCallArray.getValue(floor, Hallway.FRONT, Direction.DOWN) ||
-                            networkCarCallArrayFront.getValueForFloor(floor);
-            backCall = networkHallCallArray.getValue(floor, Hallway.BACK, Direction.UP) ||
-                    networkHallCallArray.getValue(floor, Hallway.BACK, Direction.DOWN) || networkCarCallArrayBack.getValueForFloor(floor);
+                    networkHallCallArray.getValue(floor, Hallway.FRONT, Direction.DOWN) ||
+                    networkCarCallArrayFront.getValueForFloor(floor);
+            backCall =
+                    networkHallCallArray.getValue(floor, Hallway.BACK, Direction.UP) ||
+                    networkHallCallArray.getValue(floor, Hallway.BACK, Direction.DOWN) ||
+                    networkCarCallArrayBack.getValueForFloor(floor);
         } else {
             frontCall =
-                    networkHallCallArray.getValue(floor, Hallway.FRONT, dir) || networkCarCallArrayFront.getValueForFloor(floor);
-            backCall = networkHallCallArray.getValue(floor, Hallway.BACK, dir) || networkCarCallArrayBack.getValueForFloor(floor);
+                    networkHallCallArray.getValue(floor, Hallway.FRONT, dir) ||
+                    networkCarCallArrayFront.getValueForFloor(floor);
+            backCall =
+                    networkHallCallArray.getValue(floor, Hallway.BACK, dir) ||
+                    networkCarCallArrayBack.getValueForFloor(floor);
         }
 
 
@@ -614,7 +616,7 @@ public class Dispatcher extends Controller {
             return networkAtFloorArray.getCurrentFloor();
         } else {
 
-            int newFloor = commitPointCalculator.nextReachableFloor(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
+            int newFloor = commitPointCalculator.nextReachableFloor(mDriveSpeed.getDirection());
             if (mDriveSpeed.getDirection() == Direction.UP && newFloor > oldFloor) {
                 return newFloor;
             } else if (mDriveSpeed.getDirection() == Direction.DOWN && newFloor < oldFloor) {
@@ -626,7 +628,7 @@ public class Dispatcher extends Controller {
 
     private int computeCommitPointDeparting(int oldFloor) {
 
-        int nextReachable = commitPointCalculator.nextReachableFloorDelta(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
+        int nextReachable = commitPointCalculator.nextReachableFloorDelta(mDriveSpeed.getDirection());
         int computePoint = commitPointCalculator.getCommittedFloorDispatcher(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
 
         if (!(mDriveSpeed.getDirection() == Direction.DOWN && computePoint < oldFloor) &&

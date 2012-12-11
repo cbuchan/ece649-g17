@@ -62,6 +62,11 @@ public class DoorControl extends Controller {
     private DoorReversalCanPayloadTranslator mDoorReversalLeft;
     private DoorReversalCanPayloadTranslator mDoorReversalRight;
 
+    private ReadableCanMailbox networkDoorReversalOppLeft;
+    private ReadableCanMailbox networkDoorReversalOppRight;
+    private DoorReversalCanPayloadTranslator mDoorReversalOppLeft;
+    private DoorReversalCanPayloadTranslator mDoorReversalOppRight;
+
     private Utility.CarCallArray networkCarCallArray;
 
     private Utility.HallCallArray networkHallCallArray;
@@ -175,6 +180,22 @@ public class DoorControl extends Controller {
                 networkDoorReversalRight, hallway, Side.RIGHT);
         canInterface.registerTimeTriggered(networkDoorReversalRight);
 
+
+        networkDoorReversalOppLeft = CanMailbox.getReadableCanMailbox(
+                MessageDictionary.DOOR_REVERSAL_SENSOR_BASE_CAN_ID +
+                        ReplicationComputer.computeReplicationId(Hallway.oppositeHallway(hallway), Side.LEFT));
+        mDoorReversalOppLeft = new DoorReversalCanPayloadTranslator(
+                networkDoorReversalOppLeft, Hallway.oppositeHallway(hallway), Side.LEFT);
+        canInterface.registerTimeTriggered(networkDoorReversalOppLeft);
+
+        networkDoorReversalOppRight = CanMailbox.getReadableCanMailbox(
+                MessageDictionary.DOOR_REVERSAL_SENSOR_BASE_CAN_ID +
+                        ReplicationComputer.computeReplicationId(Hallway.oppositeHallway(hallway), Side.RIGHT));
+        mDoorReversalOppRight = new DoorReversalCanPayloadTranslator(
+                networkDoorReversalOppRight, Hallway.oppositeHallway(hallway), Side.RIGHT);
+        canInterface.registerTimeTriggered(networkDoorReversalOppRight);
+
+
         networkCarCallArray = new Utility.CarCallArray(hallway, canInterface);
 
         networkHallCallArray = new Utility.HallCallArray(canInterface);
@@ -208,7 +229,7 @@ public class DoorControl extends Controller {
                 //transitions -- note that transition conditions are mutually exclusive
                 //#transition 'T5.6'
                 if (isValidHallway() && isStopped()
-                        && isDoorReversal() && !doorOpened()) {
+                        && (isDoorReversal() || isDoorReversalOpp()) && !doorOpened()) {
                     newState = State.STATE_DOOR_REVERSING;
                 }
                 //#transition 'T5.5'
@@ -293,7 +314,7 @@ public class DoorControl extends Controller {
 
                 //transitions
                 //#transition 'T5.8'
-                if (doorOpened() && !isDoorReversal()) {
+                if (doorOpened() && (!isDoorReversal() || !isDoorReversalOpp())) {
                     newState = State.STATE_DOOR_REVERSED;
                 } else {
                     newState = state;
@@ -388,6 +409,10 @@ public class DoorControl extends Controller {
 
     private Boolean isDoorReversal() {
         return mDoorReversalLeft.getValue() || mDoorReversalRight.getValue();
+    }
+
+    private Boolean isDoorReversalOpp() {
+        return mDoorReversalOppLeft.getValue() || mDoorReversalOppRight.getValue();
     }
 
     private Boolean isDesiredFloor() {

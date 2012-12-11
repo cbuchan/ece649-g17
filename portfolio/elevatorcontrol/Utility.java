@@ -363,7 +363,7 @@ public class Utility {
         public Boolean commitPoint(int f, Direction driveSpeed_d, double driveSpeed_s) {
             int dir = driveSpeed_d == Direction.UP ? 1 : -1;     //sign determined by current direction
             double speed = driveSpeed_s;                             // in m/s
-            double pos = mCarLevelPosition.getPosition() / 1000;       // level position in m, *updates at each floor
+            double pos = mCarLevelPosition.getPosition() / 1000;       // level position in m
             double fPos = (f - 1) * Elevator.DISTANCE_BETWEEN_FLOORS;  // DISTANCE_BETWEEN_FLOORS in m
             double commitPt = pos;
 
@@ -393,8 +393,7 @@ public class Utility {
 
             //System.out.println("(levelpos, dir, commitpt, fpos) = ("+pos+", "+dir+", "+commitPt+", "+fPos+")");
 
-            // let's set the error threshold to 10cm (to compensate for the level position sensor updating)
-            //double error = 0.1;
+            // a slack variable to account for network delays, in m
             double error = 1.8;
             if (dir == 1) {
                 if (commitPt < fPos - error) return false; //not reached
@@ -404,7 +403,7 @@ public class Utility {
             return true; //reached
         }
 
-//        public int nextReachableFloor(Direction driveSpeed_d, double driveSpeed_s) {
+//        public int nextReachableFloor(Direction driveSpeed_d) {
 //            // Returns the lowest "Not Reached" floor
 //            int delta = 5; //mm
 //
@@ -430,7 +429,7 @@ public class Utility {
 //            return (int) Math.round(mCarLevelPosition.getPosition() / (Elevator.DISTANCE_BETWEEN_FLOORS * 1000)) + 1;
 //        }
 
-        public int nextReachableFloor(Direction driveSpeed_d, double driveSpeed_s) {
+        public int nextReachableFloor(Direction driveSpeed_d) {
             // Returns the lowest "Not Reached" floor
             int delta = 0; //mm
             int nextFloor;
@@ -455,7 +454,7 @@ public class Utility {
             return nextFloor;
         }
 
-        public int nextReachableFloorDelta(Direction driveSpeed_d, double driveSpeed_s) {
+        public int nextReachableFloorDelta(Direction driveSpeed_d) {
             // Returns the lowest "Not Reached" floor
             int delta = 101; //mm
             int nextFloor;
