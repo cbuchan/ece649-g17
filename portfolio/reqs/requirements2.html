@@ -1025,8 +1025,8 @@
     5.9 &nbsp;&nbsp; If mCarWeight(g) &gt;= MaxCarCapacity, and
     mDoorOpened[b, r] is False, DoorMotor[b, r] shall be commanded to
     Open.<br>
-    5.10 &nbsp;&nbsp; If mDoorReversal=true, and mDoorOpened[b,r] is
-    False, DoorMotor[b,r] shall be commanded to Open.<br>
+    5.10 &nbsp;&nbsp; If mDoorReversal[*,r]=true, and mDoorOpened[b,r]
+    is False, DoorMotor[b,r] shall be commanded to Open.<br>
     5.11 &nbsp;&nbsp; When DoorMotor[b,r] is commanded to Open<br>
     &nbsp;&nbsp;&nbsp; 5.11.1 &nbsp;&nbsp; If mDoorReversal is false,
     then countdown shall be set to Dwell.<br>
@@ -1042,7 +1042,7 @@
     &nbsp;&nbsp;&nbsp; 5.15.1 &nbsp;&nbsp; If a door reversal did not
     previously occur, then DoorMotor[b,r] shall be commanded to Close.<br>
     &nbsp;&nbsp;&nbsp; 5.15.2 &nbsp;&nbsp; If a door reversal previously
-    occured, then DoorMotor[b,r] shall be commanded to Nudge.<br>
+    occurred, then DoorMotor[b,r] shall be commanded to Nudge.<br>
     5.16 &nbsp;&nbsp; If mDoorClosed[b, r] is True, then DoorMotor[b,r]
     should be commanded to Stop.<br>
     5.17 &nbsp;&nbsp; mDoorMotor[b,r] shall be set to the current value
@@ -1053,8 +1053,8 @@
     <meta charset="utf-8">
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
-      word-spacing: 0px; text-align: left;" height="388" border="1"
-      cellpadding="2" cellspacing="2" width="1143">
+      word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="388" width="1143">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -1109,7 +1109,8 @@
           </td>
           <td style="vertical-align: top; ">Elevator.hasLanding(f, b)
             &amp;&amp; mDriveSpeed.s == Stop &amp;&amp;
-            mDoorReversal==True &amp;&amp; mDoorOpened[b,r]==False<br>
+            (mDoorReversal[b,r]==True || mDoorReversal[~b,r]==True)
+            &amp;&amp; mDoorOpened[b,r]==False<br>
           </td>
         </tr>
         <tr>
@@ -1124,7 +1125,8 @@
           <td style="vertical-align: top; ">T5.8<br>
           </td>
           <td style="vertical-align: top; ">mDoorOpened[b,r]==True
-            &amp;&amp; mDoorReversal==False<br>
+            &amp;&amp; (mDoorReversal[b,r]==False ||
+            mDoorReversal[~b,r]==False)<br>
           </td>
         </tr>
         <tr>
@@ -1856,8 +1858,8 @@
     <img alt="SC_DriveControl" src="SC_DriveControl.png" height="343"
       width="1023"><br>
     <br>
-    <table style="text-align: left;" height="306" border="1"
-      cellpadding="2" cellspacing="2" width="1013">
+    <table style="text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="306" width="1013">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -1918,8 +1920,8 @@
       </tbody>
     </table>
     <p><strong>MACROS</strong>:</p>
-    <table style="text-align: left;" height="378" border="1"
-      cellpadding="2" cellspacing="2" width="952">
+    <table style="text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="378" width="952">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -1989,7 +1991,7 @@
       display: inline !important; float: none; "> </span>
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2; text-align:
-      left;" height="562" border="1" cellpadding="2" cellspacing="2"
+      left;" border="1" cellpadding="2" cellspacing="2" height="562"
       width="793">
       <tbody>
         <tr style="font-weight: bold; ">
@@ -2427,7 +2429,7 @@
     <br>
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2; text-align:
-      left;" height="132" border="1" cellpadding="2" cellspacing="2"
+      left;" border="1" cellpadding="2" cellspacing="2" height="132"
       width="561">
       <tbody>
         <tr>
@@ -2644,8 +2646,8 @@
       2; text-indent: 0px; text-transform: none; widows: 2;
       word-spacing: 0px; -webkit-text-size-adjust: auto;
       &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD -webkit-text-stroke-width: 0px;
-      text-align: left; " height="97" border="1" cellpadding="2"
-      cellspacing="2" width="525">
+      text-align: left; " border="1" cellpadding="2" cellspacing="2"
+      height="97" width="525">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -2686,8 +2688,8 @@
       2; text-indent: 0px; text-transform: none; widows: 2;
       word-spacing: 0px; -webkit-text-size-adjust: auto;
       &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD -webkit-text-stroke-width: 0px;
-      text-align: left; " height="342" border="1" cellpadding="2"
-      cellspacing="2" width="790">
+      text-align: left; " border="1" cellpadding="2" cellspacing="2"
+      height="342" width="790">
       <tbody>
         <tr style="font-weight: bold; ">
           <td style="vertical-align: top; background-color: rgb(204,
@@ -2901,8 +2903,8 @@
         Tiu (jtiu), revised by Collin Buchan (cbuchan)<br>
       </span></p>
     <br>
-    <table style="text-align: left;" height="233" border="1"
-      cellpadding="2" cellspacing="2" width="552">
+    <table style="text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="233" width="552">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
@@ -3059,8 +3061,8 @@
     <img alt="SC_CarPositionControl" src="SC_CarPositionControl.png"><br>
     <br>
     <br>
-    <table style="text-align: left;" height="58" border="1"
-      cellpadding="2" cellspacing="2">
+    <table style="text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="58">
       <tbody>
         <tr>
           <td style="vertical-align: top; font-weight: bold;
@@ -3091,8 +3093,8 @@
         display: inline !important; float: none; ">Completed by: Rajeev
         Sharma (rdsharma)<br>
       </span></p>
-    <table style="text-align: left;" height="233" border="1"
-      cellpadding="2" cellspacing="2">
+    <table style="text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="233">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
@@ -3424,6 +3426,7 @@
         </tr>
         <tr>
           <td style="vertical-align: top;">nextCallInDirection(CommitPoint,
+
             Direction)<br>
           </td>
           <td style="vertical-align: top;">Returns the closest call for
@@ -3495,8 +3498,8 @@
         display: inline !important; float: none; ">Completed by: Jesse
         Salazar (jessesal)<br>
       </span></p>
-    <table style="text-align: left;" height="342" border="1"
-      cellpadding="2" cellspacing="2" width="790">
+    <table style="text-align: left;" border="1" cellpadding="2"
+      cellspacing="2" height="342" width="790">
       <tbody>
         <tr style="font-weight: bold;">
           <td style="vertical-align: top; background-color: rgb(204,
@@ -3871,6 +3874,6 @@
       </tbody>
     </table>
     <p><br>
-  &nbsp; </p>
+      &nbsp; </p>
   </body>
 </html>
