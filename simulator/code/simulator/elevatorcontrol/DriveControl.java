@@ -212,7 +212,7 @@ public class DriveControl extends Controller {
             case STATE_DRIVE_LEVEL:
 
                 driveDir = getDriveDir(driveDir);
-                Direction levelDir = getLevelDir();
+                Direction levelDir = getLevelDirSafe();
 
                 //state actions for DRIVE_LEVEL
                 localDrive.set(Speed.LEVEL, levelDir);
@@ -307,11 +307,23 @@ public class DriveControl extends Controller {
      * Macros -- getLevelDir, getDriveDir
      */
 
+    private Direction getLevelDirSafe() {
+
+        Direction levelDir = getLevelDir();
+        if (localDriveSpeed.speed() > 0 && (localDriveSpeed.direction() != Direction.STOP && localDriveSpeed.direction() != levelDir)) {
+            return Direction.STOP;
+        } else {
+            return levelDir;
+        }
+    }
+
     //returns the level direction based on mLevel sensors
     private Direction getLevelDir() {
-        if (!mLevelUp.getValue() && mLevelDown.getValue()) return Direction.UP;
-        else if (mLevelUp.getValue() && !mLevelDown.getValue()) return Direction.DOWN;
-        else return Direction.STOP;
+        if (!mLevelUp.getValue() && mLevelDown.getValue()) {
+            return Direction.UP;
+        } else if (mLevelUp.getValue() && !mLevelDown.getValue()) {
+            return Direction.DOWN;
+        } else return Direction.STOP;
     }
 
     //returns the desired direction based on current floor and desired floor by dispatcher
