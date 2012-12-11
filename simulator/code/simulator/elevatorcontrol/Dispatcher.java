@@ -363,9 +363,6 @@ public class Dispatcher extends Controller {
             log("Transition:", state, "->", newState);
         }
 
-//        System.out.println(
-//                "State: " + state + " " + mDesiredFloor.getFloor() + " " + mDesiredFloor.getHallway() + " " + mDesiredFloor.getDirection());
-
         //update the state variable
         state = newState;
 
