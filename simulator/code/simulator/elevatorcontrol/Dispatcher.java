@@ -241,7 +241,7 @@ public class Dispatcher extends Controller {
 
             case STATE_COMPUTE_NEXT:
 
-                commitPoint = computeCommitPointDeparting(commitPoint);
+                commitPoint = computeCommitPointDeparting(commitPoint, direction);
 
                 //state actions for STATE_COMPUTE_NEXT
                 targetFloor = computeNextFloor(commitPoint, direction);
@@ -360,6 +360,9 @@ public class Dispatcher extends Controller {
         } else {
             log("Transition:", state, "->", newState);
         }
+
+        System.out.println(
+                "State: " + state + " " + mDesiredFloor.getFloor() + " " + mDesiredFloor.getHallway() + " " + mDesiredFloor.getDirection());
 
         //update the state variable
         state = newState;
@@ -653,19 +656,22 @@ public class Dispatcher extends Controller {
         }
     }
 
-    private int computeCommitPointDeparting(int oldFloor) {
+    private int computeCommitPointDeparting(int oldFloor, Direction dir) {
 
         int nextReachable = commitPointCalculator.nextReachableFloorDelta(mDriveSpeed.getDirection());
         int computePoint = commitPointCalculator.getCommittedFloorDispatcher(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
+
+        System.out.println("nextReachable: " + nextReachable);
+        System.out.println("computePoint: " + computePoint);
 
         if (!(mDriveSpeed.getDirection() == Direction.DOWN && computePoint < oldFloor) &&
                 !(mDriveSpeed.getDirection() == Direction.UP && computePoint > oldFloor)) {
             computePoint = oldFloor;
         }
 
-        if (mDriveSpeed.getDirection() == Direction.UP || anyHallCall(oldFloor, Direction.UP)) {
+        if (mDriveSpeed.getDirection() == Direction.UP || dir == Direction.UP) {
             return Math.max(nextReachable, computePoint);
-        } else if (mDriveSpeed.getDirection() == Direction.DOWN || anyHallCall(oldFloor, Direction.DOWN)) {
+        } else if (mDriveSpeed.getDirection() == Direction.DOWN || dir == Direction.DOWN) {
             return Math.min(nextReachable, computePoint);
         } else {
             return nextReachable;
