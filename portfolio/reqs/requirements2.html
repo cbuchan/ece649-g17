@@ -2412,9 +2412,9 @@
     same time.<br>
     <h3>TIME-TRIGGERED BEHAVIORS:<br>
     </h3>
-    <p>7.2 &nbsp;&nbsp; If mAtFloor[f,b]=true and
-      mDesiredFloor.d=d, and any mDoorClosed[b,r] is false, then
-      CarLantern[d] shall be set to On.<br>
+    <p>7.2 &nbsp;&nbsp; If mAtFloor[f,b]=true and mDesiredFloor.d=d, and
+      any mDoorClosed[b,r] is false, then CarLantern[d] shall be set to
+      On.<br>
       7.3&nbsp;&nbsp;&nbsp; If all mDoorClosed[b,r]=true, CarLantern[d]
       shall be set to Off.<br>
       7.4&nbsp;&nbsp;&nbsp; If mDesiredFloor.d != d, CarLantern[d] shall
@@ -2443,7 +2443,8 @@
         <tr>
           <td valign="top">T7.1<br>
           </td>
-          <td valign="top">(mAtFloor[f,b] == true) &amp;&amp; (mDesiredFloor.d == d) &amp;&amp; (any mDoorClosed[b,r] ==
+          <td valign="top">(mAtFloor[f,b] == true) &amp;&amp;
+            (mDesiredFloor.d == d) &amp;&amp; (any mDoorClosed[b,r] ==
             false);<br>
           </td>
         </tr>
@@ -3307,8 +3308,8 @@
       11.13 &nbsp;&nbsp;&nbsp;mDesiredDwell shall always be set to a
       constant appropriate value for door open dwell. &nbsp; &nbsp;</p>
     <h3>STATECHART:</h3>
-    <img alt="SC_Dispatcher" src="SC_Dispatcher.png" height="595"
-      width="918">&nbsp; <br>
+    <img alt="SC_Dispatcher" src="SC_Dispatcher.png" height="631"
+      width="913">&nbsp; <br>
     <table style="text-align: left; width: 800px;" border="1"
       cellpadding="2" cellspacing="2">
       <tbody>
@@ -3378,8 +3379,14 @@
         <tr>
           <td valign="top">T11.10<br>
           </td>
-          <td valign="top">nextCallInDirection(CommitPt, Direction) ~=
-            None<br>
+          <td valign="top">nextCarCallInDirection(CommitPt, Direction)
+            ~= None<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">T11.11<br>
+          </td>
+          <td valign="top">CountDown expired<br>
           </td>
         </tr>
       </tbody>
@@ -3427,11 +3434,19 @@
         <tr>
           <td style="vertical-align: top;">nextCallInDirection(CommitPoint,
 
+
             Direction)<br>
           </td>
           <td style="vertical-align: top;">Returns the closest call for
             a floor beyond CommitPoint (exclusive), in Direction.<br>
           </td>
+        </tr>
+        <tr>
+          <td valign="top">nextCarCallInDirection(CommitPoint,
+            Direction)<br>
+          </td>
+          <td valign="top">Returns the closest car call for a floor
+            beyond CommitPoint (exclusive), in Direction.</td>
         </tr>
         <tr>
           <td style="vertical-align: top;">getHallways(TargetFloor,
@@ -3478,12 +3493,13 @@
           </td>
         </tr>
         <tr>
-          <td valign="top">computeCommitPointDeparting(CommitPoint)<br>
+          <td valign="top">computeCommitPointDeparting(CommitPoint,
+            Direction)<br>
           </td>
           <td valign="top">Computes a commit point based on the current
             CommitPoint. Returns the closest floor to the car level
-            position based on direction of drive speed, not including
-            the current CommitPoint.<br>
+            position based on direction of drive speed and Direction,
+            not including the current CommitPoint.<br>
           </td>
         </tr>
       </tbody>

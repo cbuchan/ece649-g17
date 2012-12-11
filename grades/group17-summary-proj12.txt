@@ -1,0 +1,264 @@
+group17 code compiled correctly.
+
+
+Staring Unit Tests
+  
+Unit Test Summary Results
+# of missing unit tests (malformed test list or missing files):  0
+# of unit tests that failed to run (Java runtime errors):  0
+# of failed assertions in all unit tests:   0
+
+Unit test detailed results (compare these to the pass/fail totals in the Unit Test Log):
+injection-CarButtonControl_01.mf-0.stats:Passed:  15
+injection-CarButtonControl_01.mf-0.stats-Failed:  0
+injection-CarButtonControl_01.mf-0.stats-Total :  15
+--
+injection-CarPositionControl_01.mf-0.stats:Passed:  12
+injection-CarPositionControl_01.mf-0.stats-Failed:  0
+injection-CarPositionControl_01.mf-0.stats-Total :  12
+--
+injection-Dispatcher_01.mf-0.stats:Passed:  48
+injection-Dispatcher_01.mf-0.stats-Failed:  0
+injection-Dispatcher_01.mf-0.stats-Total :  48
+--
+injection-DoorControl_01.mf-0.stats:Passed:  18
+injection-DoorControl_01.mf-0.stats-Failed:  0
+injection-DoorControl_01.mf-0.stats-Total :  18
+--
+injection-DoorControl_02.mf-0.stats:Passed:  66
+injection-DoorControl_02.mf-0.stats-Failed:  0
+injection-DoorControl_02.mf-0.stats-Total :  66
+--
+injection-DoorControl_03.mf-0.stats:Passed:  69
+injection-DoorControl_03.mf-0.stats-Failed:  0
+injection-DoorControl_03.mf-0.stats-Total :  69
+--
+injection-DriveControl_01.mf-0.stats:Passed:  58
+injection-DriveControl_01.mf-0.stats-Failed:  0
+injection-DriveControl_01.mf-0.stats-Total :  58
+--
+injection-DriveControl_02.mf-0.stats:Passed:  42
+injection-DriveControl_02.mf-0.stats-Failed:  0
+injection-DriveControl_02.mf-0.stats-Total :  42
+--
+injection-DriveControl_03.mf-0.stats:Passed:  22
+injection-DriveControl_03.mf-0.stats-Failed:  0
+injection-DriveControl_03.mf-0.stats-Total :  22
+--
+injection-DriveControl_04.mf-0.stats:Passed:  28
+injection-DriveControl_04.mf-0.stats-Failed:  0
+injection-DriveControl_04.mf-0.stats-Total :  28
+--
+injection-DriveControl_05.mf-0.stats:Passed:  8
+injection-DriveControl_05.mf-0.stats-Failed:  0
+injection-DriveControl_05.mf-0.stats-Total :  8
+--
+injection-HallButtonControl_01.mf-0.stats:Passed:  15
+injection-HallButtonControl_01.mf-0.stats-Failed:  0
+injection-HallButtonControl_01.mf-0.stats-Total :  15
+--
+injection-LanternControl_01.mf-0.stats:Passed:  18
+injection-LanternControl_01.mf-0.stats-Failed:  0
+injection-LanternControl_01.mf-0.stats-Total :  18
+
+
+Starting integrcation tests
+Integration Test Summary
+# of missing integration tests (malformed test list or missing files):  0
+# of integration tests that failed to run (Java runtime errors):  0
+# of failed assertions in all integration tests:   0
+  
+Integration test detailed results (compare these to the pass/fail totals in the Integration Test Log):
+injection-SD1A_01.mf-0.stats:Passed:  1
+injection-SD1A_01.mf-0.stats-Failed:  0
+injection-SD1A_01.mf-0.stats-Total :  1
+--
+injection-SD1B_01.mf-0.stats:Passed:  12
+injection-SD1B_01.mf-0.stats-Failed:  0
+injection-SD1B_01.mf-0.stats-Total :  12
+--
+injection-SD1C_01.mf-0.stats:Passed:  5
+injection-SD1C_01.mf-0.stats-Failed:  0
+injection-SD1C_01.mf-0.stats-Total :  5
+--
+injection-SD2A_01.mf-0.stats:Passed:  8
+injection-SD2A_01.mf-0.stats-Failed:  0
+injection-SD2A_01.mf-0.stats-Total :  8
+--
+injection-SD2B_01.mf-0.stats:Passed:  11
+injection-SD2B_01.mf-0.stats-Failed:  0
+injection-SD2B_01.mf-0.stats-Total :  11
+--
+injection-SD3A_01.mf-0.stats:Passed:  9
+injection-SD3A_01.mf-0.stats-Failed:  0
+injection-SD3A_01.mf-0.stats-Total :  9
+--
+injection-SD3B_01.mf-0.stats:Passed:  8
+injection-SD3B_01.mf-0.stats-Failed:  0
+injection-SD3B_01.mf-0.stats-Total :  8
+--
+injection-SD4A_01.mf-0.stats:Passed:  12
+injection-SD4A_01.mf-0.stats-Failed:  0
+injection-SD4A_01.mf-0.stats-Total :  12
+--
+injection-SD5A_01.mf-0.stats:Passed:  9
+injection-SD5A_01.mf-0.stats-Failed:  0
+injection-SD5A_01.mf-0.stats-Total :  9
+--
+injection-SD5B_01.mf-0.stats:Passed:  9
+injection-SD5B_01.mf-0.stats-Failed:  0
+injection-SD5B_01.mf-0.stats-Total :  9
+--
+injection-SD6A_01.mf-0.stats:Passed:  18
+injection-SD6A_01.mf-0.stats-Failed:  0
+injection-SD6A_01.mf-0.stats-Total :  18
+--
+injection-SD7A_01.mf-0.stats:Passed:  11
+injection-SD7A_01.mf-0.stats-Failed:  0
+injection-SD7A_01.mf-0.stats-Total :  11
+--
+injection-SD7B_01.mf-0.stats:Passed:  11
+injection-SD7B_01.mf-0.stats-Failed:  0
+injection-SD7B_01.mf-0.stats-Total :  11
+--
+injection-SD7C_01.mf-0.stats:Passed:  4
+injection-SD7C_01.mf-0.stats-Failed:  0
+injection-SD7C_01.mf-0.stats-Total :  4
+--
+injection-SD8A_01.mf-0.stats:Passed:  13
+injection-SD8A_01.mf-0.stats-Failed:  0
+injection-SD8A_01.mf-0.stats-Total :  13
+--
+injection-SD8B_01.mf-0.stats:Passed:  17
+injection-SD8B_01.mf-0.stats-Failed:  0
+injection-SD8B_01.mf-0.stats-Total :  17
+--
+injection-SD8C_01.mf-0.stats:Passed:  16
+injection-SD8C_01.mf-0.stats-Failed:  0
+injection-SD8C_01.mf-0.stats-Total :  16
+--
+injection-SD9A_01.mf-0.stats:Passed:  18
+injection-SD9A_01.mf-0.stats-Failed:  0
+injection-SD9A_01.mf-0.stats-Total :  18
+--
+injection-SD9B_01.mf-0.stats:Passed:  16
+injection-SD9B_01.mf-0.stats-Failed:  0
+injection-SD9B_01.mf-0.stats-Total :  16
+--
+injection-SD9C_01.mf-0.stats:Passed:  20
+injection-SD9C_01.mf-0.stats-Failed:  0
+injection-SD9C_01.mf-0.stats-Total :  20
+
+
+Starting acceptance tests
+Acceptance Test Summary
+# of failed tests (java runtime errors):  0
+# of emergency brake triggers:  0
+Total # of delivered passengers:  487
+Total # of stranded passengers:  0
+Total # of not-injected passengers:  0
+
+
+Peformance Score Results:
+
+
+Detailed acceptance test results:
+
+elevator-proj10acceptance1.pass-0.stats:Passenger Delivery Summary
+elevator-proj10acceptance1.pass-0.stats-Delivered: 17
+elevator-proj10acceptance1.pass-0.stats-Stranded: 0
+elevator-proj10acceptance1.pass-0.stats-Total: 17
+elevator-proj10acceptance1.pass-0.stats-
+--
+elevator-proj10acceptance2.pass-0.stats:Passenger Delivery Summary
+elevator-proj10acceptance2.pass-0.stats-Delivered: 27
+elevator-proj10acceptance2.pass-0.stats-Stranded: 0
+elevator-proj10acceptance2.pass-0.stats-Total: 27
+elevator-proj10acceptance2.pass-0.stats-
+--
+elevator-proj10acceptance3.pass-0.stats:Passenger Delivery Summary
+elevator-proj10acceptance3.pass-0.stats-Delivered: 61
+elevator-proj10acceptance3.pass-0.stats-Stranded: 0
+elevator-proj10acceptance3.pass-0.stats-Total: 61
+elevator-proj10acceptance3.pass-0.stats-
+--
+elevator-proj11acceptance1.pass-0.stats:Passenger Delivery Summary
+elevator-proj11acceptance1.pass-0.stats-Delivered: 150
+elevator-proj11acceptance1.pass-0.stats-Stranded: 0
+elevator-proj11acceptance1.pass-0.stats-Total: 150
+elevator-proj11acceptance1.pass-0.stats-
+--
+elevator-proj11acceptance2.pass-0.stats:Passenger Delivery Summary
+elevator-proj11acceptance2.pass-0.stats-Delivered: 56
+elevator-proj11acceptance2.pass-0.stats-Stranded: 0
+elevator-proj11acceptance2.pass-0.stats-Total: 56
+elevator-proj11acceptance2.pass-0.stats-
+--
+elevator-proj11acceptance3.pass-0.stats:Passenger Delivery Summary
+elevator-proj11acceptance3.pass-0.stats-Delivered: 56
+elevator-proj11acceptance3.pass-0.stats-Stranded: 0
+elevator-proj11acceptance3.pass-0.stats-Total: 56
+elevator-proj11acceptance3.pass-0.stats-
+--
+elevator-proj7acceptance1.pass-0.stats:Passenger Delivery Summary
+elevator-proj7acceptance1.pass-0.stats-Delivered: 18
+elevator-proj7acceptance1.pass-0.stats-Stranded: 0
+elevator-proj7acceptance1.pass-0.stats-Total: 18
+elevator-proj7acceptance1.pass-0.stats-
+--
+elevator-proj7acceptance2.pass-0.stats:Passenger Delivery Summary
+elevator-proj7acceptance2.pass-0.stats-Delivered: 51
+elevator-proj7acceptance2.pass-0.stats-Stranded: 0
+elevator-proj7acceptance2.pass-0.stats-Total: 51
+elevator-proj7acceptance2.pass-0.stats-
+--
+elevator-proj7acceptance3.pass-0.stats:Passenger Delivery Summary
+elevator-proj7acceptance3.pass-0.stats-Delivered: 51
+elevator-proj7acceptance3.pass-0.stats-Stranded: 0
+elevator-proj7acceptance3.pass-0.stats-Total: 51
+elevator-proj7acceptance3.pass-0.stats-
+
+
+
+
+Emergency Brake Triggers:
+Network Utilization Summary:
+Recent: 75.12 % Max: 75.12 %  Overall:  75.12 %
+--
+Network Utilization Summary:
+Recent: 75.12 % Max: 75.12 %  Overall:  75.12 %
+--
+Network Utilization Summary:
+Recent: 75.12 % Max: 75.12 %  Overall:  75.12 %
+--
+Network Utilization Summary:
+Recent: 75.12 % Max: 75.12 %  Overall:  75.12 %
+--
+Network Utilization Summary:
+Recent: 75.12 % Max: 75.12 %  Overall:  75.12 %
+--
+Network Utilization Summary:
+Recent: 75.12 % Max: 75.12 %  Overall:  75.12 %
+--
+Network Utilization Summary:
+Recent: 75.12 % Max: 75.12 %  Overall:  75.12 %
+--
+Network Utilization Summary:
+Recent: 75.11 % Max: 75.11 %  Overall:  75.11 %
+--
+Network Utilization Summary:
+Recent: 75.11 % Max: 75.11 %  Overall:  75.11 %
+
+
+Starting runtime monitoring tests
+Monitoring Test Summary
+# of failed tests (java runtime errors):  0
+# of emergency brake triggers:  0
+Total # of monitor warnings:  0
+
+
+Runtime Monitor Warning Summary:
+
+
+
+Removing code tree
