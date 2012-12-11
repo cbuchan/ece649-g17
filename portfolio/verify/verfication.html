@@ -92,15 +92,10 @@
       indicating such, so that return from invalid state can be
       determined.<br>
       <br>
-      <br>
-    </p>
-    <p><br>
-      <br>
     </p>
     <h3><big><strong>R-T6: The Car shall only stop at Floors for which
           there are pending calls.</strong></big></h3>
-    <p><br>
-      <big>Runtime Monitor State Chart:</big></p>
+    <big>Runtime Monitor State Chart:</big>
     <p>&nbsp;</p>
     <p><img src="SC_R_T6.png" alt="R-T6" height="346" width="657"><br>
     </p>
@@ -126,13 +121,13 @@
         <tr>
           <td style="vertical-align: top; ">T-R6.2 </td>
           <td style="vertical-align: top; ">mDriveSpeed == Stop
-            &amp;&amp; floor == mDesiredFloor.f<br>
+            &amp;&amp; CurrentFloor == mDesiredFloor.f<br>
           </td>
         </tr>
         <tr>
           <td style="vertical-align: top; ">T-R6.3 </td>
           <td style="vertical-align: top; ">mDriveSpeed == Stop
-            &amp;&amp; floor != mDesiredFloor.f<br>
+            &amp;&amp; CurrentFloor != mDesiredFloor.f<br>
           </td>
         </tr>
         <tr>
@@ -143,21 +138,19 @@
       </tbody>
     </table>
     <meta charset="utf-8">
-    <h3>&nbsp;</h3>
+    &nbsp;
     <h3><big><strong>R-T7: The Car shall only open Doors at Hallways for
           which there are pending calls.</strong></big></h3>
-    <p><br>
-      <big>Runtime Monitor State Chart: </big> </p>
+    <big>Runtime Monitor State Chart: </big>
     <p>&nbsp;</p>
     <p><img src="SC_R_T7.png" alt="R-T6" height="297" width="564"><br>
       Note: <br>
       &nbsp;&nbsp;&nbsp; - Network message mDesiredFloor is updated by
       Dispatcher to service the nearest pending call.<br>
-      &nbsp;&nbsp;&nbsp; - Transition to the invalid state also requires
-      mAtFloor[f,b]==True, given that this would otherwise generate a
-      fault. <br>
-      &nbsp;&nbsp;&nbsp; - These transitions are based on BR5.7 and
-      BR5.8, and hence T5.2 and T5.11 </p>
+      &nbsp;&nbsp;&nbsp; - hadCalls(b) checks the recorded state of
+      calls for hallway b for mDesiredFloor[f,b,d] before the elevator
+      arrived.<br>
+    </p>
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
       word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
@@ -174,10 +167,9 @@
         <tr>
           <td style="vertical-align: top; ">T-R7.1<br>
           </td>
-          <td style="vertical-align: top; ">(any mDoorMotor[b,r]==Open)
-            &amp;&amp; (mAtFloor[f,b]==True &amp;&amp;
-            mDesiredFloor.f==f) &amp;&amp; (mDesiredFloor.h==b ||
-            mDesiredFloor.h==BOTH)</td>
+          <td style="vertical-align: top; ">mDesiredFloor[f,b,d].f==CurrentFloor
+            &amp;&amp; hadCalls(b)<br>
+          </td>
         </tr>
         <tr>
           <td style="vertical-align: top; ">T-R7.2 </td>
@@ -195,10 +187,8 @@
         </tr>
         <tr>
           <td style="vertical-align: top; ">T-R7.3 </td>
-          <td style="vertical-align: top; ">(any mDoorMotor[b,r]==Open)
-            &amp;&amp; (mAtFloor[f,b]==True) &amp;&amp; [
-            (mDesiredFloor.f!=f) || (mDesiredFloor.h!=b &amp;&amp;
-            mDesiredFloor.h!=BOTH) ] </td>
+          <td style="vertical-align: top; ">mDesiredFloor[f,b,d].f==CurrentFloor
+            &amp;&amp; !hadCalls(b)</td>
         </tr>
         <tr>
           <td style="vertical-align: top; ">T-R7.4 </td>
@@ -213,8 +203,9 @@
         </tr>
       </tbody>
     </table>
-    <h3>&nbsp;</h3>
+    <br>
     <h3><big><strong>R-T8: </strong></big><big><strong></strong></big><big><strong>The
+
 
 
           Car Lanterns shall be use in a way that does not confuse
@@ -262,6 +253,7 @@
 
 
 
+
               &amp;&amp; (mAtFloor[f,b] == true) &amp;&amp;
               (mDesiredFloor.f == f) &amp;&amp;<span
                 class="Apple-converted-space"> </span></span><span
@@ -290,6 +282,7 @@
 
 
 
+
               != d) || (all mDoorClosed[b,r] == true)</span></td>
         </tr>
         <tr>
@@ -302,6 +295,7 @@
               white-space: normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">(CarLantern[d]==OFF)
+
 
 
 
@@ -331,12 +325,14 @@
 
 
 
+
               != d) || (all mDoorClosed[b,r] == true)</span></td>
         </tr>
       </tbody>
     </table>
-    <h3>&nbsp;</h3>
+    &nbsp;
     <h3><big><strong>R-T8: </strong></big><big><strong></strong></big><big><strong>The
+
 
 
           Car Lanterns shall be use in a way that does not confuse
@@ -348,9 +344,7 @@
     <p> <big>Runtime Monitor State Chart:</big> <br>
     </p>
     <p><img src="SC_R_T8_2.png" alt="R-T6" height="276" width="467"><br>
-      Note: <br>
-      &nbsp;&nbsp;&nbsp; - These transitions are based on BR7.2, and
-      hence T7.1<br>
+      <br>
     </p>
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
@@ -375,19 +369,18 @@
               text-align: left; text-indent: 0px; text-transform: none;
               white-space: normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">(any
-              CarLantern[d]==ON) &amp;&amp; (mAtFloor[f,b]==true)
-              &amp;&amp; (mDesiredFloor.f==f) &amp;&amp;<span
-                class="Apple-converted-space"> </span></span><span
-              style="color: rgb(0, 0, 0); font-family: Times; font-size:
-              medium; font-style: normal; font-variant: normal;
-              font-weight: normal; letter-spacing: normal; line-height:
-              normal; orphans: 2; text-align: left; text-indent: 0px;
+              0px; display: inline !important; float: none;">any
+              CarLantern[d]==Lighted&nbsp;</span><span style="color:
+              rgb(0, 0, 0); font-family: Times; font-size: medium;
+              font-style: normal; font-variant: normal; font-weight:
+              normal; letter-spacing: normal; line-height: normal;
+              orphans: 2; text-align: left; text-indent: 0px;
               text-transform: none; white-space: normal; widows: 2;
               word-spacing: 0px; -webkit-text-size-adjust: auto;
               -webkit-text-stroke-width: 0px; display: inline
-              !important; float: none;">(mDesiredFloor.d==d) &amp;&amp;
-              (any mDoorClosed[b,r]==false)</span></td>
+              !important; float: none;"> &amp;&amp; any
+              mDoorClosed[b,r]==false<br>
+            </span></td>
         </tr>
         <tr>
           <td style="vertical-align: top; ">T-R8.2.2 </td>
@@ -398,11 +391,8 @@
               text-align: left; text-indent: 0px; text-transform: none;
               white-space: normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">(mDesiredFloor.d
-
-
-
-              != d) || (all mDoorClosed[b,r]==true)</span></td>
+              0px; display: inline !important; float: none;">(all
+              mDoorClosed[b,r]==true)</span></td>
         </tr>
         <tr>
           <td style="vertical-align: top; ">T-R8.2.3 </td>
@@ -414,8 +404,8 @@
               white-space: normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">(all
-              CarLantern[d]==OFF) &amp;&amp; </span>(any
-            mDoorClosed[b,r]==false)<br>
+              CarLantern[d]==Not Lighted) || </span>(any
+            CarLantern[~d]==Lighted)<br>
           </td>
         </tr>
         <tr>
@@ -432,7 +422,9 @@
         </tr>
       </tbody>
     </table>
+    <br>
     <h3><big><strong>R-T8: </strong></big><big><strong></strong></big><big><strong>The
+
 
 
 
@@ -441,14 +433,17 @@
           &nbsp;&nbsp;&nbsp; R-T8.3: </strong></big><big><strong></strong></big><big><strong>If
 
 
+
           one of the car lanterns is lit, the car shall service any
           calls in that direction first.</strong></big></h3>
     <p> <big>Runtime Monitor State Chart:</big> <br>
     </p>
     <p><img src="SC_R_T8_3.png" alt="R-T6" height="276" width="467"><br>
       Note: <br>
-      &nbsp;&nbsp;&nbsp; - These transitions are based on BR11.10.1 and
-      BR11.10.2, and hence T11.4 and T11.3<br>
+      lastLantern(d) checks the recorded state of lantern direction d
+      when elevator was last stopped.<br>
+      hasCall(f,d) returns true if the elevator had a call in direction
+      d when it was last stopped.<br>
     </p>
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
@@ -476,39 +471,9 @@
               text-indent: 0px; text-transform: none; white-space:
               normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">[mDesiredFloor.d==UP
-
-
-              &amp;&amp; CarLantern(UP)==ON &amp;&amp;
-              anyUpCall(CurrentFloor) &amp;&amp; (any
-              mDoorClosed[b,r]==false) ] || </span><br>
-            <span style="color: rgb(0, 0, 0); font-family: Times;
-              font-size: medium; font-style: normal; font-variant:
-              normal; font-weight: normal; letter-spacing: normal;
-              line-height: normal; orphans: 2; text-align: left;
-              text-indent: 0px; text-transform: none; white-space:
-              normal; widows: 2; word-spacing: 0px;
-              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">[</span><span
-              style="color: rgb(0, 0, 0); font-family: Times; font-size:
-              medium; font-style: normal; font-variant: normal;
-              font-weight: normal; letter-spacing: normal; line-height:
-              normal; orphans: 2; text-align: left; text-indent: 0px;
-              text-transform: none; white-space: normal; widows: 2;
-              word-spacing: 0px; -webkit-text-size-adjust: auto;
-              -webkit-text-stroke-width: 0px; display: inline
-              !important; float: none;"><span style="color: rgb(0, 0,
-                0); font-family: Times; font-size: medium; font-style:
-                normal; font-variant: normal; font-weight: normal;
-                letter-spacing: normal; line-height: normal; orphans: 2;
-                text-align: left; text-indent: 0px; text-transform:
-                none; white-space: normal; widows: 2; word-spacing: 0px;
-                -webkit-text-size-adjust: auto;
-                -webkit-text-stroke-width: 0px; display: inline
-                !important; float: none;">mDesiredFloor.d==DOWN
-                &amp;&amp; </span>CarLantern(DOWN)==ON &amp;&amp;
-              anyDownCall(CurrentFloor) &amp;&amp; (any
-              mDoorClosed[b,r]==false) ]<br>
+              0px; display: inline !important; float: none;">lastLantern(d)
+              &amp;&amp; !lastLantern(~d) &amp;&amp;
+              hasCall(lastStoppedFloor, d)<br>
             </span></td>
         </tr>
         <tr>
@@ -525,6 +490,7 @@
               0px; display: inline !important; float: none;">CurrentFloor
 
 
+
               == TargetFloor</span></td>
         </tr>
         <tr>
@@ -536,40 +502,17 @@
               text-align: left; text-indent: 0px; text-transform: none;
               white-space: normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">[mDesiredFloor.d==DOWN
-
-
-
-              &amp;&amp; CarLantern(UP)==ON &amp;&amp;
-              anyUpCall(CurrentFloor) &amp;&amp; (any
-              mDoorClosed[b,r]==false) ] || </span><br>
-            <span style="color: rgb(0, 0, 0); font-family: Times;
-              font-size: medium; font-style: normal; font-variant:
-              normal; font-weight: normal; letter-spacing: normal;
-              line-height: normal; orphans: 2; text-align: left;
-              text-indent: 0px; text-transform: none; white-space:
-              normal; widows: 2; word-spacing: 0px;
-              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">[</span><span
-              style="color: rgb(0, 0, 0); font-family: Times; font-size:
-              medium; font-style: normal; font-variant: normal;
-              font-weight: normal; letter-spacing: normal; line-height:
-              normal; orphans: 2; text-align: left; text-indent: 0px;
+              0px; display: inline !important; float: none;">!lastLantern(d)
+              &amp;&amp; lastLantern(~d) &amp;&amp;
+              hasCall(lastStoppedFloor, d)</span><span style="color:
+              rgb(0, 0, 0); font-family: Times; font-size: medium;
+              font-style: normal; font-variant: normal; font-weight:
+              normal; letter-spacing: normal; line-height: normal;
+              orphans: 2; text-align: left; text-indent: 0px;
               text-transform: none; white-space: normal; widows: 2;
               word-spacing: 0px; -webkit-text-size-adjust: auto;
               -webkit-text-stroke-width: 0px; display: inline
-              !important; float: none;"><span style="color: rgb(0, 0,
-                0); font-family: Times; font-size: medium; font-style:
-                normal; font-variant: normal; font-weight: normal;
-                letter-spacing: normal; line-height: normal; orphans: 2;
-                text-align: left; text-indent: 0px; text-transform:
-                none; white-space: normal; widows: 2; word-spacing: 0px;
-                -webkit-text-size-adjust: auto;
-                -webkit-text-stroke-width: 0px; display: inline
-                !important; float: none;">mDesiredFloor.d==UP &amp;&amp;
-              </span>CarLantern(DOWN)==ON &amp;&amp;
-              anyDownCall(CurrentFloor) &amp;&amp; (any
-              mDoorClosed[b,r]==false) ]</span></td>
+              !important; float: none;"></span></td>
         </tr>
         <tr>
           <td style="vertical-align: top; ">T-R8.3.4 </td>
@@ -585,6 +528,7 @@
               0px; display: inline !important; float: none;">CurrentFloor
 
 
+
               == TargetFloor</span></td>
         </tr>
         <tr>
@@ -596,46 +540,23 @@
               text-align: left; text-indent: 0px; text-transform: none;
               white-space: normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">[mDesiredFloor.d==DOWN
-
-
-
-              &amp;&amp; CarLantern(UP)==ON &amp;&amp;
-              anyUpCall(CurrentFloor) &amp;&amp; (any
-              mDoorClosed[b,r]==false) ] || </span><br>
-            <span style="color: rgb(0, 0, 0); font-family: Times;
-              font-size: medium; font-style: normal; font-variant:
-              normal; font-weight: normal; letter-spacing: normal;
-              line-height: normal; orphans: 2; text-align: left;
-              text-indent: 0px; text-transform: none; white-space:
-              normal; widows: 2; word-spacing: 0px;
-              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">[</span><span
-              style="color: rgb(0, 0, 0); font-family: Times; font-size:
-              medium; font-style: normal; font-variant: normal;
-              font-weight: normal; letter-spacing: normal; line-height:
-              normal; orphans: 2; text-align: left; text-indent: 0px;
+              0px; display: inline !important; float: none;">!lastLantern(d)
+              &amp;&amp; lastLantern(~d) &amp;&amp;
+              hasCall(lastStoppedFloor, d)</span><span style="color:
+              rgb(0, 0, 0); font-family: Times; font-size: medium;
+              font-style: normal; font-variant: normal; font-weight:
+              normal; letter-spacing: normal; line-height: normal;
+              orphans: 2; text-align: left; text-indent: 0px;
               text-transform: none; white-space: normal; widows: 2;
               word-spacing: 0px; -webkit-text-size-adjust: auto;
               -webkit-text-stroke-width: 0px; display: inline
-              !important; float: none;"><span style="color: rgb(0, 0,
-                0); font-family: Times; font-size: medium; font-style:
-                normal; font-variant: normal; font-weight: normal;
-                letter-spacing: normal; line-height: normal; orphans: 2;
-                text-align: left; text-indent: 0px; text-transform:
-                none; white-space: normal; widows: 2; word-spacing: 0px;
-                -webkit-text-size-adjust: auto;
-                -webkit-text-stroke-width: 0px; display: inline
-                !important; float: none;">mDesiredFloor.d==UP &amp;&amp;
-              </span>CarLantern(DOWN)==ON &amp;&amp;
-              anyDownCall(CurrentFloor) &amp;&amp; (any
-              mDoorClosed[b,r]==false) ]</span></td>
+              !important; float: none;"></span></td>
         </tr>
       </tbody>
     </table>
     <br>
-    <h3>&nbsp;</h3>
     <h3><big><strong>R-T9: </strong></big><big><strong></strong></big><big><strong>The
+
 
 
           Drive shall be commanded to fast speed to the maximum degree
@@ -673,6 +594,7 @@
               normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">(mDriveSpeed
+
 
 
               == fast) &amp;&amp; (DriveSpeed.s == SlowSpeed &amp;&amp;
@@ -728,6 +650,7 @@
               0px; display: inline !important; float: none;">(mDriveSpeed
 
 
+
               != fast) &amp;&amp; (DriveSpeed.s == SlowSpeed &amp;&amp;
               DriveDir ~= Stop &amp;&amp; CommitPoint[f] == NotReached
               &amp;&amp; mDesiredFloor.f == f)</span> </td>
@@ -776,14 +699,14 @@
               0px; display: inline !important; float: none;">(mDriveSpeed
 
 
+
               != fast) &amp;&amp; (DriveSpeed.s == SlowSpeed &amp;&amp;
               DriveDir ~= Stop &amp;&amp; CommitPoint[f] == NotReached
               &amp;&amp; mDesiredFloor.f == f)</span> </td>
         </tr>
       </tbody>
     </table>
-    <br>
-    <p>&nbsp;</p>
+    &nbsp;
     <h3><big><strong>R-T10: </strong></big><big><strong>For each stop
           at a floor, at least one door reversal shall have occurred
           before the doors are commanded to nudge.</strong></big><br>
@@ -880,7 +803,7 @@
         </tr>
       </tbody>
     </table>
-    <h2>&nbsp;</h2>
+    &nbsp;
     <h2>Verification Results</h2>
     <table border="1" cellpadding="2" cellspacing="2" width="100%">
       <tbody>
@@ -1020,6 +943,49 @@
           <td valign="top">Pass</td>
           <td valign="top"><a
               href="../acceptance_test/elevator-proj11acceptance3.pass-0.stats">elevator-proj11acceptance3.pass-0.stats</a><br>
+          </td>
+          <td valign="top">Passed<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><a
+              href="../acceptance_test/uppeak_final.pass">uppeak_final.pass</a><br>
+          </td>
+          <td valign="top">
+            <meta charset="utf-8">
+            R-T10: Door nudged before reversal = 1<br>
+            -&gt; false positive confirmed<br>
+          </td>
+          <td valign="top"><a
+              href="../acceptance_test/elevator-uppeak_final.pass-0.stats">elevator-uppeak_final.pass-0.stats</a><br>
+          </td>
+          <td valign="top">Passed<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><a
+              href="../acceptance_test/downpeak_final.pass">downpeak_final.pass</a><br>
+          </td>
+          <td valign="top">
+            <meta charset="utf-8">
+            R-T6: Stopped at floor with no calls = 1
+            <br>
+            -&gt; false positive confirmed<br>
+          </td>
+          <td valign="top"><a
+              href="../acceptance_test/elevator-downpeak_final.pass-0.stats">elevator-downpeak_final.pass-0.stats</a><br>
+          </td>
+          <td valign="top">Passed<br>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top"><a
+              href="../acceptance_test/normal_final.pass">normal_final.pass</a><br>
+          </td>
+          <td valign="top">Pass<br>
+          </td>
+          <td valign="top"><a
+              href="../acceptance_test/elevator-normal_final.pass-0.stats">elevator-normal_final.pass-0.stats</a><br>
           </td>
           <td valign="top">Passed<br>
           </td>
