@@ -100,7 +100,7 @@ for i in range(runCount):
                 # run java commmand and save output
                 output = subprocess.Popen([java_path, '-cp', classpath,
                         'simulator.framework.Elevator', '-head', 'headerfile', '-pf', tokens[1],
-                        '-monitor', tokens[2], '-fs', '5.0', '-b', '200',
+                        '-monitor', tokens[2], '-fs', '5.0', '-b', '200', '-rt', '7200s',
                         '-seed', str(options.seed), '-ff', str(options.fault)],
                         stdout=subprocess.PIPE, stderr=subprocess.STDOUT).communicate()[0]
 
@@ -109,7 +109,7 @@ for i in range(runCount):
                 # run java commmand and save output
                 output = subprocess.Popen([java_path, '-cp', classpath,
                         'simulator.framework.Elevator', '-head', 'headerfile', '-pf', tokens[1],
-                        '-monitor', tokens[2], '-fs', '5.0', '-b', '200',
+                        '-monitor', tokens[2], '-fs', '5.0', '-b', '200', '-rt', '7200s',
                         '-seed', str(options.seed)],
                         stdout=subprocess.PIPE, stderr=subprocess.STDOUT).communicate()[0]
 
@@ -118,15 +118,16 @@ for i in range(runCount):
             if(options.fault != None):
                 # run java commmand and save output
                 output = subprocess.Popen([java_path, '-cp', classpath,
-                        'simulator.framework.Elevator', '-head', 'headerfile', '-pf',
-                        tokens[1], '-monitor', tokens[2], '-fs', '5.0', '-b', '200', '-ff', str(options.fault)],
+                        'simulator.framework.Elevator', '-head', 'headerfile', '-rt', '7200s',
+                        '-pf', tokens[1], '-monitor', tokens[2], '-fs', '5.0', '-b', '200', 
+                        '-ff', str(options.fault)],
                         stdout=subprocess.PIPE, stderr=subprocess.STDOUT).communicate()[0]
 
             else:
                 # run java commmand and save output
                 output = subprocess.Popen([java_path, '-cp', classpath,
-                        'simulator.framework.Elevator', '-head', 'headerfile', '-pf',
-                        tokens[1], '-monitor', tokens[2], '-fs', '5.0', '-b', '200'],
+                        'simulator.framework.Elevator', '-head', 'headerfile', '-rt', '7200s',  
+                        '-pf', tokens[1], '-monitor', tokens[2], '-fs', '5.0', '-b', '200'],
                         stdout=subprocess.PIPE, stderr=subprocess.STDOUT).communicate()[0]
 
 
