@@ -42,6 +42,11 @@
 +0s     A N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT : getDwell == CONST_DWELL
 +0s     A N DESIRED_DWELL_[BACK]_CAN_ID DesiredDwell BACK : getDwell == CONST_DWELL
 
+; ==================================
+; [Passenger 1] 2, BACK -> 3, FRONT
+; [Passenger 2] 4, FRONT -> 7, BACK
+; ==================================
+
 ;#transition 'T11.2'
 ; inject [Passenger 1] 2, BACK -> 3, FRONT
 +0.25s  I DOOR_CONTROL_PERIOD N HALL_CALL_[2][BACK][UP]_CAN_ID TinyBoolean = true
@@ -156,13 +161,13 @@
 ; [Passenger 2] makes car call
 +0.10s  I DOOR_CONTROL_PERIOD N CAR_CALL_[7][BACK]_CAN_ID TinyBoolean = true
 
-;#transition 'T11.8'
+;#transition 'T11.10'
 ; car travels up to floor 7
 +0.10s  I AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = false
 +0.10s  I AT_FLOOR_PERIOD N AT_FLOOR_[7][BACK]_CAN_ID AtFloor 7 BACK = true
 +0s     I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 30000
 
-;#state 'COMPUTE_NEXT'
+;#state 'STATE_SERVICE_CALL'
 +0.5s  A S Dispatcher : STATE == STATE_SERVICE_CALL
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 7
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == BACK
@@ -170,6 +175,7 @@
 +0s     A N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT : getDwell == CONST_DWELL
 +0s     A N DESIRED_DWELL_[BACK]_CAN_ID DesiredDwell BACK : getDwell == CONST_DWELL
 
+;#transition 'T11.5'
 +0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
 +0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = false
 ; [Passenger 2] delivered at 7, BACK
@@ -183,8 +189,57 @@
 +0s     A N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT : getDwell == CONST_DWELL
 +0s     A N DESIRED_DWELL_[BACK]_CAN_ID DesiredDwell BACK : getDwell == CONST_DWELL
 
-; inject [Passenger 3] used to test RESET state
+; ==================================
+; [Passenger 3] 7, BACK -> 7, FRONT
+; ==================================
+
++0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
++0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
+; inject [Passenger 3] 7, BACK -> 7, FRONT
++0.10s  I DOOR_CONTROL_PERIOD N HALL_CALL_[7][BACK][UP]_CAN_ID TinyBoolean = true
+
+;#state 'HOLD_DIRECTION'
++0.20s  A S Dispatcher : STATE == STATE_HOLD_DIRECTION
++0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 7
++0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == BACK
++0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == UP
++0s     A N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT : getDwell == CONST_DWELL
++0s     A N DESIRED_DWELL_[BACK]_CAN_ID DesiredDwell BACK : getDwell == CONST_DWELL
+
++0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
++0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = false
++0.10s  I DOOR_CONTROL_PERIOD N HALL_CALL_[7][BACK][UP]_CAN_ID TinyBoolean = false
+
+;#transition 'T11.9'
++0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
++0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
++0.10s  I DOOR_CONTROL_PERIOD N CAR_CALL_[7][FRONT]_CAN_ID TinyBoolean = true
+
+;#state 'STATE_SERVICE_CALL'
++0.5s  A S Dispatcher : STATE == STATE_SERVICE_CALL
++0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 7
++0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == FRONT
++0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
++0s     A N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT : getDwell == CONST_DWELL
++0s     A N DESIRED_DWELL_[BACK]_CAN_ID DesiredDwell BACK : getDwell == CONST_DWELL
+
++0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
++0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = false
++0.10s  I DOOR_CONTROL_PERIOD N CAR_CALL_[7][FRONT]_CAN_ID TinyBoolean = false
+
+; ===============================
+; EMERGENCY RESET CONDITIONS
+; ===============================
+; inject [Passenger 4] used to test RESET state
 +0.10s  I DOOR_CONTROL_PERIOD N HALL_CALL_[8][FRONT][DOWN]_CAN_ID TinyBoolean = true
+
+;#state 'COMPUTE_NEXT'
++0.5s   A S Dispatcher : STATE == STATE_COMPUTE_NEXT
++0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 8
++0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == FRONT
++0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
++0s     A N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT : getDwell == CONST_DWELL
++0s     A N DESIRED_DWELL_[BACK]_CAN_ID DesiredDwell BACK : getDwell == CONST_DWELL
 
 ;#transition 'T11.6'
 +0.10s  I AT_FLOOR_PERIOD N AT_FLOOR_[7][BACK]_CAN_ID AtFloor 7 BACK = false
@@ -199,3 +254,36 @@
 +0s     A N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT : getDwell == CONST_DWELL
 +0s     A N DESIRED_DWELL_[BACK]_CAN_ID DesiredDwell BACK : getDwell == CONST_DWELL
 
+;#transition 'T11.1'
++0.10s  I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
++0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = true
++0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
++0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
++0s     I DRIVE_PERIOD N DRIVE_SPEED_CAN_ID DriveSpeed = 0.0 STOP
++0s     I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 0
++0s     I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = true
++0s     I DOOR_CONTROL_PERIOD N HALL_CALL_[8][FRONT][DOWN]_CAN_ID TinyBoolean = false
+
+;#transition 'T11.2', 'T11.3', 'T11.8'
++0s     I DOOR_CONTROL_PERIOD N HALL_CALL_[1][FRONT][UP]_CAN_ID TinyBoolean = true
+
+;#state 'HOLD_DIRECTION'
++0.50s  A S Dispatcher : STATE == STATE_HOLD_DIRECTION
++0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 1
++0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == FRONT
++0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == UP
++0s     A N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT : getDwell == CONST_DWELL
++0s     A N DESIRED_DWELL_[BACK]_CAN_ID DesiredDwell BACK : getDwell == CONST_DWELL
+
+;#transition 'T11.7'
++0.10s  I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = false
++0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
++0s     I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][RIGHT]_CAN_ID DoorClosed FRONT RIGHT = false
+
+;#state 'RESET'
++0.20s  A S Dispatcher : STATE == STATE_RESET
++0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 1
++0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == NONE
++0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
++0s     A N DESIRED_DWELL_[FRONT]_CAN_ID DesiredDwell FRONT : getDwell == CONST_DWELL
++0s     A N DESIRED_DWELL_[BACK]_CAN_ID DesiredDwell BACK : getDwell == CONST_DWELL
