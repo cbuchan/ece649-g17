@@ -1166,7 +1166,7 @@
           <td style=" vertical-align: top; background-color: rgb(204,
             204, 204);"><br>
           </td>
-          <td colspan="17" rowspan="1" style="vertical-align: top;
+          <td colspan="18" rowspan="1" style="vertical-align: top;
             background-color: rgb(204, 204, 204);">Requirements<br>
           </td>
         </tr>
@@ -1934,9 +1934,13 @@
         <tr>
           <td style="vertical-align: top;">LevelDir</td>
           <td style="vertical-align: top;">Up&nbsp;&nbsp;&nbsp;&nbsp; :
-            mLevel[Up] == False &amp;&amp; mLevel[Down] == True<br>
+            mLevel[Up] == False &amp;&amp; mLevel[Down] == True
+            &amp;&amp; DriveSpeed.d == Up<br>
             Down : mLevel[Up] == True&nbsp; &amp;&amp; mLevel[Down] ==
-            False<br>
+            False &amp;&amp; DriveSpeed.d == Down<br>
+            Stop&nbsp;&nbsp; : DriveSpeed.s &gt; 0 &amp;&amp;&nbsp;
+            DriveSpeed.d ~= Stop &amp;&amp; (mLevel[d] == False
+            &amp;&amp; mLevel[~d] == True &amp;&amp; DriveSpeed.d ~= d)<br>
           </td>
         </tr>
         <tr>
@@ -2460,22 +2464,6 @@
     <br>
     <h3>REQUIREMENTS TO STATECHART TRACEABILITY:<br>
     </h3>
-    <meta charset="utf-8">
-    <span style="color: rgb(0, 0, 0); font-family: Times; font-size:
-      medium; font-style: normal; font-variant: normal; font-weight:
-      normal; letter-spacing: normal; line-height: normal; orphans: 2;
-      text-align: start; text-indent: 0px; text-transform: none;
-      white-space: normal; widows: 2; word-spacing: 0px;
-      -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;
-      display: inline !important; float: none; ">Completed by: Rajeev
-      Sharma (rdsharma)</span><br>
-    Last Edited: Jesse Salazar (jessesal); 10/25/2012<br style="color:
-      rgb(0, 0, 0); font-family: Times; font-size: medium; font-style:
-      normal; font-variant: normal; font-weight: normal; letter-spacing:
-      normal; line-height: normal; orphans: 2; text-align: start;
-      text-indent: 0px; text-transform: none; white-space: normal;
-      widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto;
-      -webkit-text-stroke-width: 0px; ">
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
       word-spacing: 0px; -webkit-text-size-adjust: auto;
@@ -2683,8 +2671,6 @@
       word-spacing: 0px; -webkit-text-size-adjust: auto;
       -webkit-text-stroke-width: 0px; ">REQUIREMENTS TO STATECHART
       TRACEABILITY:</h3>
-    Completed by: Rajeev Sharma (rdsharma)<br>
-    <br>
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
       word-spacing: 0px; -webkit-text-size-adjust: auto;
@@ -2894,16 +2880,6 @@
       <meta charset="utf-8">
     </h3>
     <h3>REQUIREMENTS TO STATECHART TRACEABILITY: </h3>
-    <p><span style="color: rgb(0, 0, 0); font-family: Times; font-size:
-        medium; font-style: normal; font-variant: normal; font-weight:
-        normal; letter-spacing: normal; line-height: normal; orphans: 2;
-        text-align: start; text-indent: 0px; text-transform: none;
-        white-space: normal; widows: 2; word-spacing: 0px;
-        -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;
-        display: inline !important; float: none; ">Completed by: Jessica
-        Tiu (jtiu), revised by Collin Buchan (cbuchan)<br>
-      </span></p>
-    <br>
     <table style="text-align: left;" border="1" cellpadding="2"
       cellspacing="2" height="233" width="552">
       <tbody>
@@ -3085,15 +3061,6 @@
     </table>
     <br>
     <h3>REQUIREMENTS TO STATECHART TRACEABILITY: </h3>
-    <p><span style="color: rgb(0, 0, 0); font-family: Times; font-size:
-        medium; font-style: normal; font-variant: normal; font-weight:
-        normal; letter-spacing: normal; line-height: normal; orphans: 2;
-        text-align: start; text-indent: 0px; text-transform: none;
-        white-space: normal; widows: 2; word-spacing: 0px;
-        -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;
-        display: inline !important; float: none; ">Completed by: Rajeev
-        Sharma (rdsharma)<br>
-      </span></p>
     <table style="text-align: left;" border="1" cellpadding="2"
       cellspacing="2" height="233">
       <tbody>
@@ -3435,6 +3402,7 @@
           <td style="vertical-align: top;">nextCallInDirection(CommitPoint,
 
 
+
             Direction)<br>
           </td>
           <td style="vertical-align: top;">Returns the closest call for
@@ -3505,15 +3473,6 @@
       </tbody>
     </table>
     <h3>REQUIREMENTS TO STATECHART TRACEABILITY: </h3>
-    <p><span style="color: rgb(0, 0, 0); font-family: Times; font-size:
-        medium; font-style: normal; font-variant: normal; font-weight:
-        normal; letter-spacing: normal; line-height: normal; orphans: 2;
-        text-align: start; text-indent: 0px; text-transform: none;
-        white-space: normal; widows: 2; word-spacing: 0px;
-        -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;
-        display: inline !important; float: none; ">Completed by: Jesse
-        Salazar (jessesal)<br>
-      </span></p>
     <table style="text-align: left;" border="1" cellpadding="2"
       cellspacing="2" height="342" width="790">
       <tbody>
@@ -3886,6 +3845,42 @@
           <td align="center" valign="top">&nbsp;</td>
           <td align="center" valign="top">&nbsp;</td>
           <td align="center" valign="top">&nbsp;</td>
+        </tr>
+        <tr>
+          <td bgcolor="#cccccc" valign="top">T11.11<br>
+          </td>
+          <td align="center" valign="top"><br>
+          </td>
+          <td align="center" valign="top"><br>
+          </td>
+          <td align="center" valign="top"><br>
+          </td>
+          <td align="center" valign="top"><br>
+          </td>
+          <td align="center" valign="top"><br>
+          </td>
+          <td align="center" valign="top"><br>
+          </td>
+          <td align="center" valign="top">X<br>
+          </td>
+          <td align="center" valign="top">X<br>
+          </td>
+          <td align="center" valign="top">X<br>
+          </td>
+          <td align="center" valign="top">X<br>
+          </td>
+          <td align="center" valign="top"><br>
+          </td>
+          <td align="center" valign="top"><br>
+          </td>
+          <td align="center" valign="top"><br>
+          </td>
+          <td align="center" valign="top"><br>
+          </td>
+          <td align="center" valign="top"><br>
+          </td>
+          <td align="center" valign="top"><br>
+          </td>
         </tr>
       </tbody>
     </table>

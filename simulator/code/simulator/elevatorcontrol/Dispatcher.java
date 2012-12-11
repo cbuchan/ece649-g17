@@ -289,7 +289,7 @@ public class Dispatcher extends Controller {
                     countDown = SimTime.subtract(countDown, period);
                 }
 
-                //#NEW TRANSITION
+                //#transition 'T11.11'
                 if (countDown.isLessThanOrEqual(SimTime.ZERO)) {
                     newState = State.STATE_IDLE;
                 }
