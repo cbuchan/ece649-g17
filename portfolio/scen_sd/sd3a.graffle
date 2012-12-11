@@ -2774,7 +2774,7 @@
 			</dict>
 		</array>
 		<key>Frame</key>
-		<string>{{0, 4}, {1280, 774}}</string>
+		<string>{{-104, 4}, {1280, 774}}</string>
 		<key>ListView</key>
 		<true/>
 		<key>OutlineWidth</key>
