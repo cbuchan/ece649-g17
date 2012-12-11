@@ -322,7 +322,7 @@ public class Dispatcher extends Controller {
                     direction = computeDirection(direction, commitPoint);
                 }
 
-                targetHallway = getLitHallways(targetFloor, direction);
+                targetHallway = getHallways(targetFloor, direction);
 
                 mDesiredFloor.setFloor(targetFloor);
                 mDesiredFloor.setHallway(targetHallway);
@@ -660,9 +660,6 @@ public class Dispatcher extends Controller {
 
         int nextReachable = commitPointCalculator.nextReachableFloorDelta(mDriveSpeed.getDirection());
         int computePoint = commitPointCalculator.getCommittedFloorDispatcher(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
-
-        System.out.println("nextReachable: " + nextReachable);
-        System.out.println("computePoint: " + computePoint);
 
         if (!(mDriveSpeed.getDirection() == Direction.DOWN && computePoint < oldFloor) &&
                 !(mDriveSpeed.getDirection() == Direction.UP && computePoint > oldFloor)) {
