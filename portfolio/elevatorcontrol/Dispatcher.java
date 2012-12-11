@@ -241,7 +241,7 @@ public class Dispatcher extends Controller {
 
             case STATE_COMPUTE_NEXT:
 
-                commitPoint = computeCommitPointDeparting(commitPoint);
+                commitPoint = computeCommitPointDeparting(commitPoint, direction);
 
                 //state actions for STATE_COMPUTE_NEXT
                 targetFloor = computeNextFloor(commitPoint, direction);
@@ -322,7 +322,7 @@ public class Dispatcher extends Controller {
                     direction = computeDirection(direction, commitPoint);
                 }
 
-                targetHallway = getLitHallways(targetFloor, direction);
+                targetHallway = getHallways(targetFloor, direction);
 
                 mDesiredFloor.setFloor(targetFloor);
                 mDesiredFloor.setHallway(targetHallway);
@@ -653,7 +653,7 @@ public class Dispatcher extends Controller {
         }
     }
 
-    private int computeCommitPointDeparting(int oldFloor) {
+    private int computeCommitPointDeparting(int oldFloor, Direction dir) {
 
         int nextReachable = commitPointCalculator.nextReachableFloorDelta(mDriveSpeed.getDirection());
         int computePoint = commitPointCalculator.getCommittedFloorDispatcher(mDriveSpeed.getDirection(), mDriveSpeed.getSpeed());
@@ -663,9 +663,9 @@ public class Dispatcher extends Controller {
             computePoint = oldFloor;
         }
 
-        if (mDriveSpeed.getDirection() == Direction.UP || anyHallCall(oldFloor, Direction.UP)) {
+        if (mDriveSpeed.getDirection() == Direction.UP || dir == Direction.UP) {
             return Math.max(nextReachable, computePoint);
-        } else if (mDriveSpeed.getDirection() == Direction.DOWN || anyHallCall(oldFloor, Direction.DOWN)) {
+        } else if (mDriveSpeed.getDirection() == Direction.DOWN || dir == Direction.DOWN) {
             return Math.min(nextReachable, computePoint);
         } else {
             return nextReachable;
