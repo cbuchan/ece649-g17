@@ -33,9 +33,6 @@ import simulator.payloads.CanMailbox.WriteableCanMailbox;
  */
 public class Dispatcher extends Controller {
 
-    public static final byte FRONT_LAND = 0;
-    public static final byte BACK_LAND = 1;
-
     /**
      * ************************************************************************
      * Declarations
@@ -292,16 +289,16 @@ public class Dispatcher extends Controller {
                     countDown = SimTime.subtract(countDown, period);
                 }
 
+                //#NEW TRANSITION
                 if (countDown.isLessThanOrEqual(SimTime.ZERO)) {
-                    direction = computeDirection(direction, commitPoint);
+                    newState = State.STATE_IDLE;
                 }
-
                 //#transition 'T11.9'
-                if (anyCarCall(commitPoint)) {
+                else if (anyCarCall(commitPoint)) {
                     newState = State.STATE_SERVICE_CALL;
                 }
                 //#transition 'T11.10'
-                else if (nextCallInDirection(commitPoint, direction) != MessageDictionary.NONE) {
+                else if (nextCarCallInDirection(commitPoint, direction) != MessageDictionary.NONE) {
                     newState = State.STATE_COMPUTE_NEXT;
                 }
                 //#transition 'T11.7'
@@ -315,7 +312,8 @@ public class Dispatcher extends Controller {
 
             case STATE_SERVICE_CALL:
 
-                countDown = new SimTime(period.getTruncMilliseconds() * 4, SimTimeUnit.MILLISECOND);
+                // 2 x HallButtonPeriod (200ms) = 400ms. 10 x DispatcherPeriod (50ms) = 500ms a little extra for network jitter
+                countDown = new SimTime(period.getTruncMilliseconds() * 10, SimTimeUnit.MILLISECOND);
 
                 //state actions for STATE_SERVICE_CALL
                 commitPoint = computeCommitPointArriving(commitPoint);
@@ -391,6 +389,16 @@ public class Dispatcher extends Controller {
         }
     }
 
+    private int nextCarCallInDirection(int commitPoint, Direction direction) {
+        if (direction == Direction.UP) {
+            return nextCarCallAbove(commitPoint);
+        } else if (direction == Direction.DOWN) {
+            return nextCarCallBelow(commitPoint);
+        } else {
+            return MessageDictionary.NONE;
+        }
+    }
+
     /*
     * returns True if any calls are found at or above the commitPoint.
     * Only UP hall calls are checked.
@@ -420,6 +428,16 @@ public class Dispatcher extends Controller {
         return MessageDictionary.NONE;
     }
 
+
+    private int nextCarCallAbove(int commitPoint) {
+        for (int floor = commitPoint + 1; floor <= numFloors; floor++) {
+            if (anyCarCall(floor)) {
+                return floor;
+            }
+        }
+        return MessageDictionary.NONE;
+    }
+
     private int nextDownCall(int commitPoint) {
         for (int floor = commitPoint; floor >= 1; floor--) {
             if ((carUnderCapacity() && anyHallCall(floor, Direction.DOWN)) || anyCarCall(floor)) {
@@ -437,6 +455,15 @@ public class Dispatcher extends Controller {
         }
         for (int floor = 1; floor <= commitPoint - 1; floor++) {
             if (anyHallCall(floor, Direction.UP)) {
+                return floor;
+            }
+        }
+        return MessageDictionary.NONE;
+    }
+
+    private int nextCarCallBelow(int commitPoint) {
+        for (int floor = commitPoint - 1; floor >= 1; floor--) {
+            if (anyCarCall(floor)) {
                 return floor;
             }
         }
@@ -583,19 +610,19 @@ public class Dispatcher extends Controller {
         if (dir == Direction.STOP) {
             frontCall =
                     networkHallCallArray.getValue(floor, Hallway.FRONT, Direction.UP) ||
-                    networkHallCallArray.getValue(floor, Hallway.FRONT, Direction.DOWN) ||
-                    networkCarCallArrayFront.getValueForFloor(floor);
+                            networkHallCallArray.getValue(floor, Hallway.FRONT, Direction.DOWN) ||
+                            networkCarCallArrayFront.getValueForFloor(floor);
             backCall =
                     networkHallCallArray.getValue(floor, Hallway.BACK, Direction.UP) ||
-                    networkHallCallArray.getValue(floor, Hallway.BACK, Direction.DOWN) ||
-                    networkCarCallArrayBack.getValueForFloor(floor);
+                            networkHallCallArray.getValue(floor, Hallway.BACK, Direction.DOWN) ||
+                            networkCarCallArrayBack.getValueForFloor(floor);
         } else {
             frontCall =
                     networkHallCallArray.getValue(floor, Hallway.FRONT, dir) ||
-                    networkCarCallArrayFront.getValueForFloor(floor);
+                            networkCarCallArrayFront.getValueForFloor(floor);
             backCall =
                     networkHallCallArray.getValue(floor, Hallway.BACK, dir) ||
-                    networkCarCallArrayBack.getValueForFloor(floor);
+                            networkCarCallArrayBack.getValueForFloor(floor);
         }
 
 
