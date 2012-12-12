@@ -1,0 +1,93 @@
+18649 Fall 2012 - Group 17
+Jesse Salazar (jessesal)
+Jessica Tiu (jtiu)
+Collin Buchan (cbuchan)
+Rajeev Sharma (rdsharma)
+
+Simulator Parameters:
+Command line = -head headerfile -pf proj7acceptance1.pass -monitor Proj11RuntimeMonitor -fs 5.0 -b 200 -rt 7200s -seed 12345
+RandomSeed = 12345
+CanNetworkBitTime = 5000 ns
+Effective Can Bitrate = 199999.99999999997
+Run Time = 7200.0s
+Real time rate = null
+Acceptance Test File = proj7acceptance1.pass
+Monitors: Proj11RuntimeMonitor  
+
+STATISTICS FOR ELEVATOR SIMULATION PASSENGER DELIVERY
+-----------------------------------------------------
+
+
+These passengers were delivered:
+Passenger 0: INJECTED AT 600.0s and DELIVERED in 35.062s
+  Satisfaction score: 100.0
+Passenger 1: INJECTED AT 905.7s and DELIVERED in 31.244s
+  Satisfaction score: 100.0
+Passenger 2: INJECTED AT 974.6s and DELIVERED in 34.203s
+  Satisfaction score: 100.0
+Passenger 3: INJECTED AT 1531.4s and DELIVERED in 15.852s
+  Satisfaction score: 100.0
+Passenger 4: INJECTED AT 2082.0s and DELIVERED in 31.495s
+  Satisfaction score: 100.0
+Passenger 5: INJECTED AT 2217.5s and DELIVERED in 30.529s
+  Satisfaction score: 100.0
+Passenger 6: INJECTED AT 2805.4s and DELIVERED in 21.413s
+  Satisfaction score: 100.0
+Passenger 7: INJECTED AT 3269.2s and DELIVERED in 35.111s
+  Satisfaction score: 100.0
+Passenger 8: INJECTED AT 3705.3s and DELIVERED in 36.677s
+  Satisfaction score: 100.0
+Passenger 9: INJECTED AT 4204.2s and DELIVERED in 17.323s
+  Satisfaction score: 50.0
+    @4218.783000000: 0.50 Failed to exit at 7, FRONT even though the doors opened.
+Passenger 10: INJECTED AT 4487.2s and DELIVERED in 34.796s
+  Satisfaction score: 100.0
+Passenger 11: INJECTED AT 4917.5s and DELIVERED in 34.542s
+  Satisfaction score: 100.0
+Passenger 12: INJECTED AT 5104.0s and DELIVERED in 31.98s
+  Satisfaction score: 100.0
+Passenger 13: INJECTED AT 5553.4s and DELIVERED in 32.713s
+  Satisfaction score: 100.0
+Passenger 14: INJECTED AT 5713.7s and DELIVERED in 16.547s
+  Satisfaction score: 50.0
+    @5728.107000000: 0.50 Failed to exit at 7, BACK even though the doors opened.
+Passenger 15: INJECTED AT 6184.5s and DELIVERED in 36.401s
+  Satisfaction score: 100.0
+Passenger 16: INJECTED AT 6407.5s and DELIVERED in 36.312s
+  Satisfaction score: 100.0
+Passenger 17: INJECTED AT 6866.1s and DELIVERED in 26.241s
+  Satisfaction score: 100.0
+
+Passenger Delivery Summary
+Delivered: 18
+Stranded: 0
+Total: 18
+
+Deliver Stats (lower is better):
+Average_delivery_time: 29.913
+Maximum_delivery_time:  36.677
+Delivery_performance_score:  156.331
+
+Satisfaction Stats (higher is better):
+Average_satisfaction_score: 94.444
+Min_satisfaction_score:  50.000
+Satisfaction_performance_score:  427.778
+
+
+
+
+Network Utilization Summary:
+Recent: 75.12 % Max: 75.12 %  Overall:  75.12 %
+
+Monitors Warning Results: 
+RuntimeMonitor generated 0 warnings.
+
+Monitors Summmary Results: 
+R-T6: Stopped at floor with no calls = 0
+R-T7: Doors opened at floor with no calls = 0
+R-T8.1: Car lantern not lighted for call on another floor = 0
+R-T8.2: Car lantern changed direction while doors open = 0
+R-T8.3: Elevator serviced call in direction other than lantern = 0
+R-T9: Elevator not commanded to fast speed = 0
+R-T10: Door nudged before reversal = 0
+

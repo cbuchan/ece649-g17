@@ -1,0 +1,109 @@
+18649 Fall 2012 - Group 17
+Jesse Salazar (jessesal)
+Jessica Tiu (jtiu)
+Collin Buchan (cbuchan)
+Rajeev Sharma (rdsharma)
+
+Simulator Parameters:
+Command line = -head headerfile -pf proj10acceptance2.pass -monitor Proj11RuntimeMonitor -fs 5.0 -b 200 -rt 7200s -seed 12345
+RandomSeed = 12345
+CanNetworkBitTime = 5000 ns
+Effective Can Bitrate = 199999.99999999997
+Run Time = 7200.0s
+Real time rate = null
+Acceptance Test File = proj10acceptance2.pass
+Monitors: Proj11RuntimeMonitor  
+
+STATISTICS FOR ELEVATOR SIMULATION PASSENGER DELIVERY
+-----------------------------------------------------
+
+
+These passengers were delivered:
+Passenger 0: INJECTED AT 1.0s and DELIVERED in 55.942s
+  Satisfaction score: 100.0
+Passenger 3: INJECTED AT 7.5s and DELIVERED in 67.567s
+  Satisfaction score: 100.0
+Passenger 1: INJECTED AT 2.4s and DELIVERED in 73.024s
+  Satisfaction score: 100.0
+Passenger 6: INJECTED AT 39.0s and DELIVERED in 37.773s
+  Satisfaction score: 100.0
+Passenger 2: INJECTED AT 6.7s and DELIVERED in 72.003s
+  Satisfaction score: 100.0
+Passenger 4: INJECTED AT 7.7s and DELIVERED in 72.495s
+  Satisfaction score: 100.0
+Passenger 12: INJECTED AT 61.0s and DELIVERED in 65.02s
+  Satisfaction score: 100.0
+Passenger 24: INJECTED AT 100.5s and DELIVERED in 39.852s
+  Satisfaction score: 100.0
+Passenger 25: INJECTED AT 101.0s and DELIVERED in 54.696s
+  Satisfaction score: 100.0
+Passenger 11: INJECTED AT 60.0s and DELIVERED in 111.482s
+  Satisfaction score: 100.0
+Passenger 26: INJECTED AT 150.0s and DELIVERED in 109.154s
+  Satisfaction score: 100.0
+Passenger 7: INJECTED AT 43.0s and DELIVERED in 241.791s
+  Satisfaction score: 100.0
+Passenger 14: INJECTED AT 66.0s and DELIVERED in 219.541s
+  Satisfaction score: 100.0
+Passenger 9: INJECTED AT 47.0s and DELIVERED in 239.432s
+  Satisfaction score: 100.0
+Passenger 19: INJECTED AT 86.0s and DELIVERED in 201.625s
+  Satisfaction score: 100.0
+Passenger 16: INJECTED AT 73.0s and DELIVERED in 216.112s
+  Satisfaction score: 100.0
+Passenger 15: INJECTED AT 73.0s and DELIVERED in 217.721s
+  Satisfaction score: 100.0
+Passenger 21: INJECTED AT 92.0s and DELIVERED in 200.853s
+  Satisfaction score: 100.0
+Passenger 18: INJECTED AT 84.0s and DELIVERED in 210.975s
+  Satisfaction score: 100.0
+Passenger 8: INJECTED AT 43.0s and DELIVERED in 253.977s
+  Satisfaction score: 100.0
+Passenger 23: INJECTED AT 100.0s and DELIVERED in 229.613s
+  Satisfaction score: 100.0
+Passenger 20: INJECTED AT 91.0s and DELIVERED in 331.476s
+  Satisfaction score: 100.0
+Passenger 10: INJECTED AT 57.0s and DELIVERED in 366.996s
+  Satisfaction score: 100.0
+Passenger 5: INJECTED AT 39.0s and DELIVERED in 386.129s
+  Satisfaction score: 100.0
+Passenger 22: INJECTED AT 92.0s and DELIVERED in 334.676s
+  Satisfaction score: 100.0
+Passenger 13: INJECTED AT 64.0s and DELIVERED in 364.193s
+  Satisfaction score: 100.0
+Passenger 17: INJECTED AT 83.0s and DELIVERED in 347.241s
+  Satisfaction score: 100.0
+
+Passenger Delivery Summary
+Delivered: 27
+Stranded: 0
+Total: 27
+
+Deliver Stats (lower is better):
+Average_delivery_time: 189.680
+Maximum_delivery_time:  386.129
+Delivery_performance_score:  1144.849
+
+Satisfaction Stats (higher is better):
+Average_satisfaction_score: 100.000
+Min_satisfaction_score:  100.000
+Satisfaction_performance_score:  500.000
+
+
+
+
+Network Utilization Summary:
+Recent: 75.12 % Max: 75.12 %  Overall:  75.12 %
+
+Monitors Warning Results: 
+RuntimeMonitor generated 0 warnings.
+
+Monitors Summmary Results: 
+R-T6: Stopped at floor with no calls = 0
+R-T7: Doors opened at floor with no calls = 0
+R-T8.1: Car lantern not lighted for call on another floor = 0
+R-T8.2: Car lantern changed direction while doors open = 0
+R-T8.3: Elevator serviced call in direction other than lantern = 0
+R-T9: Elevator not commanded to fast speed = 0
+R-T10: Door nudged before reversal = 0
+

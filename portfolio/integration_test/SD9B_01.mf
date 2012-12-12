@@ -48,10 +48,13 @@
 ;========================================================================
 ; 1. Any mDoorClosed [b, r] is False (@1.5)
 ;========================================================================
-;arc 1a, 1b, 1c
+;arc 9B/2a
+;arc 9B/2b
+;arc 9B/2c
 +0.5s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
 
-;arc 1y, 1z
+;arc 9B/1a
+;arc 9B/1b
 ;Car is moving in hallway from floor 1 to floor 2.
 +0s	  I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = false
 +0s	  I AT_FLOOR_PERIOD N AT_FLOOR_[2][BACK]_CAN_ID AtFloor 2 BACK = false
@@ -59,7 +62,7 @@
 ;========================================================================
 ; 2. mDesiredFloor updated to [1, None, d] (@2.0)
 ;========================================================================
-;arc 2
+;arc 9B/3
 +0.5s	A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 1
 +0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == NONE
 +0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
@@ -67,13 +70,14 @@
 ;========================================================================
 ; 5. Emergency brake is activated (@3.5)
 ;========================================================================
-;arc 5a, 5b
+;arc 9B/4a
+;arc 9B/4b
 +0.5s	I HOISTWAY_LIMIT_PERIOD N EMERGENCY_BRAKE_CAN_ID TinyBoolean = true
 
 ;========================================================================
 ; 6. Drive is set to Stop (@4.0)
 ;========================================================================
-;arc 6
+;arc 9B/5
 +0.5s A S DriveControl : STATE == STATE_DRIVE_STOPPED
 +0s   A F Drive : speed == STOP
 +0s	  A F Drive : direction == STOP

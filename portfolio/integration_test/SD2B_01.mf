@@ -31,7 +31,7 @@
 ;========================================================================
 ;1. Door[b,r] starts to close.
 ;========================================================================
-;arc 1
+;arc 2B/1
 +0.21s  A  S DoorControl[FRONT][RIGHT] : STATE == STATE_DOOR_CLOSING
 +0s     A  F DoorMotor FRONT RIGHT : command == CLOSE
 
@@ -60,20 +60,22 @@
 ;2. The passenger presses the car call button for floor f and hallway b,
 ;   where [f,b] are the same desired hallway as in the pre-conditions.
 ;========================================================================
-;arc 2a, 2b
+;arc 2B/2a
+;arc 2B/2b
 +0.21s  I  CAR_BUTTON_CONTROL_PERIOD F CarCall 4 FRONT = true
 +0.21s  I  CAR_BUTTON_CONTROL_PERIOD F CarCall 4 FRONT = false
 
-;arc 2c
+;arc 2B/2c
 +0.21s  A   N CAR_CALL_[4][FRONT]_CAN_ID TinyBoolean : getValue == true
 
-;arc 2d
+;arc 2B/2d
 +0s     A   F CarLight 4 FRONT : lighted == true
 ;========================================================================
 ;3. Dispatcher calculates that the desired floor is the current floor,
 ;    and that the desired hallway is the current hallway.
 ;========================================================================
-;arc 3a
+;arc 2B/3a
+;arc 2B/3b
 +0.5s	A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 4
 +0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == FRONT
 ; direction should be the same as the previous calculated direction
@@ -82,7 +84,7 @@
 ;========================================================================
 ;4. The door starts opening.
 ;========================================================================
-;arc 4
+;arc 2B/4
 +0.21s  A  S DoorControl[FRONT][RIGHT] : STATE == STATE_DOOR_OPENING
 +0s     A  F DoorMotor FRONT RIGHT : command == OPEN
 
@@ -92,17 +94,18 @@
 ;========================================================================
 ;5. The car light turns off and the car call button for [f,b] stops reporting a call.
 ;========================================================================
-;arc 5a, 5b
+;arc 2B/5a
+;arc 2B/5b
 +0.5s  A   N CAR_CALL_[4][FRONT]_CAN_ID TinyBoolean : getValue == false
 
 ;========================================================================
 ;6. The door finishes opening.
 ;========================================================================
-;arc 6a
+;arc 2B/6a
 +0s	    I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][RIGHT]_CAN_ID DoorOpened FRONT RIGHT = true
 
 ;check 5. DoorMotor=Stop results (DoorControl)
-;arc 6b
+;arc 2B/6b
 +0.61s	A F	DoorMotor FRONT RIGHT : command == STOP
 
 ;========================================================================

@@ -1,0 +1,158 @@
+18649 Fall 2012 - Group 17
+Jesse Salazar (jessesal)
+Jessica Tiu (jtiu)
+Collin Buchan (cbuchan)
+Rajeev Sharma (rdsharma)
+
+Simulator Parameters:
+Command line = -head headerfile -pf proj7acceptance3.pass -monitor Proj11RuntimeMonitor -fs 5.0 -b 200 -rt 7200s -seed 12345
+RandomSeed = 12345
+CanNetworkBitTime = 5000 ns
+Effective Can Bitrate = 199999.99999999997
+Run Time = 7200.0s
+Real time rate = null
+Acceptance Test File = proj7acceptance3.pass
+Monitors: Proj11RuntimeMonitor  
+
+STATISTICS FOR ELEVATOR SIMULATION PASSENGER DELIVERY
+-----------------------------------------------------
+
+
+These passengers were delivered:
+Passenger 0: INJECTED AT 60.0s and DELIVERED in 4.982s
+  Satisfaction score: 50.0
+    @62.542000000: 0.50 Failed to exit at 1, BACK even though the doors opened.
+Passenger 1: INJECTED AT 66.3s and DELIVERED in 34.884s
+  Satisfaction score: 100.0
+Passenger 3: INJECTED AT 91.0s and DELIVERED in 45.187s
+  Satisfaction score: 100.0
+Passenger 4: INJECTED AT 108.2s and DELIVERED in 86.455s
+  Satisfaction score: 100.0
+Passenger 2: INJECTED AT 85.3s and DELIVERED in 109.503s
+  Satisfaction score: 100.0
+Passenger 5: INJECTED AT 128.5s and DELIVERED in 68.338s
+  Satisfaction score: 100.0
+Passenger 7: INJECTED AT 154.7s and DELIVERED in 43.362s
+  Satisfaction score: 100.0
+Passenger 8: INJECTED AT 174.6s and DELIVERED in 81.977s
+  Satisfaction score: 100.0
+Passenger 6: INJECTED AT 151.4s and DELIVERED in 105.273s
+  Satisfaction score: 100.0
+Passenger 9: INJECTED AT 182.2s and DELIVERED in 76.132s
+  Satisfaction score: 100.0
+Passenger 10: INJECTED AT 194.8s and DELIVERED in 66.512s
+  Satisfaction score: 100.0
+Passenger 11: INJECTED AT 206.5s and DELIVERED in 88.222s
+  Satisfaction score: 100.0
+Passenger 16: INJECTED AT 303.6s and DELIVERED in 84.232s
+  Satisfaction score: 100.0
+Passenger 18: INJECTED AT 323.7s and DELIVERED in 64.895s
+  Satisfaction score: 100.0
+Passenger 13: INJECTED AT 254.3s and DELIVERED in 135.033s
+  Satisfaction score: 100.0
+Passenger 14: INJECTED AT 270.6s and DELIVERED in 119.961s
+  Satisfaction score: 100.0
+Passenger 15: INJECTED AT 293.9s and DELIVERED in 97.041s
+  Satisfaction score: 100.0
+Passenger 12: INJECTED AT 224.6s and DELIVERED in 168.08s
+  Satisfaction score: 100.0
+Passenger 17: INJECTED AT 318.1s and DELIVERED in 76.681s
+  Satisfaction score: 100.0
+Passenger 20: INJECTED AT 365.5s and DELIVERED in 58.936s
+  Satisfaction score: 100.0
+Passenger 23: INJECTED AT 403.2s and DELIVERED in 69.093s
+  Satisfaction score: 100.0
+Passenger 19: INJECTED AT 342.4s and DELIVERED in 130.345s
+  Satisfaction score: 100.0
+Passenger 27: INJECTED AT 464.0s and DELIVERED in 83.32s
+  Satisfaction score: 100.0
+Passenger 25: INJECTED AT 415.3s and DELIVERED in 132.516s
+  Satisfaction score: 100.0
+Passenger 24: INJECTED AT 408.4s and DELIVERED in 140.212s
+  Satisfaction score: 100.0
+Passenger 28: INJECTED AT 492.9s and DELIVERED in 56.971s
+  Satisfaction score: 100.0
+Passenger 21: INJECTED AT 366.0s and DELIVERED in 184.693s
+  Satisfaction score: 100.0
+Passenger 26: INJECTED AT 436.5s and DELIVERED in 116.688s
+  Satisfaction score: 100.0
+Passenger 22: INJECTED AT 386.3s and DELIVERED in 168.412s
+  Satisfaction score: 100.0
+Passenger 33: INJECTED AT 560.8s and DELIVERED in 44.277s
+  Satisfaction score: 100.0
+Passenger 34: INJECTED AT 587.6s and DELIVERED in 125.812s
+  Satisfaction score: 100.0
+Passenger 38: INJECTED AT 645.9s and DELIVERED in 67.633s
+  Satisfaction score: 100.0
+Passenger 36: INJECTED AT 627.2s and DELIVERED in 87.93s
+  Satisfaction score: 100.0
+Passenger 35: INJECTED AT 613.9s and DELIVERED in 101.481s
+  Satisfaction score: 100.0
+Passenger 29: INJECTED AT 499.2s and DELIVERED in 217.586s
+  Satisfaction score: 100.0
+Passenger 32: INJECTED AT 541.5s and DELIVERED in 176.516s
+  Satisfaction score: 100.0
+Passenger 31: INJECTED AT 538.4s and DELIVERED in 181.717s
+  Satisfaction score: 100.0
+Passenger 30: INJECTED AT 527.9s and DELIVERED in 193.937s
+  Satisfaction score: 100.0
+Passenger 39: INJECTED AT 663.8s and DELIVERED in 102.292s
+  Satisfaction score: 100.0
+Passenger 40: INJECTED AT 678.5s and DELIVERED in 197.168s
+  Satisfaction score: 100.0
+Passenger 41: INJECTED AT 691.0s and DELIVERED in 184.809s
+  Satisfaction score: 100.0
+Passenger 46: INJECTED AT 759.0s and DELIVERED in 118.129s
+  Satisfaction score: 100.0
+Passenger 45: INJECTED AT 753.0s and DELIVERED in 124.501s
+  Satisfaction score: 100.0
+Passenger 42: INJECTED AT 709.6s and DELIVERED in 169.04s
+  Satisfaction score: 100.0
+Passenger 50: INJECTED AT 825.5s and DELIVERED in 53.898s
+  Satisfaction score: 100.0
+Passenger 47: INJECTED AT 784.9s and DELIVERED in 95.348s
+  Satisfaction score: 100.0
+Passenger 37: INJECTED AT 635.0s and DELIVERED in 246.068s
+  Satisfaction score: 100.0
+Passenger 48: INJECTED AT 806.0s and DELIVERED in 75.682s
+  Satisfaction score: 100.0
+Passenger 43: INJECTED AT 724.3s and DELIVERED in 159.594s
+  Satisfaction score: 100.0
+Passenger 44: INJECTED AT 738.5s and DELIVERED in 147.612s
+  Satisfaction score: 100.0
+Passenger 49: INJECTED AT 820.8s and DELIVERED in 110.902s
+  Satisfaction score: 100.0
+
+Passenger Delivery Summary
+Delivered: 51
+Stranded: 0
+Total: 51
+
+Deliver Stats (lower is better):
+Average_delivery_time: 111.370
+Maximum_delivery_time:  246.068
+Delivery_performance_score:  691.548
+
+Satisfaction Stats (higher is better):
+Average_satisfaction_score: 99.020
+Min_satisfaction_score:  50.000
+Satisfaction_performance_score:  446.078
+
+
+
+
+Network Utilization Summary:
+Recent: 75.12 % Max: 75.12 %  Overall:  75.12 %
+
+Monitors Warning Results: 
+RuntimeMonitor generated 0 warnings.
+
+Monitors Summmary Results: 
+R-T6: Stopped at floor with no calls = 0
+R-T7: Doors opened at floor with no calls = 0
+R-T8.1: Car lantern not lighted for call on another floor = 0
+R-T8.2: Car lantern changed direction while doors open = 0
+R-T8.3: Elevator serviced call in direction other than lantern = 0
+R-T9: Elevator not commanded to fast speed = 0
+R-T10: Door nudged before reversal = 0
+

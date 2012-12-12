@@ -27,7 +27,7 @@
 ;========================================================================
 ;1. Door[b,r] starts to close.
 ;========================================================================
-;arc 1
+;arc 5B/1
 +1.21s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_CLOSING
 +0s    A F DoorMotor FRONT LEFT : command == CLOSE
 +0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == CLOSE
@@ -35,7 +35,8 @@
 ;========================================================================
 ;2. The passenger attempts to exit and triggers the door reversal sensors.
 ;========================================================================
-;arc 2a, 2b
+;arc 5B/2a
+;arc 5B/2b
 +0s    I DRIVE_PERIOD N DRIVE_SPEED_CAN_ID DriveSpeed = 0.0 STOP
 +0s    I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = false
 +0.09s I DOOR_REVERSAL_NETWORK_PERIOD N DOOR_REVERSAL_SENSOR_[FRONT][LEFT]_CAN_ID DoorReversal FRONT LEFT = true
@@ -43,7 +44,7 @@
 ;========================================================================
 ;3. A door reversal occurs for Door[b,r].
 ;========================================================================
-;arc 3
+;arc 5B/3
 +0.61s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_REVERSING
 +0s    A F DoorMotor FRONT LEFT : command == OPEN
 +0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == OPEN
@@ -51,26 +52,28 @@
 ;========================================================================
 ;4. Door opened.
 ;========================================================================
-;arc 4a, 4b, 4c
+;arc 5B/4a
+;arc 5B/4b
+;arc 5B/4c
 +0.1s	I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
 +0.09s I DOOR_REVERSAL_NETWORK_PERIOD N DOOR_REVERSAL_SENSOR_[FRONT][LEFT]_CAN_ID DoorReversal FRONT LEFT = false
 
 ;========================================================================
 ;5. The passenger exits the car.
 ;========================================================================
-;arc 5
+;arc 5B/5
 ;passenger enters car
 
 ;========================================================================
 ;6. Countdown expires
 ;========================================================================
-;arc 6
+;arc 5B/6
 ;countdown expires
 
 ;========================================================================
 ;7. Door nudging.
 ;========================================================================
-;arc 7
+;arc 5B/7
 +0.61s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_NUDGING
 +0s    A F DoorMotor FRONT LEFT : command == NUDGE
 +0s    A N DOOR_MOTOR_COMMAND_[FRONT][LEFT]_CAN_ID DoorMotorCommand FRONT LEFT : getCommand == NUDGE
