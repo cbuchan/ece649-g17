@@ -5,11 +5,11 @@ Collin Buchan (cbuchan)
 Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
-Command line = -head headerfile -pf downpeak_final.pass -monitor Proj11RuntimeMonitor -fs 5.0 -b 200 -seed 12345
+Command line = -head headerfile -pf downpeak_final.pass -monitor Proj11RuntimeMonitor -fs 5.0 -b 200 -rt 7200s -seed 12345
 RandomSeed = 12345
 CanNetworkBitTime = 5000 ns
 Effective Can Bitrate = 199999.99999999997
-Run Time = null
+Run Time = 7200.0s
 Real time rate = null
 Acceptance Test File = downpeak_final.pass
 Monitors: Proj11RuntimeMonitor  
@@ -31,1438 +31,1590 @@ Passenger 3: INJECTED AT 65.7s and DELIVERED in 71.727s
   Satisfaction score: 100.0
 Passenger 5: INJECTED AT 81.9s and DELIVERED in 100.289s
   Satisfaction score: 100.0
-Passenger 21: INJECTED AT 153.9s and DELIVERED in 43.513s
+Passenger 21: INJECTED AT 153.9s and DELIVERED in 44.233s
   Satisfaction score: 100.0
-Passenger 31: INJECTED AT 200.7s and DELIVERED in 20.378s
+Passenger 31: INJECTED AT 200.7s and DELIVERED in 19.598s
   Satisfaction score: 100.0
-Passenger 24: INJECTED AT 168.4s and DELIVERED in 113.192s
+Passenger 24: INJECTED AT 168.4s and DELIVERED in 113.912s
   Satisfaction score: 100.0
-Passenger 17: INJECTED AT 135.5s and DELIVERED in 146.841s
+Passenger 16: INJECTED AT 133.0s and DELIVERED in 149.552s
   Satisfaction score: 100.0
-Passenger 28: INJECTED AT 183.5s and DELIVERED in 100.151s
+Passenger 27: INJECTED AT 182.5s and DELIVERED in 101.22s
   Satisfaction score: 100.0
-Passenger 15: INJECTED AT 127.1s and DELIVERED in 156.901s
+Passenger 12: INJECTED AT 117.5s and DELIVERED in 166.5s
   Satisfaction score: 100.0
-Passenger 13: INJECTED AT 118.6s and DELIVERED in 166.993s
+Passenger 30: INJECTED AT 191.1s and DELIVERED in 94.297s
   Satisfaction score: 100.0
-Passenger 16: INJECTED AT 133.0s and DELIVERED in 153.992s
+Passenger 17: INJECTED AT 135.5s and DELIVERED in 152.001s
   Satisfaction score: 100.0
-Passenger 30: INJECTED AT 191.1s and DELIVERED in 97.537s
+Passenger 35: INJECTED AT 210.7s and DELIVERED in 78.641s
   Satisfaction score: 100.0
-Passenger 27: INJECTED AT 182.5s and DELIVERED in 107.36s
+Passenger 13: INJECTED AT 118.6s and DELIVERED in 172.253s
   Satisfaction score: 100.0
-Passenger 32: INJECTED AT 202.5s and DELIVERED in 88.616s
+Passenger 32: INJECTED AT 202.5s and DELIVERED in 89.576s
   Satisfaction score: 100.0
-Passenger 45: INJECTED AT 264.7s and DELIVERED in 68.781s
+Passenger 45: INJECTED AT 264.7s and DELIVERED in 69.701s
   Satisfaction score: 100.0
-Passenger 18: INJECTED AT 142.4s and DELIVERED in 206.035s
+Passenger 18: INJECTED AT 142.4s and DELIVERED in 207.195s
   Satisfaction score: 100.0
-Passenger 38: INJECTED AT 232.1s and DELIVERED in 132.513s
+Passenger 38: INJECTED AT 232.1s and DELIVERED in 133.593s
   Satisfaction score: 100.0
-Passenger 20: INJECTED AT 150.8s and DELIVERED in 227.996s
+Passenger 20: INJECTED AT 150.8s and DELIVERED in 229.116s
   Satisfaction score: 100.0
-Passenger 47: INJECTED AT 274.7s and DELIVERED in 107.366s
+Passenger 39: INJECTED AT 239.2s and DELIVERED in 143.05s
   Satisfaction score: 100.0
-Passenger 68: INJECTED AT 370.2s and DELIVERED in 58.074s
+Passenger 47: INJECTED AT 274.7s and DELIVERED in 108.486s
   Satisfaction score: 100.0
-Passenger 56: INJECTED AT 316.5s and DELIVERED in 132.898s
+Passenger 68: INJECTED AT 370.2s and DELIVERED in 59.314s
   Satisfaction score: 100.0
-Passenger 53: INJECTED AT 309.2s and DELIVERED in 163.113s
+Passenger 54: INJECTED AT 314.9s and DELIVERED in 141.004s
   Satisfaction score: 100.0
-Passenger 62: INJECTED AT 342.6s and DELIVERED in 156.13s
+Passenger 60: INJECTED AT 332.9s and DELIVERED in 123.25s
   Satisfaction score: 100.0
-Passenger 49: INJECTED AT 283.4s and DELIVERED in 215.942s
+Passenger 55: INJECTED AT 315.3s and DELIVERED in 141.866s
   Satisfaction score: 100.0
-Passenger 34: INJECTED AT 206.8s and DELIVERED in 293.912s
+Passenger 57: INJECTED AT 317.1s and DELIVERED in 141.189s
   Satisfaction score: 100.0
-Passenger 50: INJECTED AT 286.3s and DELIVERED in 214.938s
+Passenger 43: INJECTED AT 250.0s and DELIVERED in 209.447s
   Satisfaction score: 100.0
-Passenger 61: INJECTED AT 333.9s and DELIVERED in 168.286s
+Passenger 44: INJECTED AT 259.399999999s and DELIVERED in 201.756000001s
   Satisfaction score: 100.0
-Passenger 12: INJECTED AT 117.5s and DELIVERED in 385.38s
+Passenger 49: INJECTED AT 283.4s and DELIVERED in 179.602s
   Satisfaction score: 100.0
-Passenger 73: INJECTED AT 381.7s and DELIVERED in 122.095s
+Passenger 72: INJECTED AT 380.2s and DELIVERED in 84.111s
   Satisfaction score: 100.0
-Passenger 57: INJECTED AT 317.1s and DELIVERED in 187.929s
+Passenger 41: INJECTED AT 247.4s and DELIVERED in 218.209s
   Satisfaction score: 100.0
-Passenger 41: INJECTED AT 247.4s and DELIVERED in 258.849s
+Passenger 94: INJECTED AT 481.3s and DELIVERED in 45.784s
   Satisfaction score: 100.0
-Passenger 91: INJECTED AT 465.3s and DELIVERED in 45.036s
+Passenger 67: INJECTED AT 369.9s and DELIVERED in 170.678s
   Satisfaction score: 100.0
-Passenger 94: INJECTED AT 481.3s and DELIVERED in 87.344s
+Passenger 85: INJECTED AT 436.8s and DELIVERED in 104.579s
   Satisfaction score: 100.0
-Passenger 110: INJECTED AT 565.1s and DELIVERED in 6.834s
+Passenger 77: INJECTED AT 389.6s and DELIVERED in 154.792s
   Satisfaction score: 100.0
-Passenger 67: INJECTED AT 369.9s and DELIVERED in 212.318s
+Passenger 66: INJECTED AT 363.1s and DELIVERED in 192.875s
   Satisfaction score: 100.0
-Passenger 85: INJECTED AT 436.8s and DELIVERED in 146.219s
+Passenger 92: INJECTED AT 468.7s and DELIVERED in 132.011s
   Satisfaction score: 100.0
-Passenger 77: INJECTED AT 389.6s and DELIVERED in 196.432s
+Passenger 110: INJECTED AT 565.1s and DELIVERED in 44.754s
   Satisfaction score: 100.0
-Passenger 105: INJECTED AT 542.6s and DELIVERED in 54.893s
-  Satisfaction score: 100.0
-Passenger 66: INJECTED AT 363.1s and DELIVERED in 235.715s
-  Satisfaction score: 100.0
-Passenger 48: INJECTED AT 278.0s and DELIVERED in 370.762s
-  Satisfaction score: 100.0
-Passenger 93: INJECTED AT 472.9s and DELIVERED in 176.098s
-  Satisfaction score: 100.0
-Passenger 79: INJECTED AT 406.5s and DELIVERED in 243.964s
-  Satisfaction score: 100.0
-Passenger 99: INJECTED AT 508.3s and DELIVERED in 142.937s
-  Satisfaction score: 100.0
-Passenger 37: INJECTED AT 225.0s and DELIVERED in 427.148s
-  Satisfaction score: 100.0
-Passenger 60: INJECTED AT 332.9s and DELIVERED in 319.83s
-  Satisfaction score: 100.0
-Passenger 107: INJECTED AT 548.5s and DELIVERED in 105.962s
-  Satisfaction score: 100.0
-Passenger 101: INJECTED AT 517.7s and DELIVERED in 138.449s
-  Satisfaction score: 100.0
-Passenger 43: INJECTED AT 250.0s and DELIVERED in 407.327s
-  Satisfaction score: 100.0
-Passenger 130: INJECTED AT 662.9s and DELIVERED in 54.22s
-  Satisfaction score: 100.0
-Passenger 116: INJECTED AT 595.8s and DELIVERED in 136.042s
-  Satisfaction score: 100.0
-Passenger 6: INJECTED AT 90.4s and DELIVERED in 647.28s
-  Satisfaction score: 100.0
-Passenger 118: INJECTED AT 600.0s and DELIVERED in 168.053s
-  Satisfaction score: 100.0
-Passenger 115: INJECTED AT 592.2s and DELIVERED in 176.007s
-  Satisfaction score: 100.0
-Passenger 135: INJECTED AT 687.5s and DELIVERED in 122.02s
-  Satisfaction score: 100.0
-Passenger 159: INJECTED AT 789.9s and DELIVERED in 23.548s
-  Satisfaction score: 100.0
-Passenger 125: INJECTED AT 642.3s and DELIVERED in 192.283s
-  Satisfaction score: 100.0
-Passenger 136: INJECTED AT 691.2s and DELIVERED in 165.346s
-  Satisfaction score: 100.0
-Passenger 131: INJECTED AT 664.0s and DELIVERED in 214.911s
-  Satisfaction score: 100.0
-Passenger 124: INJECTED AT 637.9s and DELIVERED in 241.436s
-  Satisfaction score: 100.0
-Passenger 128: INJECTED AT 658.8s and DELIVERED in 222.098s
-  Satisfaction score: 100.0
-Passenger 127: INJECTED AT 649.1s and DELIVERED in 231.913s
-  Satisfaction score: 100.0
-Passenger 71: INJECTED AT 376.1s and DELIVERED in 506.682s
-  Satisfaction score: 100.0
-Passenger 122: INJECTED AT 625.2s and DELIVERED in 258.803s
-  Satisfaction score: 100.0
-Passenger 78: INJECTED AT 399.0s and DELIVERED in 486.64s
-  Satisfaction score: 100.0
-Passenger 51: INJECTED AT 295.2s and DELIVERED in 591.742s
-  Satisfaction score: 100.0
-Passenger 170: INJECTED AT 860.7s and DELIVERED in 132.522s
-  Satisfaction score: 100.0
-Passenger 142: INJECTED AT 716.0s and DELIVERED in 278.485s
-  Satisfaction score: 100.0
-Passenger 144: INJECTED AT 721.0s and DELIVERED in 286.915s
-  Satisfaction score: 100.0
-Passenger 167: INJECTED AT 837.9s and DELIVERED in 171.258s
-  Satisfaction score: 100.0
-Passenger 139: INJECTED AT 708.2s and DELIVERED in 302.61s
-  Satisfaction score: 100.0
-Passenger 166: INJECTED AT 831.1s and DELIVERED in 191.731s
-  Satisfaction score: 100.0
-Passenger 181: INJECTED AT 918.9s and DELIVERED in 107.814s
-  Satisfaction score: 100.0
-Passenger 161: INJECTED AT 798.9s and DELIVERED in 260.357s
-  Satisfaction score: 100.0
-Passenger 143: INJECTED AT 717.7s and DELIVERED in 343.448s
-  Satisfaction score: 6.25
-    @796.730000000: 0.50 Expected to move UP but moved DOWN
-    @818.330000000: 0.50 Expected to move UP but moved DOWN
-    @843.830000000: 0.50 Expected to move UP but moved DOWN
-    @865.930000000: 0.50 Expected to move UP but moved DOWN
-Passenger 141: INJECTED AT 713.8s and DELIVERED in 348.916s
-  Satisfaction score: 100.0
-Passenger 209: INJECTED AT 1050.3s and DELIVERED in 28.602s
-  Satisfaction score: 100.0
-Passenger 175: INJECTED AT 888.2s and DELIVERED in 218.71s
-  Satisfaction score: 100.0
-Passenger 176: INJECTED AT 890.8s and DELIVERED in 242.918s
-  Satisfaction score: 100.0
-Passenger 129: INJECTED AT 662.1s and DELIVERED in 471.641s
-  Satisfaction score: 100.0
-Passenger 207: INJECTED AT 1041.9s and DELIVERED in 93.569s
-  Satisfaction score: 100.0
-Passenger 211: INJECTED AT 1062.3s and DELIVERED in 73.756s
-  Satisfaction score: 100.0
-Passenger 133: INJECTED AT 681.3s and DELIVERED in 455.809s
-  Satisfaction score: 100.0
-Passenger 174: INJECTED AT 882.5s and DELIVERED in 256.099s
-  Satisfaction score: 100.0
-Passenger 164: INJECTED AT 813.2s and DELIVERED in 327.378s
-  Satisfaction score: 100.0
-Passenger 150: INJECTED AT 744.0s and DELIVERED in 398.709s
-  Satisfaction score: 100.0
-Passenger 221: INJECTED AT 1107.5s and DELIVERED in 36.221s
+Passenger 6: INJECTED AT 90.4s and DELIVERED in 521.411s
   Satisfaction score: 80.0
-    @1137.787000000: 0.80 Failed to enter car
-Passenger 168: INJECTED AT 847.6s and DELIVERED in 297.044s
+    @604.520000000: 0.80 Failed to exit car at 6,FRONT
+Passenger 56: INJECTED AT 316.5s and DELIVERED in 330.018s
   Satisfaction score: 100.0
-Passenger 180: INJECTED AT 911.8s and DELIVERED in 234.937s
+Passenger 64: INJECTED AT 354.3s and DELIVERED in 320.207s
   Satisfaction score: 100.0
-Passenger 191: INJECTED AT 971.0s and DELIVERED in 177.248s
+Passenger 111: INJECTED AT 568.9s and DELIVERED in 105.764s
   Satisfaction score: 100.0
-Passenger 183: INJECTED AT 928.6s and DELIVERED in 222.792s
+Passenger 98: INJECTED AT 499.8s and DELIVERED in 176.087s
   Satisfaction score: 100.0
-Passenger 137: INJECTED AT 700.4s and DELIVERED in 508.83s
+Passenger 58: INJECTED AT 326.0s and DELIVERED in 350.203s
   Satisfaction score: 100.0
-Passenger 220: INJECTED AT 1103.8s and DELIVERED in 118.395s
+Passenger 73: INJECTED AT 381.7s and DELIVERED in 295.795s
   Satisfaction score: 100.0
-Passenger 218: INJECTED AT 1098.2s and DELIVERED in 131.86s
+Passenger 93: INJECTED AT 472.9s and DELIVERED in 205.018s
   Satisfaction score: 100.0
-Passenger 186: INJECTED AT 946.5s and DELIVERED in 311.915s
+Passenger 61: INJECTED AT 333.9s and DELIVERED in 344.986s
   Satisfaction score: 100.0
-Passenger 205: INJECTED AT 1033.3s and DELIVERED in 227.225s
+Passenger 36: INJECTED AT 220.6s and DELIVERED in 459.03s
   Satisfaction score: 100.0
-Passenger 165: INJECTED AT 821.4s and DELIVERED in 472.786s
+Passenger 104: INJECTED AT 535.2s and DELIVERED in 146.386s
   Satisfaction score: 100.0
-Passenger 231: INJECTED AT 1165.9s and DELIVERED in 143.225s
+Passenger 91: INJECTED AT 465.3s and DELIVERED in 220.296s
   Satisfaction score: 100.0
-Passenger 202: INJECTED AT 1020.0s and DELIVERED in 289.447s
+Passenger 137: INJECTED AT 700.4s and DELIVERED in 15.61s
   Satisfaction score: 100.0
-Passenger 200: INJECTED AT 1011.3s and DELIVERED in 299.547s
+Passenger 130: INJECTED AT 662.9s and DELIVERED in 100.58s
   Satisfaction score: 100.0
-Passenger 223: INJECTED AT 1115.3s and DELIVERED in 196.17s
+Passenger 139: INJECTED AT 708.2s and DELIVERED in 70.11s
   Satisfaction score: 100.0
-Passenger 214: INJECTED AT 1080.5s and DELIVERED in 233.019s
+Passenger 144: INJECTED AT 721.0s and DELIVERED in 59.015s
   Satisfaction score: 100.0
-Passenger 201: INJECTED AT 1016.0s and DELIVERED in 300.951s
-  Satisfaction score: 45.0
-    @1314.100000000: 0.50 Failed to exit at 7, BACK even though the doors opened.
-    @1314.300000000: 0.90 Repeated car call press
-Passenger 95: INJECTED AT 486.6s and DELIVERED in 859.92s
+Passenger 116: INJECTED AT 595.8s and DELIVERED in 185.842s
   Satisfaction score: 100.0
-Passenger 132: INJECTED AT 673.2s and DELIVERED in 695.384s
+Passenger 118: INJECTED AT 600.0s and DELIVERED in 214.213s
   Satisfaction score: 100.0
-Passenger 228: INJECTED AT 1147.5s and DELIVERED in 221.629s
+Passenger 115: INJECTED AT 592.2s and DELIVERED in 222.167s
   Satisfaction score: 100.0
-Passenger 239: INJECTED AT 1209.4s and DELIVERED in 161.073s
+Passenger 105: INJECTED AT 542.6s and DELIVERED in 286.293s
   Satisfaction score: 100.0
-Passenger 83: INJECTED AT 420.4s and DELIVERED in 950.17s
+Passenger 143: INJECTED AT 717.7s and DELIVERED in 113.088s
   Satisfaction score: 100.0
-Passenger 54: INJECTED AT 314.9s and DELIVERED in 1057.084s
+Passenger 135: INJECTED AT 687.5s and DELIVERED in 186.66s
   Satisfaction score: 100.0
-Passenger 36: INJECTED AT 220.6s and DELIVERED in 1151.57s
+Passenger 53: INJECTED AT 309.2s and DELIVERED in 588.473s
   Satisfaction score: 100.0
-Passenger 226: INJECTED AT 1133.8s and DELIVERED in 239.61s
+Passenger 125: INJECTED AT 642.3s and DELIVERED in 278.643s
   Satisfaction score: 100.0
-Passenger 106: INJECTED AT 547.0s and DELIVERED in 828.252s
+Passenger 120: INJECTED AT 609.1s and DELIVERED in 335.647s
   Satisfaction score: 100.0
-Passenger 55: INJECTED AT 315.3s and DELIVERED in 1061.246s
-  Satisfaction score: 50.0
-    @1295.366000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 242: INJECTED AT 1222.3s and DELIVERED in 197.66s
+Passenger 107: INJECTED AT 548.5s and DELIVERED in 396.482s
   Satisfaction score: 100.0
-Passenger 246: INJECTED AT 1245.7s and DELIVERED in 189.423s
+Passenger 102: INJECTED AT 526.5s and DELIVERED in 419.906s
   Satisfaction score: 100.0
-Passenger 249: INJECTED AT 1265.8s and DELIVERED in 240.116s
+Passenger 117: INJECTED AT 595.9s and DELIVERED in 351.105s
   Satisfaction score: 100.0
-Passenger 276: INJECTED AT 1424.0s and DELIVERED in 82.804s
+Passenger 82: INJECTED AT 419.7s and DELIVERED in 528.367s
   Satisfaction score: 100.0
-Passenger 284: INJECTED AT 1448.7s and DELIVERED in 58.56s
+Passenger 76: INJECTED AT 389.0s and DELIVERED in 560.167s
   Satisfaction score: 100.0
-Passenger 272: INJECTED AT 1398.8s and DELIVERED in 110.728s
+Passenger 48: INJECTED AT 278.0s and DELIVERED in 671.482s
   Satisfaction score: 100.0
-Passenger 266: INJECTED AT 1368.0s and DELIVERED in 144.536s
+Passenger 101: INJECTED AT 517.7s and DELIVERED in 433.169s
   Satisfaction score: 100.0
-Passenger 256: INJECTED AT 1315.0s and DELIVERED in 228.549s
+Passenger 133: INJECTED AT 681.3s and DELIVERED in 271.189s
   Satisfaction score: 100.0
-Passenger 9: INJECTED AT 106.8s and DELIVERED in 1480.752s
-  Satisfaction score: 50.0
-    @1441.252000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 42: INJECTED AT 249.3s and DELIVERED in 1338.38s
-  Satisfaction score: 50.0
-    @1436.480000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 75: INJECTED AT 388.3s and DELIVERED in 1201.075s
-  Satisfaction score: 50.0
-    @1486.775000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 278: INJECTED AT 1432.3s and DELIVERED in 157.29s
+Passenger 183: INJECTED AT 928.6s and DELIVERED in 26.972s
   Satisfaction score: 100.0
-Passenger 7: INJECTED AT 95.1s and DELIVERED in 1495.711s
-  Satisfaction score: 50.0
-    @1473.071000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 306: INJECTED AT 1546.7s and DELIVERED in 44.43s
+Passenger 186: INJECTED AT 946.5s and DELIVERED in 101.315s
   Satisfaction score: 100.0
-Passenger 76: INJECTED AT 389.0s and DELIVERED in 1204.207s
-  Satisfaction score: 50.0
-    @1489.007000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 81: INJECTED AT 415.8s and DELIVERED in 1179.203s
+Passenger 142: INJECTED AT 716.0s and DELIVERED in 333.065s
   Satisfaction score: 100.0
-Passenger 44: INJECTED AT 259.399999999s and DELIVERED in 1337.296000001s
+Passenger 170: INJECTED AT 860.7s and DELIVERED in 190.202s
   Satisfaction score: 100.0
-Passenger 262: INJECTED AT 1342.8s and DELIVERED in 324.176s
+Passenger 165: INJECTED AT 821.4s and DELIVERED in 262.346s
   Satisfaction score: 100.0
-Passenger 290: INJECTED AT 1480.8s and DELIVERED in 213.906s
+Passenger 167: INJECTED AT 837.9s and DELIVERED in 247.138s
   Satisfaction score: 100.0
-Passenger 327: INJECTED AT 1651.5s and DELIVERED in 44.994s
+Passenger 202: INJECTED AT 1020.0s and DELIVERED in 79.087s
   Satisfaction score: 100.0
-Passenger 26: INJECTED AT 177.6s and DELIVERED in 1562.194s
-  Satisfaction score: 50.0
-    @1632.634000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 23: INJECTED AT 165.9s and DELIVERED in 1574.233s
-  Satisfaction score: 50.0
-    @1634.573000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 120: INJECTED AT 609.1s and DELIVERED in 1132.227s
-  Satisfaction score: 100.0
-Passenger 87: INJECTED AT 449.0s and DELIVERED in 1292.964s
-  Satisfaction score: 50.0
-    @1627.804000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 74: INJECTED AT 382.9s and DELIVERED in 1360.446s
-  Satisfaction score: 50.0
-    @1629.686000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 322: INJECTED AT 1628.2s and DELIVERED in 115.328s
-  Satisfaction score: 100.0
-Passenger 22: INJECTED AT 162.4s and DELIVERED in 1582.656s
-  Satisfaction score: 50.0
-    @1624.296000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 25: INJECTED AT 175.0s and DELIVERED in 1570.236s
-  Satisfaction score: 50.0
-    @1626.076000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 103: INJECTED AT 526.799999999s and DELIVERED in 1219.687000001s
-  Satisfaction score: 50.0
-    @1631.027000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 331: INJECTED AT 1677.6s and DELIVERED in 71.436s
-  Satisfaction score: 100.0
-Passenger 328: INJECTED AT 1659.3s and DELIVERED in 168.691s
-  Satisfaction score: 100.0
-Passenger 338: INJECTED AT 1720.8s and DELIVERED in 108.533s
-  Satisfaction score: 100.0
-Passenger 326: INJECTED AT 1644.7s and DELIVERED in 208.391s
-  Satisfaction score: 100.0
-Passenger 345: INJECTED AT 1749.9s and DELIVERED in 122.208s
-  Satisfaction score: 100.0
-Passenger 351: INJECTED AT 1772.9s and DELIVERED in 140.845s
-  Satisfaction score: 100.0
-Passenger 65: INJECTED AT 362.2s and DELIVERED in 1553.292s
-  Satisfaction score: 50.0
-    @1830.952000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 151: INJECTED AT 747.7s and DELIVERED in 1192.551s
-  Satisfaction score: 50.0
-    @1779.691000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 229: INJECTED AT 1156.1s and DELIVERED in 784.636s
-  Satisfaction score: 100.0
-Passenger 109: INJECTED AT 556.1s and DELIVERED in 1385.402s
-  Satisfaction score: 50.0
-    @1854.262000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 86: INJECTED AT 440.3s and DELIVERED in 1502.538s
-  Satisfaction score: 50.0
-    @1776.878000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 14: INJECTED AT 121.8s and DELIVERED in 1821.721s
-  Satisfaction score: 50.0
-    @1832.801000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 134: INJECTED AT 685.4s and DELIVERED in 1258.873s
-  Satisfaction score: 50.0
-    @1786.113000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 59: INJECTED AT 328.5s and DELIVERED in 1617.05s
-  Satisfaction score: 50.0
-    @1812.530000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 195: INJECTED AT 991.2s and DELIVERED in 956.228s
-  Satisfaction score: 100.0
-Passenger 123: INJECTED AT 633.1s and DELIVERED in 1315.608s
-  Satisfaction score: 40.0
-    @1780.848000000: 0.80 Failed to enter car
-    @1787.314000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 382: INJECTED AT 1945.0s and DELIVERED in 40.15s
-  Satisfaction score: 100.0
-Passenger 353: INJECTED AT 1786.4s and DELIVERED in 205.502s
-  Satisfaction score: 100.0
-Passenger 373: INJECTED AT 1900.7s and DELIVERED in 132.427s
-  Satisfaction score: 100.0
-Passenger 381: INJECTED AT 1940.0s and DELIVERED in 97.892s
-  Satisfaction score: 50.0
-    @2034.792000000: 0.50 Failed to exit at 7, FRONT even though the doors opened.
-Passenger 371: INJECTED AT 1891.0s and DELIVERED in 147.502s
-  Satisfaction score: 100.0
-Passenger 389: INJECTED AT 1978.0s and DELIVERED in 91.36s
-  Satisfaction score: 100.0
-Passenger 340: INJECTED AT 1730.4s and DELIVERED in 340.913s
-  Satisfaction score: 100.0
-Passenger 360: INJECTED AT 1823.8s and DELIVERED in 249.177s
-  Satisfaction score: 100.0
-Passenger 354: INJECTED AT 1791.3s and DELIVERED in 319.389s
-  Satisfaction score: 100.0
-Passenger 350: INJECTED AT 1772.3s and DELIVERED in 340.337s
-  Satisfaction score: 100.0
-Passenger 148: INJECTED AT 741.3s and DELIVERED in 1414.04s
-  Satisfaction score: 100.0
-Passenger 154: INJECTED AT 765.5s and DELIVERED in 1407.631s
-  Satisfaction score: 100.0
-Passenger 10: INJECTED AT 115.1s and DELIVERED in 2058.136s
-  Satisfaction score: 50.0
-    @1987.016000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 361: INJECTED AT 1831.6s and DELIVERED in 342.984s
-  Satisfaction score: 100.0
-Passenger 64: INJECTED AT 354.3s and DELIVERED in 1820.547s
-  Satisfaction score: 50.0
-    @1985.527000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 80: INJECTED AT 408.2s and DELIVERED in 1768.194s
-  Satisfaction score: 50.0
-    @1988.714000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 309: INJECTED AT 1557.7s and DELIVERED in 619.039s
-  Satisfaction score: 100.0
-Passenger 108: INJECTED AT 552.0s and DELIVERED in 1626.489s
-  Satisfaction score: 50.0
-    @1992.309000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 298: INJECTED AT 1516.3s and DELIVERED in 662.213s
-  Satisfaction score: 100.0
-Passenger 299: INJECTED AT 1523.9s and DELIVERED in 655.861s
-  Satisfaction score: 100.0
-Passenger 387: INJECTED AT 1973.6s and DELIVERED in 252.882s
-  Satisfaction score: 100.0
-Passenger 281: INJECTED AT 1441.4s and DELIVERED in 838.069s
-  Satisfaction score: 81.0
-    @1680.280000000: 0.90 Repeated hall call press
-    @2033.280000000: 0.90 Repeated hall call press
-Passenger 352: INJECTED AT 1780.1s and DELIVERED in 514.055s
-  Satisfaction score: 90.0
-    @2033.280000000: 0.90 Repeated hall call press
-Passenger 349: INJECTED AT 1766.2s and DELIVERED in 529.805s
-  Satisfaction score: 90.0
-    @2033.280000000: 0.90 Repeated hall call press
-Passenger 100: INJECTED AT 510.9s and DELIVERED in 1831.192s
-  Satisfaction score: 50.0
-    @2317.312000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 146: INJECTED AT 734.8s and DELIVERED in 1630.887s
-  Satisfaction score: 50.0
-    @2214.907000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 206: INJECTED AT 1033.599999999s and DELIVERED in 1332.254000001s
-  Satisfaction score: 50.0
-    @2316.094000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 46: INJECTED AT 266.5s and DELIVERED in 2100.609s
+Passenger 166: INJECTED AT 831.1s and DELIVERED in 268.091s
+  Satisfaction score: 100.0
+Passenger 161: INJECTED AT 798.9s and DELIVERED in 314.997s
+  Satisfaction score: 100.0
+Passenger 141: INJECTED AT 713.8s and DELIVERED in 401.656s
+  Satisfaction score: 100.0
+Passenger 181: INJECTED AT 918.9s and DELIVERED in 213.197s
+  Satisfaction score: 20.0
+    @1102.974000000: 0.80 Failed to exit car at 7,FRONT
+    @1105.138000000: 0.50 Failed to exit at 7, FRONT even though the doors opened.
+    @1105.800000000: 0.50 Car passed passenger's destination floor without servicing it
+Passenger 209: INJECTED AT 1050.3s and DELIVERED in 83.711s
   Satisfaction score: 25.0
-    @2116.369000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-    @2242.589000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 119: INJECTED AT 607.8s and DELIVERED in 1759.949s
-  Satisfaction score: 25.0
-    @2091.629000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-    @2312.289000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 29: INJECTED AT 187.9s and DELIVERED in 2180.866s
-  Satisfaction score: 50.0
-    @2211.686000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 257: INJECTED AT 1317.7s and DELIVERED in 1051.734s
+    @1103.671000000: 0.50 Failed to exit at 7, FRONT even though the doors opened.
+    @1105.800000000: 0.50 Car passed passenger's destination floor without servicing it
+Passenger 100: INJECTED AT 510.9s and DELIVERED in 651.612s
   Satisfaction score: 100.0
-Passenger 96: INJECTED AT 494.3s and DELIVERED in 1876.381s
-  Satisfaction score: 25.0
-    @1836.481000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-    @2228.301000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 275: INJECTED AT 1418.0s and DELIVERED in 954.635s
+Passenger 174: INJECTED AT 882.5s and DELIVERED in 303.519s
   Satisfaction score: 100.0
-Passenger 279: INJECTED AT 1435.6s and DELIVERED in 938.885s
-  Satisfaction score: 50.0
-    @2312.425000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 335: INJECTED AT 1698.2s and DELIVERED in 721.87s
+Passenger 119: INJECTED AT 607.8s and DELIVERED in 578.509s
   Satisfaction score: 100.0
-Passenger 391: INJECTED AT 1993.2s and DELIVERED in 459.909s
+Passenger 164: INJECTED AT 813.2s and DELIVERED in 374.798s
   Satisfaction score: 100.0
-Passenger 337: INJECTED AT 1717.1s and DELIVERED in 737.755s
+Passenger 106: INJECTED AT 547.0s and DELIVERED in 641.152s
   Satisfaction score: 100.0
-Passenger 390: INJECTED AT 1984.3s and DELIVERED in 494.323s
+Passenger 129: INJECTED AT 662.1s and DELIVERED in 527.761s
   Satisfaction score: 100.0
-Passenger 245: INJECTED AT 1237.9s and DELIVERED in 1260.594s
-  Satisfaction score: 50.0
-    @2417.354000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 233: INJECTED AT 1173.5s and DELIVERED in 1325.125s
-  Satisfaction score: 50.0
-    @2426.585000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 314: INJECTED AT 1590.1s and DELIVERED in 910.213s
+Passenger 206: INJECTED AT 1033.599999999s and DELIVERED in 156.314000001s
   Satisfaction score: 100.0
-Passenger 294: INJECTED AT 1501.0s and DELIVERED in 999.351s
+Passenger 83: INJECTED AT 420.4s and DELIVERED in 771.47s
   Satisfaction score: 100.0
-Passenger 268: INJECTED AT 1379.4s and DELIVERED in 1122.162s
-  Satisfaction score: 50.0
-    @2427.822000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 104: INJECTED AT 535.2s and DELIVERED in 1967.106s
-  Satisfaction score: 50.0
-    @2415.366000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 329: INJECTED AT 1661.2s and DELIVERED in 842.464s
+Passenger 128: INJECTED AT 658.8s and DELIVERED in 534.678s
   Satisfaction score: 100.0
-Passenger 386: INJECTED AT 1971.1s and DELIVERED in 532.998s
+Passenger 208: INJECTED AT 1043.7s and DELIVERED in 151.626s
   Satisfaction score: 100.0
-Passenger 172: INJECTED AT 875.9s and DELIVERED in 1629.068s
+Passenger 221: INJECTED AT 1107.5s and DELIVERED in 90.874s
   Satisfaction score: 100.0
-Passenger 184: INJECTED AT 930.1s and DELIVERED in 1658.745s
-  Satisfaction score: 50.0
-    @2559.185000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 317: INJECTED AT 1601.0s and DELIVERED in 989.253s
+Passenger 211: INJECTED AT 1062.3s and DELIVERED in 137.276s
   Satisfaction score: 100.0
-Passenger 169: INJECTED AT 851.2s and DELIVERED in 1763.048s
+Passenger 191: INJECTED AT 971.0s and DELIVERED in 231.568s
   Satisfaction score: 100.0
-Passenger 227: INJECTED AT 1141.4s and DELIVERED in 1494.46s
+Passenger 246: INJECTED AT 1245.7s and DELIVERED in 28.663s
   Satisfaction score: 100.0
-Passenger 225: INJECTED AT 1127.9s and DELIVERED in 1507.975s
+Passenger 220: INJECTED AT 1103.8s and DELIVERED in 172.435s
   Satisfaction score: 100.0
-Passenger 210: INJECTED AT 1057.5s and DELIVERED in 1579.837s
+Passenger 218: INJECTED AT 1098.2s and DELIVERED in 185.0s
   Satisfaction score: 100.0
-Passenger 365: INJECTED AT 1859.3s and DELIVERED in 778.163s
+Passenger 205: INJECTED AT 1033.3s and DELIVERED in 277.445s
   Satisfaction score: 100.0
-Passenger 356: INJECTED AT 1807.8s and DELIVERED in 830.94s
+Passenger 200: INJECTED AT 1011.3s and DELIVERED in 315.167s
   Satisfaction score: 100.0
-Passenger 238: INJECTED AT 1205.4s and DELIVERED in 1433.807s
+Passenger 223: INJECTED AT 1115.3s and DELIVERED in 211.89s
   Satisfaction score: 100.0
-Passenger 264: INJECTED AT 1359.4s and DELIVERED in 1281.376s
+Passenger 231: INJECTED AT 1165.9s and DELIVERED in 162.045s
   Satisfaction score: 100.0
-Passenger 40: INJECTED AT 244.7s and DELIVERED in 2397.268s
-  Satisfaction score: 50.0
-    @2560.268000000: 0.50 After the car came by 7 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 152: INJECTED AT 750.0s and DELIVERED in 1893.93s
+Passenger 214: INJECTED AT 1080.5s and DELIVERED in 248.939s
   Satisfaction score: 100.0
-Passenger 375: INJECTED AT 1911.3s and DELIVERED in 791.825s
-  Satisfaction score: 90.0
-    @2554.380000000: 0.90 Repeated hall call press
-Passenger 244: INJECTED AT 1229.4s and DELIVERED in 1475.182s
-  Satisfaction score: 45.0
-    @2554.380000000: 0.90 Repeated hall call press
-    @2683.142000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 241: INJECTED AT 1219.3s and DELIVERED in 1502.117s
-  Satisfaction score: 25.0
-    @2569.317000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-    @2706.237000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 72: INJECTED AT 380.2s and DELIVERED in 2381.371s
-  Satisfaction score: 45.0
-    @2554.380000000: 0.90 Repeated hall call press
-    @2681.791000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 311: INJECTED AT 1572.5s and DELIVERED in 1189.27s
-  Satisfaction score: 90.0
-    @2554.280000000: 0.90 Repeated hall call press
-Passenger 359: INJECTED AT 1814.4s and DELIVERED in 948.779s
-  Satisfaction score: 90.0
-    @2554.280000000: 0.90 Repeated hall call press
-Passenger 224: INJECTED AT 1118.2s and DELIVERED in 1645.6s
-  Satisfaction score: 45.0
-    @2554.280000000: 0.90 Repeated hall call press
-    @2681.120000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 285: INJECTED AT 1455.4s and DELIVERED in 1309.66s
-  Satisfaction score: 90.0
-    @2554.380000000: 0.90 Repeated hall call press
-Passenger 367: INJECTED AT 1872.2s and DELIVERED in 893.214s
-  Satisfaction score: 90.0
-    @2554.280000000: 0.90 Repeated hall call press
-Passenger 318: INJECTED AT 1607.8s and DELIVERED in 1158.848s
-  Satisfaction score: 90.0
-    @2554.380000000: 0.90 Repeated hall call press
-Passenger 187: INJECTED AT 955.5s and DELIVERED in 1811.507s
-  Satisfaction score: 25.0
-    @2595.407000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-    @2722.947000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 230: INJECTED AT 1160.8s and DELIVERED in 1608.063s
-  Satisfaction score: 90.0
-    @2629.340000000: 0.90 Repeated hall call press
-Passenger 368: INJECTED AT 1879.3s and DELIVERED in 982.886s
-  Satisfaction score: 90.0
-    @2718.120000000: 0.90 Repeated hall call press
-Passenger 203: INJECTED AT 1020.3s and DELIVERED in 1843.601s
-  Satisfaction score: 45.0
-    @2718.120000000: 0.90 Repeated hall call press
-    @2835.361000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 88: INJECTED AT 456.0s and DELIVERED in 2409.301s
-  Satisfaction score: 45.0
-    @2718.120000000: 0.90 Repeated hall call press
-    @2824.961000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 292: INJECTED AT 1492.3s and DELIVERED in 1397.385s
-  Satisfaction score: 90.0
-    @2170.100000000: 0.90 Repeated hall call press
-Passenger 114: INJECTED AT 588.3s and DELIVERED in 2301.48s
-  Satisfaction score: 45.0
-    @2718.120000000: 0.90 Repeated hall call press
-    @2831.800000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 102: INJECTED AT 526.5s and DELIVERED in 2364.806s
+Passenger 249: INJECTED AT 1265.8s and DELIVERED in 65.096s
+  Satisfaction score: 100.0
+Passenger 256: INJECTED AT 1315.0s and DELIVERED in 27.149s
+  Satisfaction score: 100.0
+Passenger 201: INJECTED AT 1016.0s and DELIVERED in 344.151s
   Satisfaction score: 22.5
-    @2554.280000000: 0.90 Repeated hall call press
-    @2684.186000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-    @2804.326000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 111: INJECTED AT 568.9s and DELIVERED in 2322.924s
+    @1331.520000000: 0.50 Failed to exit at 7, BACK even though the doors opened.
+    @1331.720000000: 0.90 Repeated car call press
+    @1333.900000000: 0.50 Car passed passenger's destination floor without servicing it
+Passenger 244: INJECTED AT 1229.4s and DELIVERED in 173.582s
+  Satisfaction score: 100.0
+Passenger 42: INJECTED AT 249.3s and DELIVERED in 1178.58s
+  Satisfaction score: 50.0
+    @1284.620000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 245: INJECTED AT 1237.9s and DELIVERED in 190.274s
+  Satisfaction score: 100.0
+Passenger 228: INJECTED AT 1147.5s and DELIVERED in 282.129s
+  Satisfaction score: 100.0
+Passenger 34: INJECTED AT 206.8s and DELIVERED in 1223.412s
+  Satisfaction score: 50.0
+    @1279.992000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 264: INJECTED AT 1359.4s and DELIVERED in 71.716s
+  Satisfaction score: 100.0
+Passenger 224: INJECTED AT 1118.2s and DELIVERED in 314.04s
+  Satisfaction score: 100.0
+Passenger 9: INJECTED AT 106.8s and DELIVERED in 1327.112s
+  Satisfaction score: 50.0
+    @1286.192000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 113: INJECTED AT 580.5s and DELIVERED in 854.892s
+  Satisfaction score: 100.0
+Passenger 124: INJECTED AT 637.9s and DELIVERED in 799.376s
+  Satisfaction score: 80.0
+    @851.696000000: 0.80 Failed to enter car
+Passenger 242: INJECTED AT 1222.3s and DELIVERED in 278.22s
+  Satisfaction score: 100.0
+Passenger 288: INJECTED AT 1462.0s and DELIVERED in 61.444s
+  Satisfaction score: 100.0
+Passenger 276: INJECTED AT 1424.0s and DELIVERED in 131.204s
+  Satisfaction score: 100.0
+Passenger 266: INJECTED AT 1368.0s and DELIVERED in 196.136s
+  Satisfaction score: 100.0
+Passenger 19: INJECTED AT 145.3s and DELIVERED in 1457.405s
+  Satisfaction score: 50.0
+    @1519.805000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 65: INJECTED AT 362.2s and DELIVERED in 1263.512s
+  Satisfaction score: 50.0
+    @1523.272000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 26: INJECTED AT 177.6s and DELIVERED in 1470.794s
+  Satisfaction score: 50.0
+    @1466.774000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 160: INJECTED AT 798.6s and DELIVERED in 850.22s
+  Satisfaction score: 100.0
+Passenger 97: INJECTED AT 496.2s and DELIVERED in 1153.802s
+  Satisfaction score: 100.0
+Passenger 14: INJECTED AT 121.8s and DELIVERED in 1529.001s
+  Satisfaction score: 50.0
+    @1517.821000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 25: INJECTED AT 175.0s and DELIVERED in 1476.936s
+  Satisfaction score: 50.0
+    @1465.216000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 23: INJECTED AT 165.9s and DELIVERED in 1486.933s
+  Satisfaction score: 50.0
+    @1468.713000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 243: INJECTED AT 1225.6s and DELIVERED in 428.053s
+  Satisfaction score: 100.0
+Passenger 96: INJECTED AT 494.3s and DELIVERED in 1160.481s
+  Satisfaction score: 50.0
+    @1515.901000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 81: INJECTED AT 415.8s and DELIVERED in 1240.843s
+  Satisfaction score: 100.0
+Passenger 326: INJECTED AT 1644.7s and DELIVERED in 72.871s
+  Satisfaction score: 100.0
+Passenger 284: INJECTED AT 1448.7s and DELIVERED in 284.16s
+  Satisfaction score: 100.0
+Passenger 281: INJECTED AT 1441.4s and DELIVERED in 293.189s
+  Satisfaction score: 100.0
+Passenger 335: INJECTED AT 1698.2s and DELIVERED in 39.13s
+  Satisfaction score: 100.0
+Passenger 327: INJECTED AT 1651.5s and DELIVERED in 118.114s
+  Satisfaction score: 100.0
+Passenger 290: INJECTED AT 1480.8s and DELIVERED in 290.326s
+  Satisfaction score: 100.0
+Passenger 272: INJECTED AT 1398.8s and DELIVERED in 390.328s
+  Satisfaction score: 100.0
+Passenger 277: INJECTED AT 1425.2s and DELIVERED in 406.329s
+  Satisfaction score: 100.0
+Passenger 171: INJECTED AT 869.7s and DELIVERED in 983.799s
+  Satisfaction score: 100.0
+Passenger 7: INJECTED AT 95.1s and DELIVERED in 1782.131s
+  Satisfaction score: 50.0
+    @1702.691000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 299: INJECTED AT 1523.9s and DELIVERED in 353.461s
+  Satisfaction score: 100.0
+Passenger 213: INJECTED AT 1076.0s and DELIVERED in 802.469s
+  Satisfaction score: 100.0
+Passenger 339: INJECTED AT 1723.9s and DELIVERED in 155.215s
+  Satisfaction score: 100.0
+Passenger 62: INJECTED AT 342.6s and DELIVERED in 1537.39s
+  Satisfaction score: 50.0
+    @1787.970000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 294: INJECTED AT 1501.0s and DELIVERED in 379.831s
+  Satisfaction score: 100.0
+Passenger 210: INJECTED AT 1057.5s and DELIVERED in 824.837s
+  Satisfaction score: 100.0
+Passenger 150: INJECTED AT 744.0s and DELIVERED in 1140.489s
+  Satisfaction score: 100.0
+Passenger 322: INJECTED AT 1628.2s and DELIVERED in 257.848s
+  Satisfaction score: 100.0
+Passenger 331: INJECTED AT 1677.6s and DELIVERED in 210.956s
+  Satisfaction score: 100.0
+Passenger 338: INJECTED AT 1720.8s and DELIVERED in 209.993s
+  Satisfaction score: 100.0
+Passenger 328: INJECTED AT 1659.3s and DELIVERED in 273.251s
+  Satisfaction score: 100.0
+Passenger 382: INJECTED AT 1945.0s and DELIVERED in 24.21s
+  Satisfaction score: 100.0
+Passenger 373: INJECTED AT 1900.7s and DELIVERED in 117.427s
+  Satisfaction score: 100.0
+Passenger 381: INJECTED AT 1940.0s and DELIVERED in 81.424s
+  Satisfaction score: 100.0
+Passenger 371: INJECTED AT 1891.0s and DELIVERED in 132.502s
+  Satisfaction score: 100.0
+Passenger 340: INJECTED AT 1730.4s and DELIVERED in 324.773s
+  Satisfaction score: 100.0
+Passenger 349: INJECTED AT 1766.2s and DELIVERED in 290.885s
+  Satisfaction score: 100.0
+Passenger 360: INJECTED AT 1823.8s and DELIVERED in 234.937s
+  Satisfaction score: 100.0
+Passenger 389: INJECTED AT 1978.0s and DELIVERED in 82.02s
+  Satisfaction score: 100.0
+Passenger 352: INJECTED AT 1780.1s and DELIVERED in 281.435s
+  Satisfaction score: 100.0
+Passenger 345: INJECTED AT 1749.9s and DELIVERED in 313.288s
+  Satisfaction score: 100.0
+Passenger 354: INJECTED AT 1791.3s and DELIVERED in 342.069s
+  Satisfaction score: 100.0
+Passenger 287: INJECTED AT 1458.6s and DELIVERED in 694.633s
+  Satisfaction score: 100.0
+Passenger 84: INJECTED AT 427.2s and DELIVERED in 1751.388s
+  Satisfaction score: 50.0
+    @1937.208000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 308: INJECTED AT 1552.2s and DELIVERED in 649.221s
+  Satisfaction score: 100.0
+Passenger 367: INJECTED AT 1872.2s and DELIVERED in 329.614s
+  Satisfaction score: 100.0
+Passenger 212: INJECTED AT 1069.3s and DELIVERED in 1133.595s
+  Satisfaction score: 100.0
+Passenger 52: INJECTED AT 302.0s and DELIVERED in 1901.057s
+  Satisfaction score: 50.0
+    @1933.737000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 179: INJECTED AT 904.1s and DELIVERED in 1300.585s
+  Satisfaction score: 100.0
+Passenger 199: INJECTED AT 1008.0s and DELIVERED in 1198.083s
+  Satisfaction score: 100.0
+Passenger 387: INJECTED AT 1973.6s and DELIVERED in 259.322s
+  Satisfaction score: 100.0
+Passenger 177: INJECTED AT 897.3s and DELIVERED in 1397.785s
+  Satisfaction score: 50.0
+    @2234.425000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 89: INJECTED AT 457.4s and DELIVERED in 1859.553s
+  Satisfaction score: 50.0
+    @2237.613000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 95: INJECTED AT 486.6s and DELIVERED in 1831.48s
+  Satisfaction score: 25.0
+    @2098.860000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+    @2271.820000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 29: INJECTED AT 187.9s and DELIVERED in 2146.846s
+  Satisfaction score: 25.0
+    @2181.406000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+    @2219.526000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 189: INJECTED AT 966.8s and DELIVERED in 1368.056s
+  Satisfaction score: 50.0
+    @2235.896000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 292: INJECTED AT 1492.3s and DELIVERED in 844.085s
+  Satisfaction score: 100.0
+Passenger 275: INJECTED AT 1418.0s and DELIVERED in 918.715s
   Satisfaction score: 22.5
-    @2554.380000000: 0.90 Repeated hall call press
-    @2685.044000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-    @2804.684000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 158: INJECTED AT 782.9s and DELIVERED in 2110.016s
+    @2206.700000000: 0.50 Failed to exit at 1, FRONT even though the doors opened.
+    @2206.900000000: 0.90 Repeated car call press
+    @2208.800000000: 0.50 Car passed passenger's destination floor without servicing it
+Passenger 289: INJECTED AT 1471.0s and DELIVERED in 867.241s
+  Satisfaction score: 100.0
+Passenger 152: INJECTED AT 750.0s and DELIVERED in 1590.19s
+  Satisfaction score: 50.0
+    @2239.770000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 173: INJECTED AT 882.3s and DELIVERED in 1459.545s
+  Satisfaction score: 100.0
+Passenger 319: INJECTED AT 1610.8s and DELIVERED in 733.009s
+  Satisfaction score: 25.0
+    @2206.700000000: 0.50 Failed to exit at 1, FRONT even though the doors opened.
+    @2208.800000000: 0.50 Car passed passenger's destination floor without servicing it
+Passenger 364: INJECTED AT 1852.6s and DELIVERED in 492.468s
+  Satisfaction score: 22.5
+    @2206.700000000: 0.50 Failed to exit at 1, FRONT even though the doors opened.
+    @2206.900000000: 0.90 Repeated car call press
+    @2208.800000000: 0.50 Car passed passenger's destination floor without servicing it
+Passenger 169: INJECTED AT 851.2s and DELIVERED in 1579.848s
+  Satisfaction score: 100.0
+Passenger 172: INJECTED AT 875.9s and DELIVERED in 1631.288s
+  Satisfaction score: 50.0
+    @2435.188000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 383: INJECTED AT 1949.2s and DELIVERED in 558.205s
+  Satisfaction score: 100.0
+Passenger 269: INJECTED AT 1389.4s and DELIVERED in 1119.963s
+  Satisfaction score: 100.0
+Passenger 248: INJECTED AT 1258.2s and DELIVERED in 1253.083s
+  Satisfaction score: 100.0
+Passenger 315: INJECTED AT 1591.0s and DELIVERED in 921.494s
+  Satisfaction score: 100.0
+Passenger 22: INJECTED AT 162.4s and DELIVERED in 2351.656s
+  Satisfaction score: 50.0
+    @2470.616000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 140: INJECTED AT 710.7s and DELIVERED in 1804.821s
+  Satisfaction score: 100.0
+Passenger 386: INJECTED AT 1971.1s and DELIVERED in 546.258s
+  Satisfaction score: 100.0
+Passenger 90: INJECTED AT 459.8s and DELIVERED in 2059.598s
+  Satisfaction score: 25.0
+    @2157.198000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+    @2413.578000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 391: INJECTED AT 1993.2s and DELIVERED in 585.469s
+  Satisfaction score: 90.0
+    @2392.060000000: 0.90 Repeated hall call press
+Passenger 390: INJECTED AT 1984.3s and DELIVERED in 617.483s
+  Satisfaction score: 90.0
+    @2392.060000000: 0.90 Repeated hall call press
+Passenger 362: INJECTED AT 1838.5s and DELIVERED in 786.219s
+  Satisfaction score: 90.0
+    @2392.060000000: 0.90 Repeated hall call press
+Passenger 190: INJECTED AT 968.9s and DELIVERED in 1656.465s
   Satisfaction score: 45.0
-    @2718.120000000: 0.90 Repeated hall call press
-    @2823.596000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 237: INJECTED AT 1197.8s and DELIVERED in 1695.293s
+    @2392.060000000: 0.90 Repeated hall call press
+    @2554.885000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 122: INJECTED AT 625.2s and DELIVERED in 2000.663s
+  Satisfaction score: 90.0
+    @2392.060000000: 0.90 Repeated hall call press
+Passenger 180: INJECTED AT 911.8s and DELIVERED in 1715.637s
+  Satisfaction score: 90.0
+    @2392.060000000: 0.90 Repeated hall call press
+Passenger 332: INJECTED AT 1686.9s and DELIVERED in 941.065s
+  Satisfaction score: 90.0
+    @2392.060000000: 0.90 Repeated hall call press
+Passenger 155: INJECTED AT 771.1s and DELIVERED in 1857.545s
   Satisfaction score: 45.0
-    @2718.120000000: 0.90 Repeated hall call press
-    @2822.113000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 182: INJECTED AT 920.7s and DELIVERED in 1973.402s
+    @2392.060000000: 0.90 Repeated hall call press
+    @2551.265000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 304: INJECTED AT 1545.0s and DELIVERED in 1084.911s
+  Satisfaction score: 100.0
+Passenger 365: INJECTED AT 1859.3s and DELIVERED in 772.183s
   Satisfaction score: 90.0
-    @2170.100000000: 0.90 Repeated hall call press
-Passenger 289: INJECTED AT 1471.0s and DELIVERED in 1423.641s
+    @2392.060000000: 0.90 Repeated hall call press
+Passenger 259: INJECTED AT 1328.4s and DELIVERED in 1304.653s
   Satisfaction score: 90.0
-    @2170.100000000: 0.90 Repeated hall call press
-Passenger 232: INJECTED AT 1170.1s and DELIVERED in 1725.692s
+    @2464.320000000: 0.90 Repeated hall call press
+Passenger 265: INJECTED AT 1367.4s and DELIVERED in 1347.022s
   Satisfaction score: 90.0
-    @2718.120000000: 0.90 Repeated hall call press
-Passenger 255: INJECTED AT 1306.4s and DELIVERED in 1654.589s
+    @2410.060000000: 0.90 Repeated hall call press
+Passenger 301: INJECTED AT 1537.9s and DELIVERED in 1198.643s
+  Satisfaction score: 100.0
+Passenger 204: INJECTED AT 1027.9s and DELIVERED in 1708.685s
+  Satisfaction score: 90.0
+    @2410.060000000: 0.90 Repeated hall call press
+Passenger 346: INJECTED AT 1758.3s and DELIVERED in 979.566s
+  Satisfaction score: 90.0
+    @2410.060000000: 0.90 Repeated hall call press
+Passenger 274: INJECTED AT 1411.9s and DELIVERED in 1326.273s
+  Satisfaction score: 90.0
+    @2410.060000000: 0.90 Repeated hall call press
+Passenger 109: INJECTED AT 556.1s and DELIVERED in 2183.062s
+  Satisfaction score: 90.0
+    @2410.060000000: 0.90 Repeated hall call press
+Passenger 356: INJECTED AT 1807.8s and DELIVERED in 931.7s
+  Satisfaction score: 90.0
+    @2410.060000000: 0.90 Repeated hall call press
+Passenger 46: INJECTED AT 266.5s and DELIVERED in 2473.989s
+  Satisfaction score: 45.0
+    @2410.060000000: 0.90 Repeated hall call press
+    @2692.789000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 278: INJECTED AT 1432.3s and DELIVERED in 1309.21s
+  Satisfaction score: 90.0
+    @2392.060000000: 0.90 Repeated hall call press
+Passenger 79: INJECTED AT 406.5s and DELIVERED in 2336.744s
+  Satisfaction score: 22.5
+    @2392.060000000: 0.90 Repeated hall call press
+    @2556.524000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+    @2666.804000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 255: INJECTED AT 1306.4s and DELIVERED in 1497.749s
+  Satisfaction score: 81.0
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+Passenger 359: INJECTED AT 1814.4s and DELIVERED in 1013.059s
+  Satisfaction score: 81.0
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+Passenger 378: INJECTED AT 1924.3s and DELIVERED in 903.38s
+  Satisfaction score: 90.0
+    @2410.060000000: 0.90 Repeated hall call press
+Passenger 279: INJECTED AT 1435.6s and DELIVERED in 1393.745s
+  Satisfaction score: 81.0
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+Passenger 37: INJECTED AT 225.0s and DELIVERED in 2604.408s
   Satisfaction score: 40.5
-    @2554.380000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-    @2931.369000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 258: INJECTED AT 1324.8s and DELIVERED in 1639.072s
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2779.528000000: 0.50 After the car came by 7 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 316: INJECTED AT 1599.1s and DELIVERED in 1232.115s
+  Satisfaction score: 81.0
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+Passenger 99: INJECTED AT 508.3s and DELIVERED in 2323.197s
+  Satisfaction score: 40.5
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2779.917000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 270: INJECTED AT 1393.2s and DELIVERED in 1439.622s
+  Satisfaction score: 81.0
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+Passenger 325: INJECTED AT 1641.6s and DELIVERED in 1191.856s
+  Satisfaction score: 81.0
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+Passenger 311: INJECTED AT 1572.5s and DELIVERED in 1262.05s
+  Satisfaction score: 81.0
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+Passenger 262: INJECTED AT 1342.8s and DELIVERED in 1549.316s
+  Satisfaction score: 81.0
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+Passenger 88: INJECTED AT 456.0s and DELIVERED in 2493.281s
+  Satisfaction score: 40.5
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2887.701000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 239: INJECTED AT 1209.4s and DELIVERED in 1757.793s
+  Satisfaction score: 81.0
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+Passenger 121: INJECTED AT 618.8s and DELIVERED in 2349.018s
+  Satisfaction score: 81.0
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+Passenger 366: INJECTED AT 1868.8s and DELIVERED in 1099.992s
   Satisfaction score: 90.0
-    @2718.120000000: 0.90 Repeated hall call press
-Passenger 343: INJECTED AT 1744.0s and DELIVERED in 1257.65s
-  Satisfaction score: 81.0
-    @2554.380000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-Passenger 384: INJECTED AT 1956.0s and DELIVERED in 1045.811s
-  Satisfaction score: 90.0
-    @2736.100000000: 0.90 Repeated hall call press
-Passenger 58: INJECTED AT 326.0s and DELIVERED in 2677.223s
-  Satisfaction score: 40.5
-    @2554.280000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-    @2931.203000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 147: INJECTED AT 735.5s and DELIVERED in 2267.783s
-  Satisfaction score: 40.5
-    @2554.380000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-    @2940.563000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 347: INJECTED AT 1761.1s and DELIVERED in 1243.704s
-  Satisfaction score: 81.0
-    @2554.380000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-Passenger 332: INJECTED AT 1686.9s and DELIVERED in 1318.465s
-  Satisfaction score: 81.0
-    @2554.380000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-Passenger 325: INJECTED AT 1641.6s and DELIVERED in 1365.136s
-  Satisfaction score: 81.0
-    @2554.280000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-Passenger 316: INJECTED AT 1599.1s and DELIVERED in 1408.095s
-  Satisfaction score: 81.0
-    @2554.380000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-Passenger 155: INJECTED AT 771.1s and DELIVERED in 2236.845s
-  Satisfaction score: 40.5
-    @2554.380000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-    @2935.425000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 92: INJECTED AT 468.7s and DELIVERED in 2593.291s
+    @2428.060000000: 0.90 Repeated hall call press
+Passenger 132: INJECTED AT 673.2s and DELIVERED in 2295.844s
   Satisfaction score: 20.25
-    @2554.380000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-    @2942.431000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-    @3044.011000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 265: INJECTED AT 1367.4s and DELIVERED in 1731.302s
-  Satisfaction score: 81.0
-    @2718.120000000: 0.90 Repeated hall call press
-    @2976.120000000: 0.90 Repeated hall call press
-Passenger 185: INJECTED AT 937.4s and DELIVERED in 2180.208s
-  Satisfaction score: 40.5
-    @2718.120000000: 0.90 Repeated hall call press
-    @2976.120000000: 0.90 Repeated hall call press
-    @3066.828000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 376: INJECTED AT 1916.1s and DELIVERED in 1203.169s
-  Satisfaction score: 81.0
-    @2718.120000000: 0.90 Repeated hall call press
-    @2976.120000000: 0.90 Repeated hall call press
-Passenger 260: INJECTED AT 1330.4s and DELIVERED in 1813.88s
-  Satisfaction score: 81.0
-    @2718.120000000: 0.90 Repeated hall call press
-    @2976.120000000: 0.90 Repeated hall call press
-Passenger 112: INJECTED AT 572.6s and DELIVERED in 2572.446s
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2785.604000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+    @2869.804000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 145: INJECTED AT 725.9s and DELIVERED in 2244.336s
   Satisfaction score: 45.0
-    @2493.460000000: 0.90 Repeated hall call press
-    @3121.186000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 204: INJECTED AT 1027.9s and DELIVERED in 2118.425s
-  Satisfaction score: 81.0
-    @2718.120000000: 0.90 Repeated hall call press
-    @2976.120000000: 0.90 Repeated hall call press
-Passenger 179: INJECTED AT 904.1s and DELIVERED in 2242.785s
-  Satisfaction score: 32.4
-    @2718.120000000: 0.90 Repeated hall call press
-    @2826.665000000: 0.80 Failed to enter car
-    @2976.120000000: 0.90 Repeated hall call press
-    @3072.145000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 355: INJECTED AT 1800.0s and DELIVERED in 1348.377s
+    @2428.060000000: 0.90 Repeated hall call press
+    @2909.176000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 384: INJECTED AT 1956.0s and DELIVERED in 1014.791s
   Satisfaction score: 90.0
-    @2629.340000000: 0.90 Repeated hall call press
-Passenger 385: INJECTED AT 1961.4s and DELIVERED in 1187.105s
+    @2428.060000000: 0.90 Repeated hall call press
+Passenger 123: INJECTED AT 633.1s and DELIVERED in 2338.908s
+  Satisfaction score: 25.0
+    @2471.748000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+    @2950.408000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 285: INJECTED AT 1455.4s and DELIVERED in 1516.66s
   Satisfaction score: 81.0
-    @2718.120000000: 0.90 Repeated hall call press
-    @2976.120000000: 0.90 Repeated hall call press
-Passenger 35: INJECTED AT 210.7s and DELIVERED in 2939.481s
-  Satisfaction score: 40.5
-    @2718.120000000: 0.90 Repeated hall call press
-    @2976.120000000: 0.90 Repeated hall call press
-    @3075.441000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 271: INJECTED AT 1394.7s and DELIVERED in 1755.939s
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+Passenger 158: INJECTED AT 782.9s and DELIVERED in 2190.716s
+  Satisfaction score: 81.0
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+Passenger 350: INJECTED AT 1772.3s and DELIVERED in 1268.177s
+  Satisfaction score: 72.9
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2885.060000000: 0.90 Repeated hall call press
+Passenger 175: INJECTED AT 888.2s and DELIVERED in 2175.71s
+  Satisfaction score: 72.9
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2885.060000000: 0.90 Repeated hall call press
+Passenger 337: INJECTED AT 1717.1s and DELIVERED in 1364.375s
+  Satisfaction score: 72.9
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2885.060000000: 0.90 Repeated hall call press
+Passenger 148: INJECTED AT 741.3s and DELIVERED in 2364.88s
+  Satisfaction score: 36.45
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2885.060000000: 0.90 Repeated hall call press
+    @3012.100000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 15: INJECTED AT 127.1s and DELIVERED in 3001.601s
+  Satisfaction score: 36.45
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3041.981000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 233: INJECTED AT 1173.5s and DELIVERED in 1955.805s
+  Satisfaction score: 72.9
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2885.060000000: 0.90 Repeated hall call press
+Passenger 298: INJECTED AT 1516.3s and DELIVERED in 1614.273s
   Satisfaction score: 90.0
-    @2493.460000000: 0.90 Repeated hall call press
-Passenger 196: INJECTED AT 999.2s and DELIVERED in 2153.17s
-  Satisfaction score: 81.0
-    @2718.120000000: 0.90 Repeated hall call press
-    @2976.120000000: 0.90 Repeated hall call press
-Passenger 39: INJECTED AT 239.2s and DELIVERED in 2958.05s
-  Satisfaction score: 72.9
-    @2554.380000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-    @3058.680000000: 0.90 Repeated hall call press
-Passenger 277: INJECTED AT 1425.2s and DELIVERED in 1797.449s
-  Satisfaction score: 72.9
-    @2554.380000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-    @3058.680000000: 0.90 Repeated hall call press
-Passenger 287: INJECTED AT 1458.6s and DELIVERED in 1781.633s
-  Satisfaction score: 72.9
-    @2554.380000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-    @3058.680000000: 0.90 Repeated hall call press
-Passenger 293: INJECTED AT 1496.6s and DELIVERED in 1761.457s
-  Satisfaction score: 72.9
-    @2554.380000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-    @3058.680000000: 0.90 Repeated hall call press
-Passenger 342: INJECTED AT 1735.2s and DELIVERED in 1547.392s
-  Satisfaction score: 81.0
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-Passenger 302: INJECTED AT 1539.4s and DELIVERED in 1743.501s
+    @2964.500000000: 0.90 Repeated hall call press
+Passenger 302: INJECTED AT 1539.4s and DELIVERED in 1591.641s
   Satisfaction score: 90.0
-    @2736.100000000: 0.90 Repeated hall call press
-Passenger 362: INJECTED AT 1838.5s and DELIVERED in 1445.799s
-  Satisfaction score: 72.9
-    @2554.380000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-    @3058.680000000: 0.90 Repeated hall call press
-Passenger 341: INJECTED AT 1735.1s and DELIVERED in 1549.62s
-  Satisfaction score: 72.9
-    @2554.380000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-    @3058.680000000: 0.90 Repeated hall call press
-Passenger 113: INJECTED AT 580.5s and DELIVERED in 2705.192s
+    @2428.060000000: 0.90 Repeated hall call press
+Passenger 147: INJECTED AT 735.5s and DELIVERED in 2396.563s
   Satisfaction score: 36.45
-    @2554.380000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-    @3058.680000000: 0.90 Repeated hall call press
-    @3200.072000000: 0.50 After the car came by 7 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 346: INJECTED AT 1758.3s and DELIVERED in 1527.766s
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2885.060000000: 0.90 Repeated hall call press
+    @3011.323000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 176: INJECTED AT 890.8s and DELIVERED in 2242.098s
+  Satisfaction score: 36.45
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2885.060000000: 0.90 Repeated hall call press
+    @3013.058000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 268: INJECTED AT 1379.4s and DELIVERED in 1753.942s
+  Satisfaction score: 72.9
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2885.060000000: 0.90 Repeated hall call press
+Passenger 306: INJECTED AT 1546.7s and DELIVERED in 1587.89s
+  Satisfaction score: 72.9
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2885.060000000: 0.90 Repeated hall call press
+Passenger 192: INJECTED AT 973.5s and DELIVERED in 2163.074s
+  Satisfaction score: 45.0
+    @2729.760000000: 0.90 Repeated hall call press
+    @3083.374000000: 0.50 After the car came by 7 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 70: INJECTED AT 375.6s and DELIVERED in 2864.714s
   Satisfaction score: 81.0
-    @2718.120000000: 0.90 Repeated hall call press
-    @2976.120000000: 0.90 Repeated hall call press
-Passenger 190: INJECTED AT 968.9s and DELIVERED in 2319.305s
-  Satisfaction score: 36.45
-    @2554.380000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-    @3058.680000000: 0.90 Repeated hall call press
-    @3187.125000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 308: INJECTED AT 1552.2s and DELIVERED in 1737.381s
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+Passenger 203: INJECTED AT 1020.3s and DELIVERED in 2237.341s
   Satisfaction score: 72.9
-    @2554.380000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-    @3058.680000000: 0.90 Repeated hall call press
-Passenger 212: INJECTED AT 1069.3s and DELIVERED in 2221.755s
-  Satisfaction score: 72.9
-    @2554.380000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-    @3058.680000000: 0.90 Repeated hall call press
-Passenger 153: INJECTED AT 759.1s and DELIVERED in 2629.611s
-  Satisfaction score: 72.9
-    @2718.120000000: 0.90 Repeated hall call press
-    @2976.120000000: 0.90 Repeated hall call press
-    @3237.320000000: 0.90 Repeated hall call press
-Passenger 358: INJECTED AT 1809.4s and DELIVERED in 1579.326s
-  Satisfaction score: 72.9
-    @2554.380000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-    @3058.680000000: 0.90 Repeated hall call press
-Passenger 121: INJECTED AT 618.8s and DELIVERED in 2771.878s
-  Satisfaction score: 36.45
-    @2718.120000000: 0.90 Repeated hall call press
-    @2976.120000000: 0.90 Repeated hall call press
-    @3237.320000000: 0.90 Repeated hall call press
-    @3355.038000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 379: INJECTED AT 1929.9s and DELIVERED in 1460.961s
-  Satisfaction score: 72.9
-    @2718.120000000: 0.90 Repeated hall call press
-    @2976.120000000: 0.90 Repeated hall call press
-    @3237.320000000: 0.90 Repeated hall call press
-Passenger 217: INJECTED AT 1095.5s and DELIVERED in 2297.124s
-  Satisfaction score: 72.9
-    @2718.120000000: 0.90 Repeated hall call press
-    @2976.120000000: 0.90 Repeated hall call press
-    @3237.320000000: 0.90 Repeated hall call press
-Passenger 274: INJECTED AT 1411.9s and DELIVERED in 1982.373s
-  Satisfaction score: 72.9
-    @2718.120000000: 0.90 Repeated hall call press
-    @2976.120000000: 0.90 Repeated hall call press
-    @3237.320000000: 0.90 Repeated hall call press
-Passenger 378: INJECTED AT 1924.3s and DELIVERED in 1472.0s
-  Satisfaction score: 72.9
-    @2718.120000000: 0.90 Repeated hall call press
-    @2976.120000000: 0.90 Repeated hall call press
-    @3237.320000000: 0.90 Repeated hall call press
-Passenger 138: INJECTED AT 703.9s and DELIVERED in 2693.92s
-  Satisfaction score: 36.45
-    @2718.120000000: 0.90 Repeated hall call press
-    @2976.120000000: 0.90 Repeated hall call press
-    @3237.320000000: 0.90 Repeated hall call press
-    @3347.880000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 97: INJECTED AT 496.2s and DELIVERED in 2903.182s
-  Satisfaction score: 36.45
-    @2718.120000000: 0.90 Repeated hall call press
-    @2976.120000000: 0.90 Repeated hall call press
-    @3237.320000000: 0.90 Repeated hall call press
-    @3344.642000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 171: INJECTED AT 869.7s and DELIVERED in 2597.039s
-  Satisfaction score: 32.80500000000001
-    @2554.380000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-    @3058.680000000: 0.90 Repeated hall call press
-    @3340.100000000: 0.90 Repeated hall call press
-    @3433.479000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 70: INJECTED AT 375.6s and DELIVERED in 3121.274s
-  Satisfaction score: 40.5
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3473.594000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 377: INJECTED AT 1918.3s and DELIVERED in 1596.712s
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+Passenger 377: INJECTED AT 1918.3s and DELIVERED in 1356.672s
   Satisfaction score: 81.0
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-Passenger 339: INJECTED AT 1723.9s and DELIVERED in 1792.135s
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+Passenger 370: INJECTED AT 1891.0s and DELIVERED in 1384.582s
+  Satisfaction score: 81.0
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+Passenger 358: INJECTED AT 1809.4s and DELIVERED in 1467.306s
+  Satisfaction score: 72.9
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2885.060000000: 0.90 Repeated hall call press
+Passenger 207: INJECTED AT 1041.9s and DELIVERED in 2235.489s
+  Satisfaction score: 81.0
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+Passenger 87: INJECTED AT 449.0s and DELIVERED in 2830.224s
+  Satisfaction score: 22.5
+    @2964.500000000: 0.90 Repeated hall call press
+    @3109.624000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+    @3259.344000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 162: INJECTED AT 806.5s and DELIVERED in 2474.418s
+  Satisfaction score: 81.0
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+Passenger 369: INJECTED AT 1882.5s and DELIVERED in 1400.144s
+  Satisfaction score: 81.0
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+Passenger 305: INJECTED AT 1545.6s and DELIVERED in 1738.521s
+  Satisfaction score: 90.0
+    @2464.320000000: 0.90 Repeated hall call press
+Passenger 333: INJECTED AT 1689.0s and DELIVERED in 1596.549s
+  Satisfaction score: 81.0
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+Passenger 375: INJECTED AT 1911.3s and DELIVERED in 1440.625s
   Satisfaction score: 65.61000000000001
-    @2554.380000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-    @3058.680000000: 0.90 Repeated hall call press
-    @3340.100000000: 0.90 Repeated hall call press
-Passenger 98: INJECTED AT 499.8s and DELIVERED in 3016.567s
-  Satisfaction score: 40.5
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3471.607000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 243: INJECTED AT 1225.6s and DELIVERED in 2292.453s
-  Satisfaction score: 90.0
-    @2493.460000000: 0.90 Repeated hall call press
-Passenger 273: INJECTED AT 1404.4s and DELIVERED in 2113.783s
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2885.060000000: 0.90 Repeated hall call press
+    @3186.660000000: 0.90 Repeated hall call press
+Passenger 241: INJECTED AT 1219.3s and DELIVERED in 2154.577s
+  Satisfaction score: 65.61000000000001
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+Passenger 136: INJECTED AT 691.2s and DELIVERED in 2703.186s
+  Satisfaction score: 32.80500000000001
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2885.060000000: 0.90 Repeated hall call press
+    @3186.660000000: 0.90 Repeated hall call press
+    @3326.466000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 33: INJECTED AT 203.6s and DELIVERED in 3211.357s
+  Satisfaction score: 20.25
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3219.157000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+    @3375.677000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 341: INJECTED AT 1735.1s and DELIVERED in 1679.9s
+  Satisfaction score: 65.61000000000001
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2885.060000000: 0.90 Repeated hall call press
+    @3186.660000000: 0.90 Repeated hall call press
+Passenger 226: INJECTED AT 1133.8s and DELIVERED in 2282.61s
+  Satisfaction score: 65.61000000000001
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2885.060000000: 0.90 Repeated hall call press
+    @3186.660000000: 0.90 Repeated hall call press
+Passenger 343: INJECTED AT 1744.0s and DELIVERED in 1672.67s
+  Satisfaction score: 65.61000000000001
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2885.060000000: 0.90 Repeated hall call press
+    @3186.660000000: 0.90 Repeated hall call press
+Passenger 157: INJECTED AT 775.6s and DELIVERED in 2642.303s
   Satisfaction score: 81.0
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-Passenger 69: INJECTED AT 372.5s and DELIVERED in 3147.137s
+    @2964.500000000: 0.90 Repeated hall call press
+    @3272.460000000: 0.90 Repeated hall call press
+Passenger 309: INJECTED AT 1557.7s and DELIVERED in 1860.539s
+  Satisfaction score: 65.61000000000001
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2885.060000000: 0.90 Repeated hall call press
+    @3186.660000000: 0.90 Repeated hall call press
+Passenger 131: INJECTED AT 664.0s and DELIVERED in 2755.491s
+  Satisfaction score: 65.61000000000001
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2885.060000000: 0.90 Repeated hall call press
+    @3186.660000000: 0.90 Repeated hall call press
+Passenger 168: INJECTED AT 847.6s and DELIVERED in 2573.864s
+  Satisfaction score: 65.61000000000001
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2885.060000000: 0.90 Repeated hall call press
+    @3186.660000000: 0.90 Repeated hall call press
+Passenger 318: INJECTED AT 1607.8s and DELIVERED in 1815.328s
+  Satisfaction score: 65.61000000000001
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2885.060000000: 0.90 Repeated hall call press
+    @3186.660000000: 0.90 Repeated hall call press
+Passenger 163: INJECTED AT 810.7s and DELIVERED in 2713.267s
+  Satisfaction score: 36.45
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+    @3503.047000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 351: INJECTED AT 1772.9s and DELIVERED in 1770.925s
+  Satisfaction score: 52.48800000000001
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2885.060000000: 0.90 Repeated hall call press
+    @3014.685000000: 0.80 Failed to enter car
+    @3186.660000000: 0.90 Repeated hall call press
+Passenger 11: INJECTED AT 117.0s and DELIVERED in 3444.682s
+  Satisfaction score: 36.45
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+    @3493.522000000: 0.50 After the car came by 7 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 74: INJECTED AT 382.9s and DELIVERED in 3179.426s
+  Satisfaction score: 20.25
+    @2964.500000000: 0.90 Repeated hall call press
+    @3272.460000000: 0.90 Repeated hall call press
+    @3397.366000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+    @3545.766000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 154: INJECTED AT 765.5s and DELIVERED in 2797.591s
+  Satisfaction score: 65.61000000000001
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+Passenger 280: INJECTED AT 1441.3s and DELIVERED in 2122.564s
+  Satisfaction score: 72.9
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+Passenger 251: INJECTED AT 1276.4s and DELIVERED in 2288.377s
+  Satisfaction score: 90.0
+    @2729.760000000: 0.90 Repeated hall call press
+Passenger 8: INJECTED AT 102.8s and DELIVERED in 3463.117s
+  Satisfaction score: 36.45
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+    @3500.157000000: 0.50 After the car came by 7 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 238: INJECTED AT 1205.4s and DELIVERED in 2361.267s
+  Satisfaction score: 36.45
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+    @3496.707000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 187: INJECTED AT 955.5s and DELIVERED in 2612.007s
+  Satisfaction score: 36.45
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+    @3501.647000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 253: INJECTED AT 1293.1s and DELIVERED in 2275.861s
+  Satisfaction score: 72.9
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+Passenger 159: INJECTED AT 789.9s and DELIVERED in 2838.808s
+  Satisfaction score: 59.049000000000014
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+    @3490.780000000: 0.90 Repeated hall call press
+Passenger 258: INJECTED AT 1324.8s and DELIVERED in 2305.412s
+  Satisfaction score: 59.049000000000014
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+    @3490.780000000: 0.90 Repeated hall call press
+Passenger 293: INJECTED AT 1496.6s and DELIVERED in 2162.497s
+  Satisfaction score: 59.049000000000014
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2885.060000000: 0.90 Repeated hall call press
+    @3186.660000000: 0.90 Repeated hall call press
+    @3472.660000000: 0.90 Repeated hall call press
+Passenger 185: INJECTED AT 937.4s and DELIVERED in 2745.408s
+  Satisfaction score: 59.049000000000014
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+    @3490.780000000: 0.90 Repeated hall call press
+Passenger 368: INJECTED AT 1879.3s and DELIVERED in 1827.086s
+  Satisfaction score: 59.049000000000014
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+    @3490.780000000: 0.90 Repeated hall call press
+Passenger 196: INJECTED AT 999.2s and DELIVERED in 2730.25s
+  Satisfaction score: 59.049000000000014
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+    @3490.780000000: 0.90 Repeated hall call press
+Passenger 240: INJECTED AT 1216.3s and DELIVERED in 2513.324s
+  Satisfaction score: 40.5
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3684.284000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 127: INJECTED AT 649.1s and DELIVERED in 3082.433s
+  Satisfaction score: 36.45
+    @2964.500000000: 0.90 Repeated hall call press
+    @3272.460000000: 0.90 Repeated hall call press
+    @3558.700000000: 0.90 Repeated hall call press
+    @3708.373000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 329: INJECTED AT 1661.2s and DELIVERED in 2070.624s
+  Satisfaction score: 40.5
+    @2729.760000000: 0.90 Repeated hall call press
+    @3539.120000000: 0.90 Repeated hall call press
+    @3661.064000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 347: INJECTED AT 1761.1s and DELIVERED in 1971.964s
+  Satisfaction score: 59.049000000000014
+    @2392.060000000: 0.90 Repeated hall call press
+    @2681.720000000: 0.90 Repeated hall call press
+    @2885.060000000: 0.90 Repeated hall call press
+    @3186.660000000: 0.90 Repeated hall call press
+    @3472.660000000: 0.90 Repeated hall call press
+Passenger 217: INJECTED AT 1095.5s and DELIVERED in 2638.244s
+  Satisfaction score: 59.049000000000014
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+    @3490.780000000: 0.90 Repeated hall call press
+Passenger 75: INJECTED AT 388.3s and DELIVERED in 3346.415s
+  Satisfaction score: 29.524500000000007
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+    @3490.780000000: 0.90 Repeated hall call press
+    @3635.395000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 69: INJECTED AT 372.5s and DELIVERED in 3362.837s
+  Satisfaction score: 29.524500000000007
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+    @3490.780000000: 0.90 Repeated hall call press
+    @3624.917000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 138: INJECTED AT 703.9s and DELIVERED in 3032.94s
+  Satisfaction score: 59.049000000000014
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+    @3490.780000000: 0.90 Repeated hall call press
+Passenger 51: INJECTED AT 295.2s and DELIVERED in 3564.842s
+  Satisfaction score: 14.762250000000003
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+    @3490.780000000: 0.90 Repeated hall call press
+    @3638.342000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+    @3769.822000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 303: INJECTED AT 1539.7s and DELIVERED in 2320.551s
+  Satisfaction score: 81.0
+    @2729.760000000: 0.90 Repeated hall call press
+    @3539.120000000: 0.90 Repeated hall call press
+Passenger 134: INJECTED AT 685.4s and DELIVERED in 3176.033s
   Satisfaction score: 18.225
-    @2718.120000000: 0.90 Repeated hall call press
-    @2976.120000000: 0.90 Repeated hall call press
-    @3237.320000000: 0.90 Repeated hall call press
-    @3356.577000000: 0.50 After the car came by 7 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-    @3448.677000000: 0.50 After the car came by 7 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 162: INJECTED AT 806.5s and DELIVERED in 2713.398s
+    @2964.500000000: 0.90 Repeated hall call press
+    @3272.460000000: 0.90 Repeated hall call press
+    @3558.700000000: 0.90 Repeated hall call press
+    @3709.693000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+    @3841.833000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 273: INJECTED AT 1404.4s and DELIVERED in 2457.923s
+  Satisfaction score: 72.9
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+Passenger 357: INJECTED AT 1808.9s and DELIVERED in 2055.221s
   Satisfaction score: 81.0
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-Passenger 364: INJECTED AT 1852.6s and DELIVERED in 1668.528s
-  Satisfaction score: 65.61000000000001
-    @2554.380000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-    @3058.680000000: 0.90 Repeated hall call press
-    @3340.100000000: 0.90 Repeated hall call press
-Passenger 270: INJECTED AT 1393.2s and DELIVERED in 2128.062s
-  Satisfaction score: 65.61000000000001
-    @2554.380000000: 0.90 Repeated hall call press
-    @2819.320000000: 0.90 Repeated hall call press
-    @3058.680000000: 0.90 Repeated hall call press
-    @3340.100000000: 0.90 Repeated hall call press
-Passenger 247: INJECTED AT 1254.8s and DELIVERED in 2368.809s
-  Satisfaction score: 81.0
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-Passenger 291: INJECTED AT 1482.5s and DELIVERED in 2141.584s
-  Satisfaction score: 81.0
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-Passenger 254: INJECTED AT 1296.7s and DELIVERED in 2328.446s
-  Satisfaction score: 81.0
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-Passenger 374: INJECTED AT 1903.7s and DELIVERED in 1722.244s
-  Satisfaction score: 81.0
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-Passenger 357: INJECTED AT 1808.9s and DELIVERED in 1818.041s
-  Satisfaction score: 81.0
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-Passenger 250: INJECTED AT 1271.9s and DELIVERED in 2356.398s
-  Satisfaction score: 81.0
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-Passenger 267: INJECTED AT 1376.8s and DELIVERED in 2252.927s
-  Satisfaction score: 81.0
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-Passenger 348: INJECTED AT 1763.6s and DELIVERED in 1868.039s
-  Satisfaction score: 81.0
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-Passenger 253: INJECTED AT 1293.1s and DELIVERED in 2339.294s
-  Satisfaction score: 64.8
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3627.441000000: 0.80 Failed to exit car at 1,BACK
-Passenger 163: INJECTED AT 810.7s and DELIVERED in 2886.307s
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+Passenger 376: INJECTED AT 1916.1s and DELIVERED in 2007.469s
+  Satisfaction score: 53.144100000000016
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+    @3490.780000000: 0.90 Repeated hall call press
+    @3784.940000000: 0.90 Repeated hall call press
+Passenger 260: INJECTED AT 1330.4s and DELIVERED in 2616.12s
+  Satisfaction score: 53.144100000000016
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+    @3490.780000000: 0.90 Repeated hall call press
+    @3784.940000000: 0.90 Repeated hall call press
+Passenger 379: INJECTED AT 1929.9s and DELIVERED in 2017.101s
+  Satisfaction score: 53.144100000000016
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+    @3490.780000000: 0.90 Repeated hall call press
+    @3784.940000000: 0.90 Repeated hall call press
+Passenger 59: INJECTED AT 328.5s and DELIVERED in 3619.29s
   Satisfaction score: 36.45
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3570.660000000: 0.90 Repeated hall call press
-    @3671.807000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 198: INJECTED AT 1006.6s and DELIVERED in 2711.637s
-  Satisfaction score: 72.9
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3570.660000000: 0.90 Repeated hall call press
-Passenger 372: INJECTED AT 1891.1s and DELIVERED in 1847.252s
-  Satisfaction score: 81.0
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-Passenger 366: INJECTED AT 1868.8s and DELIVERED in 1869.732s
-  Satisfaction score: 72.9
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3570.660000000: 0.90 Repeated hall call press
-Passenger 11: INJECTED AT 117.0s and DELIVERED in 3622.822s
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @3924.790000000: 0.50 After the car came by 7 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 153: INJECTED AT 759.1s and DELIVERED in 3189.351s
+  Satisfaction score: 26.572050000000008
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+    @3490.780000000: 0.90 Repeated hall call press
+    @3784.940000000: 0.90 Repeated hall call press
+    @3879.691000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 40: INJECTED AT 244.7s and DELIVERED in 3705.008s
+  Satisfaction score: 26.572050000000008
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+    @3490.780000000: 0.90 Repeated hall call press
+    @3784.940000000: 0.90 Repeated hall call press
+    @3880.848000000: 0.50 After the car came by 8 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 361: INJECTED AT 1831.6s and DELIVERED in 2119.524s
+  Satisfaction score: 53.144100000000016
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+    @3490.780000000: 0.90 Repeated hall call press
+    @3784.940000000: 0.90 Repeated hall call press
+Passenger 385: INJECTED AT 1961.4s and DELIVERED in 1991.545s
+  Satisfaction score: 53.144100000000016
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+    @3490.780000000: 0.90 Repeated hall call press
+    @3784.940000000: 0.90 Repeated hall call press
+Passenger 114: INJECTED AT 588.3s and DELIVERED in 3366.26s
+  Satisfaction score: 26.572050000000008
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+    @3490.780000000: 0.90 Repeated hall call press
+    @3784.940000000: 0.90 Repeated hall call press
+    @3885.900000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 28: INJECTED AT 183.5s and DELIVERED in 3773.151s
+  Satisfaction score: 26.572050000000008
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+    @3490.780000000: 0.90 Repeated hall call press
+    @3784.940000000: 0.90 Repeated hall call press
+    @3884.391000000: 0.50 After the car came by 7 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 353: INJECTED AT 1786.4s and DELIVERED in 2224.562s
+  Satisfaction score: 65.61000000000001
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+    @3802.920000000: 0.90 Repeated hall call press
+Passenger 380: INJECTED AT 1936.2s and DELIVERED in 2107.743s
+  Satisfaction score: 65.61000000000001
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+    @3802.920000000: 0.90 Repeated hall call press
+Passenger 232: INJECTED AT 1170.1s and DELIVERED in 2895.872s
+  Satisfaction score: 53.144100000000016
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+    @3490.780000000: 0.90 Repeated hall call press
+    @3784.940000000: 0.90 Repeated hall call press
+Passenger 103: INJECTED AT 526.799999999s and DELIVERED in 3539.187000001s
+  Satisfaction score: 32.80500000000001
+    @2964.500000000: 0.90 Repeated hall call press
+    @3272.460000000: 0.90 Repeated hall call press
+    @3558.700000000: 0.90 Repeated hall call press
+    @3856.960000000: 0.90 Repeated hall call press
+    @4045.347000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 10: INJECTED AT 115.1s and DELIVERED in 3952.676s
+  Satisfaction score: 32.80500000000001
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+    @3802.920000000: 0.90 Repeated hall call press
+    @4010.776000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 300: INJECTED AT 1532.9s and DELIVERED in 2534.967s
+  Satisfaction score: 65.61000000000001
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+    @3802.920000000: 0.90 Repeated hall call press
+Passenger 63: INJECTED AT 348.6s and DELIVERED in 3720.902s
+  Satisfaction score: 32.80500000000001
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+    @3802.920000000: 0.90 Repeated hall call press
+    @4006.602000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 50: INJECTED AT 286.3s and DELIVERED in 3783.378s
+  Satisfaction score: 32.80500000000001
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+    @3802.920000000: 0.90 Repeated hall call press
+    @4014.678000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 108: INJECTED AT 552.0s and DELIVERED in 3519.769s
+  Satisfaction score: 32.80500000000001
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+    @3802.920000000: 0.90 Repeated hall call press
+    @4016.669000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 321: INJECTED AT 1621.1s and DELIVERED in 2452.251s
+  Satisfaction score: 65.61000000000001
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+    @3802.920000000: 0.90 Repeated hall call press
+Passenger 363: INJECTED AT 1843.8s and DELIVERED in 2231.679s
+  Satisfaction score: 65.61000000000001
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+    @3802.920000000: 0.90 Repeated hall call press
+Passenger 184: INJECTED AT 930.1s and DELIVERED in 3217.785s
+  Satisfaction score: 23.914845000000007
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+    @3490.780000000: 0.90 Repeated hall call press
+    @3784.940000000: 0.90 Repeated hall call press
+    @4003.320000000: 0.90 Repeated hall call press
+    @4112.205000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 317: INJECTED AT 1601.0s and DELIVERED in 2548.293s
+  Satisfaction score: 23.914845000000007
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+    @3490.780000000: 0.90 Repeated hall call press
+    @3784.940000000: 0.90 Repeated hall call press
+    @4003.320000000: 0.90 Repeated hall call press
+    @4110.213000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 312: INJECTED AT 1575.1s and DELIVERED in 2623.835s
   Satisfaction score: 36.45
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3570.660000000: 0.90 Repeated hall call press
-    @3666.882000000: 0.50 After the car came by 7 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 313: INJECTED AT 1581.9s and DELIVERED in 2158.291s
-  Satisfaction score: 72.9
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-Passenger 369: INJECTED AT 1882.5s and DELIVERED in 1859.104s
-  Satisfaction score: 72.9
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3570.660000000: 0.90 Repeated hall call press
-Passenger 8: INJECTED AT 102.8s and DELIVERED in 3639.417s
+    @2729.760000000: 0.90 Repeated hall call press
+    @3539.120000000: 0.90 Repeated hall call press
+    @3820.940000000: 0.90 Repeated hall call press
+    @4173.175000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 227: INJECTED AT 1141.4s and DELIVERED in 3058.34s
+  Satisfaction score: 47.829690000000014
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+    @3490.780000000: 0.90 Repeated hall call press
+    @3784.940000000: 0.90 Repeated hall call press
+    @4003.320000000: 0.90 Repeated hall call press
+Passenger 230: INJECTED AT 1160.8s and DELIVERED in 3039.943s
   Satisfaction score: 36.45
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3570.660000000: 0.90 Repeated hall call press
-    @3670.517000000: 0.50 After the car came by 7 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 90: INJECTED AT 459.8s and DELIVERED in 3283.918s
+    @2729.760000000: 0.90 Repeated hall call press
+    @3539.120000000: 0.90 Repeated hall call press
+    @3820.940000000: 0.90 Repeated hall call press
+    @4167.683000000: 0.50 After the car came by 7 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 188: INJECTED AT 962.1s and DELIVERED in 3239.574s
+  Satisfaction score: 16.402500000000003
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+    @3802.920000000: 0.90 Repeated hall call press
+    @4021.474000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+    @4151.094000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 342: INJECTED AT 1735.2s and DELIVERED in 2466.832s
   Satisfaction score: 36.45
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3570.660000000: 0.90 Repeated hall call press
-    @3665.678000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 63: INJECTED AT 348.6s and DELIVERED in 3395.382s
+    @2729.760000000: 0.90 Repeated hall call press
+    @3539.120000000: 0.90 Repeated hall call press
+    @3820.940000000: 0.90 Repeated hall call press
+    @4174.272000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 237: INJECTED AT 1197.8s and DELIVERED in 3005.113s
+  Satisfaction score: 23.914845000000007
+    @2410.060000000: 0.90 Repeated hall call press
+    @2819.080000000: 0.90 Repeated hall call press
+    @2903.120000000: 0.90 Repeated hall call press
+    @3204.680000000: 0.90 Repeated hall call press
+    @3490.780000000: 0.90 Repeated hall call press
+    @3784.940000000: 0.90 Repeated hall call press
+    @4003.320000000: 0.90 Repeated hall call press
+    @4107.153000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 313: INJECTED AT 1581.9s and DELIVERED in 2621.971s
   Satisfaction score: 36.45
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3570.660000000: 0.90 Repeated hall call press
-    @3668.582000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 336: INJECTED AT 1708.0s and DELIVERED in 2037.873s
-  Satisfaction score: 72.9
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3570.660000000: 0.90 Repeated hall call press
-Passenger 199: INJECTED AT 1008.0s and DELIVERED in 2842.683s
-  Satisfaction score: 72.9
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-    @3733.700000000: 0.90 Repeated hall call press
-Passenger 82: INJECTED AT 419.7s and DELIVERED in 3431.567s
+    @2729.760000000: 0.90 Repeated hall call press
+    @3539.120000000: 0.90 Repeated hall call press
+    @3820.940000000: 0.90 Repeated hall call press
+    @4176.011000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 222: INJECTED AT 1108.4s and DELIVERED in 3095.913s
   Satisfaction score: 36.45
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-    @3733.700000000: 0.90 Repeated hall call press
-    @3815.167000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 234: INJECTED AT 1183.3s and DELIVERED in 2669.065s
-  Satisfaction score: 72.9
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-    @3733.700000000: 0.90 Repeated hall call press
-Passenger 235: INJECTED AT 1188.6s and DELIVERED in 2664.958s
-  Satisfaction score: 72.9
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-Passenger 178: INJECTED AT 902.3s and DELIVERED in 2952.693s
+    @2729.760000000: 0.90 Repeated hall call press
+    @3539.120000000: 0.90 Repeated hall call press
+    @3820.940000000: 0.90 Repeated hall call press
+    @4165.913000000: 0.50 After the car came by 7 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 263: INJECTED AT 1352.6s and DELIVERED in 2852.955s
   Satisfaction score: 36.45
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-    @3733.700000000: 0.90 Repeated hall call press
-    @3817.793000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 160: INJECTED AT 798.6s and DELIVERED in 3058.44s
-  Satisfaction score: 90.0
-    @2170.100000000: 0.90 Repeated hall call press
-Passenger 300: INJECTED AT 1532.9s and DELIVERED in 2325.787s
-  Satisfaction score: 72.9
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3570.660000000: 0.90 Repeated hall call press
-Passenger 380: INJECTED AT 1936.2s and DELIVERED in 1991.943s
-  Satisfaction score: 65.61000000000001
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3570.660000000: 0.90 Repeated hall call press
-    @3794.080000000: 0.90 Repeated hall call press
-Passenger 126: INJECTED AT 645.7s and DELIVERED in 3284.041s
-  Satisfaction score: 32.80500000000001
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3570.660000000: 0.90 Repeated hall call press
-    @3794.080000000: 0.90 Repeated hall call press
-    @3895.801000000: 0.50 After the car came by 7 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 320: INJECTED AT 1619.0s and DELIVERED in 2349.134s
-  Satisfaction score: 65.61000000000001
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3570.660000000: 0.90 Repeated hall call press
-    @3794.080000000: 0.90 Repeated hall call press
-Passenger 140: INJECTED AT 710.7s and DELIVERED in 3257.721s
-  Satisfaction score: 81.0
-    @2170.100000000: 0.90 Repeated hall call press
-    @3847.860000000: 0.90 Repeated hall call press
-Passenger 370: INJECTED AT 1891.0s and DELIVERED in 2079.022s
-  Satisfaction score: 65.61000000000001
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3570.660000000: 0.90 Repeated hall call press
-    @3794.080000000: 0.90 Repeated hall call press
-Passenger 219: INJECTED AT 1103.1s and DELIVERED in 2867.031s
-  Satisfaction score: 65.61000000000001
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3570.660000000: 0.90 Repeated hall call press
-    @3794.080000000: 0.90 Repeated hall call press
-Passenger 296: INJECTED AT 1506.6s and DELIVERED in 2465.198s
-  Satisfaction score: 81.0
-    @2170.100000000: 0.90 Repeated hall call press
-    @3847.860000000: 0.90 Repeated hall call press
-Passenger 188: INJECTED AT 962.1s and DELIVERED in 3009.874s
-  Satisfaction score: 32.80500000000001
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3570.660000000: 0.90 Repeated hall call press
-    @3794.080000000: 0.90 Repeated hall call press
-    @3892.594000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 145: INJECTED AT 725.9s and DELIVERED in 3247.456s
-  Satisfaction score: 32.80500000000001
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3570.660000000: 0.90 Repeated hall call press
-    @3794.080000000: 0.90 Repeated hall call press
-    @3900.976000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 333: INJECTED AT 1689.0s and DELIVERED in 2285.789s
-  Satisfaction score: 65.61000000000001
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3570.660000000: 0.90 Repeated hall call press
-    @3794.080000000: 0.90 Repeated hall call press
-Passenger 319: INJECTED AT 1610.8s and DELIVERED in 2366.029s
-  Satisfaction score: 65.61000000000001
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3570.660000000: 0.90 Repeated hall call press
-    @3794.080000000: 0.90 Repeated hall call press
-Passenger 19: INJECTED AT 145.3s and DELIVERED in 3913.965s
-  Satisfaction score: 32.80500000000001
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-    @4029.525000000: 0.50 After the car came by 7 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 236: INJECTED AT 1196.3s and DELIVERED in 2886.826s
-  Satisfaction score: 32.80500000000001
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-    @4031.006000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 303: INJECTED AT 1539.7s and DELIVERED in 2543.671s
-  Satisfaction score: 65.61000000000001
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-Passenger 312: INJECTED AT 1575.1s and DELIVERED in 2509.235s
-  Satisfaction score: 65.61000000000001
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-Passenger 286: INJECTED AT 1457.8s and DELIVERED in 2626.764s
-  Satisfaction score: 65.61000000000001
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-Passenger 52: INJECTED AT 302.0s and DELIVERED in 3783.537s
-  Satisfaction score: 32.80500000000001
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-    @4033.217000000: 0.50 After the car came by 8 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 117: INJECTED AT 595.9s and DELIVERED in 3490.685s
-  Satisfaction score: 32.80500000000001
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-    @4027.525000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 197: INJECTED AT 1002.2s and DELIVERED in 3089.167s
-  Satisfaction score: 32.80500000000001
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-    @4034.747000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 208: INJECTED AT 1043.7s and DELIVERED in 3049.526s
-  Satisfaction score: 65.61000000000001
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-    @3733.700000000: 0.90 Repeated hall call press
-    @3829.900000000: 0.90 Repeated hall call press
-Passenger 33: INJECTED AT 203.6s and DELIVERED in 3891.471s
-  Satisfaction score: 13.122000000000003
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3570.660000000: 0.90 Repeated hall call press
-    @3794.080000000: 0.90 Repeated hall call press
-    @3906.317000000: 0.50 After the car came by 7 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-    @4008.937000000: 0.50 After the car came by 7 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-    @4087.357000000: 0.80 Failed to exit car at 1,BACK
-Passenger 305: INJECTED AT 1545.6s and DELIVERED in 2672.241s
-  Satisfaction score: 65.61000000000001
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-    @3733.700000000: 0.90 Repeated hall call press
-    @3829.900000000: 0.90 Repeated hall call press
-Passenger 213: INJECTED AT 1076.0s and DELIVERED in 3141.869s
+    @2729.760000000: 0.90 Repeated hall call press
+    @3539.120000000: 0.90 Repeated hall call press
+    @3820.940000000: 0.90 Repeated hall call press
+    @4164.655000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 198: INJECTED AT 1006.6s and DELIVERED in 3291.037s
+  Satisfaction score: 59.049000000000014
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+    @3802.920000000: 0.90 Repeated hall call press
+    @4162.100000000: 0.90 Repeated hall call press
+Passenger 126: INJECTED AT 645.7s and DELIVERED in 3670.441s
   Satisfaction score: 29.524500000000007
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3570.660000000: 0.90 Repeated hall call press
-    @3794.080000000: 0.90 Repeated hall call press
-    @4023.720000000: 0.90 Repeated hall call press
-    @4128.369000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 157: INJECTED AT 775.6s and DELIVERED in 3443.423s
-  Satisfaction score: 81.0
-    @2170.100000000: 0.90 Repeated hall call press
-    @3847.860000000: 0.90 Repeated hall call press
-Passenger 280: INJECTED AT 1441.3s and DELIVERED in 2778.164s
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+    @3802.920000000: 0.90 Repeated hall call press
+    @4162.100000000: 0.90 Repeated hall call press
+    @4246.541000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 283: INJECTED AT 1446.6s and DELIVERED in 2887.002s
+  Satisfaction score: 18.225
+    @2729.760000000: 0.90 Repeated hall call press
+    @3539.120000000: 0.90 Repeated hall call press
+    @3820.940000000: 0.90 Repeated hall call press
+    @4177.082000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+    @4279.582000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 80: INJECTED AT 408.2s and DELIVERED in 3926.094s
+  Satisfaction score: 29.524500000000007
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+    @3802.920000000: 0.90 Repeated hall call press
+    @4162.100000000: 0.90 Repeated hall call press
+    @4244.134000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 219: INJECTED AT 1103.1s and DELIVERED in 3232.591s
   Satisfaction score: 59.049000000000014
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3570.660000000: 0.90 Repeated hall call press
-    @3794.080000000: 0.90 Repeated hall call press
-    @4023.720000000: 0.90 Repeated hall call press
-Passenger 192: INJECTED AT 973.5s and DELIVERED in 3247.534s
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+    @3802.920000000: 0.90 Repeated hall call press
+    @4162.100000000: 0.90 Repeated hall call press
+Passenger 234: INJECTED AT 1183.3s and DELIVERED in 3152.665s
+  Satisfaction score: 72.9
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+Passenger 229: INJECTED AT 1156.1s and DELIVERED in 3181.436s
   Satisfaction score: 65.61000000000001
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-Passenger 321: INJECTED AT 1621.1s and DELIVERED in 2601.531s
+    @2964.500000000: 0.90 Repeated hall call press
+    @3272.460000000: 0.90 Repeated hall call press
+    @3558.700000000: 0.90 Repeated hall call press
+    @3856.960000000: 0.90 Repeated hall call press
+Passenger 336: INJECTED AT 1708.0s and DELIVERED in 2630.073s
   Satisfaction score: 59.049000000000014
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3570.660000000: 0.90 Repeated hall call press
-    @3794.080000000: 0.90 Repeated hall call press
-    @4023.720000000: 0.90 Repeated hall call press
-Passenger 363: INJECTED AT 1843.8s and DELIVERED in 2380.959s
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+    @3802.920000000: 0.90 Repeated hall call press
+    @4162.100000000: 0.90 Repeated hall call press
+Passenger 225: INJECTED AT 1127.9s and DELIVERED in 3211.675s
   Satisfaction score: 59.049000000000014
-    @2736.100000000: 0.90 Repeated hall call press
-    @3255.280000000: 0.90 Repeated hall call press
-    @3570.660000000: 0.90 Repeated hall call press
-    @3794.080000000: 0.90 Repeated hall call press
-    @4023.720000000: 0.90 Repeated hall call press
-Passenger 189: INJECTED AT 966.8s and DELIVERED in 3337.256s
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+    @3802.920000000: 0.90 Repeated hall call press
+    @4162.100000000: 0.90 Repeated hall call press
+Passenger 320: INJECTED AT 1619.0s and DELIVERED in 2721.994s
+  Satisfaction score: 59.049000000000014
+    @2428.060000000: 0.90 Repeated hall call press
+    @3078.100000000: 0.90 Repeated hall call press
+    @3388.560000000: 0.90 Repeated hall call press
+    @3802.920000000: 0.90 Repeated hall call press
+    @4162.100000000: 0.90 Repeated hall call press
+Passenger 286: INJECTED AT 1457.8s and DELIVERED in 2959.404s
+  Satisfaction score: 32.80500000000001
+    @2729.760000000: 0.90 Repeated hall call press
+    @3539.120000000: 0.90 Repeated hall call press
+    @3820.940000000: 0.90 Repeated hall call press
+    @4295.080000000: 0.90 Repeated hall call press
+    @4383.304000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 156: INJECTED AT 771.5s and DELIVERED in 3646.601s
   Satisfaction score: 29.524500000000007
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-    @4178.060000000: 0.90 Repeated hall call press
-    @4257.556000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 388: INJECTED AT 1977.3s and DELIVERED in 2327.295s
-  Satisfaction score: 59.049000000000014
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-    @3733.700000000: 0.90 Repeated hall call press
-    @3829.900000000: 0.90 Repeated hall call press
-    @4196.520000000: 0.90 Repeated hall call press
-Passenger 283: INJECTED AT 1446.6s and DELIVERED in 2858.602s
-  Satisfaction score: 59.049000000000014
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-    @4178.060000000: 0.90 Repeated hall call press
-Passenger 252: INJECTED AT 1284.9s and DELIVERED in 3021.336s
-  Satisfaction score: 59.049000000000014
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-    @3733.700000000: 0.90 Repeated hall call press
-    @3829.900000000: 0.90 Repeated hall call press
-    @4196.520000000: 0.90 Repeated hall call press
-Passenger 215: INJECTED AT 1086.3s and DELIVERED in 3220.603s
-  Satisfaction score: 29.524500000000007
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-    @3733.700000000: 0.90 Repeated hall call press
-    @3829.900000000: 0.90 Repeated hall call press
-    @4196.520000000: 0.90 Repeated hall call press
-    @4278.823000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 315: INJECTED AT 1591.0s and DELIVERED in 2716.354s
-  Satisfaction score: 59.049000000000014
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-    @4178.060000000: 0.90 Repeated hall call press
-Passenger 261: INJECTED AT 1339.8s and DELIVERED in 2969.154s
-  Satisfaction score: 59.049000000000014
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-    @3733.700000000: 0.90 Repeated hall call press
-    @3829.900000000: 0.90 Repeated hall call press
-    @4196.520000000: 0.90 Repeated hall call press
-Passenger 307: INJECTED AT 1550.5s and DELIVERED in 2760.056s
-  Satisfaction score: 59.049000000000014
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-    @3733.700000000: 0.90 Repeated hall call press
-    @3829.900000000: 0.90 Repeated hall call press
-    @4196.520000000: 0.90 Repeated hall call press
-Passenger 288: INJECTED AT 1462.0s and DELIVERED in 2881.722s
+    @2446.140000000: 0.90 Repeated hall call press
+    @2729.760000000: 0.90 Repeated hall call press
+    @3539.120000000: 0.90 Repeated hall call press
+    @3820.940000000: 0.90 Repeated hall call press
+    @4295.080000000: 0.90 Repeated hall call press
+    @4385.301000000: 0.50 After the car came by 8 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 235: INJECTED AT 1188.6s and DELIVERED in 3229.778s
+  Satisfaction score: 32.80500000000001
+    @2729.760000000: 0.90 Repeated hall call press
+    @3539.120000000: 0.90 Repeated hall call press
+    @3820.940000000: 0.90 Repeated hall call press
+    @4295.080000000: 0.90 Repeated hall call press
+    @4387.978000000: 0.50 After the car came by 7 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 197: INJECTED AT 1002.2s and DELIVERED in 3417.547s
+  Satisfaction score: 32.80500000000001
+    @2729.760000000: 0.90 Repeated hall call press
+    @3539.120000000: 0.90 Repeated hall call press
+    @3820.940000000: 0.90 Repeated hall call press
+    @4295.080000000: 0.90 Repeated hall call press
+    @4386.847000000: 0.50 After the car came by 8 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 282: INJECTED AT 1445.4s and DELIVERED in 2974.482s
+  Satisfaction score: 32.80500000000001
+    @2729.760000000: 0.90 Repeated hall call press
+    @3539.120000000: 0.90 Repeated hall call press
+    @3820.940000000: 0.90 Repeated hall call press
+    @4295.080000000: 0.90 Repeated hall call press
+    @4377.482000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 236: INJECTED AT 1196.3s and DELIVERED in 3225.006s
+  Satisfaction score: 32.80500000000001
+    @2729.760000000: 0.90 Repeated hall call press
+    @3539.120000000: 0.90 Repeated hall call press
+    @3820.940000000: 0.90 Repeated hall call press
+    @4295.080000000: 0.90 Repeated hall call press
+    @4376.106000000: 0.50 After the car came by 7 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 149: INJECTED AT 743.0s and DELIVERED in 3678.448s
   Satisfaction score: 23.619600000000005
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-    @4178.060000000: 0.90 Repeated hall call press
-    @4262.244000000: 0.80 Failed to exit car at 4,FRONT
-    @4330.440000000: 0.50 Expected to move DOWN but moved UP
-Passenger 177: INJECTED AT 897.3s and DELIVERED in 3481.505s
-  Satisfaction score: 26.572050000000008
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-    @4178.060000000: 0.90 Repeated hall call press
-    @4272.500000000: 0.90 Repeated hall call press
-    @4357.985000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 84: INJECTED AT 427.2s and DELIVERED in 3953.588s
-  Satisfaction score: 26.572050000000008
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-    @4178.060000000: 0.90 Repeated hall call press
-    @4272.500000000: 0.90 Repeated hall call press
-    @4348.568000000: 0.50 After the car came by 7 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 304: INJECTED AT 1545.0s and DELIVERED in 2870.231s
-  Satisfaction score: 53.144100000000016
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-    @4178.060000000: 0.90 Repeated hall call press
-    @4272.500000000: 0.90 Repeated hall call press
-Passenger 330: INJECTED AT 1669.2s and DELIVERED in 2746.102s
-  Satisfaction score: 72.9
-    @2170.100000000: 0.90 Repeated hall call press
-    @3847.860000000: 0.90 Repeated hall call press
-    @4214.660000000: 0.90 Repeated hall call press
-Passenger 344: INJECTED AT 1748.1s and DELIVERED in 2668.433s
-  Satisfaction score: 59.049000000000014
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-    @3733.700000000: 0.90 Repeated hall call press
-    @3829.900000000: 0.90 Repeated hall call press
-    @4196.520000000: 0.90 Repeated hall call press
-Passenger 251: INJECTED AT 1276.4s and DELIVERED in 3140.557s
-  Satisfaction score: 53.144100000000016
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-    @4178.060000000: 0.90 Repeated hall call press
-    @4272.500000000: 0.90 Repeated hall call press
-Passenger 263: INJECTED AT 1352.6s and DELIVERED in 3065.615s
-  Satisfaction score: 53.144100000000016
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-    @4178.060000000: 0.90 Repeated hall call press
-    @4272.500000000: 0.90 Repeated hall call press
-Passenger 222: INJECTED AT 1108.4s and DELIVERED in 3311.173s
-  Satisfaction score: 26.572050000000008
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-    @4178.060000000: 0.90 Repeated hall call press
-    @4272.500000000: 0.90 Repeated hall call press
-    @4349.833000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 269: INJECTED AT 1389.4s and DELIVERED in 3032.123s
-  Satisfaction score: 26.572050000000008
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-    @4178.060000000: 0.90 Repeated hall call press
-    @4272.500000000: 0.90 Repeated hall call press
-    @4346.683000000: 0.50 After the car came by 4 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 282: INJECTED AT 1445.4s and DELIVERED in 2977.602s
-  Satisfaction score: 53.144100000000016
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-    @4178.060000000: 0.90 Repeated hall call press
-    @4272.500000000: 0.90 Repeated hall call press
-Passenger 301: INJECTED AT 1537.9s and DELIVERED in 2887.023s
-  Satisfaction score: 53.144100000000016
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-    @4178.060000000: 0.90 Repeated hall call press
-    @4272.500000000: 0.90 Repeated hall call press
-Passenger 194: INJECTED AT 984.5s and DELIVERED in 3519.34s
-  Satisfaction score: 53.144100000000016
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-    @3733.700000000: 0.90 Repeated hall call press
-    @3829.900000000: 0.90 Repeated hall call press
-    @4196.520000000: 0.90 Repeated hall call press
-    @4393.520000000: 0.90 Repeated hall call press
-Passenger 173: INJECTED AT 882.3s and DELIVERED in 3622.125s
-  Satisfaction score: 53.144100000000016
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-    @3733.700000000: 0.90 Repeated hall call press
-    @3829.900000000: 0.90 Repeated hall call press
-    @4196.520000000: 0.90 Repeated hall call press
-    @4393.520000000: 0.90 Repeated hall call press
-Passenger 240: INJECTED AT 1216.3s and DELIVERED in 3289.144s
-  Satisfaction score: 53.144100000000016
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-    @3733.700000000: 0.90 Repeated hall call press
-    @3829.900000000: 0.90 Repeated hall call press
-    @4196.520000000: 0.90 Repeated hall call press
-    @4393.520000000: 0.90 Repeated hall call press
-Passenger 383: INJECTED AT 1949.2s and DELIVERED in 2556.865s
-  Satisfaction score: 53.144100000000016
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-    @3733.700000000: 0.90 Repeated hall call press
-    @3829.900000000: 0.90 Repeated hall call press
-    @4196.520000000: 0.90 Repeated hall call press
-    @4393.520000000: 0.90 Repeated hall call press
-Passenger 216: INJECTED AT 1092.0s and DELIVERED in 3415.334s
-  Satisfaction score: 53.144100000000016
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-    @3733.700000000: 0.90 Repeated hall call press
-    @3829.900000000: 0.90 Repeated hall call press
-    @4196.520000000: 0.90 Repeated hall call press
-    @4393.520000000: 0.90 Repeated hall call press
-Passenger 324: INJECTED AT 1636.6s and DELIVERED in 2871.086s
-  Satisfaction score: 53.144100000000016
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-    @3733.700000000: 0.90 Repeated hall call press
-    @3829.900000000: 0.90 Repeated hall call press
-    @4196.520000000: 0.90 Repeated hall call press
-    @4393.520000000: 0.90 Repeated hall call press
-Passenger 149: INJECTED AT 743.0s and DELIVERED in 3766.268s
-  Satisfaction score: 53.144100000000016
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-    @4178.060000000: 0.90 Repeated hall call press
-    @4272.500000000: 0.90 Repeated hall call press
-Passenger 259: INJECTED AT 1328.4s and DELIVERED in 3184.433s
-  Satisfaction score: 53.144100000000016
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-    @3733.700000000: 0.90 Repeated hall call press
-    @3829.900000000: 0.90 Repeated hall call press
-    @4196.520000000: 0.90 Repeated hall call press
-    @4393.520000000: 0.90 Repeated hall call press
-Passenger 297: INJECTED AT 1513.4s and DELIVERED in 3000.764s
-  Satisfaction score: 42.51528000000002
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-    @3733.700000000: 0.90 Repeated hall call press
-    @3829.900000000: 0.90 Repeated hall call press
-    @4196.520000000: 0.90 Repeated hall call press
-    @4393.520000000: 0.90 Repeated hall call press
-    @4508.719000000: 0.80 Failed to exit car at 1,BACK
-Passenger 89: INJECTED AT 457.4s and DELIVERED in 4123.113s
-  Satisfaction score: 23.914845000000007
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-    @4178.060000000: 0.90 Repeated hall call press
-    @4272.500000000: 0.90 Repeated hall call press
-    @4468.660000000: 0.90 Repeated hall call press
-    @4546.093000000: 0.50 After the car came by 7 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 334: INJECTED AT 1695.5s and DELIVERED in 2903.06s
-  Satisfaction score: 53.144100000000016
-    @2493.460000000: 0.90 Repeated hall call press
-    @3511.100000000: 0.90 Repeated hall call press
-    @3733.700000000: 0.90 Repeated hall call press
-    @3829.900000000: 0.90 Repeated hall call press
-    @4196.520000000: 0.90 Repeated hall call press
-    @4393.520000000: 0.90 Repeated hall call press
-Passenger 156: INJECTED AT 771.5s and DELIVERED in 3829.181s
-  Satisfaction score: 23.914845000000007
-    @2629.340000000: 0.90 Repeated hall call press
-    @3113.940000000: 0.90 Repeated hall call press
-    @3588.740000000: 0.90 Repeated hall call press
-    @3811.900000000: 0.90 Repeated hall call press
-    @4178.060000000: 0.90 Repeated hall call press
-    @4272.500000000: 0.90 Repeated hall call press
-    @4468.660000000: 0.90 Repeated hall call press
-    @4544.401000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 310: INJECTED AT 1567.0s and DELIVERED in 3034.986s
-  Satisfaction score: 72.9
-    @2170.100000000: 0.90 Repeated hall call press
-    @3847.860000000: 0.90 Repeated hall call press
-    @4214.660000000: 0.90 Repeated hall call press
-Passenger 193: INJECTED AT 976.4s and DELIVERED in 3677.142s
+    @2446.140000000: 0.90 Repeated hall call press
+    @2729.760000000: 0.90 Repeated hall call press
+    @3539.120000000: 0.90 Repeated hall call press
+    @3820.940000000: 0.90 Repeated hall call press
+    @4295.080000000: 0.90 Repeated hall call press
+    @4378.948000000: 0.80 Failed to enter car
+    @4391.383000000: 0.50 After the car came by 8 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 355: INJECTED AT 1800.0s and DELIVERED in 2623.297s
+  Satisfaction score: 26.244000000000003
+    @2729.760000000: 0.90 Repeated hall call press
+    @3539.120000000: 0.90 Repeated hall call press
+    @3820.940000000: 0.90 Repeated hall call press
+    @4169.657000000: 0.80 Failed to enter car
+    @4295.080000000: 0.90 Repeated hall call press
+    @4389.897000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 374: INJECTED AT 1903.7s and DELIVERED in 2521.424s
   Satisfaction score: 32.80500000000001
-    @2170.100000000: 0.90 Repeated hall call press
-    @3847.860000000: 0.90 Repeated hall call press
-    @4214.660000000: 0.90 Repeated hall call press
-    @4595.340000000: 0.90 Repeated hall call press
-    @4614.862000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
-Passenger 295: INJECTED AT 1505.8s and DELIVERED in 3148.135s
+    @2729.760000000: 0.90 Repeated hall call press
+    @3539.120000000: 0.90 Repeated hall call press
+    @3820.940000000: 0.90 Repeated hall call press
+    @4295.080000000: 0.90 Repeated hall call press
+    @4374.624000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 194: INJECTED AT 984.5s and DELIVERED in 3513.98s
+  Satisfaction score: 32.80500000000001
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+    @4464.840000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 271: INJECTED AT 1394.7s and DELIVERED in 3104.719s
   Satisfaction score: 65.61000000000001
-    @2170.100000000: 0.90 Repeated hall call press
-    @3847.860000000: 0.90 Repeated hall call press
-    @4214.660000000: 0.90 Repeated hall call press
-    @4595.340000000: 0.90 Repeated hall call press
-Passenger 323: INJECTED AT 1635.1s and DELIVERED in 3020.432s
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+Passenger 216: INJECTED AT 1092.0s and DELIVERED in 3408.374s
   Satisfaction score: 65.61000000000001
-    @2170.100000000: 0.90 Repeated hall call press
-    @3847.860000000: 0.90 Repeated hall call press
-    @4214.660000000: 0.90 Repeated hall call press
-    @4595.340000000: 0.90 Repeated hall call press
-Passenger 248: INJECTED AT 1258.2s and DELIVERED in 3397.643s
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+Passenger 178: INJECTED AT 902.3s and DELIVERED in 3598.573s
+  Satisfaction score: 32.80500000000001
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+    @4460.193000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 71: INJECTED AT 376.1s and DELIVERED in 4126.162s
+  Satisfaction score: 32.80500000000001
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+    @4461.922000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 254: INJECTED AT 1296.7s and DELIVERED in 3205.646s
   Satisfaction score: 65.61000000000001
-    @2170.100000000: 0.90 Repeated hall call press
-    @3847.860000000: 0.90 Repeated hall call press
-    @4214.660000000: 0.90 Repeated hall call press
-    @4595.340000000: 0.90 Repeated hall call press
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+Passenger 307: INJECTED AT 1550.5s and DELIVERED in 2953.396s
+  Satisfaction score: 65.61000000000001
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+Passenger 388: INJECTED AT 1977.3s and DELIVERED in 2527.135s
+  Satisfaction score: 65.61000000000001
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+Passenger 247: INJECTED AT 1254.8s and DELIVERED in 3251.309s
+  Satisfaction score: 32.80500000000001
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+    @4467.829000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 324: INJECTED AT 1636.6s and DELIVERED in 2949.726s
+  Satisfaction score: 65.61000000000001
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+Passenger 323: INJECTED AT 1635.1s and DELIVERED in 2951.552s
+  Satisfaction score: 53.144100000000016
+    @2331.680000000: 0.90 Repeated hall call press
+    @2964.500000000: 0.90 Repeated hall call press
+    @3272.460000000: 0.90 Repeated hall call press
+    @3558.700000000: 0.90 Repeated hall call press
+    @3856.960000000: 0.90 Repeated hall call press
+    @4330.940000000: 0.90 Repeated hall call press
+Passenger 295: INJECTED AT 1505.8s and DELIVERED in 3082.475s
+  Satisfaction score: 59.049000000000014
+    @2964.500000000: 0.90 Repeated hall call press
+    @3272.460000000: 0.90 Repeated hall call press
+    @3558.700000000: 0.90 Repeated hall call press
+    @3856.960000000: 0.90 Repeated hall call press
+    @4330.940000000: 0.90 Repeated hall call press
+Passenger 86: INJECTED AT 440.3s and DELIVERED in 4148.358s
+  Satisfaction score: 29.524500000000007
+    @2964.500000000: 0.90 Repeated hall call press
+    @3272.460000000: 0.90 Repeated hall call press
+    @3558.700000000: 0.90 Repeated hall call press
+    @3856.960000000: 0.90 Repeated hall call press
+    @4330.940000000: 0.90 Repeated hall call press
+    @4563.378000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 296: INJECTED AT 1506.6s and DELIVERED in 3083.778s
+  Satisfaction score: 59.049000000000014
+    @2964.500000000: 0.90 Repeated hall call press
+    @3272.460000000: 0.90 Repeated hall call press
+    @3558.700000000: 0.90 Repeated hall call press
+    @3856.960000000: 0.90 Repeated hall call press
+    @4330.940000000: 0.90 Repeated hall call press
+Passenger 193: INJECTED AT 976.4s and DELIVERED in 3615.262s
+  Satisfaction score: 29.524500000000007
+    @2964.500000000: 0.90 Repeated hall call press
+    @3272.460000000: 0.90 Repeated hall call press
+    @3558.700000000: 0.90 Repeated hall call press
+    @3856.960000000: 0.90 Repeated hall call press
+    @4330.940000000: 0.90 Repeated hall call press
+    @4565.782000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 182: INJECTED AT 920.7s and DELIVERED in 3672.122s
+  Satisfaction score: 29.524500000000007
+    @2964.500000000: 0.90 Repeated hall call press
+    @3272.460000000: 0.90 Repeated hall call press
+    @3558.700000000: 0.90 Repeated hall call press
+    @3856.960000000: 0.90 Repeated hall call press
+    @4330.940000000: 0.90 Repeated hall call press
+    @4554.342000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 195: INJECTED AT 991.2s and DELIVERED in 3603.548s
+  Satisfaction score: 59.049000000000014
+    @2964.500000000: 0.90 Repeated hall call press
+    @3272.460000000: 0.90 Repeated hall call press
+    @3558.700000000: 0.90 Repeated hall call press
+    @3856.960000000: 0.90 Repeated hall call press
+    @4330.940000000: 0.90 Repeated hall call press
+Passenger 310: INJECTED AT 1567.0s and DELIVERED in 3029.106s
+  Satisfaction score: 59.049000000000014
+    @2964.500000000: 0.90 Repeated hall call press
+    @3272.460000000: 0.90 Repeated hall call press
+    @3558.700000000: 0.90 Repeated hall call press
+    @3856.960000000: 0.90 Repeated hall call press
+    @4330.940000000: 0.90 Repeated hall call press
+Passenger 250: INJECTED AT 1271.9s and DELIVERED in 3395.638s
+  Satisfaction score: 59.049000000000014
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+    @4551.880000000: 0.90 Repeated hall call press
+Passenger 334: INJECTED AT 1695.5s and DELIVERED in 2972.34s
+  Satisfaction score: 59.049000000000014
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+    @4551.880000000: 0.90 Repeated hall call press
+Passenger 291: INJECTED AT 1482.5s and DELIVERED in 3187.424s
+  Satisfaction score: 59.049000000000014
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+    @4551.880000000: 0.90 Repeated hall call press
+Passenger 261: INJECTED AT 1339.8s and DELIVERED in 3332.134s
+  Satisfaction score: 59.049000000000014
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+    @4551.880000000: 0.90 Repeated hall call press
+Passenger 78: INJECTED AT 399.0s and DELIVERED in 4274.56s
+  Satisfaction score: 29.524500000000007
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+    @4551.880000000: 0.90 Repeated hall call press
+    @4632.760000000: 0.50 After the car came by 7 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 146: INJECTED AT 734.8s and DELIVERED in 3940.487s
+  Satisfaction score: 29.524500000000007
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+    @4551.880000000: 0.90 Repeated hall call press
+    @4624.787000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 297: INJECTED AT 1513.4s and DELIVERED in 3163.299s
+  Satisfaction score: 59.049000000000014
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+    @4551.880000000: 0.90 Repeated hall call press
+Passenger 314: INJECTED AT 1590.1s and DELIVERED in 3088.473s
+  Satisfaction score: 59.049000000000014
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+    @4551.880000000: 0.90 Repeated hall call press
+Passenger 344: INJECTED AT 1748.1s and DELIVERED in 2931.773s
+  Satisfaction score: 59.049000000000014
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+    @4551.880000000: 0.90 Repeated hall call press
+Passenger 372: INJECTED AT 1891.1s and DELIVERED in 2849.932s
+  Satisfaction score: 59.049000000000014
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+    @4551.880000000: 0.90 Repeated hall call press
+Passenger 151: INJECTED AT 747.7s and DELIVERED in 3993.351s
+  Satisfaction score: 14.762250000000003
+    @2964.500000000: 0.90 Repeated hall call press
+    @3272.460000000: 0.90 Repeated hall call press
+    @3558.700000000: 0.90 Repeated hall call press
+    @3856.960000000: 0.90 Repeated hall call press
+    @4330.940000000: 0.90 Repeated hall call press
+    @4567.391000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+    @4722.911000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 257: INJECTED AT 1317.7s and DELIVERED in 3497.754s
+  Satisfaction score: 26.572050000000008
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+    @4551.880000000: 0.90 Repeated hall call press
+    @4719.880000000: 0.90 Repeated hall call press
+    @4760.694000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 112: INJECTED AT 572.6s and DELIVERED in 4243.406s
+  Satisfaction score: 26.572050000000008
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+    @4551.880000000: 0.90 Repeated hall call press
+    @4719.880000000: 0.90 Repeated hall call press
+    @4763.886000000: 0.50 After the car came by 8 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 215: INJECTED AT 1086.3s and DELIVERED in 3730.803s
+  Satisfaction score: 26.572050000000008
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+    @4551.880000000: 0.90 Repeated hall call press
+    @4719.880000000: 0.90 Repeated hall call press
+    @4759.043000000: 0.50 After the car came by 6 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 267: INJECTED AT 1376.8s and DELIVERED in 3440.607s
+  Satisfaction score: 26.572050000000008
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+    @4551.880000000: 0.90 Repeated hall call press
+    @4719.880000000: 0.90 Repeated hall call press
+    @4761.987000000: 0.50 After the car came by 5 times without showing arrows compatible with DOWN, finally gave up and got on anyway.
+Passenger 348: INJECTED AT 1763.6s and DELIVERED in 3055.719s
+  Satisfaction score: 53.144100000000016
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+    @4551.880000000: 0.90 Repeated hall call press
+    @4719.880000000: 0.90 Repeated hall call press
+Passenger 252: INJECTED AT 1284.9s and DELIVERED in 3536.056s
+  Satisfaction score: 53.144100000000016
+    @2464.320000000: 0.90 Repeated hall call press
+    @3254.540000000: 0.90 Repeated hall call press
+    @3838.860000000: 0.90 Repeated hall call press
+    @4313.100000000: 0.90 Repeated hall call press
+    @4551.880000000: 0.90 Repeated hall call press
+    @4719.880000000: 0.90 Repeated hall call press
+Passenger 330: INJECTED AT 1669.2s and DELIVERED in 3153.722s
+  Satisfaction score: 53.144100000000016
+    @2964.500000000: 0.90 Repeated hall call press
+    @3272.460000000: 0.90 Repeated hall call press
+    @3558.700000000: 0.90 Repeated hall call press
+    @3856.960000000: 0.90 Repeated hall call press
+    @4330.940000000: 0.90 Repeated hall call press
+    @4737.860000000: 0.90 Repeated hall call press
 
 Passenger Delivery Summary
 Delivered: 392
@@ -1470,14 +1622,14 @@ Stranded: 0
 Total: 392
 
 Deliver Stats (lower is better):
-Average_delivery_time: 1400.844
-Maximum_delivery_time:  4123.113
-Delivery_performance_score:  9726.487
+Average_delivery_time: 1503.486
+Maximum_delivery_time:  4274.560
+Delivery_performance_score:  10288.506
 
 Satisfaction Stats (higher is better):
-Average_satisfaction_score: 76.455
-Min_satisfaction_score:  6.250
-Satisfaction_performance_score:  312.069
+Average_satisfaction_score: 73.557
+Min_satisfaction_score:  14.762
+Satisfaction_performance_score:  308.990
 
 
 
@@ -1486,10 +1638,10 @@ Network Utilization Summary:
 Recent: 75.12 % Max: 75.12 %  Overall:  75.12 %
 
 Monitors Warning Results: 
-RuntimeMonitor generated 1 warnings.
+RuntimeMonitor generated 0 warnings.
 
 Monitors Summmary Results: 
-R-T6: Stopped at floor with no calls = 1
+R-T6: Stopped at floor with no calls = 0
 R-T7: Doors opened at floor with no calls = 0
 R-T8.1: Car lantern not lighted for call on another floor = 0
 R-T8.2: Car lantern changed direction while doors open = 0
