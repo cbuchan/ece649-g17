@@ -228,7 +228,7 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
 
         public void receive(ReadableDriveSpeedPayload msg) {
             checkFastSpeed(msg);    // check R-T9
-            updateState(msg.speed(), msg.direction());    // update R-T6
+            updateState(msg.speed(), msg.direction());    // update T-R6
         }
 
         private void updateState(double spd, Direction d) {
@@ -271,7 +271,7 @@ public class Proj11RuntimeMonitor extends RuntimeMonitor {
                         break;
                     case MOVING:
                         rt7State.updateCalls();
-                        rt83State.updateState(d);    // update R-T8.3
+                        rt83State.updateState(d);    // update T-R8.3
                         break;
                     case STOPPED_UNDESIRED:
                         warning("Stopped at floor with no calls");
