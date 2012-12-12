@@ -97,7 +97,8 @@
           there are pending calls.</strong></big></h3>
     <big>Runtime Monitor State Chart:</big>
     <p>&nbsp;</p>
-    <p><img src="SC_R_T6.png" alt="R-T6" height="346" width="657"><br>
+    <p><a href="SC_R_T6.png"><img src="SC_R_T6.png" alt="R-T6"
+          border="0" height="346" width="657"></a><br>
     </p>
     <table style="font-family: Times; letter-spacing: normal; orphans:
       2; text-indent: 0px; text-transform: none; widows: 2;
@@ -143,7 +144,8 @@
           which there are pending calls.</strong></big></h3>
     <big>Runtime Monitor State Chart: </big>
     <p>&nbsp;</p>
-    <p><img src="SC_R_T7.png" alt="R-T6" height="297" width="564"><br>
+    <p><a href="SC_R_T7.png"><img src="SC_R_T7.png" alt="R-T6"
+          border="0" height="297" width="564"></a><br>
       Note: <br>
       &nbsp;&nbsp;&nbsp; - Network message mDesiredFloor is updated by
       Dispatcher to service the nearest pending call.<br>
@@ -169,6 +171,7 @@
           </td>
           <td style="vertical-align: top; ">mDesiredFloor[f,b,d].f==CurrentFloor
 
+
             &amp;&amp; hadCalls(b)<br>
           </td>
         </tr>
@@ -189,6 +192,7 @@
         <tr>
           <td style="vertical-align: top; ">T-R7.3 </td>
           <td style="vertical-align: top; ">mDesiredFloor[f,b,d].f==CurrentFloor
+
 
             &amp;&amp; !hadCalls(b)</td>
         </tr>
@@ -211,6 +215,7 @@
 
 
 
+
           Car Lanterns shall be use in a way that does not confuse
           passengers</strong></big><big><strong>.<br>
           &nbsp;&nbsp;&nbsp; R-T8.1: If any door is open at a hallway
@@ -219,7 +224,8 @@
     </h3>
     <p> <big>Runtime Monitor State Chart:</big> <br>
     </p>
-    <p><img src="SC_R_T8_1.png" alt="R-T6" height="285" width="486"><br>
+    <p><a href="SC_R_T8_1.png"><img src="SC_R_T8_1.png" alt="R-T6"
+          border="0" height="285" width="486"></a><br>
       Note: <br>
       &nbsp;&nbsp;&nbsp; - The invalid state occurs when all
       CarLantern[d] fail to turn on when the conditions of R-T8.1 are
@@ -258,6 +264,7 @@
 
 
 
+
               &amp;&amp; (mAtFloor[f,b] == true) &amp;&amp;
               (mDesiredFloor.f == f) &amp;&amp;<span
                 class="Apple-converted-space"> </span></span><span
@@ -288,6 +295,7 @@
 
 
 
+
               != d) || (all mDoorClosed[b,r] == true)</span></td>
         </tr>
         <tr>
@@ -300,6 +308,7 @@
               white-space: normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">(CarLantern[d]==OFF)
+
 
 
 
@@ -333,12 +342,14 @@
 
 
 
+
               != d) || (all mDoorClosed[b,r] == true)</span></td>
         </tr>
       </tbody>
     </table>
     &nbsp;
     <h3><big><strong>R-T8: </strong></big><big><strong></strong></big><big><strong>The
+
 
 
 
@@ -351,7 +362,8 @@
     </h3>
     <p> <big>Runtime Monitor State Chart:</big> <br>
     </p>
-    <p><img src="SC_R_T8_2.png" alt="R-T6" height="276" width="467"><br>
+    <p><a href="SC_R_T8_2.png"><img src="SC_R_T8_2.png" alt="R-T6"
+          border="0" height="276" width="467"></a><br>
       <br>
     </p>
     <table style="font-family: Times; letter-spacing: normal; orphans:
@@ -437,9 +449,11 @@
 
 
 
+
           Car Lanterns shall be use in a way that does not confuse
           passengers</strong></big><big><strong>.<br>
           &nbsp;&nbsp;&nbsp; R-T8.3: </strong></big><big><strong></strong></big><big><strong>If
+
 
 
 
@@ -448,7 +462,8 @@
           calls in that direction first.</strong></big></h3>
     <p> <big>Runtime Monitor State Chart:</big> <br>
     </p>
-    <p><img src="SC_R_T8_3.png" alt="R-T6" height="276" width="467"><br>
+    <p><a href="SC_R_T8_3.png"><img src="SC_R_T8_3.png" alt="R-T6"
+          border="0" height="276" width="467"></a><br>
       Note: <br>
       lastLantern(d) checks the recorded state of lantern direction d
       when elevator was last stopped.<br>
@@ -483,6 +498,7 @@
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">lastLantern(d)
 
+
               &amp;&amp; !lastLantern(~d) &amp;&amp;
               hasCall(lastStoppedFloor, d)<br>
             </span></td>
@@ -503,6 +519,7 @@
 
 
 
+
               == TargetFloor</span></td>
         </tr>
         <tr>
@@ -515,6 +532,7 @@
               white-space: normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">!lastLantern(d)
+
 
               &amp;&amp; lastLantern(~d) &amp;&amp;
               hasCall(lastStoppedFloor, d)</span><span style="color:
@@ -543,6 +561,7 @@
 
 
 
+
               == TargetFloor</span></td>
         </tr>
         <tr>
@@ -555,6 +574,7 @@
               white-space: normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">!lastLantern(d)
+
 
               &amp;&amp; lastLantern(~d) &amp;&amp;
               hasCall(lastStoppedFloor, d)</span><span style="color:
@@ -571,6 +591,7 @@
     </table>
     <br>
     <h3><big><strong>R-T9: </strong></big><big><strong></strong></big><big><strong>The
+
 
 
 
