@@ -54,7 +54,7 @@
 ;========================================================================
 ;1. Door[b,r] starts closing.
 ;========================================================================
-;arc 1a
+;arc 1B/1
 +5s  A  S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_CLOSING
 +0s    A  F DoorMotor FRONT LEFT : command == CLOSE
 
@@ -70,20 +70,24 @@
 +0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == UP
 
 ;passenger makes a hall call
-;arc 2, 3a, 3b
+;arc 1B/2
+;arc 1B/3a
+;arc 1B/3b
 +0s  I HALL_BUTTON_CONTROL_PERIOD F HallCall 1 FRONT UP  = true
 
 ;========================================================================
 ;4. Hall button lights up.
 ;========================================================================
-;arc 4a, 4b
+;arc 1B/4a
+;arc 1B/4b
 +0.5s  A  F HallLight 1 FRONT UP : lighted == true
 
 ;========================================================================
 ;5. Dispatcher does not update mDesiredFloor to f,b,d. 
 ;========================================================================
 ;Dispatcher keeps desired floor
-;arc 5a, 5b
+;arc 1B/5a
+;arc 1B/5b
 +0.5s   A  S Dispatcher : STATE == STATE_COMPUTE_NEXT
 +0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 5
 +0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == FRONT
@@ -94,7 +98,9 @@
 ;========================================================================
 +0.1s   I  DRIVE_PERIOD N DRIVE_SPEED_CAN_ID DriveSpeed = 0.0 STOP
 
-;arc 6a, 6b, 6c
+;arc 1B/6a
+;arc 1B/6b
+;arc 1B/6c
 +0.41s  A  F DoorMotor FRONT LEFT : command == CLOSE
 +0.1s   I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
 +0.1s   I  DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = false

@@ -1,5 +1,5 @@
 ;========================================================================
-; Integration Test for SD9A
+; Integration Test for SD3B
 ;========================================================================
 ;18649 Fall 2012
 ;Group17
@@ -32,12 +32,14 @@
 ;========================================================================
 ;1. Passenger enters car.
 ;========================================================================
-;arc 1. passenger enters
+;arc 3B/1 passenger enters
 
 ;========================================================================
 ;2. mCarWeight exceeds or is equal to MaxCarCapacity.
 ;========================================================================
-;arc 2a, 2b, 2c
+;arc 3B/2a
+;arc 3B/2b
+;arc 3B/2c
 +0.5s I WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 14000
 +0.1s I  LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = false
 
@@ -47,14 +49,14 @@
 ;========================================================================
 ;3. Doors are commanded to open.
 ;========================================================================
-;arc 3. check door motor b r = open <-- DoorControl
+;arc 3B/3 check door motor b r = open <-- DoorControl
 +0.5s A S DoorControl[BACK][RIGHT] : STATE == STATE_DOOR_OPENING
 +0s A F DoorMotor BACK RIGHT : command == OPEN
 
 ;========================================================================
 ;4. CarWeightAlarm sounds.
 ;========================================================================
-;arc 4. car weight alarm true
+;arc 3B/4. car weight alarm true
 
 ;========================================================================
 ;5. Drive is commanded to Stop
@@ -65,7 +67,7 @@
 +0.79s I  LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
 +0s    I  LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
 
-;arc 5. check drive set to STOP STOP
+;arc 3B/5. check drive set to STOP STOP
 +0.5s	A S DriveControl : STATE == STATE_DRIVE_STOPPED
 +0s	A F Drive : speed == STOP
 +0s	A F Drive : direction == STOP

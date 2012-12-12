@@ -39,13 +39,15 @@
 ;passenger in car, elevator is approaching desired floor
 ;Dispatcher calculates new desired floor
 
-;arc 2a
+;arc 4A/2
 +0.5s	A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 4
 +0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == FRONT
 ; direction is previous calculated direction
 +0s	    A	N	DESIRED_FLOOR_CAN_ID DesiredFloor : getDirection == STOP
 
-;arc 1a, 1b, 1c
+;arc 4A.1a
+;arc 4A/1b
+;arc 4A/1c
 +0.21s I AT_FLOOR_PERIOD N AT_FLOOR_[4][FRONT]_CAN_ID AtFloor 4 FRONT = true
 
 +0.21s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
@@ -56,49 +58,52 @@
 ;3. DriveControl sets drive speed to Level and Car reaches a level state.
 ;========================================================================
 ;check state level
-;arc 3a
+;arc 4A/3a
 +0.21s A F Drive : speed == LEVEL
 +0s    A F Drive : direction == DOWN
 
-;arc 3b
+;arc 4A/3b
 +0.21s  I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
 
 ;========================================================================
 ;4. DriveControl sets drive speed to Stop.
 ;========================================================================
-;arc 4a, 4b
+;arc 4A/4a
+;arc 4A/4b
 +0.21s A F Drive : speed == STOP
 +0s    A F Drive : direction == STOP
 
 ;========================================================================
 ;5. Door[b,r] starts to open.
 ;========================================================================
-;arc 5a, 5b
+;arc 4A/5a
+;arc 4A/5b
 +0.21s A S DoorControl[FRONT][LEFT] : STATE == STATE_DOOR_OPENING
 +0s    A F DoorMotor FRONT LEFT : command == OPEN
 
 ;========================================================================
 ;6. Door[b,r] finishes opening.
 ;========================================================================
-;arc 6a
+;arc 4A/6a
 +0s I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
 +0s I DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = false
 
 ;check 5. DoorMotor=Stop results (DoorControl)
-;arc 6b
+;arc 4A/6b
 +0.41s A F DoorMotor FRONT LEFT : command == STOP
 
 ;========================================================================
 ;7. CarLight[f,b] turns off and mCarCall[f,b] is set to false.
 ;========================================================================
-;arc 7a, 7b
+;arc 4A/7a
+;arc 4A/7b
 +0.3s A N CAR_CALL_[4][FRONT]_CAN_ID TinyBoolean : getValue == false
 +0s    A N CAR_LIGHT_[4][FRONT]_CAN_ID TinyBoolean : getValue == false
 
 ;========================================================================
 ;8. The passenger exits the car.
 ;========================================================================
-;arc 8 (passenger exits)
+;arc 4A/8 (passenger exits)
 
 ;========================================================================
 ;Post Conditions

@@ -47,23 +47,24 @@
 ; 1. A passenger arrives at floor h, hallway e and presses the hall call
 ;    button for direction d.
 ;========================================================================
-;arc 1a, 1b. hallcall framework message insertion
+;arc 8C/1a
+;arc 8C/1b hallcall framework message insertion
 +0s  I  HALL_BUTTON_CONTROL_PERIOD F HallCall 4 FRONT DOWN = true
 
-;arc 1c. hallcall network message check
+;arc 8C/1c hallcall network message check
 +0.5s A N HALL_CALL_[4][FRONT][DOWN]_CAN_ID TinyBoolean : getValue == true
 
 ;========================================================================
 ; 2. The hall call button for h,e lights up.
 ;========================================================================
-;arc 2. hallLight framework message check
+;arc 8C/2 hallLight framework message check
 +0.5s  A F HallLight 4 FRONT DOWN : lighted == true
 
 ;========================================================================
 ; 3. Dispatcher calculates the commit point for (h,e) and determines that
 ;    the car is not able to stop in time to service the hall call.
 ;========================================================================
-;arc 3a. car position beyond the commit point
+;arc 8C/3a car position beyond the commit point
 ;position corresponds to x=20m, or f=5 (commit point is at f=5, or x=20m)
 +0.5s I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = false
 +0s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 12000
@@ -71,7 +72,7 @@
 ;insert framework drivespeed for the commit point calculation in drivecontrol
 +0s I DRIVE_PERIOD F DriveSpeed = UP 1.0
 
-;arc 3b. check mdrivespeed is >level, d
+;arc 8C/3b check mdrivespeed is >level, d
 +0.5s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed >= 0.25
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == FAST
 
@@ -82,7 +83,7 @@
 +0.1s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 15000
 +0.2s I CAR_LEVEL_POSITION_PERIOD N CAR_LEVEL_POSITION_CAN_ID CarLevelPosition = 19000
 
-;arc 4. check drivecontrol sends framework drive message
+;arc 8C/4 check drivecontrol sends framework drive message
 +0.1s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == SLOW
 +0s	    A F Drive : speed == SLOW
 
@@ -90,7 +91,8 @@
 ;========================================================================
 ; 5. The car reaches floor (g,c). AtFloor[g,c] is set to TRUE.
 ;========================================================================
-;arc 5a, 5b. insert atfloor true
+;arc 8C/5a
+;arc 8C/5b insert atfloor true
 +0s I AT_FLOOR_PERIOD N AT_FLOOR_[5][FRONT]_CAN_ID AtFloor 5 FRONT = true
 
 ;========================================================================
@@ -99,17 +101,17 @@
 +0s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = false
 +0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
 
-;arc 6a. check drivecontrol framework drive message -> level
+;arc 8C/6a check drivecontrol framework drive message -> level
 +0.5s  A S DriveControl : STATE == STATE_DRIVE_LEVEL
 +0s  A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == LEVEL
 
 +0.1s I DRIVE_PERIOD F DriveSpeed = UP 0.05
 
-;arc 6b. level sensors both true
+;arc 8C/6b level sensors both true
 +0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
 +0s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
 
-;arc 6c. check drivecontrol framework drive message -> stop
+;arc 8C/6c check drivecontrol framework drive message -> stop
 +0.5s  A S DriveControl : STATE == STATE_DRIVE_STOPPED
 +0s	A N DRIVE_COMMAND_CAN_ID DriveCommand : getSpeed == STOP
 
@@ -117,17 +119,17 @@
 ;========================================================================
 ; 7. The doors open.
 ;========================================================================
-;arc 7a. check network drive speed -> stop, stop
+;arc 8C/7a check network drive speed -> stop, stop
 +0.5s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getSpeed == 0.0
 +0s	A N DRIVE_SPEED_CAN_ID DriveSpeed : getDirection == STOP
 
-;arc 7b. check framework door open sent
+;arc 8C/7b check framework door open sent
 +0.5s    A F DoorMotor FRONT LEFT : command == OPEN
 
-;arc 7c. door opened true
+;arc 8C/7c door opened true
 +0s    I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
 
-;arc 7d. check framework door stop sent
+;arc 8C/7d check framework door stop sent
 +0.5s    A F DoorMotor FRONT LEFT : command == STOP
 
 ;========================================================================

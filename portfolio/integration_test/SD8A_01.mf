@@ -37,7 +37,7 @@
 ;========================================================================
 ;1. Door[b,r] starts to close.
 ;========================================================================
-;arc 1. check door motor closing <-- DoorControl
+;arc 8A/1 check door motor closing <-- DoorControl
 +0.5s A S DoorControl[BACK][LEFT] : STATE == STATE_DOOR_CLOSING
 
 +0s   A F DoorMotor BACK LEFT : command == CLOSE
@@ -45,7 +45,8 @@
 ;========================================================================
 ;2. Doors finish closing.
 ;========================================================================
-;arc 2a, 2b. door closed sensor true
+;arc 8A/2a
+;arc 8A/2b door closed sensor true
 +0.5s I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][LEFT]_CAN_ID DoorClosed BACK LEFT = true
 +0s   I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[BACK][RIGHT]_CAN_ID DoorClosed BACK RIGHT = true
 +0s   I  DOOR_CLOSED_SENSOR_PERIOD N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT = true
@@ -54,14 +55,14 @@
 ; not over max weight
 +0s I WEIGHT_PERIOD N CAR_WEIGHT_CAN_ID CarWeight = 100
 
-;arc 2c. check door motor stop <-- DoorControl
+;arc 8A/2c check door motor stop <-- DoorControl
 +0.5s A S DoorControl[BACK][LEFT] : STATE == STATE_DOOR_CLOSED
 +0s   A F DoorMotor BACK LEFT : command == STOP
 
 ;========================================================================
 ;3. Car begins moving toward hallway[g,c].
 ;========================================================================
-;arc 3. check drive[s,d]=(SLOW, d) <-- DriveControl
+;arc 8A/3 check drive[s,d]=(SLOW, d) <-- DriveControl
 +0.5s A S DriveControl : STATE == STATE_DRIVE_SLOW
 +0s   A F Drive : speed == SLOW
 +0s   A F Drive : direction == UP
@@ -69,10 +70,10 @@
 ;========================================================================
 ;4. AtFloor[g,c] is set to TRUE.
 ;========================================================================
-;arc 4a. at floor f b is false
+;arc 8A/4a at floor f b is false
 +0.5s I AT_FLOOR_PERIOD N AT_FLOOR_[2][BACK]_CAN_ID AtFloor 2 BACK = false
 
-;arc 4b. at floor g c is true
+;arc 8A/4b at floor g c is true
 +0.5s I AT_FLOOR_PERIOD N AT_FLOOR_[3][FRONT]_CAN_ID AtFloor 3 FRONT = true
 
 ;========================================================================
@@ -81,16 +82,16 @@
 +0.5s	I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
 +0s   I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = false
 
-;arc 5a. check drive in level state <-- DriveControl
+;arc 8A/5a check drive in level state <-- DriveControl
 +0.5s A S DriveControl : STATE == STATE_DRIVE_LEVEL
 +0s   A F Drive : speed == LEVEL
 +0s   A F Drive : direction == UP
 
-;arc 5b. receive level sensors both true
+;arc 8A/5b receive level sensors both true
 +0.5s I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[DOWN]_CAN_ID Leveling DOWN = true
 +0s   I LEVEL_SENSOR_PERIOD N LEVEL_SENSOR_[UP]_CAN_ID Leveling UP = true
 
-;arc 5c. check drive in stop state <-- DriveControl
+;arc 8A/5c check drive in stop state <-- DriveControl
 +0.5s A S DriveControl : STATE == STATE_DRIVE_STOPPED
 +0s   A F Drive : speed == STOP
 +0s   A F Drive : direction == STOP

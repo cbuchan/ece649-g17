@@ -42,7 +42,7 @@
 +0.25s I DOOR_CONTROL_PERIOD N HALL_CALL_[7][FRONT][UP]_CAN_ID TinyBoolean = true
 +0s I DOOR_CONTROL_PERIOD N HALL_CALL_[7][BACK][UP]_CAN_ID TinyBoolean = true
 
-;arc 1. mAtFloor[f,*]=true
+;arc 9C/1 mAtFloor[f,*]=true
 +0.25s I AT_FLOOR_PERIOD N AT_FLOOR_[1][FRONT]_CAN_ID AtFloor 1 FRONT = false
 +0s I AT_FLOOR_PERIOD N AT_FLOOR_[1][BACK]_CAN_ID AtFloor 1 BACK = false
 +0s I AT_FLOOR_PERIOD N AT_FLOOR_[2][BACK]_CAN_ID AtFloor 2 BACK = false
@@ -64,7 +64,7 @@
 ;========================================================================
 ;2. Dispatcher notifies DoorControl that Both doors should be opened.
 ;========================================================================
-;arc 2. assert desired floor.b=both <-- Dispatcher
+;arc 9C/2 assert desired floor.b=both <-- Dispatcher
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getFloor == 7
 +0s     A N DESIRED_FLOOR_CAN_ID DesiredFloor : getHallway == BOTH
 ; direction is previously calculated direction
@@ -75,20 +75,20 @@
 ;========================================================================
 ;3. Both doors open.
 ;========================================================================
-;arc 3a. assert DoorMotor[b,*]=open <-- DoorControl
+;arc 9C/3a assert DoorMotor[b,*]=open <-- DoorControl
 +0.25s  A S Dispatcher : STATE == STATE_COMPUTE_NEXT
 +0.5s A F DoorMotor FRONT RIGHT : command == OPEN
 +0s   A F DoorMotor FRONT LEFT : command == OPEN
 +0s   A F DoorMotor BACK RIGHT : command == OPEN
 +0s   A F DoorMotor BACK LEFT : command == OPEN
 
-;arc 3b. mDoorOpened[*,r]=true
+;arc 9C/3b mDoorOpened[*,r]=true
 +0.25s I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][RIGHT]_CAN_ID DoorOpened FRONT RIGHT = true
 +0s   I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[FRONT][LEFT]_CAN_ID DoorOpened FRONT LEFT = true
 +0s   I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[BACK][RIGHT]_CAN_ID DoorOpened BACK RIGHT = true
 +0s   I DOOR_OPENED_SENSOR_PERIOD N DOOR_OPEN_SENSOR_[BACK][LEFT]_CAN_ID DoorOpened BACK LEFT = true
 
-;arc 3c. assert DoorMotor[b,*]=stop <-- DoorControl
+;arc 9C/3c assert DoorMotor[b,*]=stop <-- DoorControl
 +0.5s A F DoorMotor FRONT RIGHT : command == STOP
 +0s   A F DoorMotor FRONT LEFT : command == STOP
 +0s   A F DoorMotor BACK RIGHT : command == STOP

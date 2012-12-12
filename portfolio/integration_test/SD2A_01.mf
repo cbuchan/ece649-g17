@@ -30,19 +30,20 @@
 ;========================================================================
 ;1. Passenger presses the car call button for floor g and hallway c.
 ;========================================================================
-;arc 1a, 1b
+;arc 2A/1a
+;arc 2A/1b
 +0.21s	I CAR_BUTTON_CONTROL_PERIOD F CarCall 5 FRONT = true
 +0.41s	I CAR_BUTTON_CONTROL_PERIOD F CarCall 5 FRONT = false
 
 ;check that 1c. CarCall is asserted true (CarButtonControl)
-;arc 1c
+;arc 2A/1c
 +0.21s	A N CAR_CALL_[5][FRONT]_CAN_ID TinyBoolean : getValue == true
 
 ;========================================================================
 ;2. The car call button for [g,c] lights up.
 ;========================================================================
 ;2. car light turns on
-;arc 2
+;arc 2A/2
 +0.21s	A F CarLight 5 FRONT : isLighted == true
 
 +0s	I DISPATCHER_PERIOD N DESIRED_FLOOR_CAN_ID DesiredFloor = 5 BOTH STOP
@@ -51,7 +52,7 @@
 ;3. Door[b,r] starts closing.
 ;========================================================================
 ;check 3. DoorMotor[b,r]=Closed (DoorControl) after timeout
-;arc 3
+;arc 2A/3
 +2.0s	A F DoorMotor FRONT LEFT : command == CLOSE
 +0s	    A F DoorMotor FRONT LEFT : command == CLOSE
 
@@ -68,12 +69,12 @@
 ;4. Doors complete closing.
 ;========================================================================
 ;check 4a. mDoorClosed received
-;arc 4a
+;arc 2A/4a
 +1.0s	A N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT : getValue == true
 +0s	    A N DOOR_CLOSED_SENSOR_[FRONT][LEFT]_CAN_ID DoorClosed FRONT LEFT : getValue == true
 
 ;check 4b. DoorMotor=Stop results (DoorControl)
-;arc 4b
+;arc 2A/4b
 +0.21s	A F	DoorMotor FRONT LEFT : command == STOP
 +0s	    A F DoorMotor FRONT LEFT : command == STOP
 
