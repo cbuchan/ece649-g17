@@ -168,6 +168,7 @@
           <td style="vertical-align: top; ">T-R7.1<br>
           </td>
           <td style="vertical-align: top; ">mDesiredFloor[f,b,d].f==CurrentFloor
+
             &amp;&amp; hadCalls(b)<br>
           </td>
         </tr>
@@ -188,6 +189,7 @@
         <tr>
           <td style="vertical-align: top; ">T-R7.3 </td>
           <td style="vertical-align: top; ">mDesiredFloor[f,b,d].f==CurrentFloor
+
             &amp;&amp; !hadCalls(b)</td>
         </tr>
         <tr>
@@ -205,6 +207,7 @@
     </table>
     <br>
     <h3><big><strong>R-T8: </strong></big><big><strong></strong></big><big><strong>The
+
 
 
 
@@ -254,6 +257,7 @@
 
 
 
+
               &amp;&amp; (mAtFloor[f,b] == true) &amp;&amp;
               (mDesiredFloor.f == f) &amp;&amp;<span
                 class="Apple-converted-space"> </span></span><span
@@ -283,6 +287,7 @@
 
 
 
+
               != d) || (all mDoorClosed[b,r] == true)</span></td>
         </tr>
         <tr>
@@ -295,6 +300,7 @@
               white-space: normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">(CarLantern[d]==OFF)
+
 
 
 
@@ -326,12 +332,14 @@
 
 
 
+
               != d) || (all mDoorClosed[b,r] == true)</span></td>
         </tr>
       </tbody>
     </table>
     &nbsp;
     <h3><big><strong>R-T8: </strong></big><big><strong></strong></big><big><strong>The
+
 
 
 
@@ -428,9 +436,11 @@
 
 
 
+
           Car Lanterns shall be use in a way that does not confuse
           passengers</strong></big><big><strong>.<br>
           &nbsp;&nbsp;&nbsp; R-T8.3: </strong></big><big><strong></strong></big><big><strong>If
+
 
 
 
@@ -472,6 +482,7 @@
               normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">lastLantern(d)
+
               &amp;&amp; !lastLantern(~d) &amp;&amp;
               hasCall(lastStoppedFloor, d)<br>
             </span></td>
@@ -491,6 +502,7 @@
 
 
 
+
               == TargetFloor</span></td>
         </tr>
         <tr>
@@ -503,6 +515,7 @@
               white-space: normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">!lastLantern(d)
+
               &amp;&amp; lastLantern(~d) &amp;&amp;
               hasCall(lastStoppedFloor, d)</span><span style="color:
               rgb(0, 0, 0); font-family: Times; font-size: medium;
@@ -529,6 +542,7 @@
 
 
 
+
               == TargetFloor</span></td>
         </tr>
         <tr>
@@ -541,6 +555,7 @@
               white-space: normal; widows: 2; word-spacing: 0px;
               -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
               0px; display: inline !important; float: none;">!lastLantern(d)
+
               &amp;&amp; lastLantern(~d) &amp;&amp;
               hasCall(lastStoppedFloor, d)</span><span style="color:
               rgb(0, 0, 0); font-family: Times; font-size: medium;
@@ -559,251 +574,27 @@
 
 
 
+
           Drive shall be commanded to fast speed to the maximum degree
           practicable.</strong></big></h3>
-    <p> <big>Runtime Monitor State Chart:</big> <br>
-    </p>
-    <p><img src="SC_R_T9.png" alt="R-T6" height="276" width="467"><br>
-      Note: <br>
-      &nbsp;&nbsp;&nbsp; - These transitions are based on BR6.9.2, and
-      hence T6.5 and T6.6<br>
-    </p>
-    <table style="font-family: Times; letter-spacing: normal; orphans:
-      2; text-indent: 0px; text-transform: none; widows: 2;
-      word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="160" width="1144">
-      <tbody>
-        <tr>
-          <td style="vertical-align: top; font-weight: bold;
-            background-color: rgb(204, 204, 204); ">Transition<br>
-          </td>
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204); "><span style="font-weight: bold; ">Condition</span><br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; ">T-R9.1<br>
-          </td>
-          <td style="vertical-align: top; ">
-            <meta charset="utf-8">
-            <span style="color: rgb(0, 0, 0); font-family: Times;
-              font-size: medium; font-style: normal; font-variant:
-              normal; font-weight: normal; letter-spacing: normal;
-              line-height: normal; orphans: 2; text-align: left;
-              text-indent: 0px; text-transform: none; white-space:
-              normal; widows: 2; word-spacing: 0px;
-              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">(mDriveSpeed
-
-
-
-              == fast) &amp;&amp; (DriveSpeed.s == SlowSpeed &amp;&amp;
-              DriveDir ~= Stop &amp;&amp; CommitPoint[f] == NotReached
-              &amp;&amp; mDesiredFloor.f == f)</span>
-            <meta charset="utf-8">
-            <meta charset="utf-8">
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; ">T-R9.2 </td>
-          <td style="vertical-align: top; ">(mDriveSpeed != fast)
-            &amp;&amp; <br>
-            <meta charset="utf-8">
-            <span style="color: rgb(0, 0, 0); font-family: Times;
-              font-size: medium; font-style: normal; font-variant:
-              normal; font-weight: normal; letter-spacing: normal;
-              line-height: normal; orphans: 2; text-align: left;
-              text-indent: 0px; text-transform: none; white-space:
-              normal; widows: 2; word-spacing: 0px;
-              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">[ (DriveDir
-              ~= Stop &amp;&amp; CommitPoint[f] == Reached &amp;&amp;
-              mDesiredFloor.f == f &amp;&amp; mEmergencyBrake[b] ==
-              False<span class="Apple-converted-space">) </span></span><br
-              style="color: rgb(0, 0, 0); font-family: Times; font-size:
-              medium; font-style: normal; font-variant: normal;
-              font-weight: normal; letter-spacing: normal; line-height:
-              normal; orphans: 2; text-align: left; text-indent: 0px;
-              text-transform: none; white-space: normal; widows: 2;
-              word-spacing: 0px; -webkit-text-size-adjust: auto;
-              -webkit-text-stroke-width: 0px;">
-            <span style="color: rgb(0, 0, 0); font-family: Times;
-              font-size: medium; font-style: normal; font-variant:
-              normal; font-weight: normal; letter-spacing: normal;
-              line-height: normal; orphans: 2; text-align: left;
-              text-indent: 0px; text-transform: none; white-space:
-              normal; widows: 2; word-spacing: 0px;
-              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">||
-              (mCarWeight(x) &gt;= MaxCarCapacity)</span> ]<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; ">T-R9.3 </td>
-          <td style="vertical-align: top; "><span style="color: rgb(0,
-              0, 0); font-family: Times; font-size: medium; font-style:
-              normal; font-variant: normal; font-weight: normal;
-              letter-spacing: normal; line-height: normal; orphans: 2;
-              text-align: left; text-indent: 0px; text-transform: none;
-              white-space: normal; widows: 2; word-spacing: 0px;
-              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">(mDriveSpeed
-
-
-
-              != fast) &amp;&amp; (DriveSpeed.s == SlowSpeed &amp;&amp;
-              DriveDir ~= Stop &amp;&amp; CommitPoint[f] == NotReached
-              &amp;&amp; mDesiredFloor.f == f)</span> </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; ">T-R9.4 </td>
-          <td style="vertical-align: top; ">(mDriveSpeed != fast)
-            &amp;&amp; <br>
-            <span style="color: rgb(0, 0, 0); font-family: Times;
-              font-size: medium; font-style: normal; font-variant:
-              normal; font-weight: normal; letter-spacing: normal;
-              line-height: normal; orphans: 2; text-align: left;
-              text-indent: 0px; text-transform: none; white-space:
-              normal; widows: 2; word-spacing: 0px;
-              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">[ (DriveDir
-              ~= Stop &amp;&amp; CommitPoint[f] == Reached &amp;&amp;
-              mDesiredFloor.f == f &amp;&amp; mEmergencyBrake[b] ==
-              False<span class="Apple-converted-space">) </span></span><br
-              style="color: rgb(0, 0, 0); font-family: Times; font-size:
-              medium; font-style: normal; font-variant: normal;
-              font-weight: normal; letter-spacing: normal; line-height:
-              normal; orphans: 2; text-align: left; text-indent: 0px;
-              text-transform: none; white-space: normal; widows: 2;
-              word-spacing: 0px; -webkit-text-size-adjust: auto;
-              -webkit-text-stroke-width: 0px;">
-            <span style="color: rgb(0, 0, 0); font-family: Times;
-              font-size: medium; font-style: normal; font-variant:
-              normal; font-weight: normal; letter-spacing: normal;
-              line-height: normal; orphans: 2; text-align: left;
-              text-indent: 0px; text-transform: none; white-space:
-              normal; widows: 2; word-spacing: 0px;
-              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">||
-              (mCarWeight(x) &gt;= MaxCarCapacity)</span> ]</td>
-        </tr>
-        <tr>
-          <td valign="top">T-R9.5 </td>
-          <td valign="top"><span style="color: rgb(0, 0, 0);
-              font-family: Times; font-size: medium; font-style: normal;
-              font-variant: normal; font-weight: normal; letter-spacing:
-              normal; line-height: normal; orphans: 2; text-align: left;
-              text-indent: 0px; text-transform: none; white-space:
-              normal; widows: 2; word-spacing: 0px;
-              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">(mDriveSpeed
-
-
-
-              != fast) &amp;&amp; (DriveSpeed.s == SlowSpeed &amp;&amp;
-              DriveDir ~= Stop &amp;&amp; CommitPoint[f] == NotReached
-              &amp;&amp; mDesiredFloor.f == f)</span> </td>
-        </tr>
-      </tbody>
-    </table>
-    &nbsp;
+    Note: <br>
+    No state machine -- check is done in the checkFastSpeed(msg) method,
+    as an extension of the R-T6 state machine MOVING state.<br>
+    Updated on each received mDriveSpeed message msg. Checks the last
+    two stopped floors, and if they are different, checks to see if
+    Drive was commanded to fast while traveling between them. If not, a
+    warning is thrown.<br>
+    <br>
     <h3><big><strong>R-T10: </strong></big><big><strong>For each stop
           at a floor, at least one door reversal shall have occurred
           before the doors are commanded to nudge.</strong></big><br>
     </h3>
-    <p><big>Runtime Monitor State Chart: </big> </p>
-    <p><img alt="R-T6" src="SC_R_T10.png" height="464" width="531"><br>
-      Note: <br>
-      &nbsp;&nbsp;&nbsp; - These transitions are based on BR5.15.2, and
-      hence T5.9 <br>
-      &nbsp;&nbsp;&nbsp; - T-R10.3 corresponds directly with T5.10 and
-      T5.11 in the DoorControl transition table of requirements2.html<br>
-      &nbsp;&nbsp;&nbsp;&nbsp; </p>
-    <table style="font-family: Times; letter-spacing: normal; orphans:
-      2; text-indent: 0px; text-transform: none; widows: 2;
-      word-spacing: 0px; text-align: left;" border="1" cellpadding="2"
-      cellspacing="2" height="160" width="1144">
-      <tbody>
-        <tr>
-          <td style="vertical-align: top; font-weight: bold;
-            background-color: rgb(204, 204, 204); ">Transition<br>
-          </td>
-          <td style="vertical-align: top; background-color: rgb(204,
-            204, 204); "><span style="font-weight: bold; ">Condition</span><br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; ">T-R10.1<br>
-          </td>
-          <td style="vertical-align: top; ">Elevator.hasLanding(f, b)
-            &amp;&amp; mDriveSpeed.s==Stop &amp;&amp;
-            mDoorReversal==True &amp;&amp; mDoorOpened[b,r]==False</td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; ">T-R10.2 </td>
-          <td style="vertical-align: top; "><span style="color: rgb(0,
-              0, 0); font-family: Times; font-size: medium; font-style:
-              normal; font-variant: normal; font-weight: normal;
-              letter-spacing: normal; line-height: normal; orphans: 2;
-              text-align: left; text-indent: 0px; text-transform: none;
-              white-space: normal; widows: 2; word-spacing: 0px;
-              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">any
-              mDoorMotor[b,r]==Nudge</span> </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; ">T-R10.3 </td>
-          <td style="vertical-align: top; ">(mDoorClosed[b,r]==True) ||
-            <span style="color: rgb(0, 0, 0); font-family: Times;
-              font-size: medium; font-style: normal; font-variant:
-              normal; font-weight: normal; letter-spacing: normal;
-              line-height: normal; orphans: 2; text-align: left;
-              text-indent: 0px; text-transform: none; white-space:
-              normal; widows: 2; word-spacing: 0px;
-              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;"><br>
-              [&nbsp; Elevator.hasLanding(f, b) &amp;&amp; mDriveSpeed.s
-              == Stop &amp;&amp; [ ((mAtFloor[f,b]==True &amp;&amp;
-              mDesiredFloor.f==f) &amp;&amp; (mDesiredFloor.h==b ||
-              mDesiredFloor.h==BOTH)) || (mCarWeight(g) &gt;=
-              MaxCarCapacity &amp;&amp; mDoorOpened[b,r]==False)]&nbsp;
-              ]<br>
-            </span></td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top; ">T-R10.4 </td>
-          <td style="vertical-align: top; "><span style="color: rgb(0,
-              0, 0); font-family: Times; font-size: medium; font-style:
-              normal; font-variant: normal; font-weight: normal;
-              letter-spacing: normal; line-height: normal; orphans: 2;
-              text-align: left; text-indent: 0px; text-transform: none;
-              white-space: normal; widows: 2; word-spacing: 0px;
-              -webkit-text-size-adjust: auto; -webkit-text-stroke-width:
-              0px; display: inline !important; float: none;">any
-              mDoorMotor[b,r]==Nudge</span></td>
-        </tr>
-        <tr>
-          <td valign="top">T-R10.5<br>
-          </td>
-          <td valign="top">(mDoorClosed[b,r]==True) || <span
-              style="color: rgb(0, 0, 0); font-family: Times; font-size:
-              medium; font-style: normal; font-variant: normal;
-              font-weight: normal; letter-spacing: normal; line-height:
-              normal; orphans: 2; text-align: left; text-indent: 0px;
-              text-transform: none; white-space: normal; widows: 2;
-              word-spacing: 0px; -webkit-text-size-adjust: auto;
-              -webkit-text-stroke-width: 0px; display: inline
-              !important; float: none;"><br>
-              [&nbsp; Elevator.hasLanding(f, b) &amp;&amp; mDriveSpeed.s
-              == Stop &amp;&amp; [ ((mAtFloor[f,b]==True &amp;&amp;
-              mDesiredFloor.f==f) &amp;&amp; (mDesiredFloor.h==b ||
-              mDesiredFloor.h==BOTH)) || (mCarWeight(g) &gt;=
-              MaxCarCapacity &amp;&amp; mDoorOpened[b,r]==False)]&nbsp;
-              ]</span></td>
-        </tr>
-      </tbody>
-    </table>
-    &nbsp;
+    Note:<br>
+    No state machine -- checked when a door is closing, as an extension
+    of the DoorStateMachine (a utility state machine) CLOSING state. <br>
+    A reversal is recorded every time a door has reopened through the
+    DoorStateMachine OPENING state. If the door motor is commanded to
+    nudge, and there was no reversal recorded, a warning is thrown.<br>
     <h2>Verification Results</h2>
     <table border="1" cellpadding="2" cellspacing="2" width="100%">
       <tbody>
@@ -918,7 +709,7 @@
           <td valign="top">Pass<br>
           </td>
           <td valign="top"><a
-              href="../acceptance_test/elevator-proj10acceptance3.pass-0.stats">elevator-proj11acceptance1.pass-0.stats</a>
+              href="../acceptance_test/elevator-proj11acceptance1.pass-0.stats">elevator-proj11acceptance1.pass-0.stats</a>
           </td>
           <td valign="top">Passed<br>
           </td>
@@ -949,7 +740,10 @@
           <td valign="top"><a
               href="../acceptance_test/uppeak_final.pass">uppeak_final.pass</a><br>
           </td>
-          <td valign="top">Passed<br>
+          <td valign="top">
+            <meta charset="utf-8">
+            R-T10: Door nudged before reversal = 1<br>
+            -&gt; false positive confirmed<br>
           </td>
           <td valign="top"><a
               href="../acceptance_test/elevator-uppeak_final.pass-0.stats">elevator-uppeak_final.pass-0.stats</a><br>
@@ -961,7 +755,10 @@
           <td valign="top"><a
               href="../acceptance_test/downpeak_final.pass">downpeak_final.pass</a><br>
           </td>
-          <td valign="top">Passed<br>
+          <td valign="top">
+            <meta charset="utf-8">
+            R-T6: Stopped at floor with no calls = 1 <br>
+            -&gt; false positive confirmed<br>
           </td>
           <td valign="top"><a
               href="../acceptance_test/elevator-downpeak_final.pass-0.stats">elevator-downpeak_final.pass-0.stats</a><br>

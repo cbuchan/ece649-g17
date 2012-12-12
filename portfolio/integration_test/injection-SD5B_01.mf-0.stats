@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf SD5B.cf -mf SD5B_01.mf
-RandomSeed = 1355179775714
+RandomSeed = 1355254033726
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -16,14 +16,14 @@ Controller File = SD5B.cf
 
 Assertion Results:
 @1.21s:  PASSED DoorControl[FRONT][LEFT]::checkState(STATE) ?== STATE_DOOR_CLOSING PASSED
-@1.21s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@1cc7b00c :: command ?== CLOSE PASSED
-@1.21s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@43b09468 :: getCommand ?== CLOSE PASSED
+@1.21s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@79f6f296 :: command ?== CLOSE PASSED
+@1.21s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@7ddf5a8f :: getCommand ?== CLOSE PASSED
 @1.91s:  PASSED DoorControl[FRONT][LEFT]::checkState(STATE) ?== STATE_DOOR_REVERSING PASSED
-@1.91s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@4de13d52 :: command ?== OPEN PASSED
-@1.91s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@45b9ce4b :: getCommand ?== OPEN PASSED
+@1.91s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@7e80fa6f :: command ?== OPEN PASSED
+@1.91s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2996c1b0 :: getCommand ?== OPEN PASSED
 @2.71s:  PASSED DoorControl[FRONT][LEFT]::checkState(STATE) ?== STATE_DOOR_NUDGING PASSED
-@2.71s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@485329c5 :: command ?== NUDGE PASSED
-@2.71s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@31f26605 :: getCommand ?== NUDGE PASSED
+@2.71s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@4bdb699b :: command ?== NUDGE PASSED
+@2.71s:  PASSED simulator.payloads.CanMailbox$ReadableCanMailbox@2107ebe1 :: getCommand ?== NUDGE PASSED
 
 
 ******************Summary******************

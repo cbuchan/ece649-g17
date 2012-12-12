@@ -6,7 +6,7 @@ Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
 Command line = -head headerfile -cf SD8A.cf -mf SD8A_01.mf
-RandomSeed = 1355179779933
+RandomSeed = 1355254038137
 CanNetworkBitTime = 0 ns
 Effective Can Bitrate = Infinity
 Run Time = null
@@ -16,12 +16,12 @@ Controller File = SD8A.cf
 
 Assertion Results:
 @0.5s:  PASSED DoorControl[BACK][LEFT]::checkState(STATE) ?== STATE_DOOR_CLOSING PASSED
-@0.5s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@6b4da8f4 :: command ?== CLOSE PASSED
+@0.5s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@19968e23 :: command ?== CLOSE PASSED
 @1.5s:  PASSED DoorControl[BACK][LEFT]::checkState(STATE) ?== STATE_DOOR_CLOSED PASSED
-@1.5s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@4a4e79f1 :: command ?== STOP PASSED
+@1.5s:  PASSED simulator.payloads.DoorMotorPayload$ReadableDoorMotorPayload@348bdcd2 :: command ?== STOP PASSED
 @2.0s:  PASSED DriveControl::checkState(STATE) ?== STATE_DRIVE_SLOW PASSED
-@2.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@5210f6d3 :: speed ?== SLOW PASSED
-@2.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@2911a3a4 :: direction ?== UP PASSED
+@2.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@79dfc547 :: speed ?== SLOW PASSED
+@2.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@57bcc0bc :: direction ?== UP PASSED
 @4.0s:  PASSED DriveControl::checkState(STATE) ?== STATE_DRIVE_LEVEL PASSED
 @4.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@35c0e45a :: speed ?== LEVEL PASSED
 @4.0s:  PASSED simulator.payloads.DrivePayload$ReadableDrivePayload@58a17083 :: direction ?== UP PASSED
