@@ -3023,7 +3023,7 @@
     direction the Drive is moving. By "close approximation" we mean
     within stopping distance in the direction of motion.
     <h3> TIME-TRIGGERED BEHAVIORS: </h3>
-    10.4 &nbsp;&nbsp;&nbsp; Whenever any mAtFloor[f, b] is True,
+    10.4 &nbsp;&nbsp;&nbsp; If any mAtFloor[f, b] is True,
     CarPositionIndicator shall be commanded to display CurrentFloor. <br>
     10.5&nbsp;&nbsp;&nbsp;&nbsp; If all mAtFloor[f,b] are False, and
     mDriveSpeed.d == UP, then CarPositionIndicator shall be commanded to
@@ -3400,6 +3400,7 @@
         </tr>
         <tr>
           <td style="vertical-align: top;">nextCallInDirection(CommitPoint,
+
 
 
 
