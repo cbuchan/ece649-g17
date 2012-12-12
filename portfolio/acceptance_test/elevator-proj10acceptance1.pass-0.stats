@@ -5,11 +5,11 @@ Collin Buchan (cbuchan)
 Rajeev Sharma (rdsharma)
 
 Simulator Parameters:
-Command line = -head headerfile -pf proj10acceptance1.pass -monitor Proj11RuntimeMonitor -fs 5.0 -b 200 -seed 12345
+Command line = -head headerfile -pf proj10acceptance1.pass -monitor Proj11RuntimeMonitor -fs 5.0 -b 200 -rt 7200s -seed 12345
 RandomSeed = 12345
 CanNetworkBitTime = 5000 ns
 Effective Can Bitrate = 199999.99999999997
-Run Time = null
+Run Time = 7200.0s
 Real time rate = null
 Acceptance Test File = proj10acceptance1.pass
 Monitors: Proj11RuntimeMonitor  
@@ -41,17 +41,17 @@ Passenger 8: INJECTED AT 4.0s and DELIVERED in 183.697s
   Satisfaction score: 100.0
 Passenger 3: INJECTED AT 1.0s and DELIVERED in 188.187s
   Satisfaction score: 100.0
-Passenger 6: INJECTED AT 3.0s and DELIVERED in 199.453s
+Passenger 6: INJECTED AT 3.0s and DELIVERED in 199.773s
   Satisfaction score: 100.0
-Passenger 16: INJECTED AT 101.0s and DELIVERED in 137.432s
+Passenger 16: INJECTED AT 101.0s and DELIVERED in 137.952s
   Satisfaction score: 100.0
-Passenger 15: INJECTED AT 100.0s and DELIVERED in 174.181s
+Passenger 15: INJECTED AT 100.0s and DELIVERED in 174.901s
   Satisfaction score: 100.0
-Passenger 14: INJECTED AT 66.2s and DELIVERED in 244.461s
+Passenger 14: INJECTED AT 66.2s and DELIVERED in 245.221s
   Satisfaction score: 100.0
-Passenger 13: INJECTED AT 58.0s and DELIVERED in 270.133s
+Passenger 13: INJECTED AT 58.0s and DELIVERED in 270.893s
   Satisfaction score: 100.0
-Passenger 4: INJECTED AT 2.0s and DELIVERED in 346.775s
+Passenger 4: INJECTED AT 2.0s and DELIVERED in 346.655s
   Satisfaction score: 100.0
 
 Passenger Delivery Summary
@@ -60,9 +60,9 @@ Stranded: 0
 Total: 17
 
 Deliver Stats (lower is better):
-Average_delivery_time: 158.402
-Maximum_delivery_time:  346.775
-Delivery_performance_score:  980.384
+Average_delivery_time: 158.576
+Maximum_delivery_time:  346.655
+Delivery_performance_score:  980.960
 
 Satisfaction Stats (higher is better):
 Average_satisfaction_score: 100.000
